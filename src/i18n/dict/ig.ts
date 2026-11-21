@@ -1802,6 +1802,11 @@ const ig: Record<string, string> = {
   /* Media topics (calm C17) */
   "Informal sector": "Ngalaba na-abụghị nke gọọmentị",
   "Reforms and governance": "Mgbanwe na ọchịchị",
+  /* About, portal layout (classic CL5a) */
+  "Related pages": "Peeji ndị metụtara ya",
+  "Need help?": "Ị chọrọ enyemaka?",
+  "Ask the assistant or call us.": "Jụọ onye inyeaka ma ọ bụ kpọọ anyị.",
+  "Established": "E hiwere ya",
 };
 
 export default ig;

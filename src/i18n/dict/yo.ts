@@ -1802,6 +1802,11 @@ const yo: Record<string, string> = {
   /* Media topics (calm C17) */
   "Informal sector": "Ẹ̀ka àìjẹ́-ti-ìjọba",
   "Reforms and governance": "Àtúnṣe àti ìṣàkóso",
+  /* About, portal layout (classic CL5a) */
+  "Related pages": "Àwọn ojú ewé tó jọmọ́ ọ",
+  "Need help?": "Ṣé o nílò ìrànlọ́wọ́?",
+  "Ask the assistant or call us.": "Béèrè lọ́wọ́ olùrànlọ́wọ́ tàbí pè wá.",
+  "Established": "Ọdún ìdásílẹ̀",
 };
 
 export default yo;

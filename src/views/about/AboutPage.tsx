@@ -2,30 +2,39 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { MotionConfig, motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowRight, Landmark } from "lucide-react";
+import { ArrowDown, ArrowRight, History as HistoryIcon, Landmark, Network, ScrollText, Target, Users } from "lucide-react";
 import { useLocation } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import { CountUp, scrollToId } from "@/views/about/primitives";
-import { PageHero, SectionNav, focus } from "@/views/theme/ui";
+import { FloatingBar, PhotoBanner, PortalLayout, goldBtn, outlineDarkBtn, type NavSection } from "@/views/theme/ui";
 import { heroStats } from "./data";
 import { Charter, History, Leadership, MissionValues, Overview, ProfileDialog, Structure } from "./sections";
 
 /**
- * About PenCom, calm theme. Same language as the calm home page: a light hero on cream with an arch-framed
- * photo, calm section titles, white cards with the calm hover, and one dark-green inset panel (mission). Sections: overview and mandate → mission,
- * vision and values → history → structure → leadership → Service Charter and visiting us.
+ * About PenCom, classic theme (a portal page): the Abuja photo banner with a word-rise title, a floating strip of
+ * quick facts, then the sticky SideNav beside overview and mandate → mission, vision and values → structure →
+ * leadership; history (the page's dark band, CL5b) and the Service Charter follow full width.
  * Menu anchors from the header and footer (#mission, #executive, #structure, #stakeholders, #why-us,
  * #dg-corner, #board, #signing, #charter, #history) all land on the right section.
  */
 
-const onThisPage = [
-  { id: "overview", label: "Overview" },
-  { id: "mission", label: "Mission and values" },
-  { id: "history", label: "Our history" },
-  { id: "structure", label: "Structure" },
-  { id: "executive", label: "Leadership" },
-  { id: "charter", label: "Service Charter" },
+const onThisPage: NavSection[] = [
+  { id: "overview", label: "Overview", icon: Landmark },
+  { id: "mission", label: "Mission and values", icon: Target },
+  { id: "structure", label: "Structure", icon: Network },
+  { id: "executive", label: "Leadership", icon: Users },
+  { id: "history", label: "Our history", icon: HistoryIcon },
+  { id: "charter", label: "Service Charter", icon: ScrollText },
 ];
+
+const related = [
+  { to: "/about/service-charter", label: "Service Charter" },
+  { to: "/regulations", label: "Regulations" },
+  { to: "/connect", label: "Contact us" },
+];
+
+/** The four quick facts in the floating strip: the three key figures plus the year the Commission was set up. */
+const facts = [...heroStats, { value: "2004", label: "Established", note: "Pension Reform Act 2004" }];
 
 export default function AboutPage() {
   const { hash } = useLocation();
@@ -47,14 +56,16 @@ export default function AboutPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-[#FBF8F1] text-[#14261A]">
-        <Hero />
-        <SectionNav sections={onThisPage} pillId="about-nav-pill" />
-        <Overview />
-        <MissionValues />
+      <div className="bg-white text-[#0A2E10]">
+        <Banner />
+        <QuickFacts />
+        <PortalLayout sections={onThisPage} pillId="about-side-pill" related={related}>
+          <Overview />
+          <MissionValues />
+          <Structure onSelect={setProfile} />
+          <Leadership onSelect={setProfile} />
+        </PortalLayout>
         <History />
-        <Structure onSelect={setProfile} />
-        <Leadership onSelect={setProfile} />
         <Charter />
         <ProfileDialog id={profile} onClose={closeProfile} />
       </div>
@@ -62,80 +73,60 @@ export default function AboutPage() {
   );
 }
 
-/* ─────────────────────────── Hero ─────────────────────────── */
+/* ─────────────────────────── Banner + quick facts ─────────────────────────── */
 
-/**
- * The calm light hero: crumbs, eyebrow pill, bold title with the drawn underline, 18 px intro, two large
- * labelled actions. Beside it the boardroom photo in an arch frame with a gold outline and a slow Ken Burns
- * zoom, and a white figures card overlapping its foot (the page's one count-up). No text over the photo.
- */
-function Hero() {
+/** Abuja at dusk behind a dark shade; the title rises word by word and "retirement safe" gets the gold drawn line. */
+function Banner() {
   const reduce = useReducedMotion();
   return (
-    <PageHero
+    <PhotoBanner
       id="about-title"
       crumbs={[{ label: "Home", to: "/" }, { label: "About PenCom" }]}
-      pill={{ icon: Landmark, label: "About the Commission" }}
+      chip={{ icon: Landmark, label: "About the Commission" }}
       title="Keeping every Nigerian’s retirement safe"
       mark="retirement safe"
       intro="The National Pension Commission licenses and supervises every pension operator in Nigeria, so that what workers save is invested safely and paid when they retire. Established in 2004, we now work under the Pension Reform Act 2014."
+      image="/images/site/abuja-dusk-1920.webp"
+      srcSet="/images/site/abuja-dusk-480.webp 480w, /images/site/abuja-dusk-960.webp 960w, /images/site/abuja-dusk-1920.webp 1920w"
+      position="center 60%"
       actions={
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={() => scrollToId("history", !reduce)}
-            className={cn("group inline-flex min-h-14 items-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-bold text-[#1A1206] transition hover:bg-[#FFE08F]", focus)}
-          >
+        <>
+          <button type="button" onClick={() => scrollToId("history", !reduce)} className={cn(goldBtn, "group")}>
             Explore our history
-            <ArrowDown className="h-5 w-5 transition-transform group-hover:translate-y-1" aria-hidden="true" />
+            <ArrowDown className="h-5 w-5 transition-transform group-hover:translate-y-0.5" aria-hidden="true" />
           </button>
-          <button
-            type="button"
-            onClick={() => scrollToId("structure", !reduce)}
-            className={cn(
-              "group inline-flex min-h-14 items-center gap-2 rounded-2xl border-2 border-[#117F21] px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white",
-              focus,
-            )}
-          >
+          <button type="button" onClick={() => scrollToId("structure", !reduce)} className={cn(outlineDarkBtn, "group")}>
             How we are organised
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </button>
-        </div>
-      }
-      aside={
-        <div className="relative mx-auto max-w-xl px-3 pt-3">
-          <div className="relative">
-            <div aria-hidden="true" className="absolute -inset-3 rounded-t-[999px] rounded-b-[2rem] border-2 border-[#CB9615]/45" />
-            <div className="relative aspect-[5/4] overflow-hidden rounded-t-[999px] rounded-b-[2rem] bg-[#E8F5E9]">
-              <motion.img
-                src="/images/site/board-meeting-1920.webp"
-                srcSet="/images/site/board-meeting-960.webp 960w, /images/site/board-meeting-1920.webp 1920w"
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                alt="Colleagues reviewing figures around a boardroom table"
-                fetchPriority="high"
-                initial={{ scale: 1 }}
-                animate={{ scale: 1.08 }}
-                transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </div>
-          <div className="relative mx-1 -mt-14 rounded-3xl bg-white p-4 shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)] ring-1 ring-black/10 sm:mx-8 sm:p-5">
-            <p className="inline-flex items-center rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">Since 2004</p>
-            <dl className="mt-3 grid grid-cols-3 divide-x divide-black/10">
-              {heroStats.map((s) => (
-                <div key={s.label} className="px-2 first:pl-0 last:pr-0 sm:px-4">
-                  <dt className="text-base font-semibold leading-snug text-gray-700">{s.label}</dt>
-                  <dd className="mt-1 text-2xl font-bold tracking-tight text-[#14261A] sm:text-3xl">
-                    <CountUp value={s.value} />
-                  </dd>
-                  <dd className="text-sm text-gray-600 sm:text-base">{s.note}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
+        </>
       }
     />
+  );
+}
+
+/** Floating `gap-px` strip of four figures that count up once, each with a gold edge that grows on hover. */
+function QuickFacts() {
+  return (
+    <FloatingBar eyebrow="Since 2004">
+      <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-gray-200/80 bg-gray-200/80 lg:grid-cols-4">
+        {facts.map((s, i) => (
+          <motion.div
+            key={s.label}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.45 + i * 0.08 }}
+            className="group relative flex flex-col bg-white p-4 transition-colors hover:bg-[#F7FAF6] sm:p-6"
+          >
+            <span aria-hidden="true" className="absolute left-0 top-5 h-8 w-1 rounded-r bg-gradient-to-b from-[#CB9615] to-[#CB9615]/0 transition-all duration-500 group-hover:h-14 sm:top-6" />
+            <dt className="order-2 mt-1 text-sm font-semibold text-gray-700 sm:text-base">{s.label}</dt>
+            <dd className="order-1 text-2xl font-bold tracking-tight text-[#0A2E10] tabular-nums sm:text-4xl">
+              {/^\d{4}$/.test(s.value) ? s.value : <CountUp value={s.value} />}
+            </dd>
+            <dd className="order-3 mt-0.5 text-xs text-gray-600 sm:text-sm">{s.note}</dd>
+          </motion.div>
+        ))}
+      </dl>
+    </FloatingBar>
   );
 }

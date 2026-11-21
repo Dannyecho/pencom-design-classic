@@ -1802,6 +1802,11 @@ const ha: Record<string, string> = {
   /* Media topics (calm C17) */
   "Informal sector": "Fannin da ba na hukuma ba",
   "Reforms and governance": "Gyare-gyare da shugabanci",
+  /* About, portal layout (classic CL5a) */
+  "Related pages": "Shafuka masu alaƙa",
+  "Need help?": "Kuna buƙatar taimako?",
+  "Ask the assistant or call us.": "Tambayi mataimaki ko ku kira mu.",
+  "Established": "An kafa",
 };
 
 export default ha;
