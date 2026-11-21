@@ -1812,6 +1812,8 @@ const yo: Record<string, string> = {
   "Commission Secretary / Legal Adviser": "Akọ̀wé Àjọ / Olùgbàmọ̀ràn lórí Òfin",
   /* Service Charter (classic CL6) */
   "Time standard": "Ìpele àkókò",
+  /* Operators (classic CL8) */
+  "Contact": "Ìkànsí",
 };
 
 export default yo;

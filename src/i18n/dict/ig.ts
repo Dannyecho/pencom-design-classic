@@ -1812,6 +1812,8 @@ const ig: Record<string, string> = {
   "Commission Secretary / Legal Adviser": "Odeakwụkwọ Kọmịshọn / Onye Ndụmọdụ Iwu",
   /* Service Charter (classic CL6) */
   "Time standard": "Ụkpụrụ oge",
+  /* Operators (classic CL8) */
+  "Contact": "Kpọtụrụ",
 };
 
 export default ig;

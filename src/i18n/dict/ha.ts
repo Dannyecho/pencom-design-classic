@@ -1812,6 +1812,8 @@ const ha: Record<string, string> = {
   "Commission Secretary / Legal Adviser": "Sakataren Hukumar / Mai Ba da Shawara kan Shari’a",
   /* Service Charter (classic CL6) */
   "Time standard": "Matsayin lokaci",
+  /* Operators (classic CL8) */
+  "Contact": "Tuntuɓa",
 };
 
 export default ha;
