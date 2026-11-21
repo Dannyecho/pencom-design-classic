@@ -6,11 +6,9 @@ import {
   ArrowDown, ArrowDownWideNarrow, Check, Download, FileText, MessageCircle, Search, SlidersHorizontal, X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ease } from "@/views/about/primitives";
-import { IconTile, goldBtn } from "@/views/legacy/calm";
+import { Spotlight, ease } from "@/views/about/primitives";
 import { SectionHeading } from "@/views/theme/heading";
-import { focus, sectionCls } from "@/views/theme/ui";
-import { outlineBtn } from "./Sections";
+import { Tile, focus, goldBtn, listPanel, outlineBtn, sectionCls } from "@/views/theme/ui";
 import { library, type RegDoc } from "./library";
 import { fmtDate, matchQuery, statusStyle, typeStyle, years } from "./search";
 
@@ -53,9 +51,9 @@ export function applyFilters(f: Filters) {
 
 function FacetGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <fieldset className="border-t border-[#14261A]/10 pt-5 first:border-0 first:pt-0">
-      <legend className="mb-2 text-base font-bold text-[#14261A]">{title}</legend>
-      {children}
+    <fieldset className="border-t border-gray-100 px-4 py-5 first:border-0 sm:px-5">
+      <legend className="float-left mb-2 w-full px-1 text-xs font-bold uppercase tracking-[0.16em] text-gray-600">{title}</legend>
+      <div className="clear-both">{children}</div>
     </fieldset>
   );
 }
@@ -64,23 +62,24 @@ function CheckRow({ label, count, checked, onChange, dot }: { label: string; cou
   return (
     <label
       className={cn(
-        "group flex min-h-12 cursor-pointer items-center gap-3 rounded-2xl px-3 text-lg transition hover:bg-[#E8F5E9]",
-        count === 0 && !checked && "opacity-40",
+        "group relative flex min-h-11 cursor-pointer items-center gap-3 rounded-xl px-2 text-[15px] transition",
+        checked ? "bg-[#F7FAF6]" : "hover:bg-[#F7FAF6]",
+        count === 0 && !checked && "opacity-50",
       )}
     >
       <input type="checkbox" checked={checked} onChange={onChange} className="peer sr-only" />
       <span
         aria-hidden="true"
         className={cn(
-          "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-2 transition peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-[#FFD84D]",
-          checked ? "border-[#0A4A13] bg-[#0A4A13] text-[#F4D27A]" : "border-gray-500 bg-white group-hover:border-[#117F21]",
+          "flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 transition peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#FFD84D]",
+          checked ? "border-[#117F21] bg-[#117F21] text-white" : "border-gray-400 bg-white group-hover:border-[#117F21]",
         )}
       >
         {checked && <Check className="h-4 w-4" strokeWidth={3} />}
       </span>
       {dot && <span aria-hidden="true" className={cn("h-2.5 w-2.5 shrink-0 rounded-full", dot)} />}
-      <span className={cn("flex-1 leading-snug", checked ? "font-semibold text-[#14261A]" : "text-gray-800")}>{label}</span>
-      <span className={cn("min-w-8 rounded-full px-2 py-0.5 text-center text-base tabular-nums", checked ? "bg-[#0A4A13] text-[#F4D27A]" : "text-gray-700")}>{count}</span>
+      <span className={cn("flex-1 leading-snug", checked ? "font-semibold text-[#0A2E10]" : "text-gray-700 group-hover:text-[#0A2E10]")}>{label}</span>
+      <span className={cn("min-w-8 rounded-full px-2 py-0.5 text-center text-sm font-semibold tabular-nums transition", checked ? "bg-[#117F21] text-white" : "bg-gray-100 text-gray-600")}>{count}</span>
     </label>
   );
 }
@@ -96,7 +95,7 @@ function Facets({ f, set }: { f: Filters; set: (p: Partial<Filters>) => void }) 
   const maxYear = Math.max(...years.map((y) => yearBase.filter((d) => d.year === y).length), 1);
 
   return (
-    <div className="space-y-5">
+    <div>
       <FacetGroup title="Document type">
         {TYPES.map((t) => (
           <CheckRow
@@ -112,41 +111,43 @@ function Facets({ f, set }: { f: Filters; set: (p: Partial<Filters>) => void }) 
 
       <FacetGroup title="Year issued">
         {/* Interactive histogram: each bar is a year; click to filter */}
-        <div className="flex h-28 items-end gap-[3px]" role="group" aria-label="Filter by year">
-          {years.map((y) => {
-            const n = yearBase.filter((d) => d.year === y).length;
-            const on = f.years.includes(y);
-            return (
-              <button
-                key={y}
-                type="button"
-                aria-pressed={on}
-                aria-label={`${y}: ${n} documents`}
-                title={`${y} · ${n}`}
-                disabled={n === 0 && !on}
-                onClick={() => set({ years: toggle(f.years, y) })}
-                className={cn("group relative flex h-full flex-1 items-end rounded-t-[4px]", focus)}
-              >
-                <motion.span
-                  layout
-                  className={cn(
-                    "block w-full rounded-t-[4px] transition-colors",
-                    on ? "bg-[#CB9615]" : f.years.length ? "bg-gray-300 group-hover:bg-[#117F21]/60" : "bg-[#117F21]/70 group-hover:bg-[#0A4A13]",
-                  )}
-                  style={{ height: `${Math.max(n ? 6 : 2, (n / maxYear) * 100)}%` }}
-                />
-              </button>
-            );
-          })}
-        </div>
-        <div className="mt-1.5 flex justify-between text-base text-gray-700">
-          <span>{years[0]}</span>
-          <span>{years[years.length - 1]}</span>
+        <div className="relative rounded-2xl bg-[#F4F7F2] p-3">
+          <div className="flex h-28 items-end gap-[3px]" role="group" aria-label="Filter by year">
+            {years.map((y) => {
+              const n = yearBase.filter((d) => d.year === y).length;
+              const on = f.years.includes(y);
+              return (
+                <button
+                  key={y}
+                  type="button"
+                  aria-pressed={on}
+                  aria-label={`${y}: ${n} documents`}
+                  title={`${y} · ${n}`}
+                  disabled={n === 0 && !on}
+                  onClick={() => set({ years: toggle(f.years, y) })}
+                  className={cn("group relative flex h-full flex-1 items-end rounded-t-[4px]", focus)}
+                >
+                  <motion.span
+                    layout
+                    className={cn(
+                      "block w-full rounded-t-[4px] transition-colors",
+                      on ? "bg-[#CB9615]" : f.years.length ? "bg-gray-300 group-hover:bg-[#117F21]/60" : "bg-gradient-to-t from-[#0A4A13] to-[#2E913D] group-hover:from-[#CB9615] group-hover:to-[#E0AA22]",
+                    )}
+                    style={{ height: `${Math.max(n ? 6 : 2, (n / maxYear) * 100)}%` }}
+                  />
+                </button>
+              );
+            })}
+          </div>
+          <div className="mt-1.5 flex justify-between font-mono text-xs text-gray-600">
+            <span>{years[0]}</span>
+            <span>{years[years.length - 1]}</span>
+          </div>
         </div>
         {f.years.length > 0 && (
-          <p className="mt-2 flex flex-wrap items-center gap-2 text-base text-gray-700">
+          <p className="mt-2 flex flex-wrap items-center gap-2 text-sm text-gray-600">
             {f.years.slice().sort().join(", ")}
-            <button type="button" onClick={() => set({ years: [] })} className={cn("min-h-11 rounded-xl px-2 font-semibold text-[#0A4A13] underline underline-offset-2", focus)}>
+            <button type="button" onClick={() => set({ years: [] })} className={cn("min-h-11 rounded-xl px-2 font-semibold text-[#117F21] underline underline-offset-2", focus)}>
               Clear years
             </button>
           </p>
@@ -174,58 +175,58 @@ function Facets({ f, set }: { f: Filters; set: (p: Partial<Filters>) => void }) 
   );
 }
 
-/* ─────────────────────────── Result card ─────────────────────────── */
+/* ─────────────────────────── Result row (list panel) ─────────────────────────── */
 
-function ResultCard({ d, onOpen, i }: { d: RegDoc; onOpen: (id: string) => void; i: number }) {
+function ResultRow({ d, onOpen, i }: { d: RegDoc; onOpen: (id: string) => void; i: number }) {
   const reduce = useReducedMotion();
   return (
     <motion.li
       layout={!reduce}
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.97 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.3, delay: Math.min(i, 8) * 0.03, ease }}
+      className="bg-white"
     >
-      {/* Lift lives on the inner card: framer owns the li's transform for layout animation. */}
-      <div className="group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21] has-[button:focus-visible]:outline has-[button:focus-visible]:outline-[3px] has-[button:focus-visible]:outline-offset-2 has-[button:focus-visible]:outline-[#FFD84D]">
-        <div className="flex gap-5 p-5 sm:p-6">
-          <IconTile icon={FileText} className="hidden sm:flex" />
-          <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-2 text-sm">
-              <span className={cn("rounded-full px-2.5 py-0.5 font-bold uppercase tracking-wider", typeStyle[d.type].chip)}>{d.type}</span>
-              <span className={cn("rounded-full px-2.5 py-0.5 font-semibold ring-1", statusStyle[d.status])}>{d.status}</span>
-              <span className="text-base text-gray-700">
-                <span className="sr-only">Issued </span>
-                {fmtDate(d.date)}
-              </span>
-            </div>
-            <h3 className="mt-2.5 text-xl font-bold leading-snug text-[#14261A]">
-              <button
-                type="button"
-                onClick={() => onOpen(d.id)}
-                className="text-left after:absolute after:inset-0 after:content-[''] group-hover:text-[#0A4A13] focus-visible:outline-none group-has-[:focus-visible]:underline"
-              >
-                {d.title}
-              </button>
-            </h3>
-            {d.summary && <p className="mt-1.5 line-clamp-2 text-lg leading-relaxed text-gray-700">{d.summary}</p>}
-            <p className="mt-3 flex flex-wrap gap-1.5 text-sm text-gray-700">
-              {[...d.appliesTo, ...d.subjects.filter((s) => s !== "General")].slice(0, 4).map((t) => (
-                <span key={t} className="rounded-full bg-[#FBF8F1] px-3 py-0.5 ring-1 ring-black/10">{t}</span>
-              ))}
-            </p>
+      <div className="group relative flex gap-4 px-5 py-5 transition hover:bg-[#F7FAF6] has-[button:focus-visible]:outline has-[button:focus-visible]:outline-[3px] has-[button:focus-visible]:-outline-offset-[3px] has-[button:focus-visible]:outline-[#FFD84D] sm:gap-5 sm:px-6">
+        {/* Gradient bar that grows on hover */}
+        <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-transform duration-300 group-hover:scale-y-100" />
+        <Tile icon={FileText} className="mt-0.5 hidden sm:flex" />
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <span className={cn("rounded-full px-2.5 py-0.5 font-bold uppercase tracking-wider", typeStyle[d.type].chip)}>{d.type}</span>
+            <span className={cn("rounded-full px-2.5 py-0.5 font-semibold ring-1", statusStyle[d.status])}>{d.status}</span>
+            <span className="font-mono text-sm text-gray-600">
+              <span className="sr-only">Issued </span>
+              {fmtDate(d.date)}
+            </span>
           </div>
-          <a
-            href={d.pdf}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn("relative z-10 hidden min-h-12 shrink-0 items-center gap-2 self-center rounded-2xl border-2 border-[#117F21] bg-white px-4 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white md:inline-flex", focus)}
-          >
-            <Download className="h-5 w-5" aria-hidden="true" />
-            PDF
-            <span className="sr-only">of {d.title} (opens in a new tab)</span>
-          </a>
+          <h3 className="mt-2 text-lg font-bold leading-snug text-[#0A2E10] sm:text-xl">
+            <button
+              type="button"
+              onClick={() => onOpen(d.id)}
+              className="text-left after:absolute after:inset-0 after:content-[''] group-hover:text-[#117F21] focus-visible:outline-none group-has-[:focus-visible]:underline"
+            >
+              {d.title}
+            </button>
+          </h3>
+          {d.summary && <p className="mt-1.5 line-clamp-2 text-base leading-relaxed text-gray-600">{d.summary}</p>}
+          <p className="mt-3 flex flex-wrap gap-1.5">
+            {[...d.appliesTo, ...d.subjects.filter((s) => s !== "General")].slice(0, 4).map((t) => (
+              <span key={t} className="inline-flex items-center rounded-full border border-gray-200 bg-[#F7FAF6] px-3 py-0.5 text-xs font-semibold text-gray-700">{t}</span>
+            ))}
+          </p>
         </div>
+        <a
+          href={d.pdf}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(outlineBtn, "relative z-10 hidden shrink-0 self-center px-4 hover:bg-[#117F21] hover:text-white md:inline-flex")}
+        >
+          <Download className="h-4 w-4" aria-hidden="true" />
+          PDF
+          <span className="sr-only">of {d.title} (opens in a new tab)</span>
+        </a>
       </div>
     </motion.li>
   );
@@ -261,7 +262,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
   const clearAll = () => set({ q: "", types: [], years: [], who: [], subjects: [], status: "" });
 
   return (
-    <section id="library" aria-labelledby="library-title" className={cn("bg-[#FBF8F1]", sectionCls)}>
+    <section id="library" aria-labelledby="library-title" className={cn("bg-gradient-to-b from-white via-[#F4F7F2] to-white", sectionCls)}>
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           id="library-title"
@@ -271,12 +272,12 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
           intro="Filter by type, year, who it applies to and subject. Abbreviations like RSA, PFA and PCC work too."
         />
 
-        {/* Search + sort bar */}
-        <div className="sticky top-[172px] z-20 mt-10 rounded-3xl bg-white p-2 shadow-[0_24px_50px_-30px_rgba(10,74,19,0.55)] ring-1 ring-black/10">
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <label className="flex min-w-0 flex-1 items-center gap-3 rounded-2xl pl-3 pr-1 has-[input:focus-visible]:outline has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[#FFD84D]">
+        {/* Search + sort bar: sticks under the tab strip */}
+        <div className="sticky top-[160px] z-20 mt-10 rounded-2xl bg-white/95 p-1.5 shadow-[0_24px_50px_-30px_rgba(4,36,10,0.55)] ring-1 ring-gray-200 backdrop-blur">
+          <div className="flex flex-col gap-1.5 sm:flex-row">
+            <label className="flex min-w-0 flex-1 items-center gap-3 rounded-xl pl-3 pr-1 has-[input:focus-visible]:outline has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[#FFD84D]">
               <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
-              <span className="shrink-0 text-lg font-semibold text-[#14261A]">Search</span>
+              <span className="shrink-0 font-semibold text-[#0A2E10]">Search</span>
               <span className="sr-only"> the library</span>
               <input
                 ref={inputRef}
@@ -284,20 +285,20 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 placeholder="Search titles, subjects or abbreviations"
-                className="min-h-14 w-full min-w-0 bg-transparent text-lg placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0 [&::-webkit-search-cancel-button]:hidden"
+                className="min-h-12 w-full min-w-0 bg-transparent text-base placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0 [&::-webkit-search-cancel-button]:hidden"
               />
               {draft && (
-                <button type="button" onClick={() => setDraft("")} aria-label="Clear search" className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-gray-700 transition hover:bg-[#E8F5E9] hover:text-[#14261A]", focus)}>
+                <button type="button" onClick={() => setDraft("")} aria-label="Clear search" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-gray-600 transition hover:bg-[#F7FAF6] hover:text-[#0A2E10]", focus)}>
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>
               )}
             </label>
-            <div className="flex gap-2">
-              <label className="flex min-h-14 min-w-0 flex-1 items-center gap-2 rounded-2xl bg-[#FBF8F1] px-3 text-lg sm:px-4 text-gray-700 ring-1 ring-black/10 has-[select:focus-visible]:outline has-[select:focus-visible]:outline-[3px] has-[select:focus-visible]:outline-[#FFD84D] sm:flex-none">
-                <ArrowDownWideNarrow className="hidden h-5 w-5 shrink-0 text-[#0A4A13] sm:block" aria-hidden="true" />
-                <span className="shrink-0 font-medium">Sort</span>
+            <div className="flex gap-1.5">
+              <label className="flex min-h-12 min-w-0 flex-1 items-center gap-2 rounded-xl bg-[#F7FAF6] px-3 text-gray-600 ring-1 ring-gray-200 has-[select:focus-visible]:outline has-[select:focus-visible]:outline-[3px] has-[select:focus-visible]:outline-[#FFD84D] sm:flex-none sm:px-4">
+                <ArrowDownWideNarrow className="hidden h-4 w-4 shrink-0 text-[#117F21] sm:block" aria-hidden="true" />
+                <span className="shrink-0 text-sm font-semibold">Sort</span>
                 <span className="sr-only"> by</span>
-                <select value={f.sort} onChange={(e) => set({ sort: e.target.value as Filters["sort"] })} className="min-h-12 min-w-0 flex-1 cursor-pointer bg-transparent font-semibold text-[#14261A] focus:outline-none focus-visible:outline-none">
+                <select value={f.sort} onChange={(e) => set({ sort: e.target.value as Filters["sort"] })} className="min-h-11 min-w-0 flex-1 cursor-pointer bg-transparent font-semibold text-[#0A2E10] focus:outline-none focus-visible:outline-none">
                   <option value="new">Newest first</option>
                   <option value="old">Oldest first</option>
                   <option value="az">Title A–Z</option>
@@ -308,9 +309,9 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
                 onClick={() => setMobileFilters((o) => !o)}
                 aria-expanded={mobileFilters}
                 aria-controls="reg-facets"
-                className={cn("inline-flex min-h-14 shrink-0 items-center gap-2 rounded-2xl bg-[#0A4A13] px-4 text-lg font-semibold text-white transition hover:bg-[#117F21] lg:hidden", focus)}
+                className={cn("inline-flex min-h-12 shrink-0 items-center gap-2 rounded-xl bg-[#04240A] px-4 font-semibold text-white transition hover:bg-[#0A4A13] lg:hidden", focus)}
               >
-                <SlidersHorizontal className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" />
+                <SlidersHorizontal className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" />
                 Filters{chips.length ? ` (${chips.length})` : ""}
               </button>
             </div>
@@ -318,20 +319,31 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-12">
-          {/* Facets */}
+          {/* Facets: their own left column (no SideNav on this tool page) */}
           <aside
             id="reg-facets"
             aria-label="Filters"
-            className={cn("rounded-[2rem] bg-white p-5 shadow-[0_30px_60px_-40px_rgba(10,74,19,0.4)] ring-1 ring-black/10 lg:col-span-3 lg:block lg:self-start", mobileFilters ? "block" : "hidden")}
+            className={cn("overflow-hidden rounded-3xl border border-gray-200/80 bg-white lg:col-span-3 lg:block lg:self-start", mobileFilters ? "block" : "hidden")}
           >
+            <div className="flex items-center justify-between gap-2 bg-[#04240A] px-5 py-3">
+              <p className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-[#F4D27A]">
+                <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
+                Filters
+              </p>
+              {chips.length > 0 && (
+                <button type="button" onClick={clearAll} className={cn("min-h-11 rounded-lg px-2 text-sm font-semibold text-white underline underline-offset-2 hover:text-[#F4D27A]", focus)}>
+                  Clear all
+                </button>
+              )}
+            </div>
             <Facets f={f} set={set} />
           </aside>
 
           {/* Results */}
-          <div className="lg:col-span-9">
+          <div className="min-w-0 lg:col-span-9">
             <div className="flex flex-wrap items-center gap-2">
-              <p className="mr-2 text-lg text-gray-700" aria-live="polite">
-                <strong className="text-2xl font-bold tabular-nums text-[#14261A]">{results.length}</strong> of {library.length} documents
+              <p className="mr-2 text-base text-gray-600" aria-live="polite">
+                <strong className="text-2xl font-bold tabular-nums text-[#0A2E10]">{results.length}</strong> of {library.length} documents
               </p>
               <LayoutGroup>
                 <AnimatePresence initial={false}>
@@ -344,7 +356,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
                       onClick={c.clear}
-                      className={cn("inline-flex min-h-11 items-center gap-2 rounded-full bg-[#0A4A13] pl-4 pr-3 text-base font-semibold text-[#F4D27A] transition hover:bg-[#117F21] hover:text-white", focus)}
+                      className={cn("inline-flex min-h-11 items-center gap-2 rounded-full border border-[#117F21]/25 bg-[#E8F5E9] pl-4 pr-3 text-sm font-semibold text-[#0A4A13] transition hover:border-[#117F21] hover:bg-[#117F21] hover:text-white", focus)}
                     >
                       {c.label}
                       <X className="h-4 w-4" aria-hidden="true" />
@@ -354,58 +366,50 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
                 </AnimatePresence>
               </LayoutGroup>
               {chips.length > 1 && (
-                <button type="button" onClick={clearAll} className={cn("min-h-11 rounded-xl px-2 text-base font-semibold text-[#0A4A13] underline underline-offset-2", focus)}>
+                <button type="button" onClick={clearAll} className={cn("min-h-11 rounded-xl px-2 text-sm font-semibold text-[#117F21] underline underline-offset-2", focus)}>
                   Clear all
                 </button>
               )}
             </div>
-            {used.length > 0 && (
-              <p className="mt-2 text-base text-gray-700">Also matching: {used.join(" · ")}</p>
-            )}
+            {used.length > 0 && <p className="mt-2 text-sm text-gray-600">Also matching: {used.join(" · ")}</p>}
 
             {results.length === 0 ? (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 rounded-[2rem] bg-white p-8 text-center ring-1 ring-black/10 sm:p-10">
-                <IconTile icon={Search} className="mx-auto" />
-                <h3 className="mt-4 text-2xl font-bold tracking-tight text-[#14261A]">No documents match</h3>
-                <p className="mx-auto mt-2 max-w-md text-lg text-gray-700">
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 rounded-3xl border border-dashed border-gray-300 bg-white p-8 text-center sm:p-10">
+                <Tile icon={Search} size="lg" className="mx-auto" />
+                <h3 className="mt-4 text-2xl font-bold text-[#0A2E10]">No documents match</h3>
+                <p className="mx-auto mt-2 max-w-md text-base text-gray-600">
                   Try fewer words, remove a filter, or search for a topic such as “transfer”, “investment” or “benefits”.
                 </p>
                 <div className="mt-6 flex flex-wrap justify-center gap-3">
-                  <button type="button" onClick={clearAll} className={cn(goldBtn, focus)}>
+                  <button type="button" onClick={clearAll} className={goldBtn}>
                     Clear all filters
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => document.getElementById("chat-trigger")?.click()}
-                    className={cn(outlineBtn, focus)}
-                  >
-                    <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                  <button type="button" onClick={() => document.getElementById("chat-trigger")?.click()} className={outlineBtn}>
+                    <MessageCircle className="h-4 w-4" aria-hidden="true" />
                     Ask PenCom Assistant
                   </button>
                 </div>
               </motion.div>
             ) : (
               <>
-                <ul className="mt-5 space-y-3">
-                  <AnimatePresence mode="popLayout" initial={false}>
-                    {results.slice(0, shown).map((d, i) => (
-                      <ResultCard key={d.id} d={d} i={i} onOpen={onOpen} />
-                    ))}
-                  </AnimatePresence>
-                </ul>
+                <Spotlight color="rgba(17,127,33,0.07)" size={600} className={cn(listPanel, "mt-5 divide-y-0")}>
+                  <ul className="divide-y divide-gray-100">
+                    <AnimatePresence mode="popLayout" initial={false}>
+                      {results.slice(0, shown).map((d, i) => (
+                        <ResultRow key={d.id} d={d} i={i} onOpen={onOpen} />
+                      ))}
+                    </AnimatePresence>
+                  </ul>
+                </Spotlight>
                 {shown < results.length && (
                   <div className="mt-8 flex flex-col items-center gap-3">
-                    <div className="h-2 w-56 overflow-hidden rounded-full bg-[#E8F5E9]" aria-hidden="true">
+                    <div className="h-1.5 w-56 overflow-hidden rounded-full bg-[#E8F5E9]" aria-hidden="true">
                       <motion.div className="h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" animate={{ width: `${(shown / results.length) * 100}%` }} />
                     </div>
-                    <p className="text-base text-gray-700">Showing {shown} of {results.length}</p>
-                    <button
-                      type="button"
-                      onClick={() => setShown((s) => s + PAGE)}
-                      className={cn(outlineBtn, focus)}
-                    >
+                    <p className="text-sm text-gray-600">Showing {shown} of {results.length}</p>
+                    <button type="button" onClick={() => setShown((s) => s + PAGE)} className={cn(outlineBtn, "group")}>
                       Show {Math.min(PAGE, results.length - shown)} more
-                      <ArrowDown className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
+                      <ArrowDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
                     </button>
                   </div>
                 )}

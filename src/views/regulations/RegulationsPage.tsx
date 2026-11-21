@@ -2,13 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { MotionConfig, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Gavel, Scale, Search } from "lucide-react";
+import { ArrowRight, ClipboardCheck, Clock, Gavel, Library as LibraryIcon, Lock, Scale, Search } from "lucide-react";
 import { Link, useLocation, useSearchParams } from "@/lib/router";
 import { cn } from "@/lib/utils";
-import { CountUp, scrollToId } from "@/views/about/primitives";
-import { ArrowChip } from "@/views/docs/kit";
-import { IconTile, goldBtn } from "@/views/legacy/calm";
-import { FramedPanel, PageHero, SectionNav, ease, focus } from "@/views/theme/ui";
+import { CountUp, GridBackdrop, scrollToId } from "@/views/about/primitives";
+import { DrawnMark } from "@/views/theme/Headline";
+import { Crumbs, DarkBackdrop, EyebrowPill, FloatingBar, TabStrip, Tile, ease, featured, focus, goldBtn, type NavSection } from "@/views/theme/ui";
 import DocDrawer from "./DocDrawer";
 import Library, { type Filters } from "./Library";
 import { ActSpotlight, Compliance, LatestRail, Policies } from "./Sections";
@@ -16,17 +15,18 @@ import { library } from "./library";
 import { fmtDate, latest, typeStyle } from "./search";
 
 /**
- * Regulations and compliance, calm theme (brief §7 "Regulatory library" + "Regulatory item").
- * Hero search → latest issued → filterable library → the Act in plain language → compliance → PenCom's own
- * policies. Filters and the open document (?doc=) live in the URL, so any view can be shared or bookmarked.
+ * Regulations and compliance, classic theme: a tool page (brief §7 "Regulatory library" + "Regulatory item").
+ * Dark banner with the search and the type counts → floating "Latest issued" card → sticky TabStrip → latest rail →
+ * filterable library (facets in their own column, results as a list panel) → the Act as the page's dark band →
+ * compliance → PenCom's own policies. Filters and the open document (?doc=) live in the URL. Always English.
  */
 
-const sections = [
-  { id: "latest", label: "Latest" },
-  { id: "library", label: "Library" },
-  { id: "act", label: "Pension Reform Act" },
-  { id: "compliance", label: "Compliance" },
-  { id: "policies", label: "Our policies" },
+const sections: NavSection[] = [
+  { id: "latest", label: "Latest", icon: Clock },
+  { id: "library", label: "Library", icon: LibraryIcon },
+  { id: "act", label: "Pension Reform Act", icon: Gavel },
+  { id: "compliance", label: "Compliance", icon: ClipboardCheck },
+  { id: "policies", label: "Our policies", icon: Lock },
 ];
 
 const list = (v: string | null) => (v ? v.split(",").filter(Boolean) : []);
@@ -90,8 +90,8 @@ export default function RegulationsPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-[#FBF8F1] text-[#14261A]">
-        <Hero
+      <div className="bg-white text-[#0A2E10]">
+        <Banner
           onSearch={(q) => {
             set({ q });
             toLibrary();
@@ -100,9 +100,9 @@ export default function RegulationsPage() {
             set({ types: [t] });
             toLibrary();
           }}
-          onOpen={openDoc}
         />
-        <SectionNav sections={sections} pillId="reg-nav-pill" />
+        <LatestBar onOpen={openDoc} />
+        <TabStrip sections={sections} pillId="reg-nav-pill" />
         <LatestRail onOpen={openDoc} />
         <Library f={f} set={set} onOpen={openDoc} />
         <ActSpotlight set={set} />
@@ -114,132 +114,161 @@ export default function RegulationsPage() {
   );
 }
 
-/* ─────────────────────────── Hero ─────────────────────────── */
+/* ─────────────────────────── Banner ─────────────────────────── */
 
 const counts = (["Regulation", "Guideline", "Circular", "Framework"] as const).map((t) => ({ t, n: library.filter((d) => d.type === t).length }));
 const examples = ["RSA transfer", "investment", "PPP", "annuity"];
 
-function Hero({ onSearch, onType, onOpen }: { onSearch: (q: string) => void; onType: (t: string) => void; onOpen: (id: string) => void }) {
+/** Dark grid banner (no photo): the library search and the type counts sit inside it. */
+function Banner({ onSearch, onType }: { onSearch: (q: string) => void; onType: (t: string) => void }) {
   const [q, setQ] = useState("");
   const reduce = useReducedMotion();
+  const rise = (delay: number) => ({ initial: { opacity: 0, y: reduce ? 0 : 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6, delay, ease } });
   return (
-    <PageHero
-      id="reg-title"
-      crumbs={[{ label: "Home", to: "/" }, { label: "Regulations and compliance" }]}
-      pill={{ icon: Scale, label: "Regulatory library" }}
-      title="Regulations and compliance"
-      mark="compliance"
-      intro={`All ${library.length} regulations, guidelines, frameworks and circulars issued under the Pension Reform Act, in one place. Search by title, subject or abbreviation, then read the summary or download the signed document.`}
-      actions={
-        <div className="max-w-xl">
-          {/* Labelled search: a visible label, a large field and a gold labelled button */}
-          <form
-            role="search"
-            onSubmit={(e) => {
-              e.preventDefault();
-              onSearch(q.trim());
-            }}
-          >
-            <label htmlFor="reg-hero-q" className="block text-lg font-semibold text-[#14261A]">
-              Search the regulatory library
-            </label>
-            <div className="mt-2 flex flex-col gap-2 rounded-3xl bg-white p-2 shadow-[0_24px_50px_-30px_rgba(10,74,19,0.55)] ring-1 ring-black/10 has-[input:focus-visible]:outline has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-[#FFD84D] sm:flex-row sm:items-center">
-              <div className="flex min-w-0 flex-1 items-center gap-3 pl-3">
-                <Search className="h-6 w-6 shrink-0 text-[#117F21]" aria-hidden="true" />
-                <input
-                  id="reg-hero-q"
-                  type="search"
-                  value={q}
-                  onChange={(e) => setQ(e.target.value)}
-                  placeholder="e.g. “RSA transfer”, “PPP”"
-                  className="min-h-14 w-full min-w-0 bg-transparent text-lg placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0 [&::-webkit-search-cancel-button]:hidden"
-                />
-              </div>
-              <button type="submit" className={cn(goldBtn, "shrink-0", focus)}>
-                <Search className="h-5 w-5" aria-hidden="true" />
-                Search
-              </button>
-            </div>
-          </form>
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-base text-gray-700">
-            <span className="font-medium">Try:</span>
-            {examples.map((x) => (
-              <button
-                key={x}
-                type="button"
-                onClick={() => {
-                  setQ(x);
-                  onSearch(x);
-                }}
-                className={cn("min-h-11 rounded-full bg-white px-4 font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/30 transition hover:bg-[#0A4A13] hover:text-white hover:ring-[#0A4A13]", focus)}
-              >
-                {x}
-              </button>
-            ))}
-          </div>
-          <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {counts.map((c, i) => (
-              <motion.li key={c.t} initial={{ opacity: 0, y: reduce ? 0 : 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease }}>
-                <button
-                  type="button"
-                  onClick={() => onType(c.t)}
-                  className={cn(
-                    "group relative h-full w-full overflow-hidden rounded-3xl bg-white p-4 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]",
-                    focus,
-                  )}
-                >
-                  <CountUp value={String(c.n)} className="block text-3xl font-bold tabular-nums text-[#14261A]" />
-                  <span className="mt-1 flex items-center gap-2 text-base font-medium text-gray-700 group-hover:text-[#0A4A13]">
-                    <span aria-hidden="true" className={cn("h-2.5 w-2.5 shrink-0 rounded-full", typeStyle[c.t].dot)} />
-                    {c.t}s
-                  </span>
-                  <span className="sr-only">, show only {c.t.toLowerCase()}s</span>
+    <section aria-labelledby="reg-title" className="relative isolate overflow-hidden text-white print:text-black">
+      <DarkBackdrop />
+      {/* A soft gold arc behind the counts */}
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-24 -z-10 hidden h-[420px] w-[420px] rounded-full border border-[#F4D27A]/10 lg:block" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-10 top-40 -z-10 hidden h-[300px] w-[300px] rounded-full border border-[#F4D27A]/10 lg:block" />
+      <div className="relative mx-auto max-w-7xl px-4 pb-28 pt-6 lg:pb-32">
+        <Crumbs crumbs={[{ label: "Home", to: "/" }, { label: "Regulations and compliance" }]} dark />
+        <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-7">
+            <motion.div {...rise(0)}>
+              <EyebrowPill icon={Scale} label="Regulatory library" dark />
+            </motion.div>
+            <motion.h1 id="reg-title" {...rise(0.06)} className="mt-5 text-[2.25rem] font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.5rem]">
+              Regulations and <DrawnMark text="compliance" dark />
+            </motion.h1>
+            <motion.p {...rise(0.16)} className="mt-6 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
+              All {library.length} regulations, guidelines, frameworks and circulars issued under the Pension Reform Act, in one place. Search by title,
+              subject or abbreviation, then read the summary or download the signed document.
+            </motion.p>
+
+            <motion.form
+              {...rise(0.24)}
+              role="search"
+              onSubmit={(e) => {
+                e.preventDefault();
+                onSearch(q.trim());
+              }}
+              className="mt-8 max-w-2xl print:hidden"
+            >
+              <label htmlFor="reg-hero-q" className="block text-base font-semibold text-white">
+                Search the regulatory library
+              </label>
+              <div className="mt-2 flex flex-col gap-2 rounded-2xl bg-white p-1.5 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.7)] has-[input:focus-visible]:outline has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-[#FFD84D] sm:flex-row sm:items-center">
+                <div className="flex min-w-0 flex-1 items-center gap-3 pl-3">
+                  <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
+                  <input
+                    id="reg-hero-q"
+                    type="search"
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                    placeholder="e.g. “RSA transfer”, “PPP”"
+                    className="min-h-12 w-full min-w-0 bg-transparent text-base text-[#0A2E10] placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0 sm:text-lg [&::-webkit-search-cancel-button]:hidden"
+                  />
+                </div>
+                <button type="submit" className={cn(goldBtn, "shrink-0")}>
+                  <Search className="h-5 w-5" aria-hidden="true" />
+                  Search
                 </button>
-              </motion.li>
-            ))}
-          </ul>
+              </div>
+            </motion.form>
+            <motion.div {...rise(0.3)} className="mt-4 flex flex-wrap items-center gap-2 text-sm text-white/85 print:hidden">
+              <span className="font-semibold">Try:</span>
+              {examples.map((x) => (
+                <button
+                  key={x}
+                  type="button"
+                  onClick={() => {
+                    setQ(x);
+                    onSearch(x);
+                  }}
+                  className={cn("min-h-11 rounded-full border border-white/20 bg-white/[0.06] px-4 font-semibold text-white transition hover:border-[#F4D27A] hover:text-[#F4D27A]", focus)}
+                >
+                  {x}
+                </button>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Type counts: glass tiles in a gap-px grid; each one filters the library */}
+          <motion.div {...rise(0.2)} className="lg:col-span-5">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#F4D27A]">In the library</p>
+            <ul className="mt-3 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 backdrop-blur-sm">
+              {counts.map((c, i) => (
+                <motion.li key={c.t} initial={{ opacity: 0, y: reduce ? 0 : 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.35 + i * 0.07, ease }}>
+                  <button
+                    type="button"
+                    onClick={() => onType(c.t)}
+                    className={cn("group relative flex h-full w-full flex-col bg-[#04240A]/80 p-5 text-left transition duration-300 hover:bg-[#0A4A13]/90 sm:p-6", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]")}
+                  >
+                    <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-[#F4D27A] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
+                    <CountUp value={String(c.n)} className="block text-4xl font-black tracking-tight text-white sm:text-5xl" />
+                    <span className="mt-2 flex items-center gap-2 text-sm font-semibold text-white/85 group-hover:text-[#F4D27A]">
+                      <span aria-hidden="true" className={cn("h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-white/20", typeStyle[c.t].dot)} />
+                      {c.t}s
+                      <ArrowRight aria-hidden="true" className="ml-auto h-4 w-4 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100" />
+                    </span>
+                    <span className="sr-only">, show only {c.t.toLowerCase()}s</span>
+                  </button>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
         </div>
-      }
-      aside={
-        <FramedPanel className="p-5 sm:p-6">
-          <div className="flex flex-wrap items-center justify-between gap-2 px-1">
-            <p className="text-xl font-bold text-[#14261A]">Latest issued</p>
-            <span className="inline-flex items-center gap-2 text-base font-medium text-[#0A4A13]">
-              <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-[#117F21]" />
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────── Latest issued (floating bar) ─────────────────────────── */
+
+function LatestBar({ onOpen }: { onOpen: (id: string) => void }) {
+  return (
+    <FloatingBar className="p-0 sm:p-0">
+      <div className="grid grid-cols-1 lg:grid-cols-12">
+        <div className="p-5 sm:p-6 lg:col-span-8">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h2 className="text-xl font-bold text-[#0A2E10]">Latest issued</h2>
+            <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#0A4A13]">
+              <span aria-hidden="true" className="relative flex h-2.5 w-2.5">
+                <span className="absolute inset-0 animate-ping rounded-full bg-[#117F21]/50 motion-reduce:hidden" />
+                <span className="relative h-2.5 w-2.5 rounded-full bg-[#117F21]" />
+              </span>
               Updated {fmtDate(latest[0].date)}
             </span>
           </div>
-          <ul className="mt-4 space-y-2">
-            {latest.slice(0, 4).map((d, i) => (
-              <motion.li key={d.id} initial={{ opacity: 0, y: reduce ? 0 : 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 + i * 0.06, ease }}>
+          <ul className="mt-4 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-gray-200/80 bg-gray-200/80 sm:grid-cols-3">
+            {latest.slice(0, 3).map((d) => (
+              <li key={d.id} className="bg-white">
                 <button
                   type="button"
                   onClick={() => onOpen(d.id)}
-                  className={cn("group flex w-full items-start gap-3 rounded-2xl bg-[#FBF8F1] p-4 text-left ring-1 ring-black/10 transition duration-300 hover:bg-[#E8F5E9] hover:ring-[#117F21]/30", focus)}
+                  className={cn("group flex h-full w-full flex-col p-4 text-left transition hover:bg-[#F7FAF6]", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]")}
                 >
-                  <span className="min-w-0 flex-1">
-                    <span className={cn("inline-block rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider", typeStyle[d.type].chip)}>{d.type}</span>
-                    <span className="mt-1.5 line-clamp-2 block text-lg font-semibold leading-snug text-[#14261A]">{d.title}</span>
-                    <span className="mt-0.5 block text-base text-gray-700">{fmtDate(d.date)}</span>
+                  <span className="flex flex-wrap items-center gap-2">
+                    <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider", typeStyle[d.type].chip)}>{d.type}</span>
+                    <span className="text-xs font-medium text-gray-600">{fmtDate(d.date)}</span>
                   </span>
-                  <ArrowRight className="mt-1 h-5 w-5 shrink-0 text-[#0A4A13] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                  <span className="mt-2 line-clamp-2 block font-semibold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{d.title}</span>
                 </button>
-              </motion.li>
+              </li>
             ))}
           </ul>
-          <Link
-            to="/regulations/pension-reform-act"
-            className={cn("group mt-3 flex items-center gap-4 rounded-2xl bg-[#F1EFE8] p-4 ring-1 ring-black/10 transition duration-300 hover:ring-2 hover:ring-[#117F21]", focus)}
-          >
-            <IconTile icon={Gavel} className="h-12 w-12 [&_svg]:h-6 [&_svg]:w-6" />
-            <span className="min-w-0 flex-1">
-              <span className="block text-lg font-bold text-[#14261A]">Pension Reform Act 2014</span>
-              <span className="block text-base text-gray-700">Read every section online, or download it</span>
-            </span>
-            <ArrowChip />
-          </Link>
-        </FramedPanel>
-      }
-    />
+        </div>
+        <Link to="/regulations/pension-reform-act" className={cn(featured, "group flex items-center gap-4 rounded-none p-6 lg:col-span-4", focus)}>
+          <GridBackdrop className="opacity-70" />
+          <Tile icon={Gavel} dark size="lg" className="relative ring-1 ring-white/15" />
+          <span className="relative min-w-0 flex-1">
+            <span className="block text-xs font-bold uppercase tracking-[0.18em] text-[#F4D27A]">Primary legislation</span>
+            <span className="mt-1 block text-lg font-bold">Pension Reform Act 2014</span>
+            <span className="block text-sm text-white/80">Read every section online, or download it</span>
+          </span>
+          <ArrowRight aria-hidden="true" className="relative h-5 w-5 shrink-0 text-[#F4D27A] transition group-hover:translate-x-1" />
+        </Link>
+      </div>
+    </FloatingBar>
   );
 }
