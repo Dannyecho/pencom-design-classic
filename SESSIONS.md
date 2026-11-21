@@ -76,7 +76,7 @@ This should print nothing for files in scope; kit compat exports are expected in
 | CL0 | Scaffold from calm | root files, `CLAUDE.md` | done (2026-11-21): copy of calm on port 3015 (dev + start), package `pencom-theme-classic`, classic `CLAUDE.md` + README; typecheck, build, 200s and 404s checked |
 | CL1 | Homepage `/` | `HomeClassic.tsx`, `homeclassic/*`, `src/app/page.tsx` | done (2026-11-21): classic homepage ported (slider + QuickFind, tasks, notices, services, portals, news, figures band, help, prototype links); dark slider shade, `y` motion, 12 px chips, 44 px targets; HomeCalm removed |
 | CL2 | Kit: banners, floating bar, SideNav, TabStrip, dark band, cards, dialogs, document kit | `theme/*`, `docs/kit.tsx`, `about/primitives.tsx` | done (2026-11-21): real `Spotlight`/`Tilt`/`GridBackdrop`; classic `Headline` (12 px eyebrow, ink `#0A2E10`); new `PhotoBanner`, `FloatingBar`, `PortalLayout`/`SideNav` (+ phone disclosure bar), `TabStrip`, `DarkBand`, `ClosingLinks`, `Tile` and class strings; compat `PageHero` = dark grid banner with actions/aside floating over it, `SectionNav` → `TabStrip`, `DarkBackdrop` = grid band, dialogs with a `#04240A` bar; `DocBanner` (= `DocHero`), gold `PrimaryBtn`, outline `GhostBtn`, pill `Toc`, gold `ReadingBar`, `sizes` 16/18/20 |
-| CL3 | Chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | pending |
+| CL3 | Chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | done (2026-11-21): `#04240A` top bar with a compact reportgov badge; white nav with a sliding mint `layoutId` pill and gold-green underline; full-width mega menus (list-panel columns + dark featured overview card); footer = `#04240A` grid band with green/gold blurs, white newsletter card floating over its top edge, brand + 4 link columns (new "Get help"), portal tiles; NoticesBell/Promo/Cookie/QuickLinks/Chat (gold launcher)/A11y/Language widgets in classic tokens (dark title bars, list rows, left status bars, `rounded-xl` buttons); 404 and placeholder share server-only `layout/StatusPage` (dark grid banner + floating quick-links card); no new i18n keys |
 | CL4 | Baseline audit | none edited | pending |
 | CL5a | About part 1 (overview, mission, structure) | `about/AboutPage.tsx`, `about/sections.tsx` | pending |
 | CL5b | About part 2 (executive, history, charter) | `about/sections.tsx` | pending |
@@ -161,6 +161,10 @@ lands under the bar. `PhotoBanner` takes `alt` (default empty, decorative). The 
 - **404 and `[...slug]`:** server-only, a dark grid banner and a white floating card with search links.
 
 Verify `/`, `/about` and a 404.
+*Done (CL3):* header search stays in the white nav (a labelled 44 px button) rather than the 28 px top bar; the top bar holds
+offices, reportgov (md+), phone and language. Mega menus with several columns are positioned against the nav container
+(`inset-x-4`), single-column ones against their item. Footer link labels reuse existing dictionary keys ("Get help",
+"Zonal Offices", "Overview" in the mega card), so no `/i18n-pass` was needed. `ReportGovBadge` takes `compact`.
 
 **CL4 Audit.** Every route at 1400 and 390 px; grep counts per file; add an "Audit:" line to each page session. Fix crashes only.
 

@@ -102,10 +102,10 @@ export default function QuickLinks() {
                     onClick={() => setOpen(false)}
                     className="group flex min-h-11 items-center gap-3 focus-visible:outline-none"
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] shadow-[0_10px_24px_-10px_rgba(10,74,19,0.8)] ring-2 ring-white transition duration-200 group-hover:-rotate-6 group-hover:bg-[#117F21] group-focus-visible:outline group-focus-visible:outline-[3px] group-focus-visible:outline-offset-2 group-focus-visible:outline-[#FFD84D]">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#04240A] text-[#F4D27A] shadow-[0_10px_24px_-10px_rgba(4,36,10,0.8)] ring-2 ring-white transition duration-200 group-hover:rotate-6 group-hover:bg-[#0A4A13] group-focus-visible:outline group-focus-visible:outline-[3px] group-focus-visible:outline-offset-2 group-focus-visible:outline-[#FFD84D]">
                       <l.icon className="h-5 w-5" aria-hidden="true" />
                     </span>
-                    <span className="whitespace-nowrap rounded-2xl bg-white px-4 py-2 text-lg font-semibold text-[#14261A] shadow-[0_12px_28px_-14px_rgba(10,74,19,0.55)] ring-1 ring-black/10 transition group-hover:text-[#0A4A13] group-hover:ring-2 group-hover:ring-[#117F21]">
+                    <span className="whitespace-nowrap rounded-xl border border-gray-200/80 bg-white px-4 py-2 text-base font-semibold text-[#0A2E10] shadow-[0_12px_28px_-14px_rgba(10,74,19,0.55)] transition group-hover:border-[#117F21]/40 group-hover:text-[#117F21]">
                       {l.label}
                     </span>
                   </Link>
@@ -133,7 +133,7 @@ export default function QuickLinks() {
           pinned.current = !open;
           setOpen((o) => !o);
         }}
-        className="relative flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#0A4A13] px-4 text-white shadow-[0_16px_36px_-14px_rgba(10,74,19,0.9)] ring-2 ring-white transition hover:bg-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D] sm:pr-5"
+        className="relative flex h-14 min-w-14 items-center justify-center gap-2 rounded-2xl bg-[#04240A] px-4 text-white shadow-[0_16px_36px_-14px_rgba(4,36,10,0.9)] ring-2 ring-white transition hover:bg-[#0A4A13] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D] sm:pr-5"
       >
         {open ? <X className="h-6 w-6 text-[#F4D27A]" aria-hidden="true" /> : <LayoutGrid className="h-6 w-6 text-[#F4D27A]" aria-hidden="true" />}
         <span className="hidden text-base font-semibold sm:inline" aria-hidden="true">Quick links</span>

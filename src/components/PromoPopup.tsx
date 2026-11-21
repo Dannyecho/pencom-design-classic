@@ -169,7 +169,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
             aria-label={t("Close")}
             tabIndex={-1}
             onClick={close}
-            className="absolute inset-0 cursor-default bg-[#14261A]/55"
+            className="absolute inset-0 cursor-default bg-[#04240A]/60 backdrop-blur-[2px]"
           />
 
           <motion.div
@@ -178,7 +178,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
             aria-modal="true"
             aria-roledescription={many ? t("carousel") : undefined}
             aria-labelledby="promo-title"
-            className="relative max-h-[calc(100svh-1.5rem)] w-full max-w-[880px] overflow-y-auto overflow-x-hidden rounded-[2rem] bg-[#FBF8F1] shadow-[0_40px_90px_-30px_rgba(10,74,19,0.6)] ring-1 ring-black/10"
+            className="relative max-h-[calc(100svh-1.5rem)] w-full max-w-[880px] overflow-y-auto overflow-x-hidden rounded-3xl bg-white shadow-[0_40px_90px_-30px_rgba(4,36,10,0.7)]"
             initial={{ y: reduce ? 0 : 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: reduce ? 0 : 16, opacity: 0 }}
@@ -188,7 +188,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
               type="button"
               onClick={close}
               className={cn(
-                "absolute right-3 top-3 z-20 inline-flex min-h-11 items-center gap-1.5 rounded-full bg-white px-4 text-base font-semibold text-[#14261A] shadow-lg ring-1 ring-black/10 transition hover:bg-[#0A4A13] hover:text-white",
+                "absolute right-3 top-3 z-20 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-white px-4 text-base font-semibold text-[#0A2E10] shadow-lg ring-1 ring-gray-200 transition hover:bg-[#04240A] hover:text-white",
                 focus,
               )}
             >
@@ -196,6 +196,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
               {t("Close")}
             </button>
 
+            <span aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-[3px] bg-gradient-to-r from-[#117F21] via-[#CB9615] to-[#117F21]" />
             <div className="relative min-h-[39rem] sm:min-h-0 sm:h-[31rem]">
               <AnimatePresence initial={false} custom={dir} mode="wait">
                 <motion.div
@@ -208,7 +209,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                 >
                   {/* Image */}
                   <motion.div
-                    className="relative m-3 h-56 overflow-hidden rounded-[1.5rem] sm:m-4 sm:h-auto"
+                    className="relative h-56 overflow-hidden sm:h-auto"
                     custom={dir}
                     variants={{
                       enter: { opacity: 0 },
@@ -226,15 +227,16 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                       alt={t(p.alt)}
                       draggable={false}
                       className="h-full w-full select-none object-cover"
-                      initial={{ scale: reduce ? 1 : 1.08 }}
+                      initial={{ scale: reduce ? 1 : 1.12 }}
                       animate={{ scale: 1 }}
-                      transition={{ duration: 6, ease: "easeOut" }}
+                      transition={{ duration: 9, ease: "easeOut" }}
                     />
+                    <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04240A]/45 via-transparent to-transparent" />
                   </motion.div>
 
                   {/* Copy */}
                   <motion.div
-                    className="flex flex-col justify-center gap-4 p-6 pt-3 sm:p-9 sm:pl-5"
+                    className="flex flex-col justify-center gap-4 p-6 sm:p-9"
                     custom={dir}
                     variants={{
                       enter: { opacity: 0, y: reduce ? 0 : 12 },
@@ -248,9 +250,10 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                     onDragEnd={many ? onDragEnd : undefined}
                   >
                     <p className="w-fit">
-                      <span className="inline-flex items-center gap-2.5 rounded-full bg-[#E8F5E9] py-1 pl-1 pr-4 text-[13px] font-bold uppercase tracking-[0.18em] text-[#0A4A13] ring-1 ring-[#117F21]/15 sm:text-sm">
-                        <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#2E913D] to-[#0A4A13]">
-                          <span className="h-2 w-2 rounded-full bg-[#F4D27A]" />
+                      <span className="inline-flex items-center gap-2 rounded-full border border-[#117F21]/20 bg-[#E8F5E9] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
+                        <span aria-hidden="true" className="relative flex h-2 w-2">
+                          <span className="absolute inset-0 animate-ping rounded-full bg-[#117F21]/50 motion-reduce:animate-none" />
+                          <span className="relative h-2 w-2 rounded-full bg-[#117F21]" />
                         </span>
                         {t(p.eyebrow)}
                       </span>
@@ -260,10 +263,10 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                         {t(p.title)}
                       </p>
                     )}
-                    <h2 id="promo-title" className="text-[1.75rem] font-bold leading-[1.15] tracking-tight text-[#14261A] sm:text-[2.1rem]">
+                    <h2 id="promo-title" className="text-[1.75rem] font-bold leading-[1.15] tracking-tight text-[#0A2E10] sm:text-[2rem]">
                       {t(p.title)}
                     </h2>
-                    <p className="text-lg leading-relaxed text-gray-700">{t(p.text)}</p>
+                    <p className="text-base leading-relaxed text-gray-600 sm:text-lg">{t(p.text)}</p>
                     <div className="mt-2 flex flex-wrap items-center gap-3">
                       <button
                         type="button"
@@ -273,17 +276,17 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                           go(p.cta, navigate);
                         }}
                         className={cn(
-                          "group inline-flex min-h-14 items-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-bold text-[#1A1206] transition hover:bg-[#FFE08F]",
+                          "group inline-flex min-h-12 items-center gap-2 rounded-xl bg-[#CB9615] px-6 text-base font-semibold text-[#1A1206] shadow-[0_14px_30px_-16px_rgba(203,150,21,0.9)] transition hover:bg-[#E0AA22]",
                           focus,
                         )}
                       >
                         {t(p.cta.label)}
-                        <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                        <ArrowRight className="h-5 w-5" aria-hidden="true" />
                       </button>
                       <button
                         type="button"
                         onClick={close}
-                        className={cn("inline-flex min-h-14 items-center rounded-2xl border-2 border-[#117F21] px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white", focus)}
+                        className={cn("inline-flex min-h-12 items-center rounded-xl border border-[#117F21]/25 bg-white px-6 text-base font-semibold text-[#117F21] transition hover:border-[#117F21] hover:bg-[#F7FAF6]", focus)}
                       >
                         {t("Maybe later")}
                       </button>
@@ -294,7 +297,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
             </div>
 
             {many && (
-              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-black/10 bg-white px-4 py-3 sm:px-9">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-gray-200 bg-[#F4F7F2] px-4 py-3 sm:px-9">
                 <div className="flex items-center" role="group" aria-label={t("Choose a banner")}>
                   {items.map((it, i) => (
                     <button
@@ -308,7 +311,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                       <span
                         className={cn(
                           "block h-2.5 rounded-full transition-all duration-300",
-                          i === index ? "w-9 bg-[#117F21]" : "w-3 bg-[#B9C4BC] hover:bg-[#7E9585]",
+                          i === index ? "w-9 bg-gradient-to-r from-[#117F21] to-[#CB9615]" : "w-3 bg-[#B9C4BC] hover:bg-[#7E9585]",
                         )}
                       />
                     </button>
@@ -320,7 +323,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                     type="button"
                     onClick={() => paginate(-1)}
                     aria-label={t("Previous banner")}
-                    className={cn("inline-flex min-h-11 items-center gap-1 rounded-full pl-2 pr-4 text-base font-semibold text-[#14261A] ring-1 ring-[#117F21]/30 transition hover:bg-[#0A4A13] hover:text-white", focus)}
+                    className={cn("inline-flex min-h-11 items-center gap-1 rounded-xl border border-[#117F21]/25 bg-white pl-2 pr-4 text-base font-semibold text-[#117F21] transition hover:border-[#117F21]", focus)}
                   >
                     <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                     {t("Previous")}
@@ -329,7 +332,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                     type="button"
                     onClick={() => paginate(1)}
                     aria-label={t("Next banner")}
-                    className={cn("inline-flex min-h-11 items-center gap-1 rounded-full bg-[#0A4A13] pl-4 pr-2 text-base font-semibold text-white transition hover:bg-[#117F21]", focus)}
+                    className={cn("inline-flex min-h-11 items-center gap-1 rounded-xl bg-[#04240A] pl-4 pr-2 text-base font-semibold text-white transition hover:bg-[#0A4A13]", focus)}
                   >
                     {t("Next")}
                     <ChevronRight className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" />

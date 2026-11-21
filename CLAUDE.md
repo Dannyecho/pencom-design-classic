@@ -42,9 +42,9 @@ gold hover `#E0AA22`, gold text on light `#7A5200`, panel `#F4F7F2`, row hover `
 
 ## Status
 
-**In progress** (started 21 November 2026). CL0–CL2 done: the classic homepage and the classic kit are in place; inner
-pages still have calm layouts drawn with the classic kit (dark banners, tab strip). The chrome is converted in CL3, pages
-in CL5a–CL16. Progress: `SESSIONS.md`.
+**In progress** (started 21 November 2026). CL0–CL3 done: the classic homepage, kit and site chrome are in place; inner
+pages still have calm layouts drawn with the classic kit (dark banners, tab strip); pages are
+converted in CL5a–CL16. Progress: `SESSIONS.md`.
 
 ## Run
 

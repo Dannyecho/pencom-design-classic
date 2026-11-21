@@ -141,10 +141,10 @@ export default function Chatbot() {
             exit={{ y: reduce ? 0 : 16, opacity: 0 }}
             id="chat-trigger"
             onClick={() => setOpen(true)}
-            className="fixed bottom-6 right-4 z-50 flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#0A4A13] px-4 text-white shadow-[0_16px_36px_-14px_rgba(10,74,19,0.9)] ring-2 ring-white transition hover:bg-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D] sm:right-6 sm:pr-5 print:hidden"
+            className="fixed bottom-6 right-4 z-50 flex h-14 min-w-14 items-center justify-center gap-2 rounded-2xl bg-[#CB9615] px-4 text-[#1A1206] shadow-[0_16px_36px_-14px_rgba(203,150,21,0.95)] ring-2 ring-white transition hover:bg-[#E0AA22] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D] sm:right-6 sm:pr-5 print:hidden"
             aria-label="Open AI Chat Assistant"
           >
-            <MessageCircle className="h-6 w-6 text-[#F4D27A]" aria-hidden="true" />
+            <MessageCircle className="h-6 w-6" aria-hidden="true" />
             <span className="hidden text-base font-semibold sm:inline" aria-hidden="true">Ask PenCom</span>
           </motion.button>
         )}
@@ -160,18 +160,19 @@ export default function Chatbot() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduce ? 0 : 24 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-4 right-4 z-50 flex h-[600px] max-h-[calc(100svh-6.5rem)] w-[420px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-3xl bg-white text-[#14261A] shadow-[0_30px_70px_-20px_rgba(10,74,19,0.55)] ring-1 ring-black/10 sm:bottom-6 sm:right-6"
+            className="fixed bottom-4 right-4 z-50 flex h-[600px] max-h-[calc(100svh-6.5rem)] w-[420px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-3xl border border-gray-200/80 bg-white text-[#0A2E10] shadow-[0_30px_70px_-20px_rgba(10,74,19,0.55)] sm:bottom-6 sm:right-6"
           >
             {/* Header */}
-            <div className="flex shrink-0 items-center justify-between gap-3 border-b border-black/10 bg-[#FBF8F1] px-4 py-3">
+            <div className="relative isolate flex shrink-0 items-center justify-between gap-3 overflow-hidden bg-gradient-to-br from-[#04240A] via-[#0A4A13] to-[#117F21] px-4 py-3 text-white">
+              <span aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 -z-10 h-32 w-32 rounded-full bg-[#CB9615]/25 blur-2xl" />
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0A4A13]">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15">
                   <Bot className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" />
                 </div>
                 <div>
                   <div className="text-lg font-bold leading-tight">PenCom AI Assistant</div>
-                  <div className="flex items-center gap-1 text-sm text-gray-700">
-                    <Sparkles className="h-3.5 w-3.5 text-[#7A5200]" aria-hidden="true" />
+                  <div className="flex items-center gap-1 text-sm text-white/80">
+                    <Sparkles className="h-3.5 w-3.5 text-[#F4D27A]" aria-hidden="true" />
                     AI-Powered
                   </div>
                 </div>
@@ -182,7 +183,7 @@ export default function Chatbot() {
                   setOpen(false);
                   window.setTimeout(() => document.getElementById("chat-trigger")?.focus(), 50);
                 }}
-                className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-base font-semibold text-[#14261A] ring-1 ring-black/15 transition hover:bg-[#0A4A13] hover:text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-white/20 px-3 text-base font-semibold text-white transition hover:border-[#F4D27A] hover:text-[#F4D27A] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
                 aria-label="Close chat"
               >
                 <X className="h-5 w-5" aria-hidden="true" />
@@ -202,34 +203,34 @@ export default function Chatbot() {
                   <div
                     className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${
                       msg.role === "assistant"
-                        ? "bg-[#0A4A13]"
-                        : "bg-[#F1EFE8]"
+                        ? "bg-[#04240A]"
+                        : "bg-[#E8F5E9]"
                     }`}
                   >
                     {msg.role === "assistant" ? (
                       <Bot className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" />
                     ) : (
-                      <User className="h-4 w-4 text-gray-700" aria-hidden="true" />
+                      <User className="h-4 w-4 text-[#117F21]" aria-hidden="true" />
                     )}
                   </div>
                   <div
                     className={`max-w-[82%] rounded-2xl px-4 py-3 text-base leading-relaxed ${
                       msg.role === "assistant"
-                        ? "rounded-tl-md bg-[#FBF8F1] text-[#14261A] ring-1 ring-black/10"
-                        : "rounded-tr-md bg-[#0A4A13] text-white"
+                        ? "rounded-tl-md border border-gray-200/80 bg-[#F4F7F2] text-[#0A2E10]"
+                        : "rounded-tr-md bg-[#117F21] text-white"
                     }`}
                   >
                     <p>{msg.content}</p>
                     {msg.source && msg.role === "assistant" && (
-                      <div className="mt-2 border-t border-black/10 pt-2">
+                      <div className="mt-2 border-t border-gray-200 pt-2">
                         <span className="text-sm text-gray-600">
                           Source: {msg.source}
                         </span>
                         <div className="mt-1 flex items-center gap-1">
-                          <button type="button" className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-[#E8F5E9] hover:text-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]" aria-label="Helpful">
+                          <button type="button" className="flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-[#E8F5E9] hover:text-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]" aria-label="Helpful">
                             <ThumbsUp className="h-4 w-4" aria-hidden="true" />
                           </button>
-                          <button type="button" className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-[#FCEBEB] hover:text-[#A32D2D] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]" aria-label="Not helpful">
+                          <button type="button" className="flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-[#FCEBEB] hover:text-[#A32D2D] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]" aria-label="Not helpful">
                             <ThumbsDown className="h-4 w-4" aria-hidden="true" />
                           </button>
                         </div>
@@ -245,10 +246,10 @@ export default function Chatbot() {
                   animate={{ opacity: 1 }}
                   className="flex gap-2.5"
                 >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#0A4A13]">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#04240A]">
                     <Bot className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" />
                   </div>
-                  <div className="rounded-2xl rounded-tl-md bg-[#FBF8F1] px-4 py-3 ring-1 ring-black/10">
+                  <div className="rounded-2xl rounded-tl-md border border-gray-200/80 bg-[#F4F7F2] px-4 py-3">
                     <Loader2 className="w-4 h-4 text-[#117F21] animate-spin" />
                   </div>
                 </motion.div>
@@ -261,17 +262,17 @@ export default function Chatbot() {
                   animate={{ opacity: 1 }}
                   className="pt-2"
                 >
-                  <p className="mb-2 text-base font-semibold text-[#14261A]">Suggested questions:</p>
-                  <div className="flex flex-col gap-2">
+                  <p className="mb-2 text-base font-semibold text-[#0A2E10]">Suggested questions:</p>
+                  <div className="flex flex-col divide-y divide-gray-100 overflow-hidden rounded-2xl border border-gray-200/80">
                     {suggestedPrompts.map((prompt) => (
                       <button
                         key={prompt}
                         type="button"
                         onClick={() => handleSend(prompt)}
-                        className="group flex min-h-11 items-center justify-between gap-2 rounded-2xl bg-white px-4 py-2 text-left text-base text-[#14261A] ring-1 ring-[#117F21]/30 transition-colors hover:bg-[#0A4A13] hover:text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+                        className="group flex min-h-11 items-center justify-between gap-2 bg-white px-4 py-2 text-left text-[15px] text-[#0A2E10] transition-colors hover:bg-[#F7FAF6] hover:text-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]"
                       >
                         {prompt}
-                        <ChevronRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                        <ChevronRight className="h-4 w-4 shrink-0 text-[#117F21]" aria-hidden="true" />
                       </button>
                     ))}
                   </div>
@@ -282,7 +283,7 @@ export default function Chatbot() {
             </div>
 
             {/* Input */}
-            <div className="shrink-0 border-t border-black/10 p-3">
+            <div className="shrink-0 border-t border-gray-200 bg-[#F4F7F2] p-3">
               <div className="flex items-center gap-2">
                 <input
                   ref={inputRef}
@@ -292,14 +293,14 @@ export default function Chatbot() {
                   onKeyDown={handleKeyDown}
                   placeholder="Ask about pension services..."
                   aria-label="Ask about pension services..."
-                  className="min-h-12 min-w-0 flex-1 rounded-2xl bg-white px-4 text-base ring-1 ring-black/15 placeholder:text-gray-500 focus:outline-none focus:ring-[3px] focus:ring-[#FFD84D]"
+                  className="min-h-12 min-w-0 flex-1 rounded-xl border border-gray-300 bg-white px-4 text-base placeholder:text-gray-500 focus:border-[#117F21] focus:outline-none focus:ring-[3px] focus:ring-[#FFD84D]"
                   disabled={typing}
                 />
                 <button
                   onClick={() => handleSend()}
                   disabled={!input.trim() || typing}
                   type="button"
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F4D27A] text-[#1A1206] transition-colors hover:bg-[#FFE08F] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#CB9615] text-[#1A1206] transition-colors hover:bg-[#E0AA22] disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]"
                   aria-label="Send message"
                 >
                   <Send className="h-5 w-5" aria-hidden="true" />

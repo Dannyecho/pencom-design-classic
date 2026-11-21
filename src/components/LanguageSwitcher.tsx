@@ -68,8 +68,8 @@ export default function LanguageSwitcher() {
         aria-label={`${t("Language")}: ${info.native}`}
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "group flex h-6 items-center gap-1.5 rounded-full border px-2.5 text-[13px] font-semibold transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]",
-          open ? "border-[#F4D27A] bg-white text-[#0A4A13]" : "border-white/25 text-white hover:border-[#F4D27A] hover:bg-white/10",
+          "group flex h-6 items-center gap-1.5 rounded-md border px-2.5 text-[13px] font-semibold transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]",
+          open ? "border-[#F4D27A] bg-white text-[#0A4A13]" : "border-white/20 text-white hover:border-[#F4D27A] hover:bg-white/10",
         )}
       >
         <Globe className={cn("h-3.5 w-3.5 transition-transform duration-500", open && !reduce && "rotate-[360deg]")} aria-hidden="true" />
@@ -90,13 +90,13 @@ export default function LanguageSwitcher() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: reduce ? 0 : -6, scale: reduce ? 1 : 0.97 }}
             transition={{ duration: 0.18 }}
-            className="absolute right-0 top-full z-[70] mt-2 w-[min(21rem,calc(100vw-2rem))] origin-top-right overflow-hidden rounded-3xl bg-white text-[#14261A] shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)] ring-1 ring-black/10"
+            className="absolute right-0 top-full z-[70] mt-2 w-[min(21rem,calc(100vw-2rem))] origin-top-right overflow-hidden rounded-3xl border border-gray-200/80 bg-white text-[#0A2E10] shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)]"
           >
-            <div className="border-b border-black/10 bg-[#FBF8F1] px-5 py-3.5">
+            <div className="bg-[#04240A] px-5 py-3.5 text-white">
               <p className="text-lg font-bold">{t("Choose a language")}</p>
-              <p className="mt-0.5 text-sm text-gray-700">{t("Translations are drafts being checked by PenCom.")}</p>
+              <p className="mt-0.5 text-sm text-white/80">{t("Translations are drafts being checked by PenCom.")}</p>
             </div>
-            <div className="p-1.5">
+            <div className="divide-y divide-gray-100">
               {LANGS.map((l, i) => {
                 const on = l.code === lang;
                 return (
@@ -111,21 +111,21 @@ export default function LanguageSwitcher() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: reduce ? 0 : 0.03 * i }}
                     className={cn(
-                      "flex min-h-14 w-full items-center gap-3 rounded-2xl px-3 py-2 text-left transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]",
-                      on ? "bg-[#E8F5E9]" : "hover:bg-[#F1EFE8]",
+                      "flex min-h-14 w-full items-center gap-3 px-4 py-2 text-left transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]",
+                      on ? "bg-[#E8F5E9]" : "hover:bg-[#F7FAF6]",
                     )}
                   >
                     <span
                       aria-hidden="true"
                       className={cn(
-                        "flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl text-xs font-bold tracking-wider",
-                        on ? "bg-[#0A4A13] text-[#F4D27A]" : "bg-[#F1EFE8] text-gray-700",
+                        "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-xs font-bold tracking-wider",
+                        on ? "bg-[#04240A] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#0A4A13]",
                       )}
                     >
                       {l.short}
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block text-lg font-bold leading-tight text-[#14261A]">{l.native}</span>
+                      <span className="block text-base font-bold leading-tight text-[#0A2E10]">{l.native}</span>
                       <span className="block truncate text-sm italic text-gray-600">“{l.hello}”</span>
                     </span>
                     {l.code !== "en" && <span lang={lang} className="rounded-full bg-[#FFF4D6] px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-[#7A5200]">{t("Draft")}</span>}
@@ -134,7 +134,7 @@ export default function LanguageSwitcher() {
                 );
               })}
             </div>
-            <p className="flex items-start gap-2 border-t border-black/10 bg-[#FBF8F1] px-5 py-3 text-sm leading-snug text-gray-700">
+            <p className="flex items-start gap-2 border-t border-gray-200 bg-[#F4F7F2] px-5 py-3 text-sm leading-snug text-gray-700">
               <Scale className="mt-0.5 h-4 w-4 shrink-0 text-[#7A5200]" aria-hidden="true" />
               {t("Laws and regulations are kept in their official English version.")}
             </p>

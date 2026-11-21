@@ -10,9 +10,9 @@ type ConsentState = "undecided" | "accepted" | "declined";
 type Prefs = { necessary: boolean; analytics: boolean; personalization: boolean; advertising: boolean };
 
 const focus = "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]";
-const gold = cn("inline-flex min-h-14 items-center justify-center rounded-2xl bg-[#F4D27A] px-6 text-lg font-bold text-[#1A1206] transition hover:bg-[#FFE08F]", focus);
-const outline = cn("inline-flex min-h-14 items-center justify-center rounded-2xl border-2 border-[#117F21] px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white", focus);
-const quiet = cn("inline-flex min-h-14 items-center justify-center gap-2 whitespace-nowrap rounded-2xl px-5 text-lg font-semibold text-[#14261A] ring-1 ring-black/15 transition hover:bg-[#F1EFE8]", focus);
+const gold = cn("inline-flex min-h-12 items-center justify-center rounded-xl bg-[#CB9615] px-6 text-base font-semibold text-[#1A1206] shadow-[0_14px_30px_-16px_rgba(203,150,21,0.9)] transition hover:bg-[#E0AA22]", focus);
+const outline = cn("inline-flex min-h-12 items-center justify-center rounded-xl border border-[#117F21]/25 bg-white px-6 text-base font-semibold text-[#117F21] transition hover:border-[#117F21] hover:bg-[#F7FAF6]", focus);
+const quiet = cn("inline-flex min-h-12 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-5 text-base font-semibold text-gray-700 transition hover:bg-[#F4F7F2] hover:text-[#0A2E10]", focus);
 
 const options: { key: Exclude<keyof Prefs, "necessary">; label: string; note: string }[] = [
   { key: "analytics", label: "Analytics", note: "Help us understand how you use our website" },
@@ -35,7 +35,7 @@ function Switch({ on, label, onToggle }: { on: boolean; label?: string; onToggle
   );
 }
 
-/** Cookie choice in the calm look: a white rounded card floating at the bottom, large labelled buttons. */
+/** Cookie choice in the classic look: a white rounded-3xl card with a gold hairline floating at the bottom; gold and outline buttons. */
 export default function CookieConsent() {
   const reduce = useReducedMotion();
   const [visible, setVisible] = useState(false);
@@ -108,10 +108,11 @@ export default function CookieConsent() {
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-x-0 bottom-0 z-[100] p-3 sm:p-5 print:hidden"
         >
-          <div className="mx-auto max-h-[calc(100svh-7rem)] max-w-5xl overflow-y-auto rounded-3xl bg-white p-5 text-[#14261A] shadow-[0_30px_70px_-20px_rgba(10,74,19,0.55)] ring-1 ring-black/10 sm:p-7">
+          <div className="relative mx-auto max-h-[calc(100svh-7rem)] max-w-5xl overflow-y-auto rounded-3xl border border-gray-200/80 bg-white p-5 text-[#0A2E10] shadow-[0_30px_70px_-20px_rgba(10,74,19,0.55)] sm:p-7">
+            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#117F21] via-[#CB9615] to-[#117F21]" />
             <div className="flex items-start justify-between gap-3">
               <h3 id="cookie-title" className="flex items-center gap-3 text-xl font-bold">
-                <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A]">
+                <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#04240A] text-[#F4D27A]">
                   {showManage ? <Settings className="h-5 w-5" /> : <Cookie className="h-5 w-5" />}
                 </span>
                 {showManage ? "Manage Cookies" : "Cookies"}
@@ -120,7 +121,7 @@ export default function CookieConsent() {
                 type="button"
                 onClick={showManage ? () => setShowManage(false) : handleClose}
                 aria-label={showManage ? "Back" : "Close cookie consent"}
-                className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-gray-600 ring-1 ring-black/10 transition hover:bg-[#F1EFE8] hover:text-[#14261A]", focus)}
+                className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gray-200 text-gray-600 transition hover:bg-[#F7FAF6] hover:text-[#0A2E10]", focus)}
               >
                 <X className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -129,7 +130,7 @@ export default function CookieConsent() {
             {!showManage ? (
               <div className="mt-3 flex flex-col gap-5 lg:flex-row lg:items-end lg:gap-8">
                 <div className="min-w-0 flex-1">
-                  <p className="text-lg leading-relaxed text-gray-700">
+                  <p className="text-base leading-relaxed text-gray-600">
                     At PenCom we use cookies to ensure that our website works
                     properly. We can also use cookies to improve and
                     personalise your experience, understand how you use our
@@ -143,7 +144,7 @@ export default function CookieConsent() {
                     <span className="font-semibold">&apos;Decline all&apos;</span>{" "}
                     cookies.
                   </p>
-                  <p className="mt-2 text-lg">
+                  <p className="mt-2 text-base">
                     <Link to="/regulations#policies" className={cn("rounded font-semibold text-[#0A4A13] underline underline-offset-4 hover:text-[#117F21]", focus)}>
                       See our Privacy & Cookie Policy
                     </Link>
@@ -160,19 +161,19 @@ export default function CookieConsent() {
               </div>
             ) : (
               <div className="mt-4">
-                <ul className="space-y-2.5">
-                  <li className="flex items-center justify-between gap-4 rounded-2xl bg-[#FBF8F1] p-4 ring-1 ring-black/10">
+                <ul className="overflow-hidden rounded-3xl border border-gray-200/80 divide-y divide-gray-100">
+                  <li className="flex items-center justify-between gap-4 bg-[#F7FAF6] px-5 py-4">
                     <div>
-                      <p className="text-lg font-semibold">Necessary</p>
-                      <p className="text-base text-gray-700">Required for the website to function</p>
+                      <p className="text-base font-semibold">Necessary</p>
+                      <p className="text-sm text-gray-600">Required for the website to function</p>
                     </div>
                     <Switch on />
                   </li>
                   {options.map((o) => (
-                    <li key={o.key} className="flex items-center justify-between gap-4 rounded-2xl bg-[#FBF8F1] p-4 ring-1 ring-black/10">
+                    <li key={o.key} className="flex items-center justify-between gap-4 bg-white px-5 py-4 transition hover:bg-[#F7FAF6]">
                       <div>
-                        <p className="text-lg font-semibold">{o.label}</p>
-                        <p className="text-base text-gray-700">{o.note}</p>
+                        <p className="text-base font-semibold">{o.label}</p>
+                        <p className="text-sm text-gray-600">{o.note}</p>
                       </div>
                       <Switch on={preferences[o.key]} label={o.label} onToggle={() => setPreferences((p) => ({ ...p, [o.key]: !p[o.key] }))} />
                     </li>

@@ -15,11 +15,14 @@ import { cn } from "@/lib/utils";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import NoticesBell from "@/components/NoticesBell";
 import SiteSearch from "@/views/home/SiteSearch";
+import ReportGovBadge from "@/components/ReportGovBadge";
 
 /**
- * Site header in the calm look. Total height stays 92 px (28 px utility bar + 64 px nav), because pages
- * offset sticky bars by that amount. Dark-green utility bar; white nav with larger menu words, labelled
- * "Search" and "Menu" buttons, white rounded-3xl mega menus (open on hover or keyboard focus, Escape closes).
+ * Site header in the classic "national portal" look. Total height stays 92 px (28 px top bar + 64 px nav),
+ * because pages offset sticky bars by that amount. Dark #04240A top bar (offices, phone, reportgov.ng,
+ * language); white nav that gains a shadow on scroll, a sliding green pill under the active item, labelled
+ * "Search" and "Menu" buttons. Mega menus are white rounded-3xl panels with list-panel rows and a dark
+ * featured card for the section's overview page (open on hover or keyboard focus, Escape closes).
  * The search panel uses the site typeahead (SiteSearch).
  */
 
@@ -116,7 +119,7 @@ export default function Header() {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 print:hidden">
       {/* Utility bar (28 px) */}
-      <div className="bg-[#0A4A13] text-[13px] text-white">
+      <div className="bg-[#04240A] text-[13px] text-white">
         <div className="mx-auto flex h-7 max-w-7xl items-center justify-between px-4">
           <div className="flex items-center gap-4 whitespace-nowrap">
             <span className="text-white/85">Federal Republic of Nigeria</span>
@@ -126,6 +129,7 @@ export default function Header() {
             </Link>
           </div>
           <div className="flex items-center gap-4">
+            <span className="hidden md:inline-flex"><ReportGovBadge compact /></span>
             <Link to="/connect#contact" className={cn("flex items-center gap-1.5 whitespace-nowrap rounded text-white/85 transition hover:text-[#F4D27A]", focus)}>
               <Phone className="h-3.5 w-3.5 text-[#F4D27A]" aria-hidden="true" />
               <span className="hidden sm:inline">09-4611300</span>
@@ -141,15 +145,15 @@ export default function Header() {
         aria-label="Main"
         className={cn(
           "bg-white transition-shadow duration-300",
-          scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.08),0_14px_30px_-24px_rgba(10,74,19,0.55)]" : "shadow-none",
+          scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.06),0_18px_36px_-24px_rgba(10,74,19,0.5)]" : "shadow-[0_1px_0_rgba(0,0,0,0.06)]",
         )}
       >
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="relative mx-auto max-w-7xl px-4">
           <div className="flex h-16 items-center justify-between gap-3">
             <Link to="/" className={cn("flex shrink-0 items-center gap-3 rounded-xl", focus)} aria-label="PenCom Home">
               <img src="/pencom-logo.png" alt="PenCom Logo" className="h-11 w-auto object-contain" />
               <span className="hidden sm:block lg:hidden xl:block">
-                <span className="block text-lg font-bold leading-tight text-[#14261A]">PenCom</span>
+                <span className="block text-lg font-bold leading-tight text-[#0A2E10]">PenCom</span>
                 <span className="block text-[13px] leading-tight text-gray-600">National Pension Commission</span>
               </span>
             </Link>
@@ -164,7 +168,7 @@ export default function Header() {
                 return (
                   <li
                     key={item.label}
-                    className="relative"
+                    className={cn(cols > 1 ? "static" : "relative")}
                     onMouseEnter={() => mega && setActiveMega(item.label)}
                     onMouseLeave={() => setActiveMega(null)}
                     onFocus={() => mega && setActiveMega(item.label)}
@@ -175,14 +179,22 @@ export default function Header() {
                       aria-current={location.pathname === item.href ? "page" : undefined}
                       aria-expanded={mega ? openNow : undefined}
                       className={cn(
-                        "relative flex min-h-11 items-center gap-1 whitespace-nowrap rounded-full px-2.5 text-[15px] font-semibold transition-colors xl:px-3 xl:text-base",
-                        on ? "bg-[#E8F5E9] text-[#0A4A13]" : "text-[#14261A] hover:bg-[#F1EFE8] hover:text-[#0A4A13]",
+                        "relative isolate flex min-h-11 items-center gap-1 whitespace-nowrap rounded-xl px-2.5 text-[15px] font-semibold transition-colors xl:px-3",
+                        on ? "text-[#0A4A13]" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]",
                         focus,
                       )}
                     >
+                      {on && (
+                        <motion.span
+                          layoutId="nav-active"
+                          aria-hidden="true"
+                          transition={{ type: "spring", stiffness: 380, damping: 34 }}
+                          className="absolute inset-0 -z-10 rounded-xl bg-[#E8F5E9]"
+                        />
+                      )}
                       {item.label}
                       {mega && <ChevronDown className={cn("h-4 w-4 transition-transform", openNow && "rotate-180")} aria-hidden="true" />}
-                      {on && <span aria-hidden="true" className="absolute inset-x-4 -bottom-[3px] h-[3px] rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />}
+                      {on && <span aria-hidden="true" className="absolute inset-x-3 -bottom-[10px] h-[3px] rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />}
                     </Link>
 
                     <AnimatePresence>
@@ -192,24 +204,52 @@ export default function Header() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: reduce ? 0 : 6 }}
                           transition={{ duration: 0.2 }}
-                          className={cn("absolute top-full pt-3", cols === 1 ? "left-0" : "left-1/2 -translate-x-1/2")}
+                          className={cn("absolute top-full z-10 pt-3", cols === 1 ? "left-0" : "inset-x-4")}
                         >
                           <div
                             className={cn(
-                              "rounded-3xl bg-white shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)] ring-1 ring-black/10",
-                              cols === 1 ? "w-[22rem] p-3" : "min-w-[680px] p-6",
+                              "relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)]",
+                              cols === 1 ? "w-[22rem] p-3" : "flex gap-5 p-5",
                             )}
                           >
-                            <div className="grid gap-6" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
+                            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#117F21] via-[#CB9615] to-[#117F21]" />
+                            {cols > 1 && (
+                              <Link
+                                to={item.href}
+                                className={cn("group/feat relative isolate flex w-56 shrink-0 flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br from-[#04240A] via-[#0A4A13] to-[#117F21] p-5 text-white", focus)}
+                              >
+                                <span
+                                  aria-hidden="true"
+                                  className="pointer-events-none absolute inset-0 -z-10"
+                                  style={{
+                                    backgroundImage: "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
+                                    backgroundSize: "32px 32px",
+                                  }}
+                                />
+                                <span aria-hidden="true" className="pointer-events-none absolute -bottom-16 -right-16 -z-10 h-40 w-40 rounded-full bg-[#CB9615]/25 blur-3xl" />
+                                <span>
+                                  <span aria-hidden="true" className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-[#F4D27A] ring-1 ring-white/15 transition duration-300 group-hover/feat:rotate-6">
+                                    {iconMap[item.icon] || <Shield className="h-5 w-5" />}
+                                  </span>
+                                  <span className="mt-4 block text-xl font-bold leading-tight">{item.label}</span>
+                                  <span className="mt-1.5 block text-sm leading-snug text-white/80">{item.description}</span>
+                                </span>
+                                <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[#F4D27A]">
+                                  Overview
+                                  <ChevronRight className="h-4 w-4 transition-transform duration-200 group-hover/feat:translate-y-[-1px]" aria-hidden="true" />
+                                </span>
+                              </Link>
+                            )}
+                            <div className="grid flex-1 gap-5" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
                               {mega.columns.map((col) => (
                                 <div key={col.title}>
                                   {cols > 1 && (
-                                    <p className="mb-2 flex items-center gap-2 px-3 text-[13px] font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
-                                      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#CB9615]" />
+                                    <p className="mb-2 flex items-center gap-2 px-1 text-xs font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
+                                      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#117F21]" />
                                       {col.title}
                                     </p>
                                   )}
-                                  <ul className="space-y-0.5">
+                                  <ul className={cn(cols > 1 ? "overflow-hidden rounded-2xl border border-gray-200/80 divide-y divide-gray-100" : "space-y-0.5")}>
                                     {(col.links as NavLinkItem[]).map((link) => {
                                       const here = location.pathname === link.href;
                                       return (
@@ -219,16 +259,16 @@ export default function Header() {
                                             plain={link.plain}
                                             aria-current={here ? "page" : undefined}
                                             className={cn(
-                                              "group flex min-h-11 items-center gap-2 rounded-2xl px-3 py-2 text-base transition-colors",
-                                              here ? "bg-[#E8F5E9] font-semibold text-[#0A4A13]" : "text-[#14261A] hover:bg-[#F1EFE8] hover:text-[#0A4A13]",
-                                              focus,
+                                              "group flex min-h-11 items-center gap-2 px-3 py-2 text-[15px] transition-colors",
+                                              cols > 1 ? "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]" : cn("rounded-xl", focus),
+                                              here ? "bg-[#E8F5E9] font-semibold text-[#0A4A13]" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]",
                                             )}
                                           >
                                             <span className="min-w-0 flex-1">
                                               <span className={link.note ? "font-semibold" : undefined}>{link.label}</span>
                                               {link.note && <span className="mt-0.5 block text-sm font-normal leading-snug text-gray-600">{link.note}</span>}
                                             </span>
-                                            <ChevronRight className="h-4 w-4 shrink-0 text-[#117F21] opacity-0 transition duration-200 group-hover:translate-x-1 group-hover:opacity-100" aria-hidden="true" />
+                                            <ChevronRight className="h-4 w-4 shrink-0 text-[#117F21] opacity-0 transition duration-200 group-hover:opacity-100" aria-hidden="true" />
                                           </NavLink>
                                         </li>
                                       );
@@ -257,8 +297,8 @@ export default function Header() {
                 aria-controls="header-search"
                 aria-label={searchOpen ? "Close search" : undefined}
                 className={cn(
-                  "inline-flex min-h-11 min-w-11 items-center justify-center gap-2 whitespace-nowrap rounded-full px-2.5 text-base font-semibold transition-colors sm:px-4",
-                  searchOpen ? "bg-[#0A4A13] text-[#F4D27A]" : "text-[#14261A] ring-1 ring-[#117F21]/30 hover:bg-[#0A4A13] hover:text-white",
+                  "inline-flex min-h-11 min-w-11 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-2.5 text-[15px] font-semibold transition-colors sm:px-3.5",
+                  searchOpen ? "bg-[#04240A] text-[#F4D27A]" : "border border-[#117F21]/25 text-[#117F21] hover:border-[#117F21] hover:bg-[#F7FAF6]",
                   focus,
                 )}
               >
@@ -267,7 +307,7 @@ export default function Header() {
               </button>
               <Link
                 to="/services"
-                className={cn("hidden min-h-11 items-center gap-2 whitespace-nowrap rounded-full bg-[#F4D27A] px-4 text-base font-bold text-[#1A1206] transition-colors hover:bg-[#FFE08F] xl:inline-flex", focus)}
+                className={cn("hidden min-h-11 items-center gap-2 whitespace-nowrap rounded-xl bg-[#CB9615] px-4 text-[15px] font-semibold text-[#1A1206] shadow-[0_14px_30px_-16px_rgba(203,150,21,0.9)] transition-colors hover:bg-[#E0AA22] xl:inline-flex", focus)}
               >
                 <Shield className="h-5 w-5" aria-hidden="true" />
                 e-Services
@@ -278,7 +318,7 @@ export default function Header() {
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-menu"
                 className={cn(
-                  "inline-flex min-h-11 items-center gap-2 rounded-full bg-[#0A4A13] px-4 text-base font-semibold text-white transition-colors hover:bg-[#117F21] lg:hidden",
+                  "inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#04240A] px-4 text-[15px] font-semibold text-white transition-colors hover:bg-[#0A4A13] lg:hidden",
                   focus,
                 )}
               >
@@ -301,10 +341,10 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduce ? 0 : -8 }}
             transition={{ duration: 0.2 }}
-            className="border-b border-black/10 bg-[#FBF8F1] shadow-[0_24px_40px_-30px_rgba(10,74,19,0.6)]"
+            className="border-b border-gray-200 bg-gradient-to-b from-white to-[#F4F7F2] shadow-[0_24px_40px_-30px_rgba(10,74,19,0.6)]"
           >
             <div ref={searchBox} className="mx-auto max-w-3xl px-4 py-5">
-              <p className="mb-3 text-lg font-bold text-[#14261A]">What are you looking for?</p>
+              <p className="mb-3 text-lg font-bold text-[#0A2E10]">What are you looking for?</p>
               <SiteSearch />
             </div>
           </motion.div>
@@ -320,29 +360,29 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: reduce ? 0 : 0.25 }}
-            className="max-h-[calc(100svh-92px)] overflow-y-auto border-t border-black/10 bg-[#FBF8F1] shadow-xl lg:hidden"
+            className="max-h-[calc(100svh-92px)] overflow-y-auto border-t border-gray-200 bg-[#F4F7F2] shadow-xl lg:hidden"
           >
             <ul className="space-y-2 px-4 py-4">
               {navItems.map((item) => {
                 const on = isActive(item);
                 return (
-                  <li key={item.label} className="rounded-3xl bg-white p-2 ring-1 ring-black/10">
+                  <li key={item.label} className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white">
                     <Link
                       to={item.href}
                       aria-current={location.pathname === item.href ? "page" : undefined}
                       className={cn(
-                        "flex min-h-12 items-center gap-3 rounded-2xl px-3 text-lg font-bold transition-colors",
-                        on ? "bg-[#E8F5E9] text-[#0A4A13]" : "text-[#14261A] hover:bg-[#F1EFE8]",
-                        focus,
+                        "flex min-h-14 items-center gap-3 px-4 text-base font-bold transition-colors",
+                        "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]",
+                        on ? "bg-[#E8F5E9] text-[#0A4A13]" : "text-[#0A2E10] hover:bg-[#F7FAF6]",
                       )}
                     >
-                      <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#0A4A13] text-[#F4D27A] [&_svg]:h-[18px] [&_svg]:w-[18px]">
+                      <span aria-hidden="true" className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-xl [&_svg]:h-[18px] [&_svg]:w-[18px]", on ? "bg-[#117F21] text-white" : "bg-[#E8F5E9] text-[#117F21]")}>
                         {iconMap[item.icon] || <Shield className="h-5 w-5" />}
                       </span>
                       {item.label}
                     </Link>
                     {item.megaMenu && (
-                      <ul className="mt-1 space-y-0.5 pl-12">
+                      <ul className="divide-y divide-gray-100 border-t border-gray-100">
                         {item.megaMenu.columns.map((col) =>
                           (col.links as NavLinkItem[]).slice(0, item.megaMenu!.columns.length === 1 ? undefined : 3).map((link) => (
                             <li key={link.label}>
@@ -351,9 +391,9 @@ export default function Header() {
                                 plain={link.plain}
                                 aria-current={location.pathname === link.href ? "page" : undefined}
                                 className={cn(
-                                  "flex min-h-11 items-center rounded-xl px-3 text-base",
-                                  location.pathname === link.href ? "font-semibold text-[#0A4A13]" : "text-gray-700 hover:bg-[#F1EFE8] hover:text-[#0A4A13]",
-                                  focus,
+                                  "flex min-h-11 items-center pl-16 pr-4 text-[15px]",
+                                  "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]",
+                                  location.pathname === link.href ? "font-semibold text-[#0A4A13]" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]",
                                 )}
                               >
                                 {link.label}
@@ -370,7 +410,7 @@ export default function Header() {
             <div className="px-4 pb-5">
               <Link
                 to="/services"
-                className={cn("flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-bold text-[#1A1206] hover:bg-[#FFE08F]", focus)}
+                className={cn("flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#CB9615] px-6 text-base font-semibold text-[#1A1206] shadow-[0_14px_30px_-16px_rgba(203,150,21,0.9)] hover:bg-[#E0AA22]", focus)}
               >
                 <Shield className="h-5 w-5" aria-hidden="true" />
                 Access e-Services
