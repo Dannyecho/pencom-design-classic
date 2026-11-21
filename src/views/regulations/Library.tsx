@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ease } from "@/views/about/primitives";
-import { IconTile, goldBtn } from "@/views/resources/Library";
+import { IconTile, goldBtn } from "@/views/legacy/calm";
 import { SectionHeading } from "@/views/theme/heading";
 import { focus, sectionCls } from "@/views/theme/ui";
 import { outlineBtn } from "./Sections";

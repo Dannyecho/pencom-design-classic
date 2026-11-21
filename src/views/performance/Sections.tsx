@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/views/theme/heading";
 import { DarkBackdrop, FramedPanel, PageHero, Rise, ease, focus, sectionCls } from "@/views/theme/ui";
-import { Bubble, IconTile, calmCard, goldBtn } from "@/views/resources/Library";
+import { Bubble, IconTile, calmCard, goldBtn } from "@/views/legacy/calm";
 import { AreaChart, Columns, DataPanel, DataTable, Donut, Ticker } from "./charts";
 import {
   allocColors, allocation, asAt, assets, contributions, download, fees, fundInfo, fundTypes, funds, headline, members, monthLabel,

@@ -6,7 +6,7 @@ import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { AlertTriangle, BarChart3, CheckCircle2, Download, Flag, Lightbulb, Quote, Target, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ease, reveal } from "@/views/about/primitives";
-import { pill } from "@/views/resources/Library";
+import { pill } from "@/views/legacy/calm";
 import { SectionHeading } from "@/views/theme/heading";
 import { ArrowChip, DocHero, DocTools, Loading, PdfCard, PrimaryBtn, ReadingBar, Toc, VerifyNote, ring, useDocJson } from "@/views/docs/kit";
 

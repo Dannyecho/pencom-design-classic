@@ -13,7 +13,7 @@ import { CountUp } from "@/views/about/primitives";
 import { social } from "@/views/connect/data";
 import { ArrowChip } from "@/views/docs/kit";
 import { outlineBtn } from "@/views/regulations/Sections";
-import { IconTile, calmCard, goldBtn } from "@/views/resources/Library";
+import { IconTile, calmCard, goldBtn } from "@/views/legacy/calm";
 import Headline from "@/views/theme/Headline";
 import { DarkBackdrop, PageHero, Rise, sectionCls } from "@/views/theme/ui";
 import { cardImage, galleries, kinds, totals, years, type Kind, type NewsItem } from "./data";

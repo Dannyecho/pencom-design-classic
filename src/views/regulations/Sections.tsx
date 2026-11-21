@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import { ease } from "@/views/about/primitives";
 import { ArrowChip } from "@/views/docs/kit";
-import { Bubble, IconTile, calmCard, goldBtn } from "@/views/resources/Library";
+import { Bubble, IconTile, calmCard, goldBtn } from "@/views/legacy/calm";
 import { SectionHeading } from "@/views/theme/heading";
 import { DarkBackdrop, Rise, focus, sectionCls } from "@/views/theme/ui";
 import { library } from "./library";

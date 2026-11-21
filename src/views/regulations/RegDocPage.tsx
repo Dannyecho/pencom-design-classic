@@ -11,7 +11,7 @@ import { library, type RegDoc } from "@/views/regulations/library";
 import { byId, fmtDate, statusStyle, typeStyle } from "@/views/regulations/search";
 import { webText } from "@/views/regulations/texts";
 import { ArrowChip, DocHero, DocTools, GhostBtn, Loading, Mark, PdfCard, PrimaryBtn, ReadingBar, Toc, VerifyNote, ring, sizes, useDocJson } from "@/views/docs/kit";
-import { Bubble, calmCard, goldBtn } from "@/views/resources/Library";
+import { Bubble, calmCard, goldBtn } from "@/views/legacy/calm";
 
 /**
  * Regulatory item (brief §7 "Regulatory item": reference, dates, status badge, superseded-by link, HTML text, signed PDF,

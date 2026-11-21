@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "@/lib/router";
 import { motion } from "framer-motion";
 import { ArrowLeftRight, ArrowRight, Calendar, Check, Download, FileText, Link2, Tag, Users } from "lucide-react";
-import { goldBtn } from "@/views/resources/Library";
+import { goldBtn } from "@/views/legacy/calm";
 import { Drawer, focus } from "@/views/theme/ui";
 import { outlineBtn } from "./Sections";
 import { cn } from "@/lib/utils";

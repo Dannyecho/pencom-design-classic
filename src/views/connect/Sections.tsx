@@ -9,7 +9,7 @@ import { newsPath } from "@/views/news/data";
 import { cn } from "@/lib/utils";
 import { DarkBackdrop, Rise, ease, focus, sectionCls } from "@/views/theme/ui";
 import { SectionHeading } from "@/views/theme/heading";
-import { Bubble, IconTile, calmCard, goldBtn, pill } from "@/views/resources/Library";
+import { Bubble, IconTile, calmCard, goldBtn, pill } from "@/views/legacy/calm";
 import { outlineBtn } from "@/views/regulations/Sections";
 import { abuja, allStates, headOffice, offices, social, topics } from "./data";
 import { loadCases } from "./CaseForm";

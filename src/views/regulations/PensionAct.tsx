@@ -7,7 +7,7 @@ import { BookOpen, Check, Download, ExternalLink, Gavel, Link2, Search, X } from
 import { cn } from "@/lib/utils";
 import { ease } from "@/views/about/primitives";
 import { ArrowChip, DocHero, DocTools, GhostBtn, Loading, Mark, PdfCard, PrimaryBtn, ReadingBar, Toc, VerifyNote, ring, sizes, useDocJson } from "@/views/docs/kit";
-import { Bubble, calmCard } from "@/views/resources/Library";
+import { Bubble, calmCard } from "@/views/legacy/calm";
 
 /**
  * Pension Reform Act 2014 as a web page (DES-22; brief §6.2 Regulations: "Pension Reform Act 2014 (full act, key provisions)").

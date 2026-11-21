@@ -7,7 +7,7 @@ import { ArrowRight, Check, ClipboardCheck, Clock, Download, FileText, FileType,
 import { Rise, sectionCls } from "@/views/theme/ui";
 import { cn } from "@/lib/utils";
 import { ease } from "@/views/about/primitives";
-import { Bubble, IconTile, calmCard, goldBtn, pill } from "@/views/resources/Library";
+import { Bubble, IconTile, calmCard, goldBtn, pill } from "@/views/legacy/calm";
 import { SectionHeading } from "@/views/theme/heading";
 import { forms } from "@/views/resources/publications";
 import { splitReq } from "@/views/charter/splitReq";

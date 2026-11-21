@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 import { Modal } from "@/views/theme/ui";
 
 /**
- * Adapters so the Resources sections keep their logic while taking the calm look:
- * SectionHeading renders the calm Headline (eyebrow pill, drawn underline on the highlight), and Dialog/DialogContent/
- * DialogTitle/DialogDescription render the theme's accessible Modal (cream bar, labelled Close).
+ * Adapters so the Resources sections keep their logic while taking the classic look:
+ * SectionHeading renders the classic Headline (eyebrow pill, drawn underline on the highlight), and Dialog/DialogContent/
+ * DialogTitle/DialogDescription render the theme's accessible Modal (dark bar, labelled Close).
  */
 
 export { SectionHeading } from "@/views/theme/heading";

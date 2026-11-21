@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import { scrollToId } from "@/views/about/primitives";
 import { openChat } from "@/views/home/SiteSearch";
-import { goldBtn } from "@/views/resources/Library";
+import { goldBtn } from "@/views/legacy/calm";
 import { FramedPanel, PageHero, SectionNav, ease, focus } from "@/views/theme/ui";
 import CaseForm from "./CaseForm";
 import { Newsroom, Offices, Tracker } from "./Sections";

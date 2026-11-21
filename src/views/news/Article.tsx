@@ -12,7 +12,7 @@ import { reveal } from "@/views/about/primitives";
 import { Crumbs, EyebrowPill, Rise, ease, focus, sectionCls } from "@/views/theme/ui";
 import { SectionHeading } from "@/views/theme/heading";
 import { darkCard } from "@/views/docs/kit";
-import { Bubble, IconTile, calmCard, goldBtn } from "@/views/resources/Library";
+import { Bubble, IconTile, calmCard, goldBtn } from "@/views/legacy/calm";
 import { KindChip } from "@/views/newsroom/parts";
 import { social } from "@/views/connect/data";
 import { findArticle, news, newsPath, type Article as A, type Block, type Category } from "./data";

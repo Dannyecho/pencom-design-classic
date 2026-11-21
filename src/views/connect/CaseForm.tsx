@@ -5,7 +5,7 @@ import { Link } from "@/lib/router";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { AlertCircle, ArrowLeft, ArrowRight, Building2, Check, CheckCircle2, Copy, Landmark, Lock, MessageSquareWarning, Paperclip, Send, ShieldCheck, X, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { goldBtn } from "@/views/resources/Library";
+import { goldBtn } from "@/views/legacy/calm";
 import { outlineBtn } from "@/views/regulations/Sections";
 import { ease, focus, sectionCls } from "@/views/theme/ui";
 import { SectionHeading } from "@/views/theme/heading";

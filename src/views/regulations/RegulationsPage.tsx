@@ -7,7 +7,7 @@ import { Link, useLocation, useSearchParams } from "@/lib/router";
 import { cn } from "@/lib/utils";
 import { CountUp, scrollToId } from "@/views/about/primitives";
 import { ArrowChip } from "@/views/docs/kit";
-import { IconTile, goldBtn } from "@/views/resources/Library";
+import { IconTile, goldBtn } from "@/views/legacy/calm";
 import { FramedPanel, PageHero, SectionNav, ease, focus } from "@/views/theme/ui";
 import DocDrawer from "./DocDrawer";
 import Library, { type Filters } from "./Library";
