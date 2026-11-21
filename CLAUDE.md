@@ -42,7 +42,7 @@ gold hover `#E0AA22`, gold text on light `#7A5200`, panel `#F4F7F2`, row hover `
 
 ## Status
 
-**In progress** (started 21 November 2026). CL0 done: an exact copy of calm on port 3015, so every page still has the
+**In progress** (started 21 November 2026). CL0–CL1 done: the classic homepage is in place; inner pages still have the
 calm look. The kit, homepage and chrome are converted in CL1–CL3; pages in CL5a–CL16. Until then, the sections below
 describe the calm code as copied (marked "calm" where it will change). Progress: `SESSIONS.md`.
 
@@ -62,13 +62,13 @@ Stack: Next.js 16 (App Router, Turbopack), React 19, Tailwind 3, framer-motion 1
 
 ```
 src/app/                 routes only: each page.tsx exports metadata and renders a view
-  page.tsx               home  → views/HomeCalm (→ HomeClassic in CL1)
+  page.tsx               home  → views/HomeClassic
   [...slug]/page.tsx     "being redesigned" placeholder for pages not built yet (sections map; now only mobile, admin)
   news/[slug], regulations/doc/[id]   generateStaticParams + generateMetadata (Next 16: params is a Promise)
   resources/chronicles   redirect("/chronicles")
 src/views/<page>/        everything for one page: <Name>Page.tsx (client), sections, data
 src/views/theme/         the theme's look, shared by every page: ui.tsx, Headline.tsx, heading.tsx
-src/views/homecalm/      the home page: Showcase (slider), Sections (welcome, tasks, retiree steps, notices, news, help); section titles come from theme/heading
+src/views/homeclassic/   the home page: HomeHero (slider + QuickFind), AudienceTasks, Figures (notices, figures band), Services (grid, portals), Stories (news, help, prototype links)
 src/views/docs/kit.tsx   document pages (Act, regulation docs, Q1 report, forms): DocHero, Toc, ReadingBar, PdfCard…
 src/views/about/primitives.tsx   scrollToId + sectionAliases (old anchors), CountUp, Spotlight, Tilt, reveal
 src/components/          site chrome: layout/Layout, Header, Footer, NoticesBell, PromoPopup, CookieConsent,

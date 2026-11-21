@@ -74,7 +74,7 @@ This should print nothing for files in scope; kit compat exports are expected in
 | ID | Page / route | Files in scope | Status |
 | --- | --- | --- | --- |
 | CL0 | Scaffold from calm | root files, `CLAUDE.md` | done (2026-11-21): copy of calm on port 3015 (dev + start), package `pencom-theme-classic`, classic `CLAUDE.md` + README; typecheck, build, 200s and 404s checked |
-| CL1 | Homepage `/` | `HomeClassic.tsx`, `homeclassic/*`, `src/app/page.tsx` | pending |
+| CL1 | Homepage `/` | `HomeClassic.tsx`, `homeclassic/*`, `src/app/page.tsx` | done (2026-11-21): classic homepage ported (slider + QuickFind, tasks, notices, services, portals, news, figures band, help, prototype links); dark slider shade, `y` motion, 12 px chips, 44 px targets; HomeCalm removed |
 | CL2 | Kit: banners, floating bar, SideNav, TabStrip, dark band, cards, dialogs, document kit | `theme/*`, `docs/kit.tsx`, `about/primitives.tsx` | pending |
 | CL3 | Chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | pending |
 | CL4 | Baseline audit | none edited | pending |
@@ -120,6 +120,11 @@ services → portals → news and video → figures (dark band) → help and FAQ
 
 Point `src/app/page.tsx` at HomeClassic and delete `HomeCalm` + `homecalm/` once nothing imports them. The homepage keeps
 the A11y widget. Verify `/`.
+*Done (CL1):* the homepage still uses the kit's calm `SectionNav`, `SectionHeading`, and the no-op `Spotlight`/`Tilt`/`GridBackdrop`;
+CL2 converts them, so `/` gains the grid, spotlight and tilt then. Sections use `scroll-mt-[170px]` (the calm bar is ~84 px);
+re-check `/#help` lands under the bar once `TabStrip` replaces it. `ReportGovBadge` is in `src/components` (44 px, labelled new tab).
+Build still warns about `duration-[1.2s]` in `connect/Sections.tsx` and `duration-[1500ms]` in `resources/Library.tsx`: fix in CL12a/CL9b
+with `[transition-duration:…]`.
 
 **CL2 Kit (setup; every page compiles throughout).** Keep all existing exports.
 - `about/primitives.tsx`: bring back the real `Spotlight`, `Tilt` and `GridBackdrop` from the app; `SectionHeading` and
