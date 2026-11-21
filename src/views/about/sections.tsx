@@ -1,34 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
-import { ArrowRight, Building2, ChevronDown, Clock, Compass, MapPin, MessageSquareWarning, Quote, Target, type LucideIcon } from "lucide-react";
-import { Link } from "@/lib/router";
+import { ArrowRight, Building2, ChevronDown, Clock, Compass, MapPin, MessageSquareWarning, Quote, Target } from "lucide-react";
+import { Link, useLocation } from "@/lib/router";
 import { cn } from "@/lib/utils";
-import { GridBackdrop, Spotlight, Tilt, icons } from "@/views/about/primitives";
+import { GridBackdrop, Spotlight, Tilt, icons, sectionAliases } from "@/views/about/primitives";
 import Headline from "@/views/theme/Headline";
-import { EyebrowPill, FramedPanel, Modal, Rise, Tile, card, chip, featured, focus, listPanel, listRow, sectionCls } from "@/views/theme/ui";
+import { DarkBand, EyebrowPill, Modal, Rise, Tile, card, chip, ease, featured, focus, goldBtn, listPanel, listRow, outlineBtn, sectionCls } from "@/views/theme/ui";
 import { allExecs, arms, chapters, charter, commissioners, dg, dgOffices, mandate, mission, overview, secretary, values, vision, zonalOffices, type Exec } from "./data";
 
 /* ─────────────────────────── Overview ─────────────────────────── */
-
-/** Calm-era card and tile, still used by leadership, history and charter until CL5b converts them. */
-const calmCard =
-  "group relative overflow-hidden rounded-3xl bg-white ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.55)] hover:ring-2 hover:ring-[#117F21]";
-
-function IconTile({ icon: Icon, small = false }: { icon: LucideIcon; small?: boolean }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={cn(
-        "relative flex shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition-transform duration-300 group-hover:rotate-[-6deg]",
-        small ? "h-12 w-12" : "h-14 w-14",
-      )}
-    >
-      <Icon className={small ? "h-6 w-6" : "h-7 w-7"} />
-    </span>
-  );
-}
 
 /** A section inside the portal layout's 9-column main (the layout supplies the side padding). */
 const portalSec = "scroll-mt-[150px] border-t border-gray-100 py-14 first:border-t-0 sm:py-16";
@@ -122,70 +104,154 @@ export function MissionValues() {
   );
 }
 
-/* ─────────────────────────── History ─────────────────────────── */
+/* ─────────────────────────── History (the page's dark band) ─────────────────────────── */
 
-/** Timeline on white: a thin line that fills green→gold as you scroll, green year dots, white calm cards. */
+/**
+ * The page's one dark band. Desktop: a horizontal rail of year buttons on a track whose gold bar grows to the chosen
+ * year, with that chapter open below it. Phone: a vertical timeline with every chapter open and a line that fills as
+ * you scroll. One list serves both (`lg:contents` on each item puts the buttons in row 1 and the open chapter in row 2).
+ * `#history-2004` (and `#signing`) open and land on that chapter; percentage figures get a bar that grows to the value.
+ */
 export function History() {
   const reduce = useReducedMotion();
+  const { hash } = useLocation();
+  const [active, setActive] = useState(0);
   const list = useRef<HTMLOListElement>(null);
   const { scrollYProgress } = useScroll({ target: list, offset: ["start 70%", "end 60%"] });
   const grow = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
+  // A deep link to one chapter opens it on desktop before the page scrolls to it.
+  useEffect(() => {
+    const id = hash.replace(/^#/, "");
+    const i = chapters.findIndex((c) => c.id === (sectionAliases[id] ?? id));
+    if (i >= 0) setActive(i);
+  }, [hash]);
+
   return (
-    <section id="history" aria-labelledby="history-title" className={cn(sectionCls, "bg-white")}>
-      <div className="mx-auto max-w-7xl">
-        <Headline
-          id="history-title"
-          kicker="Our history"
-          title="From unpaid pensions to ₦31.8 trillion in savings"
-          mark="₦31.8 trillion"
-          intro="How Nigeria moved from budget-funded pensions to the Contributory Pension Scheme, and what has changed since."
+    <DarkBand id="history" labelledBy="history-title">
+      <Headline
+        id="history-title"
+        dark
+        kicker="Our history"
+        title="From unpaid pensions to ₦31.8 trillion in savings"
+        mark="₦31.8 trillion"
+        intro="How Nigeria moved from budget-funded pensions to the Contributory Pension Scheme, and what has changed since."
+      />
+      <ol ref={list} className="relative mt-12 space-y-6 pl-11 sm:pl-14 lg:mt-14 lg:grid lg:grid-cols-8 lg:gap-x-3 lg:space-y-0 lg:pl-0">
+        {/* Phone: a vertical track and a line that fills as you scroll. */}
+        <span aria-hidden="true" className="absolute bottom-2 left-[15px] top-2 w-[3px] rounded-full bg-white/10 sm:left-[19px] lg:hidden" />
+        <motion.span
+          aria-hidden="true"
+          style={{ scaleY: reduce ? 1 : grow }}
+          className="absolute bottom-2 left-[15px] top-2 w-[3px] origin-top rounded-full bg-gradient-to-b from-[#2E913D] to-[#CB9615] sm:left-[19px] lg:hidden"
         />
-        <ol ref={list} className="relative mt-14 space-y-8 pl-11 sm:pl-16">
-          {/* Track, and a green-to-gold line that fills as you scroll. */}
-          <span aria-hidden="true" className="absolute bottom-2 left-[15px] top-2 w-[3px] rounded-full bg-[#14261A]/10 sm:left-[23px]" />
-          <motion.span aria-hidden="true" style={{ scaleY: reduce ? 1 : grow }} className="absolute bottom-2 left-[15px] top-2 w-[3px] origin-top rounded-full bg-gradient-to-b from-[#117F21] via-[#2E913D] to-[#CB9615] sm:left-[23px]" />
-          {chapters.map((c) => (
-            <li key={c.id} id={c.id} className="relative scroll-mt-[170px]">
-              <span aria-hidden="true" className="absolute -left-11 top-8 flex h-[33px] w-[33px] items-center justify-center rounded-full bg-[#0A4A13] shadow-[0_0_0_6px_#fff] sm:-left-16 sm:h-[49px] sm:w-[49px]">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#F4D27A] sm:h-3 sm:w-3" />
+        {/* Desktop: a horizontal track through the year dots, filled up to the chosen year. */}
+        <span aria-hidden="true" className="absolute left-[calc((100%-84px)/16)] right-[calc((100%-84px)/16)] top-[9px] hidden h-[3px] rounded-full bg-white/10 lg:block" />
+        <motion.span
+          aria-hidden="true"
+          initial={false}
+          animate={{ scaleX: active / (chapters.length - 1) }}
+          transition={{ duration: reduce ? 0 : 0.7, ease }}
+          className="absolute left-[calc((100%-84px)/16)] right-[calc((100%-84px)/16)] top-[9px] hidden h-[3px] origin-left rounded-full bg-gradient-to-r from-[#2E913D] via-[#E9B949] to-[#CB9615] lg:block"
+        />
+        {chapters.map((c, i) => {
+          const on = active === i;
+          const pct = c.figure && /^\d+(\.\d+)?%$/.test(c.figure.value) ? parseFloat(c.figure.value) : null;
+          return (
+            <li key={c.id} className="relative lg:contents">
+              {/* Phone: dot on the line and the year as a heading chip. */}
+              <span aria-hidden="true" className="absolute -left-11 top-1 flex h-[33px] w-[33px] items-center justify-center rounded-full bg-[#0A4A13] ring-4 ring-[#04240A] sm:-left-14 sm:h-[41px] sm:w-[41px] lg:hidden">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#F4D27A]" />
               </span>
-              <Rise>
-                <article className={cn(calmCard, "grid grid-cols-1 gap-5 p-6 sm:p-8 lg:grid-cols-12 lg:gap-10")}>
-                  <div className="lg:col-span-3">
-                    <p className="text-5xl font-bold leading-none tracking-tight text-[#0A4A13] sm:text-6xl">{c.year}</p>
-                    <p className="mt-3 text-sm font-bold uppercase tracking-[0.16em] text-[#117F21]">{c.period}</p>
+              <p className="inline-flex min-h-10 items-baseline gap-3 rounded-full bg-white/[0.06] px-4 py-1.5 ring-1 ring-white/15 lg:hidden">
+                <span className="text-xl font-black tabular-nums text-[#F4D27A]">{c.year}</span>
+                {c.period !== c.year && <span className="text-sm font-semibold text-white/80">{c.period}</span>}
+              </p>
+
+              {/* Desktop: a year button on the rail. */}
+              <button
+                type="button"
+                onClick={() => setActive(i)}
+                aria-expanded={on}
+                aria-controls={c.id}
+                className={cn("group hidden min-w-0 flex-col items-center gap-3 rounded-2xl text-center lg:row-start-1 lg:flex", focus)}
+              >
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "relative h-[21px] w-[21px] rounded-full ring-4 ring-[#04240A] transition-colors duration-500",
+                    i <= active ? "bg-[#CB9615]" : "bg-[#24452B] group-hover:bg-[#2E913D]",
+                  )}
+                >
+                  {on && !reduce && <span className="absolute inset-0 animate-ping rounded-full bg-[#F4D27A]/60" />}
+                </span>
+                <span
+                  className={cn(
+                    "flex w-full flex-col rounded-2xl px-2 py-3 ring-1 transition duration-300",
+                    on
+                      ? "bg-[#CB9615] text-[#1A1206] shadow-[0_18px_40px_-18px_rgba(203,150,21,0.9)] ring-[#CB9615]"
+                      : "bg-white/[0.05] text-white ring-white/15 group-hover:-translate-y-0.5 group-hover:ring-[#F4D27A]/60",
+                  )}
+                >
+                  <span className="text-2xl font-black tabular-nums leading-none">{c.year}</span>
+                  <span className={cn("mt-1.5 truncate text-xs font-semibold", on ? "text-[#1A1206]" : "text-white/75")}>{c.period}</span>
+                </span>
+              </button>
+
+              {/* The chapter: always open on phones; on desktop only the chosen one, under the rail. */}
+              <div id={c.id} className={cn("mt-4 scroll-mt-[170px] lg:col-span-8 lg:row-start-2 lg:mt-10", !on && "lg:hidden")}>
+                <motion.article
+                  key={on ? "on" : "off"}
+                  initial={{ opacity: 0, y: reduce ? 0 : 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, ease }}
+                  className="grid grid-cols-1 gap-6 rounded-3xl bg-white/[0.05] p-5 ring-1 ring-white/10 backdrop-blur-sm sm:p-8 lg:grid-cols-12 lg:gap-10 lg:p-10"
+                >
+                  <div className="lg:col-span-4">
+                    <p aria-hidden="true" className="hidden text-7xl font-black leading-none tracking-tight text-[#F4D27A] lg:block">{c.year}</p>
+                    <p className="hidden text-sm font-bold uppercase tracking-[0.16em] text-white/75 lg:mt-4 lg:block">{c.period}</p>
                     {c.figure && (
-                      <p className="mt-5 inline-flex flex-col rounded-2xl bg-[#E8F5E9] px-4 py-3 ring-1 ring-[#117F21]/20">
-                        <span className="text-2xl font-bold tabular-nums text-[#0A4A13]">{c.figure.value}</span>
-                        <span className="text-base leading-snug text-gray-700">{c.figure.label}</span>
-                      </p>
+                      <div className="rounded-2xl bg-[#04240A]/60 lg:mt-5 p-5 ring-1 ring-white/10">
+                        <p className="text-4xl font-black tabular-nums text-white">{c.figure.value}</p>
+                        <p className="mt-1 text-base leading-snug text-white/80">{c.figure.label}</p>
+                        {pct !== null && (
+                          <span aria-hidden="true" className="mt-4 block h-2 overflow-hidden rounded-full bg-white/10">
+                            <motion.span
+                              initial={{ scaleX: reduce ? pct / 100 : 0 }}
+                              whileInView={{ scaleX: pct / 100 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 1.2, ease, delay: 0.2 }}
+                              className="block h-full origin-left rounded-full bg-gradient-to-r from-[#2E913D] to-[#CB9615]"
+                            />
+                          </span>
+                        )}
+                      </div>
                     )}
                   </div>
-                  <div className="lg:col-span-9 lg:border-l lg:border-black/10 lg:pl-10">
-                    <h3 className="text-xl font-bold leading-snug tracking-tight text-[#14261A] sm:text-2xl">{c.title}</h3>
-                    <p className="mt-3 text-lg leading-relaxed text-gray-700">{c.body}</p>
+                  <div className="lg:col-span-8 lg:border-l lg:border-white/10 lg:pl-10">
+                    <h3 className="text-xl font-bold leading-snug tracking-tight text-white sm:text-2xl">{c.title}</h3>
+                    <p className="mt-3 text-base leading-relaxed text-white/80 sm:text-lg">{c.body}</p>
                     {c.points && (
-                      <ul className="mt-4 space-y-2.5">
+                      <ul className="mt-5 space-y-2.5">
                         {c.points.map((p) => (
-                          <li key={p} className="flex gap-3 text-lg leading-relaxed text-gray-700">
-                            <span aria-hidden="true" className="mt-3 h-2 w-2 shrink-0 rounded-full bg-[#CB9615]" />
+                          <li key={p} className="flex gap-3 text-base leading-relaxed text-white/80">
+                            <span aria-hidden="true" className="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-[#CB9615]" />
                             {p}
                           </li>
                         ))}
                       </ul>
                     )}
                   </div>
-                </article>
-              </Rise>
+                </motion.article>
+              </div>
             </li>
-          ))}
-        </ol>
-      </div>
-    </section>
+          );
+        })}
+      </ol>
+    </DarkBand>
   );
 }
-
 
 /* ─────────────────────────── Structure ─────────────────────────── */
 
@@ -301,64 +367,57 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
 
 /* ─────────────────────────── Leadership ─────────────────────────── */
 
-/** On white: the Director General in a large card (photo in a gold-outlined frame, words below it), then the team as calm cards. */
+/**
+ * A directory of the six executives: white cards with the photo above the name (it zooms a little on hover), the
+ * role, the short bio and "View profile". The Director General's card carries a gold top edge and a gold role chip.
+ */
 export function Leadership({ onSelect }: { onSelect: (id: string) => void }) {
-  const team = [...commissioners, secretary];
+  const people = [dg, ...commissioners, secretary];
   return (
-    <section id="executive" aria-labelledby="executive-title" className={cn(sectionCls, "bg-white")}>
-      <div className="mx-auto max-w-7xl">
-        <Headline id="executive-title" kicker="Leadership" title="The people who lead the Commission" mark="lead the Commission" intro="The Director General leads the Commission with four Commissioners and the Commission Secretary." />
-        <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-12">
-          <Rise className="lg:col-span-5">
-            <button type="button" onClick={() => onSelect(dg.id)} className={cn(calmCard, "flex h-full w-full flex-col p-4 text-left sm:p-5", focus)}>
-              <span className="relative block p-2">
-                <span aria-hidden="true" className="absolute inset-0 rounded-[1.75rem] border-2 border-[#CB9615]/45" />
-                <span className="relative block aspect-[4/3] overflow-hidden rounded-[1.4rem] bg-[#E8F5E9]">
-                  <img src={dg.image} alt="" className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105" />
-                </span>
-              </span>
-              <span className="flex flex-1 flex-col px-2 pb-2 pt-5">
-                <span className="inline-flex w-fit rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">{dg.title}</span>
-                <span className="mt-3 block text-2xl font-bold leading-snug tracking-tight text-[#14261A] sm:text-3xl">{dg.name}</span>
-                <span className="mt-2 block text-lg leading-relaxed text-gray-700">{dg.bio}</span>
-                <span className="mt-auto inline-flex items-center gap-2 pt-5 text-lg font-semibold text-[#0A4A13]">
-                  View profile
-                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-                </span>
-              </span>
-            </button>
-          </Rise>
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-7">
-            {team.map((e, i) => (
-              <li key={e.id} className={cn(i === team.length - 1 && "sm:col-span-2")}>
-                <Rise delay={i * 0.05} className="h-full">
-                  <button type="button" onClick={() => onSelect(e.id)} className={cn(calmCard, "flex h-full w-full items-center gap-4 p-4 text-left sm:p-5", focus)}>
-                    <span aria-hidden="true" className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#E8F5E9] transition-transform duration-500 group-hover:scale-150" />
-                    <span className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl bg-[#E8F5E9] ring-1 ring-black/10">
-                      <img src={e.image} alt="" loading="lazy" className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105" />
+    <section id="executive" aria-labelledby="executive-title" className={portalSec}>
+      <Headline id="executive-title" kicker="Leadership" title="The people who lead the Commission" mark="lead the Commission" intro="The Director General leads the Commission with four Commissioners and the Commission Secretary." />
+      <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        {people.map((e, i) => {
+          const lead = e.id === dg.id;
+          return (
+            <li key={e.id}>
+              <Rise delay={(i % 3) * 0.06} className="h-full">
+                <button type="button" onClick={() => onSelect(e.id)} className={cn(card, "group relative flex h-full w-full flex-col overflow-hidden text-left", focus)}>
+                  {lead && <span aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />}
+                  <span className="relative block aspect-[4/3] overflow-hidden bg-[#E8F5E9]">
+                    <img src={e.image} alt="" loading="lazy" className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105" />
+                    <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#04240A]/35 to-transparent" />
+                  </span>
+                  <span className="flex flex-1 flex-col p-5 sm:p-6">
+                    <span
+                      className={cn(
+                        "inline-flex w-fit rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.12em]",
+                        lead ? "bg-[#FFF8E1] text-[#7A5200] ring-1 ring-[#CB9615]/40" : "bg-[#E8F5E9] text-[#0A4A13]",
+                      )}
+                    >
+                      {e.title.replace("Commissioner, ", "")}
                     </span>
-                    <span className="relative min-w-0 flex-1">
-                      <span className="block text-sm font-bold uppercase tracking-[0.12em] text-[#117F21]">{e.title}</span>
-                      <span className="mt-1 block text-xl font-bold leading-snug text-[#14261A]">{e.name}</span>
-                      <span className="mt-2 inline-flex items-center gap-2 text-base font-semibold text-[#0A4A13]">
-                        View profile
-                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-                      </span>
+                    <span className="mt-3 block text-xl font-bold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{e.name}</span>
+                    {!lead && e.title.startsWith("Commissioner") && <span className="mt-0.5 block text-sm font-semibold text-gray-600">Commissioner</span>}
+                    <span className="mt-2 block text-base leading-relaxed text-gray-600">{e.bio}</span>
+                    <span className="mt-auto inline-flex items-center gap-2 pt-5 font-semibold text-[#117F21]">
+                      View profile
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                     </span>
-                  </button>
-                </Rise>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+                  </span>
+                </button>
+              </Rise>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }
 
 /* ─────────────────────────── Profile dialog ─────────────────────────── */
 
-/** Profile in the kit's light Modal (cream bar with a labelled Close; focus goes in and comes back). */
+/** Profile in the kit's Modal (dark title bar with a labelled Close; focus goes in and comes back). */
 export function ProfileDialog({ id, onClose }: { id: string | null; onClose: () => void }) {
   const exec = id ? allExecs.find((e) => e.id === id) ?? null : null;
   return (
@@ -375,12 +434,12 @@ export function ProfileDialog({ id, onClose }: { id: string | null; onClose: () 
           </div>
           <div className="px-6 pb-7 sm:col-span-3 sm:p-8">
             <p className="inline-flex rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">{exec.title}</p>
-            <h2 id="profile-name" className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[#14261A] sm:text-3xl">
+            <h2 id="profile-name" className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[#0A2E10] sm:text-3xl">
               {exec.name}
             </h2>
             <span aria-hidden="true" className="mt-4 block h-1 w-16 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
-            <p className="mt-4 text-lg leading-relaxed text-gray-700">{exec.bio}</p>
-            <p className="mt-6 border-t border-black/10 pt-4 text-base text-gray-700">National Pension Commission · Federal Republic of Nigeria</p>
+            <p className="mt-4 text-base leading-relaxed text-gray-600 sm:text-lg">{exec.bio}</p>
+            <p className="mt-6 border-t border-gray-100 pt-4 text-sm text-gray-600">National Pension Commission · Federal Republic of Nigeria</p>
           </div>
         </div>
       )}
@@ -390,82 +449,86 @@ export function ProfileDialog({ id, onClose }: { id: string | null; onClose: () 
 
 /* ─────────────────────────── Service Charter + visit us ─────────────────────────── */
 
-/** On cream: a warm panel with the service standards as plain figures in white cards, a gold CTA, then the visit card. */
+/**
+ * The closing section, on the soft band: the service standards as a `gap-px` figure grid with a pointer spotlight
+ * (each figure grows a gold edge on hover), the full charter as the gold action, then a strip of two link cards:
+ * tell us when we fall short, and visit us (head office and the zonal offices).
+ */
 export function Charter() {
   return (
-    <section id="charter" aria-labelledby="charter-title" className={sectionCls}>
+    <section id="charter" aria-labelledby="charter-title" className={cn(sectionCls, "bg-gradient-to-b from-white via-[#F4F7F2] to-white")}>
       <div className="mx-auto max-w-7xl">
-        <Rise>
-          <div className="relative isolate overflow-hidden rounded-[2rem] bg-[#F1EFE8] p-6 ring-1 ring-black/10 sm:p-10 lg:p-12">
-            <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 -z-10 h-72 w-72 rounded-full bg-[#F4D27A]/30 blur-3xl" />
-            <Headline
-              id="charter-title"
-              kicker="Service Charter"
-              title="The standards you can expect from us"
-              mark="expect from us"
-              intro="We are committed to efficient, transparent and courteous service. If we fall short, tell us."
-              action={
-                <div className="flex flex-wrap gap-3">
-                  <Link to="/about/service-charter" className={cn("group inline-flex min-h-14 items-center gap-2 rounded-2xl bg-[#F4D27A] px-6 text-lg font-bold text-[#1A1206] transition hover:bg-[#FFE08F]", focus)}>
-                    Read the full charter
-                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                  </Link>
-                  <Link
-                    to="/connect"
-                    className={cn("inline-flex min-h-14 items-center gap-2 rounded-2xl border-2 border-[#117F21] px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white", focus)}
-                  >
-                    <MessageSquareWarning className="h-5 w-5" aria-hidden="true" />
-                    Tell us
-                  </Link>
-                </div>
-              }
-            />
-            <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {charter.map((c, i) => (
-                <li key={c.label}>
-                  <Rise delay={i * 0.05} className="h-full">
-                    <div className={cn(calmCard, "flex h-full items-start gap-4 p-5 sm:p-6")}>
-                      <IconTile icon={Clock} small />
-                      <p>
-                        <span className="text-4xl font-bold tracking-tight tabular-nums text-[#0A4A13]">{c.value}</span>{" "}
-                        <span className="text-lg font-semibold text-[#14261A]">{c.unit}</span>
-                        <span className="mt-1 block text-lg leading-snug text-gray-700">{c.label}</span>
-                      </p>
-                    </div>
-                  </Rise>
+        <Headline
+          id="charter-title"
+          kicker="Service Charter"
+          title="The standards you can expect from us"
+          mark="expect from us"
+          intro="We are committed to efficient, transparent and courteous service. If we fall short, tell us."
+          action={
+            <Link to="/about/service-charter" className={cn(goldBtn, "group")}>
+              Read the full charter
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
+          }
+        />
+        <Rise className="mt-10">
+          <Spotlight className="rounded-3xl border border-gray-200/80 bg-gray-200/80">
+            <ul className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3">
+              {charter.map((c) => (
+                <li key={c.label} className="group relative flex items-start gap-4 bg-white p-6 transition-colors hover:bg-[#F7FAF6]/80 sm:p-7">
+                  <span aria-hidden="true" className="absolute left-0 top-7 h-8 w-1 rounded-r bg-gradient-to-b from-[#CB9615] to-[#CB9615]/0 transition-all duration-500 group-hover:h-14" />
+                  <Tile icon={Clock} />
+                  <p>
+                    <span className="text-4xl font-bold tracking-tight tabular-nums text-[#0A2E10]">{c.value}</span>{" "}
+                    <span className="text-lg font-semibold text-[#0A2E10]">{c.unit}</span>
+                    <span className="mt-1 block text-base leading-snug text-gray-600">{c.label}</span>
+                  </p>
                 </li>
               ))}
             </ul>
-          </div>
+          </Spotlight>
         </Rise>
 
-        <Rise className="mt-6">
-          <FramedPanel className="grid grid-cols-1 items-center gap-6 p-6 sm:p-8 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <h2 className="flex items-center gap-3 text-xl font-bold tracking-tight text-[#14261A] sm:text-2xl">
-                <IconTile icon={MapPin} small />
-                Visit us in Abuja or at a zonal office
-              </h2>
-              <p className="mt-3 text-lg text-gray-700">Head office: 174 Adetokunbo Ademola Crescent, Wuse II, Abuja.</p>
+        <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-3">
+          <Rise className="h-full">
+            <Link to="/connect" className={cn(card, "group flex h-full flex-col items-start gap-5 p-6 sm:p-7", focus)}>
+              <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#FFF8E1] text-[#7A5200] transition group-hover:scale-110">
+                <MessageSquareWarning className="h-7 w-7" />
+              </span>
+              <span className="block">
+                <span className="block text-xl font-bold text-[#0A2E10]">Tell us</span>
+                <span className="mt-0.5 block text-base text-gray-600">If we fall short, tell us.</span>
+              </span>
+              <span aria-hidden="true" className="mt-auto flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#117F21] transition group-hover:border-[#117F21] group-hover:bg-[#117F21] group-hover:text-white">
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          </Rise>
+          <Rise delay={0.06} className="h-full lg:col-span-2">
+            <div className={cn(card, "group grid h-full grid-cols-1 items-center gap-5 p-6 sm:p-7 md:grid-cols-12")}>
+              <div className="flex gap-5 md:col-span-7">
+                <Tile icon={MapPin} size="lg" />
+                <div className="min-w-0">
+                  <h3 className="text-xl font-bold text-[#0A2E10]">Visit us in Abuja or at a zonal office</h3>
+                  <p className="mt-1 text-base text-gray-600">Head office: 174 Adetokunbo Ademola Crescent, Wuse II, Abuja.</p>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {zonalOffices.map((z) => (
+                      <li key={z} className={cn(chip, "text-sm")}>
+                        {z}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="md:col-span-5 md:text-right">
+                <Link to="/connect#zonal-offices" className={cn(outlineBtn, "group/b")}>
+                  Find an office
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover/b:translate-x-1" aria-hidden="true" />
+                </Link>
+              </div>
             </div>
-            <ul className="flex flex-wrap gap-2 lg:col-span-4">
-              {zonalOffices.map((z) => (
-                <li key={z} className="rounded-full bg-white px-4 py-2 text-base font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/35">
-                  {z}
-                </li>
-              ))}
-            </ul>
-            <div className="lg:col-span-3 lg:text-right">
-              <Link
-                to="/connect#zonal-offices"
-                className={cn("group inline-flex min-h-14 items-center gap-2 rounded-2xl bg-[#0A4A13] px-6 text-lg font-semibold text-white transition hover:bg-[#117F21]", focus)}
-              >
-                Find an office
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-              </Link>
-            </div>
-          </FramedPanel>
-        </Rise>
+          </Rise>
+        </div>
       </div>
     </section>
   );

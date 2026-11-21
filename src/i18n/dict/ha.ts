@@ -1807,6 +1807,9 @@ const ha: Record<string, string> = {
   "Need help?": "Kuna buƙatar taimako?",
   "Ask the assistant or call us.": "Tambayi mataimaki ko ku kira mu.",
   "Established": "An kafa",
+  /* About part 2 (classic CL5b) */
+  "If we fall short, tell us.": "Idan muka gaza, ka sanar da mu.",
+  "Commission Secretary / Legal Adviser": "Sakataren Hukumar / Mai Ba da Shawara kan Shari’a",
 };
 
 export default ha;

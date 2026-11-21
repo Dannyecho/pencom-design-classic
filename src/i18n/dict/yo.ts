@@ -1807,6 +1807,9 @@ const yo: Record<string, string> = {
   "Need help?": "Ṣé o nílò ìrànlọ́wọ́?",
   "Ask the assistant or call us.": "Béèrè lọ́wọ́ olùrànlọ́wọ́ tàbí pè wá.",
   "Established": "Ọdún ìdásílẹ̀",
+  /* About part 2 (classic CL5b) */
+  "If we fall short, tell us.": "Bí a bá kùnà, sọ fún wa.",
+  "Commission Secretary / Legal Adviser": "Akọ̀wé Àjọ / Olùgbàmọ̀ràn lórí Òfin",
 };
 
 export default yo;

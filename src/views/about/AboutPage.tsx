@@ -13,7 +13,7 @@ import { Charter, History, Leadership, MissionValues, Overview, ProfileDialog, S
 /**
  * About PenCom, classic theme (a portal page): the Abuja photo banner with a word-rise title, a floating strip of
  * quick facts, then the sticky SideNav beside overview and mandate → mission, vision and values → structure →
- * leadership; history (the page's dark band, CL5b) and the Service Charter follow full width.
+ * the leadership directory; history (the page's dark band, a year rail on desktop) and the Service Charter (closing strip) follow full width.
  * Menu anchors from the header and footer (#mission, #executive, #structure, #stakeholders, #why-us,
  * #dg-corner, #board, #signing, #charter, #history) all land on the right section.
  */

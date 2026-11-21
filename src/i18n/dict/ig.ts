@@ -1807,6 +1807,9 @@ const ig: Record<string, string> = {
   "Need help?": "Ị chọrọ enyemaka?",
   "Ask the assistant or call us.": "Jụọ onye inyeaka ma ọ bụ kpọọ anyị.",
   "Established": "E hiwere ya",
+  /* About part 2 (classic CL5b) */
+  "If we fall short, tell us.": "Ọ bụrụ na anyị adaghị n’ọrụ, gwa anyị.",
+  "Commission Secretary / Legal Adviser": "Odeakwụkwọ Kọmịshọn / Onye Ndụmọdụ Iwu",
 };
 
 export default ig;
