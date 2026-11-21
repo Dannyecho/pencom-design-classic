@@ -9,11 +9,11 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const view = { once: true, margin: "-60px" } as const;
 
 /**
- * Section title for the calm theme (same props as before, so pages don't change): an eyebrow pill with a green
- * dot that pulses twice and one shimmer sweep, then the title in ink with its `mark` phrase in a green→gold
- * gradient and a hand-drawn gold underline that draws in. With no mark, a short green→gold bar grows in.
- * `dark` switches to light gold for the green inset panel. No numbers and no ghost words: `n` is accepted and
- * ignored. The light gradient ends on #9A6B00 so the phrase keeps 3:1 on white as large text.
+ * Section title for the classic theme (the app's SectionHeading, same props as before): a 12 px eyebrow pill with
+ * a green dot that pulses twice and one shimmer sweep, then the title in ink #0A2E10 with its `mark` phrase in a
+ * green→gold gradient and a hand-drawn gold underline that draws in. With no mark, a short green→gold bar grows in.
+ * `dark` is for the page's dark band (#04240A). `n` is accepted and ignored. The light gradient ends on #9A6B00 so
+ * the phrase keeps 3:1 on white as large text.
  */
 export default function Headline({
   kicker,
@@ -59,7 +59,7 @@ export default function Headline({
       <div className={cn("max-w-3xl", center && "mx-auto text-center")}>
         <span
           className={cn(
-            "relative inline-flex items-center gap-2.5 overflow-hidden rounded-full py-1 pl-1 pr-4 text-[13px] font-bold uppercase tracking-[0.18em] ring-1 sm:text-sm",
+            "relative inline-flex items-center gap-2.5 overflow-hidden rounded-full py-1 pl-1 pr-4 text-xs font-bold uppercase tracking-[0.18em] ring-1",
             dark ? "bg-white/[0.08] text-[#F4D27A] ring-white/15" : "bg-[#E8F5E9]/80 text-[#0A4A13] ring-[#117F21]/15",
           )}
         >
@@ -70,7 +70,7 @@ export default function Headline({
               dark ? "bg-gradient-to-br from-[#F4D27A] to-[#CB9615]" : "bg-gradient-to-br from-[#2E913D] to-[#0A4A13]",
             )}
           >
-            <span className={cn("h-2 w-2 rounded-full", dark ? "bg-[#0A4A13]" : "bg-[#F4D27A]")} />
+            <span className={cn("h-2 w-2 rounded-full", dark ? "bg-[#04240A]" : "bg-[#F4D27A]")} />
             {!reduce && (
               <motion.span
                 className={cn("absolute inset-0 rounded-full", dark ? "bg-[#F4D27A]" : "bg-[#2E913D]")}
@@ -97,7 +97,7 @@ export default function Headline({
         <h2
           id={id}
           data-i18n-done={lang !== "en" && T !== title ? "" : undefined}
-          className={cn("mt-5 text-3xl font-bold leading-[1.12] tracking-tight sm:text-4xl lg:text-[2.75rem]", dark ? "text-white" : "text-[#14261A]")}
+          className={cn("mt-5 text-3xl font-bold leading-[1.12] tracking-tight sm:text-4xl lg:text-[2.75rem]", dark ? "text-white" : "text-[#0A2E10]")}
         >
           {before}
           {hl && <DrawnMark text={hl} dark={dark} />}
@@ -119,7 +119,7 @@ export default function Headline({
           />
         )}
 
-        {intro && <div className={cn("mt-5 text-lg leading-relaxed", dark ? "text-white/85" : "text-gray-700")}>{intro}</div>}
+        {intro && <div className={cn("mt-5 text-base leading-relaxed sm:text-lg", dark ? "text-white/80" : "text-gray-600")}>{intro}</div>}
         {action && !side && <div className={cn("mt-6", center && "flex justify-center")}>{action}</div>}
       </div>
       {side && <div className="shrink-0">{action}</div>}
@@ -128,8 +128,8 @@ export default function Headline({
 }
 
 /**
- * The highlighted phrase of a calm title: green→gold gradient text with a hand-drawn gold underline that draws in.
- * Used by Headline, PageHero and DocHero.
+ * The highlighted phrase of a classic title: green→gold gradient text with a hand-drawn gold underline that draws in.
+ * Used by Headline, PhotoBanner, PageHero and DocBanner.
  */
 export function DrawnMark({ text, dark = false }: { text: string; dark?: boolean }) {
   const reduce = useReducedMotion();

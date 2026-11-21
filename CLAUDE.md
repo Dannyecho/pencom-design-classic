@@ -42,9 +42,9 @@ gold hover `#E0AA22`, gold text on light `#7A5200`, panel `#F4F7F2`, row hover `
 
 ## Status
 
-**In progress** (started 21 November 2026). CL0–CL1 done: the classic homepage is in place; inner pages still have the
-calm look. The kit, homepage and chrome are converted in CL1–CL3; pages in CL5a–CL16. Until then, the sections below
-describe the calm code as copied (marked "calm" where it will change). Progress: `SESSIONS.md`.
+**In progress** (started 21 November 2026). CL0–CL2 done: the classic homepage and the classic kit are in place; inner
+pages still have calm layouts drawn with the classic kit (dark banners, tab strip). The chrome is converted in CL3, pages
+in CL5a–CL16. Progress: `SESSIONS.md`.
 
 ## Run
 
@@ -97,40 +97,36 @@ Ported pages keep react-router code. Import from `@/lib/router`, never `react-ro
 - `useNavigate()(to, { replace, preventScrollReset })`.
 - `useSearchParams()` → `[params, set]`; `set(next, { replace: true, preventScrollReset: true })` for filters kept in the URL.
 
-## The theme kit (still calm's; rebuilt for classic in CL2)
+## The theme kit (classic, CL2)
 
 `src/views/theme/ui.tsx`
-- `PageHero({ id, crumbs, pill: {icon,label}, title, mark, intro, actions?, aside? })`: the light calm hero on cream
-  (soft mint blur in the corner), `Crumbs`, the `EyebrowPill` with the pill icon in its green dot, a `font-bold` h1 whose
-  `mark` phrase gets `DrawnMark` (green→gold gradient + drawn gold underline), 18 px intro. It translates the whole title
-  and then finds the translated mark in it (case-insensitive). `actions` and `aside` sit on cream in ink text.
-- `FramedPanel`: white `rounded-[2rem]` card, `ring-1 ring-black/10`, soft green shadow.
-- `DarkBackdrop`: the page's one green panel background (solid `#0A4A13` + one gold blur). `animate` is ignored.
-- `spot`: no-op (pointer spotlight retired).
-- `SectionNav({ sections, pillId })`: sticky white pill bar, `min-h-12`, 18 px labels on desktop, active pill `#0A4A13` with gold text.
-- `Modal`, `Drawer`: accessible dialogs (focus in and back, Escape, scroll lock) with a sticky cream header bar holding a
-  large labelled "Close" button (focus lands on it).
-- `Rise` (24 px), `ease`, `focus` (yellow focus ring), `sectionCls` (`py-16 sm:py-20`, `scroll-mt-[170px]`, `overflow-x-clip`).
+- **Page shapes:** `PhotoBanner({ id, crumbs, chip?, title, mark?, intro?, image, srcSet?, alt?, position?, actions?, floating? })`
+  (Ken Burns photo, dark shade, word-rise h1 with the gold `DrawnMark`), `FloatingBar({ eyebrow?, title?, intro?, children })`
+  (white card at `-mt-14` with a gold hairline), `PortalLayout({ sections, pillId, related?, children })` (sticky `SideNav` in
+  3 columns + 9-column main; a sticky "On this page" disclosure bar below `lg`), `SideNav` (grey rows, green gradient `layoutId`
+  pill, optional section icons, "Related pages" list panel, dark "Need help?" card with chat and call), `TabStrip({ sections, pillId })`
+  (sticky segmented control for tool pages), `DarkBand({ id?, labelledBy?, label?, children })` (the page's one `#04240A` band),
+  `ClosingLinks({ items })`. Sections take `{ id, label, icon? }` (`NavSection`).
+- **Class strings:** `card`, `listPanel` + `listRow`, `goldBtn`, `outlineBtn`, `outlineDarkBtn`, `chip`, `featured` (dark gradient;
+  add `GridBackdrop`), and `Tile({ icon, dark?, size? })` (mint tile filling green on hover; `dark` = portal tile with a gold icon that turns 6°).
+- **Compat (until each page is converted):** `PageHero` renders a dark grid banner; its `actions` sit in a white floating card and its
+  `aside` rises over the banner. `SectionNav` = `TabStrip`. `FramedPanel` = classic white card. `DarkBackdrop` = the band backdrop
+  (grid + green and gold blurs). `Crumbs` and `EyebrowPill` take `dark`.
+- `Modal`, `Drawer`: focus in and back, Escape, scroll lock; white body with a sticky `#04240A` bar and a labelled Close.
+- `Rise`, `ease`, `focus`, `spot` (sets `--x/--y`), `sectionCls` (`py-14 sm:py-20`, `scroll-mt-[170px]`).
 
-`src/views/theme/Headline.tsx` + `heading.tsx`
-- `Headline({ id, kicker, title, mark?, intro?, action?, dark?, stacked?, center?, n? })` and
-  `SectionHeading({ id, eyebrow, title, highlight?, ... })` (same, old prop names) render the calm section title: eyebrow pill
-  with the pulsing dot and one shimmer, ink title, `DrawnMark` on the highlight (or a short green→gold bar when there is none),
-  18 px intro. `dark` = light gold on the green panel; `center`; `action` sits to the right on desktop (below when
-  `stacked`/`center`). **No numbers**: `n` is accepted and ignored. The homepage uses this one.
-- `Ghost.tsx` was deleted in C17 (nothing imported it); there are no ghost words in calm.
+`src/views/theme/Headline.tsx` + `heading.tsx`: `Headline` / `SectionHeading` (12 px eyebrow pill with a pulsing green dot,
+ink `#0A2E10` title, `DrawnMark` on the highlight or a short green→gold bar, 16/18 px intro; `dark` for the band; `action`
+to the right on desktop). `n` is ignored.
 
-`src/views/docs/kit.tsx`: `DocHero` light (cream, crumbs, eyebrow pill, bold title + growing bar, meta in a white
-`rounded-[2rem]` grid; print stays white). `PrimaryBtn` gold `rounded-2xl min-h-14`, `GhostBtn` green outline;
-`ArrowChip` a plain arrow tile (arrow moves 4 px); `darkCard` = `bg-[#0A4A13]`; `glowLight` = "" (retired);
-`ReadingBar` green→gold line at the top; `Toc`, `DocTools`, `PdfCard`, `VerifyNote` in calm tokens. `sizes` (document body text) are 18/20/22 px. `/regulations/doc/<unknown id>` answers HTTP 404 with
-`app/regulations/doc/[id]/not-found.tsx`.
+`src/views/docs/kit.tsx`: `DocBanner` (= `DocHero`): dark grid banner with light crumbs, gold type chip, title, gold bar, lead,
+actions and the meta row as a `gap-px` grid (print stays white). `PrimaryBtn` gold `rounded-xl min-h-12`, `GhostBtn` green outline,
+`ArrowChip`, `darkCard` (featured gradient), `glowLight` (green pointer glow), gold `ReadingBar`, `Toc` in SideNav style (grey
+rows, green gradient active row), `DocTools`, `PdfCard` (featured gradient + grid), `VerifyNote` (blue information status card).
+`sizes` are 16/18/20 px. `/regulations/doc/<unknown id>` answers HTTP 404.
 
-`src/views/about/primitives.tsx`: `scrollToId`, `sectionAliases`, `reveal`, `CountUp` (one per page at most);
-`SectionHeading` → calm Headline (`center` works); `Spotlight`/`Tilt` render children without effects; `GridBackdrop` renders nothing.
-
-Colours: cream `#FBF8F1`, ink `#14261A`, dark green `#0A4A13`, green `#117F21`, gold `#CB9615`, light gold `#F4D27A`,
-gold text on light `#7A5200`, warm panel `#F1EFE8`, mint `#E8F5E9`, focus `#FFD84D`.
+`src/views/about/primitives.tsx`: `scrollToId`, `sectionAliases`, `reveal`, `CountUp`, `SectionHeading` → Headline, and the
+real `Spotlight` (pointer glow, mouse only), `Tilt` (one featured card per page) and `GridBackdrop` (64 px grid, masked).
 
 ## Conventions and pitfalls (each one bit us once)
 

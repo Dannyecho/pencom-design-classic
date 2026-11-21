@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import Headline from "./Headline";
 
 /**
- * The calm section title with the SectionHeading props (eyebrow, highlight), used by the homepage and inner
+ * The classic section title with the SectionHeading props (eyebrow, highlight), used by the homepage and inner
  * pages. Sections are not numbered in this theme; `n` is kept for compatibility and ignored.
  */
 export function SectionHeading({

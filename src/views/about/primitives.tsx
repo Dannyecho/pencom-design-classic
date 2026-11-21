@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { animate, useInView, useReducedMotion } from "framer-motion";
+import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import {
   Award, Eye, HeartHandshake, Scale, Shield, ShieldCheck, TrendingUp, Users,
   type LucideIcon,
@@ -47,8 +47,8 @@ export function scrollToId(id: string, smooth = true) {
 /* ─────────────────────────── Heading ─────────────────────────── */
 
 /**
- * Older section-title API, kept for compatibility. It renders the calm theme's Headline (eyebrow pill, ink
- * title with the gradient phrase and drawn underline); `center` centres it.
+ * Older section-title API, kept for compatibility. It renders the classic Headline (eyebrow pill with a green
+ * dot, ink title with the gradient phrase and drawn gold underline); `center` centres it, `dark` is for the band.
  */
 export function SectionHeading({
   eyebrow,
@@ -112,15 +112,17 @@ export function CountUp({ value, className, duration = 1.8 }: { value: string; c
   );
 }
 
-/* ─────────────────────────── Retired effects ─────────────────────────── */
+/* ─────────────────────────── Effects (classic) ─────────────────────────── */
 
 /**
- * The calm theme has no pointer spotlight or 3D tilt: `Spotlight` and `Tilt` keep their props and render their
- * children in a plain wrapper; `GridBackdrop` renders nothing.
+ * Pointer spotlight: a soft radial glow follows the mouse inside the box (fades in on hover). Used on list panels
+ * and portal cards. Touch and keyboard users see the plain box.
  */
 export function Spotlight({
   children,
   className,
+  color = "rgba(17,127,33,0.08)",
+  size = 480,
   style,
 }: {
   children: ReactNode;
@@ -129,18 +131,69 @@ export function Spotlight({
   size?: number;
   style?: CSSProperties;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
   return (
-    <div className={cn("relative isolate overflow-hidden", className)} style={style}>
+    <div
+      ref={ref}
+      onPointerMove={(e) => {
+        const el = ref.current;
+        if (!el || e.pointerType !== "mouse") return;
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--sx", `${e.clientX - r.left}px`);
+        el.style.setProperty("--sy", `${e.clientY - r.top}px`);
+      }}
+      className={cn("group/spot relative isolate overflow-hidden", className)}
+      style={style}
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 group-hover/spot:opacity-100 print:hidden"
+        style={{ background: `radial-gradient(${size}px circle at var(--sx, 50%) var(--sy, 50%), ${color}, transparent 65%)` }}
+      />
       {children}
     </div>
   );
 }
 
-export function Tilt({ children, className }: { children: ReactNode; className?: string; max?: number }) {
-  return <div className={className}>{children}</div>;
+/** Gentle 3D tilt that follows the mouse (one featured card per page). Off for touch and reduced motion. */
+export function Tilt({ children, className, max = 6 }: { children: ReactNode; className?: string; max?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const [t, setT] = useState({ x: 0, y: 0 });
+  return (
+    <motion.div
+      ref={ref}
+      onPointerMove={(e) => {
+        if (reduce || e.pointerType !== "mouse" || !ref.current) return;
+        const r = ref.current.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        setT({ x: -py * max, y: px * max });
+      }}
+      onPointerLeave={() => setT({ x: 0, y: 0 })}
+      animate={{ rotateX: t.x, rotateY: t.y }}
+      transition={{ type: "spring", stiffness: 200, damping: 18, mass: 0.6 }}
+      style={{ transformPerspective: 900 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function GridBackdrop(_props: { className?: string }) {
-  return null;
+/** Faint 64 px grid masked to the centre, for the dark band, dark banners and featured cards. */
+export function GridBackdrop({ className }: { className?: string }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={cn("pointer-events-none absolute inset-0 print:hidden", className)}
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
+        backgroundSize: "64px 64px",
+        maskImage: "radial-gradient(ellipse at center, black 30%, transparent 78%)",
+        WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 78%)",
+      }}
+    />
+  );
 }

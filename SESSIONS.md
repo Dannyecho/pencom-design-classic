@@ -75,7 +75,7 @@ This should print nothing for files in scope; kit compat exports are expected in
 | --- | --- | --- | --- |
 | CL0 | Scaffold from calm | root files, `CLAUDE.md` | done (2026-11-21): copy of calm on port 3015 (dev + start), package `pencom-theme-classic`, classic `CLAUDE.md` + README; typecheck, build, 200s and 404s checked |
 | CL1 | Homepage `/` | `HomeClassic.tsx`, `homeclassic/*`, `src/app/page.tsx` | done (2026-11-21): classic homepage ported (slider + QuickFind, tasks, notices, services, portals, news, figures band, help, prototype links); dark slider shade, `y` motion, 12 px chips, 44 px targets; HomeCalm removed |
-| CL2 | Kit: banners, floating bar, SideNav, TabStrip, dark band, cards, dialogs, document kit | `theme/*`, `docs/kit.tsx`, `about/primitives.tsx` | pending |
+| CL2 | Kit: banners, floating bar, SideNav, TabStrip, dark band, cards, dialogs, document kit | `theme/*`, `docs/kit.tsx`, `about/primitives.tsx` | done (2026-11-21): real `Spotlight`/`Tilt`/`GridBackdrop`; classic `Headline` (12 px eyebrow, ink `#0A2E10`); new `PhotoBanner`, `FloatingBar`, `PortalLayout`/`SideNav` (+ phone disclosure bar), `TabStrip`, `DarkBand`, `ClosingLinks`, `Tile` and class strings; compat `PageHero` = dark grid banner with actions/aside floating over it, `SectionNav` → `TabStrip`, `DarkBackdrop` = grid band, dialogs with a `#04240A` bar; `DocBanner` (= `DocHero`), gold `PrimaryBtn`, outline `GhostBtn`, pill `Toc`, gold `ReadingBar`, `sizes` 16/18/20 |
 | CL3 | Chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | pending |
 | CL4 | Baseline audit | none edited | pending |
 | CL5a | About part 1 (overview, mission, structure) | `about/AboutPage.tsx`, `about/sections.tsx` | pending |
@@ -145,6 +145,12 @@ with `[transition-duration:…]`.
   - `sizes` 16/18/20 px; `darkCard` → `#04240A` gradient card; `glowLight` → a soft green glow string again.
 
 Verify `/`, `/about`, `/regulations/pension-reform-act` and `/services`. Pages look half converted; that is expected.
+*Done (CL2):* `PhotoBanner`, `FloatingBar`, `PortalLayout`/`SideNav`, `DarkBand` and `ClosingLinks` compile but no page uses them yet:
+the first page that does (CL5a About) must check them in the browser (word rise + mark, Ken Burns, SideNav scroll-spy and the
+phone disclosure bar, the "Need help?" card). `sectionCls` keeps `scroll-mt-[170px]` (header 92 + TabStrip ~72); `/#help`
+lands under the bar. `PhotoBanner` takes `alt` (default empty, decorative). The SideNav's "On this page", "Related pages",
+"Need help?", "Ask the assistant or call us." and "Start a chat" need `/i18n-pass` when the first page uses them (CL5a).
+`spot` sets `--x/--y` again and `glowLight` is a real glow string, so old `onPointerMove={spot}` call sites glow.
 
 **CL3 Chrome.**
 - **Header:** classic portal header, still 92 px: a 28 px `#04240A` top bar (phone line, language, search, "Report fraud" badge) and a 64 px white nav
