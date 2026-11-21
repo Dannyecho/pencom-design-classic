@@ -19,3 +19,4 @@ npm run build && npm start   # production on port 3015 (or $PORT)
 - `src/components` – header, footer, notices bell, assistant, popups, accessibility.
 - `src/i18n` – English, Hausa, Yoruba and Igbo (drafts for review).
 - `src/lib/router.tsx` – lets the shared components use react-router style links on Next.js.
+# pencom-design-classic
