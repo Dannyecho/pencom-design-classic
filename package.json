@@ -5,9 +5,10 @@
   "description": "PenCom website, \"classic\" theme: the national portal look, photographic and well organised, with sticky side navigation and one dark band per page (Next.js).",
   "scripts": {
     "dev": "next dev --port ${PORT:-3015}",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start --port ${PORT:-3015}",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "bundle": "node tools/deploy/bundle.mjs"
   },
   "dependencies": {
     "autoprefixer": "^10.4.23",

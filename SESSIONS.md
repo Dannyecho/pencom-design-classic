@@ -77,7 +77,7 @@ This should print nothing for files in scope; kit compat exports are expected in
 | CL1 | Homepage `/` | `HomeClassic.tsx`, `homeclassic/*`, `src/app/page.tsx` | done (2026-11-21): classic homepage ported (slider + QuickFind, tasks, notices, services, portals, news, figures band, help, prototype links); dark slider shade, `y` motion, 12 px chips, 44 px targets; HomeCalm removed |
 | CL2 | Kit: banners, floating bar, SideNav, TabStrip, dark band, cards, dialogs, document kit | `theme/*`, `docs/kit.tsx`, `about/primitives.tsx` | done (2026-11-21): real `Spotlight`/`Tilt`/`GridBackdrop`; classic `Headline` (12 px eyebrow, ink `#0A2E10`); new `PhotoBanner`, `FloatingBar`, `PortalLayout`/`SideNav` (+ phone disclosure bar), `TabStrip`, `DarkBand`, `ClosingLinks`, `Tile` and class strings; compat `PageHero` = dark grid banner with actions/aside floating over it, `SectionNav` → `TabStrip`, `DarkBackdrop` = grid band, dialogs with a `#04240A` bar; `DocBanner` (= `DocHero`), gold `PrimaryBtn`, outline `GhostBtn`, pill `Toc`, gold `ReadingBar`, `sizes` 16/18/20 |
 | CL3 | Chrome, placeholder, 404 | `src/components/**`, `src/app/not-found.tsx`, `src/app/[...slug]/page.tsx` | done (2026-11-21): `#04240A` top bar with a compact reportgov badge; white nav with a sliding mint `layoutId` pill and gold-green underline; full-width mega menus (list-panel columns + dark featured overview card); footer = `#04240A` grid band with green/gold blurs, white newsletter card floating over its top edge, brand + 4 link columns (new "Get help"), portal tiles; NoticesBell/Promo/Cookie/QuickLinks/Chat (gold launcher)/A11y/Language widgets in classic tokens (dark title bars, list rows, left status bars, `rounded-xl` buttons); 404 and placeholder share server-only `layout/StatusPage` (dark grid banner + floating quick-links card); no new i18n keys |
-| CL4 | Baseline audit | none edited | pending |
+| CL4 | Baseline audit | none edited | done (2026-11-21): 24 URLs at 1400/390 px (19 routes, 2 stories, 1 regulation doc, `/mobile`, 2 missing pages): one h1 each, no sideways scroll, no console errors; grep 453 lines in 31 files of `src/views` (worst: Article 33, performance/Sections 32, about/sections 28); `/news/<missing>` is HTTP 200 (fix in CL13b); "Audit (CL4)" lines added; no code changed |
 | CL5a | About part 1 (overview, mission, structure) | `about/AboutPage.tsx`, `about/sections.tsx` | pending |
 | CL5b | About part 2 (executive, history, charter) | `about/sections.tsx` | pending |
 | CL6 | Service Charter | `charter/CharterPage.tsx` | pending |
@@ -167,77 +167,96 @@ offices, reportgov (md+), phone and language. Mega menus with several columns ar
 "Zonal Offices", "Overview" in the mega card), so no `/i18n-pass` was needed. `ReportGovBadge` takes `compact`.
 
 **CL4 Audit.** Every route at 1400 and 390 px; grep counts per file; add an "Audit:" line to each page session. Fix crashes only.
+*Done (CL4):* no crashes, so no code changed. The kit, chrome and homepage are clean (0 grep hits in `theme/`, `docs/`, `components/`, `homeclassic/`). Leftovers by token across `src/views`: `#14261A` 249, `#FBF8F1` 76, `calmCard` 59, `#F1EFE8` 54, `IconTile` 46, `Bubble` 24 (showcase tokens `#0B1F10`, `#04140A`, `#F2F6F0` are gone). Also to replace per page: 23 compat `PageHero`, 24 `SectionNav`, 26 `DarkBackdrop`, 67 `min-h-14`, 326 `text-lg`. Every inner page except forms, Q1 report, the Act, regulation docs, stories and Chronicles shows one full-width dark block (the compat banner); none has its real dark band yet. 404s: `/no-such-page` and `/regulations/doc/<missing>` answer 404; `/news/<missing>` answers 200. Audit script (Playwright, counts calm-ink elements, dark blocks, glass, weight 900, text under 16 and 12 px, overflow offenders) was in the session scratchpad; the grep above reproduces the file counts.
 
 **CL5a About part 1** (portal page). Banner: `about-*`/Abuja photo; title "About PenCom". FloatingBar: four quick facts as a
 `gap-px` figure strip (CountUp). SideNav: overview, mission, structure, executive, history, charter. Mandate and values
 as a list panel with icon tiles; vision and mission as a split pair (mission as the featured gradient card with Tilt).
 Org chart: classic cards with green connectors.
+Audit (CL4): `AboutPage.tsx` 3 grep hits (`#14261A` 2, `#FBF8F1` 1; compat `PageHero` + `SectionNav`, 2 `min-h-14`), `sections.tsx` 28 (shared with CL5b: `#14261A` 13, `calmCard` 8, `IconTile` 5, `#F1EFE8` 1, 1 `rounded-[2rem] bg-[#0A4A13]` inset panel). Renders 327 elements in calm ink `#14261A`, 1 full-width dark block (the compat banner), 29 text items under 16 px at 1400 (38 at 390). One h1, no overflow at 390, no console errors.
 **CL5b About part 2.** Executive: directory grid (photo above the name, white cards, profile in the classic Modal).
 History: the page's **dark band**, a horizontal-on-desktop / vertical-on-phone timeline with year chips and growing bars
 (no `x` motion). Charter teaser: closing strip (charter, contact, service standards).
+Audit (CL4): see CL5a for `sections.tsx`. Executive, history and charter teaser are calm layouts (calm cards, mint bubbles); the profile dialog already uses the classic Modal.
 
 **CL6 Service Charter** (document page). DocBanner with "Signed PDF" gold and "Make a complaint" outline buttons.
 Toc sidebar with search (keep `aliases`) and text size. Standards as a filterable **list panel table** (department, service,
 time) instead of cards. Complaints steps 1–4 in the **dark band** (gold step chips on a line). Full text stays English.
+Audit (CL4): `CharterPage.tsx` 12 hits (`#FBF8F1` 4, `calmCard` 3, `#F1EFE8` 3, `#14261A` 2; compat `PageHero`, `SectionNav`, `DarkBackdrop`; 5 `min-h-14`). 208 calm-ink elements, 21 items under 16 px. One h1, no overflow, no console errors.
 
 **CL7 Services** (portal page). Banner: contributor photo. FloatingBar: the "What do you want to do?" picker as a select plus a
 gold button. Journeys become the **AudienceTasks pattern**: vertical tabs (PCC, PPP, micro, transfer…) on the left and a panel with
 numbered steps, eligibility check and "where next" on the right (hash links `#pcc #ppp #micro` pick the tab). Calculator =
 **dark band** (sliders on glass, results with CountUp, bars). Portals as the homepage portal cards (dark tile, hostname, Spotlight).
 Help as the homepage HelpFaq right column. Keep the handoff dialog.
+Audit (CL4): `ServicesPage.tsx` 26 hits (`#14261A` 10, `#F1EFE8` 6, `IconTile` 4, `#FBF8F1` 4, `calmCard` 2; compat `PageHero` + `SectionNav`; 4 `min-h-14`), `Calculator.tsx` 7 (`#14261A` 5; `DarkBackdrop`). 246 calm-ink elements, 9 small items. One h1, no overflow, no console errors.
 
 **CL8 Operators** (tool page). Banner: office/laptop photo. FloatingBar: the licence check. TabStrip: directory, how it
 works, funds, performance. Directory defaults to a **table/list view** (name, type, city, contact actions) with a card
 view toggle and filters in a segmented control; the drawer is kept (`?op=`, focus). How it works: a numbered horizontal process.
 Funds selector = **dark band**. PFA returns keep the "sample figures" label. `#pfcs`, `#funds` keep working.
+Audit (CL4): `OperatorsPage.tsx` 27 hits (`#14261A` 9, `calmCard` 6, `IconTile` 4, `#FBF8F1` 4, `#F1EFE8` 4; compat `PageHero`, `SectionNav`, `DarkBackdrop`; 6 `min-h-14`). 275 calm-ink elements, 25 small. One h1, no overflow, no console errors.
 
 **CL9a Resources part 1** (portal page). Banner: woman-with-phone photo. FloatingBar = the homepage QuickFind (search +
 popular chips, results in a list panel). SideNav lists every resource section. Guides as classic cards with a featured gradient
 guide card; the guide dialog in classic Modal (`?guide=` kept, steps, checklist, listen/print).
+Audit (CL4): `ResourcesPage.tsx` 4 hits (compat `PageHero` + `SectionNav`), `Guides.tsx` 11 (`#14261A` 4, `IconTile` 3, `calmCard` 2). Page (and `/resources/faq`, identical): 390 calm-ink elements, the most of any portal page, 39 small at 1400. One h1, no overflow, no console errors.
 **CL9b Resources part 2.** Publications as a list panel by year with cover thumbnails and tabs (`#annual-reports` opens
 Annual, `?doc=` kept); downloads list panel; FAQ in the homepage accordion style; glossary A–Z with chips;
 learning (video) is the **dark band**. `/resources/faq` lands on FAQ.
+Audit (CL4): `Library.tsx` 25 hits (`calmCard` 9, `IconTile` 4, `Bubble` 4; `DarkBackdrop`; still has the `duration-[1500ms]` build warning), `FaqGlossary.tsx` 8 (`Bubble` 3, `IconTile` 2), `compat.tsx` 0.
 
 **CL10 Forms + Q1 report** (document pages). Forms: DocBanner, Toc sidebar (checklists, forms); checklists as a
 list panel with a progress bar and an open checklist card (ticks in `pencom:checklists`, `ready` flag); forms as a
 download list panel with a search field. Q1 report: DocBanner with figures, tiles as `gap-px` figure grid, domain tabs as
 a segmented control, DG quote as featured gradient card; text stays English; print stays white.
+Audit (CL4): `FormsPage.tsx` 24 hits (`#14261A` 15, `#FBF8F1` 4, `calmCard` 3, `IconTile` 2, `Bubble` 2; 5 `min-h-14`), `ReportPage.tsx` 23 (`#14261A` 18, 1 `rounded-[2rem] bg-[#0A4A13]` panel). Both already sit under the classic `DocBanner`; no full-width band. Forms 175 calm-ink, 7 small; report 170 calm-ink, 22 small. One h1, no overflow, no console errors (one run of the report at 390 px lost its context to a dev reload; the re-run was clean).
 
 **CL11a Regulations library** (tool page, always English). Dark DocBanner with the search field and type chips inside
 it (no photo). TabStrip: latest, library, Act, compliance, policies. Library keeps facets in its own left column (no SideNav)
 and shows results as a **list panel** (type chip, date, PDF), as on the homepage "Latest regulations". The Act = **dark band**. Drawer and URL filters kept.
+Audit (CL4): `RegulationsPage.tsx` 11 hits (compat `PageHero` + `SectionNav`), `Sections.tsx` 29 (`#14261A` 12, `calmCard`/`IconTile`/`Bubble` 4 each; `DarkBackdrop`), `Library.tsx` 15 (`#14261A` 9, `IconTile` 3), `DocDrawer.tsx` 10 (`#14261A` 7). 267 calm-ink elements, 70 small (75 at 390). The kit `Drawer` slides in on `x` (fixed overlay, no page overflow). One h1, no overflow, no console errors.
 **CL11b Act + docs** (document pages). The Act has a Toc sidebar of parts, a sticky search, part headers as `#F4F7F2`
 bars, section numbers in mint tiles, and the `?s=` gold ring. Regulation docs: tables with a `#04240A` header and zebra rows; the
 newer-version banner as a Warning-style status card. Unknown ids stay 404. Spot-check 3 docs + a missing one.
+Audit (CL4): `PensionAct.tsx` 12 hits (`calmCard` 3, `#14261A` 4, `Bubble` 2), `RegDocPage.tsx` 20 (`#14261A` 9, `#FBF8F1` 5, `calmCard` 3). The Act renders 786 calm-ink elements and 721 items under 16 px (body text). `/regulations/doc/no-such-doc` answers **404** as intended. Wide tables scroll in their box; no console errors.
 
 **CL12a Connect part 1** (portal page). Banner: elder-woman-on-call photo. FloatingBar: three contact actions (call, email,
 chat) plus social links. SideNav: contact form, track, offices, newsroom. Tracker = **dark band**. Offices: map + state
 select + office card (route line and pins share `px()`/`py()`). Newsroom: the homepage NewsMedia layout. No invented hours.
+Audit (CL4): `ConnectPage.tsx` 4 hits (compat `PageHero` + `SectionNav`), `Sections.tsx` 25 (`#14261A` 11, `IconTile` 4, `#F1EFE8` 4, `calmCard` 3, `Bubble` 2; `DarkBackdrop`; still has the `duration-[1.2s]` build warning). 189 calm-ink elements, 23 small. Map pins use `x`/`y` as data, not motion. One h1, no overflow, no console errors.
 **CL12b Connect part 2.** Complaint form in a white card with a segmented step bar; topic cards; 48 px inputs; errors,
 focus order and the confirmation focus kept; `#report` → employer, `#complaint` → PFA.
+Audit (CL4): `CaseForm.tsx` 13 hits (`#14261A` 8, `#FBF8F1` 3, `#F1EFE8` 2; 2 `min-h-14`).
 
 **CL13a News catalogue** (tool page). Banner = the top story's photo with its title (shaded; it links to the story).
 FloatingBar: search + type chips + year/sort. Below: the homepage NewsMedia lead + side list, then the rest as a **newspaper list**
 (thumbnail rows grouped by month) with a cards/list toggle (URL kept). Galleries as a photo strip; media desk = **dark band**.
 "Drafts until the CMS" label kept.
+Audit (CL4): `NewsCatalog.tsx` 4 hits, `parts.tsx` 23 (`#14261A` 13, `calmCard` 4, `#F1EFE8` 3; compat `PageHero`, `DarkBackdrop`). 251 calm-ink elements, 4 dark blocks, 21 small. One h1, no overflow, no console errors.
 **CL13b News story** (document page). PhotoBanner with the story title (word rise, `data-no-translate`), category and date;
 left sidebar: share buttons, contents, "more from the newsroom" list panel; body at 16/18/20 px; figures as a `gap-px`
 grid; PDF card as featured gradient. Check `q1-2026-industry-report` and `48-hour-approvals`, and a missing slug.
+Audit (CL4): `Article.tsx` 37 hits, the most of any file (`#14261A` 24, `#FBF8F1` 4, `calmCard` 3, `IconTile`/`Bubble`/`#F1EFE8` 2 each; one 11 px text class). Stories render ~150 calm-ink elements, no dark band. **`/news/no-such-story` answers HTTP 200** with a "not found" view (the route has no `notFound()`, same as calm); make it a real 404 here. Dev logs a `metadataBase` warning on story pages (Open Graph images). No overflow.
 
 **CL14a Performance part 1** (tool page). The hero **is the dark band**: the homepage IndustryFigures layout (CountUp
 grid + asset growth bars) with crumbs and h1. FloatingBar: period + segment controls. TabStrip: coverage, assets,
 allocation, funds, fees, compare, method. Compare as a table with checkboxes; method as an accordion. Sample labels kept;
 the median line formula stays in step with the race grid.
+Audit (CL4): `PerformancePage.tsx` 2 hits (compat `SectionNav`), `Sections.tsx` 38 (`#14261A` 16, `IconTile` 5, `#FBF8F1` 5, `#F1EFE8` 5, `calmCard` 4, `Bubble` 3; compat `PageHero`, `DarkBackdrop`), `data.ts` 1 (`#14261A` as a series colour). 597 calm-ink elements (most of any page), 52 small. One h1, no overflow, no console errors.
 **CL14b Performance charts.** Light chart cards; area chart with a gold latest point; donut legend as a list panel;
 latest column gold; white tooltip measured to stay inside the chart; CSV/JSON as outline buttons; chart/table toggle as a segmented control.
+Audit (CL4): `charts.tsx` 15 hits (`#14261A` 9, `#FBF8F1` 4, `#F1EFE8` 2).
 
 **CL15 Media** (tool page). Banner: a slow photo mosaic (three or four photos crossfading, labelled pause). TabStrip: photos, videos,
 follow. Albums as a masonry grid with a gold ring on the chosen album; videos = **dark band** (player + playlist rows);
 lightbox with labelled Close, Previous and Next (fade, not `x`), arrow keys, `?photo=`, focus return.
+Audit (CL4): `MediaPage.tsx` 23 hits (`#14261A` 14, `#F1EFE8` 5, `#FBF8F1` 4; compat `PageHero`, `SectionNav`, `DarkBackdrop`; 6 `min-h-14`). 421 calm-ink elements, 52 small. The lightbox no longer moves on `x` (calm fixed it). One h1, no overflow, no console errors.
 
 **CL16 Chronicles.** Magazine page: banner with the cover beside the masthead (serif, no flip-book), gold "Read the issue"
 (PDF). Inside as classic cards; launch = **dark band** with medals; shelf as a cover row with lift; subscribe in a
 floating white card (validation focus kept).
+Audit (CL4): `ChroniclesPage.tsx` 15 hits (`#14261A` 6, `#FBF8F1` 5, `calmCard` 2, `#F1EFE8` 2; compat `SectionNav`, `DarkBackdrop`), `PreviewPages.tsx` 13 (`#14261A` 13) plus **23 `text-[9–11px]` classes** (14 visible items under 12 px, the only page with them). No full-width band yet. One h1, no overflow, no console errors.
 
 **CL17 Sweep.** Grep over all of `src/`; all 19 routes + `/mobile` + 404 at 1400/390 px (one h1, no sideways scroll,
 no console errors, exactly one dark band per page); `/i18n-pass` for any new strings (banner chips, SideNav labels,
