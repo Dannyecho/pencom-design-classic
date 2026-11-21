@@ -68,7 +68,7 @@ export function ReadingBar() {
  * title with a short gold bar, a lead, actions, and the meta row as a `gap-px` grid. Print stays white.
  */
 export function DocBanner({
-  crumbs, kind, title, lead, meta, badge, actions, icon,
+  crumbs, kind, title, lead, meta, badge, actions, icon, floating = false,
 }: {
   crumbs: { label: string; to?: string }[];
   kind: string;
@@ -78,12 +78,14 @@ export function DocBanner({
   badge?: ReactNode;
   actions?: ReactNode;
   icon?: ReactNode;
+  /** Leaves room at the bottom for a FloatingBar that rises over the banner. */
+  floating?: boolean;
 }) {
   const reduce = useReducedMotion();
   return (
     <header className="relative isolate overflow-hidden text-white print:bg-white print:text-black">
       <DarkBackdrop />
-      <div className="relative mx-auto max-w-7xl px-4 pb-12 pt-6 lg:pb-14">
+      <div className={cn("relative mx-auto max-w-7xl px-4 pt-6", floating ? "pb-24 lg:pb-28" : "pb-12 lg:pb-14")}>
         <Crumbs crumbs={crumbs} dark className="print:hidden" />
         <div className="mt-6 max-w-4xl">
           <motion.p initial={{ opacity: 0, y: reduce ? 0 : 12 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap items-center gap-2">
@@ -191,7 +193,14 @@ export function Toc({ items, title = "Contents", className }: { items: { id: str
     return () => { window.removeEventListener("scroll", on); cancelAnimationFrame(raf); };
   }, [items]);
   useEffect(() => {
-    listRef.current?.querySelector<HTMLElement>(`[data-id="${active}"]`)?.scrollIntoView({ block: "nearest" });
+    // Keep the active row visible by scrolling the list only (scrollIntoView would also scroll the window).
+    const list = listRef.current;
+    const el = list?.querySelector<HTMLElement>(`[data-id="${active}"]`);
+    if (!list || !el) return;
+    const lr = list.getBoundingClientRect();
+    const er = el.getBoundingClientRect();
+    if (er.top < lr.top) list.scrollTop -= lr.top - er.top;
+    else if (er.bottom > lr.bottom) list.scrollTop += er.bottom - lr.bottom;
   }, [active]);
   return (
     <nav aria-label={title} className={cn("rounded-3xl border border-gray-200/80 bg-white p-3", className)}>

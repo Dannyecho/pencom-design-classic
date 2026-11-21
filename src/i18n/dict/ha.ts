@@ -1810,6 +1810,8 @@ const ha: Record<string, string> = {
   /* About part 2 (classic CL5b) */
   "If we fall short, tell us.": "Idan muka gaza, ka sanar da mu.",
   "Commission Secretary / Legal Adviser": "Sakataren Hukumar / Mai Ba da Shawara kan Shari’a",
+  /* Service Charter (classic CL6) */
+  "Time standard": "Matsayin lokaci",
 };
 
 export default ha;

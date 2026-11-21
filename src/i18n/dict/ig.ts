@@ -1810,6 +1810,8 @@ const ig: Record<string, string> = {
   /* About part 2 (classic CL5b) */
   "If we fall short, tell us.": "Ọ bụrụ na anyị adaghị n’ọrụ, gwa anyị.",
   "Commission Secretary / Legal Adviser": "Odeakwụkwọ Kọmịshọn / Onye Ndụmọdụ Iwu",
+  /* Service Charter (classic CL6) */
+  "Time standard": "Ụkpụrụ oge",
 };
 
 export default ig;

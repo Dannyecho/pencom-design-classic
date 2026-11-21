@@ -1810,6 +1810,8 @@ const yo: Record<string, string> = {
   /* About part 2 (classic CL5b) */
   "If we fall short, tell us.": "Bí a bá kùnà, sọ fún wa.",
   "Commission Secretary / Legal Adviser": "Akọ̀wé Àjọ / Olùgbàmọ̀ràn lórí Òfin",
+  /* Service Charter (classic CL6) */
+  "Time standard": "Ìpele àkókò",
 };
 
 export default yo;

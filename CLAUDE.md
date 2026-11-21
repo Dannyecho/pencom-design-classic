@@ -119,7 +119,7 @@ Ported pages keep react-router code. Import from `@/lib/router`, never `react-ro
 ink `#0A2E10` title, `DrawnMark` on the highlight or a short green→gold bar, 16/18 px intro; `dark` for the band; `action`
 to the right on desktop). `n` is ignored.
 
-`src/views/docs/kit.tsx`: `DocBanner` (= `DocHero`): dark grid banner with light crumbs, gold type chip, title, gold bar, lead,
+`src/views/docs/kit.tsx`: `DocBanner` (= `DocHero`; `floating` leaves room for a `FloatingBar`): dark grid banner with light crumbs, gold type chip, title, gold bar, lead,
 actions and the meta row as a `gap-px` grid (print stays white). `PrimaryBtn` gold `rounded-xl min-h-12`, `GhostBtn` green outline,
 `ArrowChip`, `darkCard` (featured gradient), `glowLight` (green pointer glow), gold `ReadingBar`, `Toc` in SideNav style (grey
 rows, green gradient active row), `DocTools`, `PdfCard` (featured gradient + grid), `VerifyNote` (blue information status card).
@@ -162,7 +162,7 @@ real `Spotlight` (pointer glow, mouse only), `Tilt` (one featured card per page)
 - Components can call `t("English", vars)` from `useI18n()`; Headline/PageHero/About hero do this for whole titles.
 - `/regulations/*` is always English (`isLegalPath`). Content stays English by policy: names, addresses, dates,
   figures, document titles, news story text, the Q1 report text, the signed charter text, media captions.
-- Dictionaries: `dict/ha.ts`, `yo.ts`, `ig.ts` have identical keys (1,669 each). New entries go in a marked section at
+- Dictionaries: `dict/ha.ts`, `yo.ts`, `ig.ts` have identical keys (1,703 each). New entries go in a marked section at
   the end. Tools and the full procedure: `tools/i18n/README.md` and `/i18n-pass`.
 
 ## Verify before you report
