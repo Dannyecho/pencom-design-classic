@@ -161,7 +161,7 @@ export default function SiteSearch({ dark = false }: { dark?: boolean }) {
                     i === active ? "bg-[#E8F5E9]" : "hover:bg-gray-50",
                   )}
                 >
-                  <span className="w-20 shrink-0 text-[11px] font-semibold uppercase tracking-wider text-gray-400">{r.group}</span>
+                  <span className="w-20 shrink-0 text-xs font-semibold uppercase tracking-wider text-gray-600">{r.group}</span>
                   <span className="flex-1 font-medium">
                     <Mark text={r.label} q={q.trim().split(/\s+/)[0]} />
                   </span>

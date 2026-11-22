@@ -513,7 +513,7 @@ export function SideNav({ sections, pillId, related }: { sections: NavSection[];
   const reduce = useReducedMotion();
   const [active, setActive] = useActiveSection(sections, 190);
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       <nav aria-label="On this page">
         <p className="px-1 text-xs font-bold uppercase tracking-[0.18em] text-gray-600">On this page</p>
         <ul className="mt-3 space-y-1.5">
@@ -556,8 +556,9 @@ export function SideNav({ sections, pillId, related }: { sections: NavSection[];
         </ul>
       </nav>
 
+      {/* Short windows (≤ 940 px tall) drop the related list so the Need help card stays above the Quick links launcher. */}
       {related && related.length > 0 && (
-        <div>
+        <div className="[@media(max-height:940px)]:hidden">
           <p className="px-1 text-xs font-bold uppercase tracking-[0.18em] text-gray-600">Related pages</p>
           <ul className={cn(listPanel, "mt-3")}>
             {related.map((r) => (
@@ -650,7 +651,7 @@ export function PortalLayout({ sections, pillId, related, children }: { sections
     <div className="mx-auto max-w-7xl px-4 lg:grid lg:grid-cols-12 lg:gap-10">
       <SideNavBar sections={sections} />
       <aside className="hidden lg:col-span-3 lg:block print:hidden">
-        <div className="sticky top-[116px] pb-10 pt-14">
+        <div className="sticky top-[116px] pb-10 pt-10">
           <SideNav sections={sections} pillId={pillId} related={related} />
         </div>
       </aside>

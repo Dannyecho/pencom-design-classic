@@ -42,9 +42,10 @@ gold hover `#E0AA22`, gold text on light `#7A5200`, panel `#F4F7F2`, row hover `
 
 ## Status
 
-**In progress** (started 21 November 2026). CL0–CL3 done: the classic homepage, kit and site chrome are in place; inner
-pages still have calm layouts drawn with the classic kit (dark banners, tab strip); pages are
-converted in CL5a–CL16. Progress: `SESSIONS.md`.
+**Done** (21–22 November 2026, sessions CL0–CL17 in `SESSIONS.md`). Every route is in the classic look: portal pages
+(About, Services, Resources, Connect), tool pages (Operators, Regulations, News, Performance, Media, Chronicles) and
+document pages (Charter, Forms, Q1 report, Act, regulation docs, stories). `python3 tools/sweep.py` checks every route
+at 1400 and 390 px (h1 count, sideways overflow, dark bands, text under 12 px, console errors).
 
 ## Run
 
@@ -104,7 +105,7 @@ Ported pages keep react-router code. Import from `@/lib/router`, never `react-ro
   (Ken Burns photo, dark shade, word-rise h1 with the gold `DrawnMark`), `FloatingBar({ eyebrow?, title?, intro?, children })`
   (white card at `-mt-14` with a gold hairline), `PortalLayout({ sections, pillId, related?, children })` (sticky `SideNav` in
   3 columns + 9-column main; a sticky "On this page" disclosure bar below `lg`), `SideNav` (grey rows, green gradient `layoutId`
-  pill, optional section icons, "Related pages" list panel, dark "Need help?" card with chat and call), `TabStrip({ sections, pillId })`
+  pill, optional section icons, "Related pages" list panel, dark "Need help?" card with chat and call; "Related pages" is hidden on windows ≤ 940 px tall so the card clears the Quick links launcher), `TabStrip({ sections, pillId })`
   (sticky segmented control for tool pages), `DarkBand({ id?, labelledBy?, label?, children })` (the page's one `#04240A` band),
   `ClosingLinks({ items })`. Sections take `{ id, label, icon? }` (`NavSection`).
 - **Class strings:** `card`, `listPanel` + `listRow`, `goldBtn`, `outlineBtn`, `outlineDarkBtn`, `chip`, `featured` (dark gradient;
@@ -123,7 +124,7 @@ to the right on desktop). `n` is ignored.
 actions and the meta row as a `gap-px` grid (print stays white). `PrimaryBtn` gold `rounded-xl min-h-12`, `GhostBtn` green outline,
 `ArrowChip`, `darkCard` (featured gradient), `glowLight` (green pointer glow), gold `ReadingBar`, `Toc` in SideNav style (grey
 rows, green gradient active row), `DocTools`, `PdfCard` (featured gradient + grid), `VerifyNote` (blue information status card).
-`sizes` are 16/18/20 px. `/regulations/doc/<unknown id>` answers HTTP 404.
+`sizes` are 16/18/20 px. `/regulations/doc/<unknown id>` answers HTTP 404 with the shared `layout/StatusPage` (gold button to the library via `homeHref`).
 
 `src/views/about/primitives.tsx`: `scrollToId`, `sectionAliases`, `reveal`, `CountUp`, `SectionHeading` → Headline, and the
 real `Spotlight` (pointer glow, mouse only), `Tilt` (one featured card per page) and `GridBackdrop` (64 px grid, masked).

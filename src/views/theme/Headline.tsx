@@ -138,7 +138,7 @@ export function DrawnMark({ text, dark = false }: { text: string; dark?: boolean
     <span className="relative inline-block">
       <span
         className={cn(
-          "relative z-10 bg-clip-text text-transparent",
+          "relative z-10 bg-clip-text py-[0.12em] text-transparent",
           dark ? "bg-gradient-to-r from-[#F4D27A] via-[#E9B949] to-[#CB9615]" : "bg-gradient-to-r from-[#117F21] via-[#2E913D] to-[#9A6B00]",
         )}
       >

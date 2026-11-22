@@ -11,3 +11,6 @@ tools/i18n/.out/
 
 # deploy bundle
 /deploy/
+
+# sweep output
+tools/.out/

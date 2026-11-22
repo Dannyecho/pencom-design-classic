@@ -18,7 +18,24 @@ const links: { label: string; href: string; icon: LucideIcon }[] = [
   { label: "Contact Us", href: "/connect", icon: Mail },
 ];
 
-export default function StatusPage({ chip, chipIcon: ChipIcon, title, lead, homeLabel }: { chip: string; chipIcon: LucideIcon; title: ReactNode; lead: ReactNode; homeLabel: string }) {
+export default function StatusPage({
+  chip,
+  chipIcon: ChipIcon,
+  title,
+  lead,
+  homeLabel,
+  homeHref = "/",
+  homeIcon: HomeIcon = ArrowLeft,
+}: {
+  chip: string;
+  chipIcon: LucideIcon;
+  title: ReactNode;
+  lead: ReactNode;
+  homeLabel: string;
+  /** The gold button's target (the home page unless a page needs a better way back). */
+  homeHref?: string;
+  homeIcon?: LucideIcon;
+}) {
   return (
     <div className="bg-white pb-20">
       <section className="relative isolate overflow-hidden bg-[#04240A] px-4 pb-32 pt-16 text-white sm:pb-36 sm:pt-20">
@@ -43,8 +60,8 @@ export default function StatusPage({ chip, chipIcon: ChipIcon, title, lead, home
           <span aria-hidden="true" className="mx-auto mt-5 block h-1 w-16 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">{lead}</p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/" className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#CB9615] px-6 font-semibold text-[#1A1206] shadow-[0_14px_30px_-16px_rgba(203,150,21,0.9)] transition hover:bg-[#E0AA22] ${focus}`}>
-              <ArrowLeft className="h-5 w-5" aria-hidden="true" />
+            <Link href={homeHref} className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#CB9615] px-6 font-semibold text-[#1A1206] shadow-[0_14px_30px_-16px_rgba(203,150,21,0.9)] transition hover:bg-[#E0AA22] ${focus}`}>
+              <HomeIcon className="h-5 w-5" aria-hidden="true" />
               {homeLabel}
             </Link>
             <Link href="/#chat" className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/20 px-6 font-semibold text-white transition hover:border-[#F4D27A] hover:text-[#F4D27A] ${focus}`}>

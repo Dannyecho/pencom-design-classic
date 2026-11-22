@@ -5,6 +5,8 @@ import { I18nProvider } from "@/i18n/I18nProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  // Resolves social preview images; SITE_URL overrides it for a staging host.
+  metadataBase: new URL(process.env.SITE_URL ?? "https://www.pencom.gov.ng"),
   title: { default: "PenCom Nigeria | National Pension Commission", template: "%s | PenCom" },
   description: "Pensions made clear for every Nigerian: services, regulations, news and help from the National Pension Commission.",
   icons: { icon: "/pencom-logo.png" },
