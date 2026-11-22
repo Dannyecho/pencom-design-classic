@@ -1814,6 +1814,8 @@ const yo: Record<string, string> = {
   "Time standard": "Ìpele àkókò",
   /* Operators (classic CL8) */
   "Contact": "Ìkànsí",
+  /* News story (classic CL13b) */
+  "Keep reading": "Máa kà á lọ",
 };
 
 export default yo;

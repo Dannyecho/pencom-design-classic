@@ -1814,6 +1814,8 @@ const ig: Record<string, string> = {
   "Time standard": "Ụkpụrụ oge",
   /* Operators (classic CL8) */
   "Contact": "Kpọtụrụ",
+  /* News story (classic CL13b) */
+  "Keep reading": "Gaa n'ihu na-agụ",
 };
 
 export default ig;

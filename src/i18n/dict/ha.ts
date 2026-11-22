@@ -1814,6 +1814,8 @@ const ha: Record<string, string> = {
   "Time standard": "Matsayin lokaci",
   /* Operators (classic CL8) */
   "Contact": "Tuntuɓa",
+  /* News story (classic CL13b) */
+  "Keep reading": "Ci gaba da karatu",
 };
 
 export default ha;

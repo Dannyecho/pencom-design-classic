@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Article from "@/views/news/Article";
 import { findArticle, news } from "@/views/news/data";
 
@@ -19,5 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
+  // Unknown stories answer HTTP 404 with the site's not-found page.
+  if (!findArticle(slug)) notFound();
   return <Article slug={slug} />;
 }
