@@ -164,7 +164,7 @@ export function EyebrowPill({ icon: Icon, label, dark = false }: { icon?: Lucide
 }
 
 /** Splits a translated title around its translated highlight (case-insensitive; word order differs by language). */
-function useMarked(title: string, mark?: string) {
+export function useMarked(title: string, mark?: string) {
   const { t, lang } = useI18n();
   const T = t(title);
   const M = mark ? t(mark) : "";
@@ -175,7 +175,7 @@ function useMarked(title: string, mark?: string) {
 }
 
 /** Words that rise one by one out of a clipped line (banner titles, as in the homepage slider). */
-function RiseWords({ text, start = 0 }: { text: string; start?: number }) {
+export function RiseWords({ text, start = 0 }: { text: string; start?: number }) {
   const reduce = useReducedMotion();
   const words = text.split(" ");
   return (
