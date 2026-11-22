@@ -1816,6 +1816,8 @@ const ig: Record<string, string> = {
   "Contact": "Kpọtụrụ",
   /* News story (classic CL13b) */
   "Keep reading": "Gaa n'ihu na-agụ",
+  /* Media (classic CL15) */
+  "Newest video": "Vidiyo kachasị ọhụrụ",
 };
 
 export default ig;

@@ -1816,6 +1816,8 @@ const ha: Record<string, string> = {
   "Contact": "Tuntuɓa",
   /* News story (classic CL13b) */
   "Keep reading": "Ci gaba da karatu",
+  /* Media (classic CL15) */
+  "Newest video": "Bidiyo mafi sabo",
 };
 
 export default ha;

@@ -1816,6 +1816,8 @@ const yo: Record<string, string> = {
   "Contact": "Ìkànsí",
   /* News story (classic CL13b) */
   "Keep reading": "Máa kà á lọ",
+  /* Media (classic CL15) */
+  "Newest video": "Fídíò tuntun jùlọ",
 };
 
 export default yo;
