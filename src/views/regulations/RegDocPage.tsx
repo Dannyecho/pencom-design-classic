@@ -11,7 +11,7 @@ import { library, type RegDoc } from "@/views/regulations/library";
 import { byId, fmtDate, statusStyle, typeStyle } from "@/views/regulations/search";
 import { webText } from "@/views/regulations/texts";
 import { ArrowChip, DocHero, DocTools, GhostBtn, Loading, Mark, PdfCard, PrimaryBtn, ReadingBar, Toc, VerifyNote, ring, sizes, useDocJson } from "@/views/docs/kit";
-import { Bubble, calmCard, goldBtn } from "@/views/legacy/calm";
+import { Tile, card, goldBtn, listPanel, listRow } from "@/views/theme/ui";
 
 /**
  * Regulatory item (brief §7 "Regulatory item": reference, dates, status badge, superseded-by link, HTML text, signed PDF,
@@ -30,20 +30,20 @@ function DocText({ blocks, q }: { blocks: B[]; q: string }) {
         if (b.t === "h") {
           const H = b.l <= 1 ? "h2" : "h3";
           return (
-            <H key={i} id={slug(b.x, i)} className={cn("scroll-mt-[190px] text-[#14261A]", b.l <= 1 ? "mt-12 text-2xl font-bold leading-[1.2] tracking-tight first:mt-0 sm:text-[1.75rem]" : "mt-8 text-xl font-bold leading-snug")}>
+            <H key={i} id={slug(b.x, i)} className={cn("scroll-mt-[190px] text-[#0A2E10]", b.l <= 1 ? "mt-12 text-2xl font-bold leading-[1.2] tracking-tight first:mt-0 sm:text-[1.75rem]" : "mt-8 text-xl font-bold leading-snug")}>
               <Mark text={b.x} q={q} />
-              {b.l <= 1 && <span aria-hidden="true" className="mt-3 block h-1.5 w-16 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />}
+              {b.l <= 1 && <span aria-hidden="true" className="mt-3 block h-1 w-16 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />}
             </H>
           );
         }
         if (b.t === "table") {
           return (
-            <figure key={i} className="my-8 overflow-hidden first:mt-0 rounded-3xl bg-white ring-1 ring-black/10 shadow-[0_24px_50px_-36px_rgba(10,74,19,0.5)]">
-              {b.cap && <figcaption className="flex items-center gap-3 bg-[#E8F5E9] px-5 py-3.5 text-base font-bold text-[#0A4A13]"><span aria-hidden="true" className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#CB9615]" />{b.cap}</figcaption>}
+            <figure key={i} className="my-8 overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-[0_24px_50px_-36px_rgba(10,74,19,0.5)] first:mt-0">
+              {b.cap && <figcaption className="flex items-center gap-3 border-b border-gray-200/80 bg-[#F4F7F2] px-5 py-3 text-[0.95em] font-bold text-[#0A2E10]"><span aria-hidden="true" className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#CB9615]" />{b.cap}</figcaption>}
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[480px] text-left text-base">
-                  {b.head.some((h) => h.trim()) && <thead className="bg-[#0A4A13] print:bg-white"><tr>{b.head.map((h, k) => <th key={k} scope="col" className="px-4 py-3.5 text-sm font-bold uppercase tracking-[0.1em] text-[#F4D27A] print:text-black">{h}</th>)}</tr></thead>}
-                  <tbody>{b.rows.map((r, k) => <tr key={k} className="border-t border-black/10 align-top transition-colors even:bg-[#FBF8F1] hover:bg-[#E8F5E9]">{r.map((c, j) => <td key={j} className={cn("px-4 py-3 leading-relaxed text-gray-800", j === 0 && "font-semibold text-[#14261A]")}><Mark text={c} q={q} /></td>)}</tr>)}</tbody>
+                  {b.head.some((h) => h.trim()) && <thead className="bg-[#04240A] print:bg-white"><tr>{b.head.map((h, k) => <th key={k} scope="col" className="px-4 py-3 text-xs font-bold uppercase tracking-[0.12em] text-[#F4D27A] print:text-black">{h}</th>)}</tr></thead>}
+                  <tbody>{b.rows.map((r, k) => <tr key={k} className="border-t border-gray-100 align-top transition-colors even:bg-[#F7FAF6] hover:bg-[#E8F5E9]">{r.map((c, j) => <td key={j} className={cn("px-4 py-3 leading-relaxed text-gray-800", j === 0 && "font-semibold text-[#0A2E10]")}><Mark text={c} q={q} /></td>)}</tr>)}</tbody>
                 </table>
               </div>
             </figure>
@@ -64,15 +64,16 @@ function Related({ title, docs }: { title: string; docs: RegDoc[] }) {
   if (!docs.length) return null;
   return (
     <div>
-      <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-[#7A5200]">{title}</h3>
-      <ul className="mt-3 space-y-3">
+      <h3 className="px-1 text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]">{title}</h3>
+      <ul className={cn(listPanel, "mt-3")}>
         {docs.map((d) => (
           <li key={d.id}>
-            <Link to={`/regulations/doc/${d.id}`} className={cn(calmCard, "flex items-center gap-4 p-5", ring)}>
-              <span aria-hidden="true" className={cn("relative h-3 w-3 shrink-0 rounded-full ring-4 ring-[#E8F5E9]", typeStyle[d.type].dot)} />
-              <span className="relative min-w-0 flex-1">
-                <span className="block text-lg font-bold leading-snug text-[#14261A]">{d.title}</span>
-                <span className="mt-1 flex flex-wrap items-center gap-2 text-base text-gray-700">{d.type} · {fmtDate(d.date)}{webText[d.id] && <span className="rounded-full bg-[#E8F5E9] px-2.5 py-0.5 text-sm font-bold text-[#0A4A13] ring-1 ring-[#117F21]/20">Web version</span>}</span>
+            <Link to={`/regulations/doc/${d.id}`} className={cn(listRow, "relative")}>
+              <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-transform duration-300 group-hover:scale-y-100" />
+              <span aria-hidden="true" className={cn("h-3 w-3 shrink-0 rounded-full ring-4 ring-[#E8F5E9]", typeStyle[d.type].dot)} />
+              <span className="min-w-0 flex-1">
+                <span className="block font-bold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{d.title}</span>
+                <span className="mt-1 flex flex-wrap items-center gap-2 text-sm text-gray-600">{d.type} · {fmtDate(d.date)}{webText[d.id] && <span className="rounded-full border border-[#117F21]/20 bg-[#E8F5E9] px-2.5 py-0.5 text-xs font-bold text-[#0A4A13]">Web version</span>}</span>
               </span>
               <ArrowChip />
             </Link>
@@ -122,6 +123,7 @@ function Doc({ d }: { d: RegDoc }) {
         title={d.title}
         badge={<span className={cn("rounded-full px-3.5 py-1 text-sm font-bold ring-1", statusStyle[d.status])}>{d.status}</span>}
         lead={d.summary || undefined}
+        floating={!!newer}
         meta={[
           { label: "Issued", value: fmtDate(d.date) },
           { label: "Status", value: d.status },
@@ -135,53 +137,64 @@ function Doc({ d }: { d: RegDoc }) {
       />
 
       {newer && (
-        <div className="bg-[#FBF8F1] pt-2" role="note">
-          <div className="mx-auto max-w-7xl px-4">
-            <div className="relative flex flex-col gap-5 overflow-hidden rounded-[2rem] bg-[#F1EFE8] p-6 ring-2 ring-[#CB9615]/60 sm:p-7 lg:flex-row lg:items-center lg:justify-between">
+        <div className="relative z-10 -mt-14 px-4" role="note">
+          <div className="mx-auto max-w-7xl">
+            <div className="relative flex flex-col gap-5 overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-5 pl-7 shadow-[0_30px_60px_-36px_rgba(4,36,10,0.55)] sm:p-6 sm:pl-8 lg:flex-row lg:items-center lg:justify-between">
+              <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#B45309]" />
               <div className="flex items-start gap-4">
-                <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A]"><AlertTriangle className="h-7 w-7" /></span>
+                <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#FEF3C7] text-[#B45309]"><AlertTriangle className="h-6 w-6" /></span>
                 <div>
-                  <p className="text-xl font-bold text-[#14261A]">A newer version of this document has been issued</p>
-                  <p className="mt-1 text-lg text-gray-700">Read the newer version: <span className="font-semibold text-[#14261A]">{newer.title}</span></p>
+                  <p className="text-lg font-bold text-[#0A2E10]">A newer version of this document has been issued</p>
+                  <p className="mt-1 text-gray-600">Read the newer version: <span className="font-semibold text-[#0A2E10]">{newer.title}</span></p>
                 </div>
               </div>
-              <Link to={`/regulations/doc/${newer.id}`} className={cn(goldBtn, "shrink-0 self-start lg:self-auto", ring)}>Open the newer version <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" /></Link>
+              <Link to={`/regulations/doc/${newer.id}`} className={cn(goldBtn, "group shrink-0 self-start lg:self-auto")}>Open the newer version <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" /></Link>
             </div>
           </div>
         </div>
       )}
 
-      <div id="doc-body" className="scroll-mt-24 bg-[#FBF8F1] text-[#14261A]">
+      <div id="doc-body" className="scroll-mt-24 bg-white text-[#0A2E10]">
         <div className="mx-auto max-w-7xl px-4 pt-8">
-          <div role="tablist" aria-label="Document views" className="inline-flex max-w-full gap-1 rounded-full bg-white p-1.5 shadow-[0_24px_50px_-30px_rgba(10,74,19,0.45)] ring-1 ring-black/10">
+          <div role="tablist" aria-label="Document views" className="inline-flex max-w-full gap-1 rounded-2xl bg-white p-1.5 shadow-[0_20px_40px_-28px_rgba(4,36,10,0.55)] ring-1 ring-gray-200">
             {([["read", "Read online"], ["about", "Details and related"]] as const).map(([k, l]) => (
-              <button key={k} role="tab" type="button" aria-selected={tab === k} disabled={k === "read" && !has} onClick={() => setTab(k)} className={cn("relative min-h-12 whitespace-nowrap rounded-full px-4 text-base font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 min-[400px]:text-lg sm:px-6", ring, tab === k ? "text-[#F4D27A]" : "text-[#14261A] hover:bg-[#E8F5E9]")}>
-                {tab === k && <motion.span layoutId="doc-tab" className="absolute inset-0 rounded-full bg-[#0A4A13] shadow-[0_10px_24px_-14px_rgba(10,74,19,0.8)]" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
+              <button key={k} role="tab" type="button" aria-selected={tab === k} disabled={k === "read" && !has} onClick={() => setTab(k)} className={cn("relative min-h-11 whitespace-nowrap rounded-xl px-4 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 min-[400px]:text-base sm:px-5", ring, tab === k ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]")}>
+                {tab === k && <motion.span layoutId="doc-tab" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_10px_24px_-12px_rgba(10,74,19,0.9)]" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
                 <span className="relative">{l}</span>
               </button>
             ))}
           </div>
-          {!has && <p className="mt-4 text-lg text-gray-700">A web version of this document is not available yet. Read the signed PDF.</p>}
+          {!has && <p className="mt-4 text-gray-600">A web version of this document is not available yet. Read the signed PDF.</p>}
         </div>
 
         <AnimatePresence mode="wait">
           {tab === "read" && has ? (
             <motion.div key="read" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease }} className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-8 lg:grid-cols-[280px_minmax(0,1fr)]">
-              <aside className="hidden lg:block print:hidden"><div className="sticky top-[124px] space-y-4">{toc.length > 2 && <Toc items={toc} />}</div></aside>
-              <div className="min-w-0 space-y-6">
-                <div className="sticky top-[100px] z-10 flex flex-col gap-2 rounded-[1.75rem] bg-white p-2 shadow-[0_24px_50px_-30px_rgba(10,74,19,0.5)] ring-1 ring-black/10 sm:flex-row sm:items-center sm:rounded-full print:hidden">
-                  <label className="flex flex-1 items-center gap-3 rounded-full bg-[#FBF8F1] pl-5 pr-1 ring-1 ring-black/10 has-[input:focus-visible]:outline has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[#FFD84D]">
-                    <Search className="h-6 w-6 shrink-0 text-[#117F21]" aria-hidden="true" />
-                    <span className="sr-only">Search this document</span>
-                    <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search this document" className="min-h-14 w-full min-w-0 bg-transparent text-lg placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0" />
-                    {q && <button type="button" onClick={() => setQ("")} aria-label="Clear search" className={cn("inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-4 text-base font-semibold text-[#0A4A13] transition hover:bg-[#E8F5E9]", ring)}><X className="h-4 w-4" aria-hidden="true" />Clear</button>}
-                  </label>
-                  <div className="flex items-center justify-between gap-2 px-2 pb-1 sm:px-0 sm:pb-0">
-                    <span className="text-base text-gray-700 sm:w-32" aria-live="polite">{hits === null ? "" : <><strong className="rounded-full bg-[#0A4A13] px-2.5 py-0.5 tabular-nums text-[#F4D27A]">{hits}</strong> match{hits === 1 ? "" : "es"}</>}</span>
+              <aside className="hidden lg:block print:hidden">
+                <div className="sticky top-[116px] space-y-4">
+                  {toc.length > 2 && <Toc items={toc} className="[&_ol]:max-h-[calc(100vh-22rem)]" />}
+                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-gray-200/80 bg-[#F4F7F2] p-4">
+                    <span className="text-xs font-bold uppercase tracking-[0.16em] text-gray-600">Text size</span>
                     <DocTools size={size} setSize={setSize} />
                   </div>
                 </div>
-                <article className="relative overflow-hidden rounded-[2rem] bg-white p-6 shadow-[0_40px_80px_-50px_rgba(10,74,19,0.45)] ring-1 ring-black/10 sm:p-10 print:shadow-none print:ring-0" style={{ fontSize: sizes[size] }} aria-label={d.title}>
+              </aside>
+              <div className="min-w-0 space-y-6">
+                <div className="sticky top-[92px] z-10 -mx-1 bg-white/95 px-1 pb-2 pt-2 backdrop-blur print:hidden">
+                <div className="flex flex-col gap-2 overflow-hidden rounded-2xl bg-white/95 p-1.5 shadow-[0_20px_40px_-28px_rgba(4,36,10,0.55)] ring-1 ring-gray-200 backdrop-blur sm:flex-row sm:items-center print:hidden">
+                  <label className="flex flex-1 items-center gap-3 rounded-xl bg-[#F4F7F2] pl-4 pr-1 ring-1 ring-gray-200 has-[input:focus-visible]:outline has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[#FFD84D]">
+                    <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
+                    <span className="sr-only">Search this document</span>
+                    <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search this document" className="min-h-12 w-full min-w-0 bg-transparent text-base placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0" />
+                    {q && <button type="button" onClick={() => setQ("")} aria-label="Clear search" className={cn("inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold text-[#0A4A13] transition hover:bg-white", ring)}><X className="h-4 w-4" aria-hidden="true" />Clear</button>}
+                  </label>
+                  <div className="flex items-center justify-between gap-2 px-2 pb-1 sm:pb-0">
+                    <span className="text-sm text-gray-600 sm:w-28" aria-live="polite">{hits === null ? "" : <><strong className="rounded-full bg-[#04240A] px-2.5 py-0.5 tabular-nums text-[#F4D27A]">{hits}</strong> match{hits === 1 ? "" : "es"}</>}</span>
+                    <div className="lg:hidden"><DocTools size={size} setSize={setSize} /></div>
+                  </div>
+                </div>
+                </div>
+                <article className="relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 shadow-[0_40px_80px_-50px_rgba(10,74,19,0.45)] sm:p-10 print:border-0 print:shadow-none" style={{ fontSize: sizes[size] }} aria-label={d.title}>
                   {status === "loading" && <Loading />}
                   {status === "error" && <p>The web version could not be loaded. <a href={d.pdf} className="font-semibold text-[#117F21] underline">Open the signed PDF</a>.</p>}
                   {data && <DocText blocks={blocks} q={dq} />}
@@ -192,22 +205,22 @@ function Doc({ d }: { d: RegDoc }) {
           ) : (
             <motion.div key="about" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease }} className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-8 lg:grid-cols-12">
               <div className="space-y-6 lg:col-span-7">
-                <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-[2rem] bg-black/10 shadow-[0_30px_60px_-40px_rgba(10,74,19,0.45)] ring-1 ring-black/10 sm:grid-cols-2">
+                <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-gray-200/80 bg-gray-200/80 sm:grid-cols-2">
                   {[
                     [FileText, "Type", d.type], [Calendar, "Date issued", fmtDate(d.date)], [Scale, "Status", d.status],
                     [Users, "Applies to", d.appliesTo.join(", ") || "All"], [Tag, "Subjects", d.subjects.join(", ")], [Calendar, "Effective date", "As stated in the document"],
                   ].map(([Icon, k, v]) => {
                     const I = Icon as typeof FileText;
                     return (
-                      <div key={k as string} className="group flex gap-4 bg-white p-5 transition-colors hover:bg-[#FBF8F1] sm:p-6">
-                        <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] text-[#F4D27A] transition duration-300 group-hover:-rotate-6"><I className="h-6 w-6" /></span>
-                        <div className="min-w-0"><dt className="text-sm font-bold uppercase tracking-[0.14em] text-[#7A5200]">{k as string}</dt><dd className="mt-1 text-lg font-semibold text-[#14261A]">{v as string}</dd></div>
+                      <div key={k as string} className="group flex gap-4 bg-white p-5 transition-colors hover:bg-[#F7FAF6] sm:p-6">
+                        <Tile icon={I} />
+                        <div className="min-w-0"><dt className="text-xs font-bold uppercase tracking-[0.16em] text-[#7A5200]">{k as string}</dt><dd className="mt-1 font-semibold text-[#0A2E10]">{v as string}</dd></div>
                       </div>
                     );
                   })}
                 </dl>
                 <PdfCard href={d.pdf} title={d.title} meta={`PDF · issued ${fmtDate(d.date)}`} />
-                <p className="text-base text-gray-700">Reference numbers, effective dates and in-force status are being confirmed by Legal Services and will appear here.</p>
+                <p className="text-sm text-gray-600">Reference numbers, effective dates and in-force status are being confirmed by Legal Services and will appear here.</p>
               </div>
               <div className="space-y-6 lg:col-span-5">
                 <Related title="Replaced by" docs={newer ? [newer] : []} />
@@ -221,10 +234,9 @@ function Doc({ d }: { d: RegDoc }) {
         </AnimatePresence>
 
         <div className="mx-auto max-w-7xl px-4 pb-16">
-          <Link to="/regulations#library" className={cn(calmCard, "flex items-center justify-between gap-4 p-6 text-xl font-bold text-[#14261A]", ring)}>
-            <Bubble />
-            <span className="relative">Back to the regulatory library</span>
-            <span className="relative"><ArrowChip /></span>
+          <Link to="/regulations#library" className={cn(card, "group flex items-center justify-between gap-4 p-6 text-lg font-bold text-[#0A2E10] hover:text-[#117F21]", ring)}>
+            <span>Back to the regulatory library</span>
+            <ArrowChip />
           </Link>
         </div>
       </div>

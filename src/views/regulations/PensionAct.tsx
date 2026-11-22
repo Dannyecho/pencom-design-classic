@@ -5,9 +5,9 @@ import { Link, useSearchParams } from "@/lib/router";
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
 import { BookOpen, Check, Download, ExternalLink, Gavel, Link2, Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ease } from "@/views/about/primitives";
+import { Spotlight, ease } from "@/views/about/primitives";
 import { ArrowChip, DocHero, DocTools, GhostBtn, Loading, Mark, PdfCard, PrimaryBtn, ReadingBar, Toc, VerifyNote, ring, sizes, useDocJson } from "@/views/docs/kit";
-import { Bubble, calmCard } from "@/views/legacy/calm";
+import { card, listPanel, listRow } from "@/views/theme/ui";
 
 /**
  * Pension Reform Act 2014 as a web page (DES-22; brief §6.2 Regulations: "Pension Reform Act 2014 (full act, key provisions)").
@@ -22,8 +22,10 @@ type Act = { parts: Part[]; schedules: { title: string; blocks: Block[] }[] };
 
 const PDF = "/documents/pension-reform-act-2014.pdf";
 const POPULAR = [4, 7, 8, 11, 13, 16, 89, 99];
-/** Labelled section tools: 44 px white pills with a green ring, filling dark green on hover. */
-const toolBtn = cn("inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-4 text-base font-semibold text-[#0A4A13] ring-1 ring-[#117F21]/30 transition hover:bg-[#0A4A13] hover:text-[#F4D27A] hover:ring-[#0A4A13]", ring);
+/** Labelled section tools: 44 px outline buttons that fill green on hover. */
+const toolBtn = cn("inline-flex min-h-11 items-center gap-2 rounded-xl border border-gray-200 bg-white px-3.5 text-sm font-semibold text-[#117F21] transition hover:border-[#117F21] hover:bg-[#117F21] hover:text-white", ring);
+/** Section number tile: mint, filling green on hover (inside a `group`). */
+const numTile = "flex shrink-0 items-center justify-center rounded-xl bg-[#E8F5E9] px-2 font-bold tabular-nums text-[#0A4A13] transition duration-300 group-hover:bg-[#117F21] group-hover:text-white";
 /** Offset for the site header (92 px) plus the sticky search bar. */
 const anchor = "scroll-mt-[270px] md:scroll-mt-[200px]";
 
@@ -52,15 +54,15 @@ function SectionCard({ s, q, partN, active }: { s: Section; q: string; partN: st
     <motion.article
       id={`s-${s.n}`} aria-labelledby={`s-${s.n}-t`}
       initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.45, ease }}
-      className={cn("group relative overflow-hidden rounded-3xl bg-white p-6 transition-shadow duration-300 hover:shadow-[0_28px_50px_-28px_rgba(10,74,19,0.45)] sm:p-8 print:break-inside-avoid print:p-0 print:ring-0", anchor, active ? "ring-2 ring-[#CB9615] shadow-[0_28px_50px_-30px_rgba(122,82,0,0.5)]" : "ring-1 ring-black/10")}
+      className={cn("group relative overflow-hidden rounded-3xl border bg-white p-6 transition duration-300 hover:shadow-[0_24px_50px_-24px_rgba(10,74,19,0.4)] sm:p-8 print:break-inside-avoid print:border-0 print:p-0", anchor, active ? "border-[#CB9615] ring-2 ring-[#CB9615] shadow-[0_28px_50px_-30px_rgba(122,82,0,0.5)]" : "border-gray-200/80 hover:border-[#117F21]/30")}
     >
       <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1 origin-top bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-transform duration-500 group-hover:scale-y-100 print:hidden", active ? "scale-y-100" : "scale-y-0")} />
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-start gap-4">
-          <span className="flex h-14 min-w-14 shrink-0 items-center justify-center rounded-2xl bg-[#0A4A13] px-2 text-xl font-bold tabular-nums text-[#F4D27A] transition duration-300 group-hover:-rotate-6"><span className="sr-only">Section </span>{s.n}</span>
+          <span className={cn(numTile, "h-12 min-w-12 text-lg", active && "bg-[#CB9615] text-[#1A1206]")}><span className="sr-only">Section </span>{s.n}</span>
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#7A5200]">Part {partN} · Section {s.n}</p>
-            <h3 id={`s-${s.n}-t`} className="mt-1 text-xl font-bold leading-snug tracking-tight text-[#14261A] sm:text-2xl"><Mark text={s.title} q={q} /></h3>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7A5200]">Part {partN} · Section {s.n}</p>
+            <h3 id={`s-${s.n}-t`} className="mt-1 text-xl font-bold leading-snug tracking-tight text-[#0A2E10]"><Mark text={s.title} q={q} /></h3>
           </div>
         </div>
         <div className="flex flex-wrap gap-2 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 print:hidden">
@@ -138,29 +140,36 @@ export default function PensionAct() {
         </>}
       />
 
-      <div className="bg-[#FBF8F1] text-[#14261A]">
+      <div className="bg-white text-[#0A2E10]">
         {/* Search bar: a solid white pill that stays under the site header */}
-        <div className="sticky top-[92px] z-20 mx-auto max-w-7xl px-4 pt-4 print:hidden">
-          <div className="flex flex-col gap-2 rounded-[1.75rem] bg-white p-2 shadow-[0_24px_50px_-30px_rgba(10,74,19,0.5)] ring-1 ring-black/10 md:flex-row md:items-center md:rounded-full">
-            <label className="flex flex-1 items-center gap-3 rounded-full bg-[#FBF8F1] pl-5 pr-1 ring-1 ring-black/10 has-[input:focus-visible]:outline has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[#FFD84D]">
-              <Search className="h-6 w-6 shrink-0 text-[#117F21]" aria-hidden="true" />
+        <div className="sticky top-[92px] z-20 bg-white/95 px-4 pb-3 pt-4 backdrop-blur print:hidden">
+          <div className="mx-auto max-w-7xl">
+          <div className="relative flex flex-col gap-2 overflow-hidden rounded-2xl bg-white/95 p-1.5 shadow-[0_20px_40px_-28px_rgba(4,36,10,0.55)] ring-1 ring-gray-200 backdrop-blur md:flex-row md:items-center">
+            <span aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#CB9615] to-transparent" />
+            <label className="flex flex-1 items-center gap-3 rounded-xl bg-[#F4F7F2] pl-4 pr-1 ring-1 ring-gray-200 has-[input:focus-visible]:outline has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[#FFD84D]">
+              <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
               <span className="sr-only">Search the Act</span>
-              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search the Act, e.g. “retirement savings account”, “penalty”, “death”" className="min-h-14 w-full min-w-0 bg-transparent text-lg placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0" />
-              {q && <button type="button" onClick={() => setQ("")} aria-label="Clear search" className={cn("inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-4 text-base font-semibold text-[#0A4A13] transition hover:bg-[#E8F5E9]", ring)}><X className="h-4 w-4" aria-hidden="true" />Clear</button>}
+              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search the Act, e.g. “retirement savings account”, “penalty”, “death”" className="min-h-12 w-full min-w-0 bg-transparent text-base placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0" />
+              {q && <button type="button" onClick={() => setQ("")} aria-label="Clear search" className={cn("inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold text-[#0A4A13] transition hover:bg-white", ring)}><X className="h-4 w-4" aria-hidden="true" />Clear</button>}
             </label>
-            <div className="flex flex-wrap items-center justify-between gap-2 px-2 pb-1 md:justify-end md:px-0 md:pb-0">
-              <p className={cn("text-base text-gray-700 md:w-56", !matches && "hidden sm:block")} aria-live="polite">
-                {matches ? <><strong className="rounded-full bg-[#0A4A13] px-2.5 py-0.5 tabular-nums text-[#F4D27A]">{matches.length}</strong> section{matches.length === 1 ? "" : "s"} mention “{dq.trim()}”</> : "Search across all 121 sections"}
+            <div className="flex flex-wrap items-center justify-between gap-2 px-2 pb-1 md:justify-end md:px-2 md:pb-0">
+              <p className={cn("text-sm text-gray-600 md:w-56", !matches && "hidden sm:block")} aria-live="polite">
+                {matches ? <><strong className="rounded-full bg-[#04240A] px-2.5 py-0.5 tabular-nums text-[#F4D27A]">{matches.length}</strong> section{matches.length === 1 ? "" : "s"} mention “{dq.trim()}”</> : "Search across all 121 sections"}
               </p>
-              <DocTools size={size} setSize={setSize} />
+              <div className="lg:hidden"><DocTools size={size} setSize={setSize} /></div>
             </div>
           </div>
         </div>
+        </div>
 
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 pb-20 pt-10 lg:grid-cols-[300px_minmax(0,1fr)]">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 pb-20 pt-7 lg:grid-cols-[300px_minmax(0,1fr)]">
           <aside className="hidden lg:block print:hidden">
-            <div className="sticky top-[196px] space-y-4">
-              {data && <Toc items={toc} title={matches ? "Matching sections" : "Arrangement of sections"} />}
+            <div className="sticky top-[192px] space-y-4">
+              {data && <Toc items={toc} title={matches ? "Matching sections" : "Arrangement of sections"} className="[&_ol]:max-h-[calc(100vh-25rem)]" />}
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-3xl border border-gray-200/80 bg-[#F4F7F2] p-4">
+                <span className="text-xs font-bold uppercase tracking-[0.16em] text-gray-600">Text size</span>
+                <DocTools size={size} setSize={setSize} />
+              </div>
             </div>
           </aside>
 
@@ -168,32 +177,34 @@ export default function PensionAct() {
             {status === "ready" && !matches && (
               <section aria-labelledby="pop-title" className="print:hidden">
                 <h2 id="pop-title" className="flex items-center gap-3 text-2xl font-bold tracking-tight">
-                  <span aria-hidden="true" className="h-1.5 w-10 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+                  <span aria-hidden="true" className="h-1 w-10 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
                   Most looked-up sections
                 </h2>
-                <ul className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                <Spotlight className="mt-5 rounded-3xl">
+                <ul className={cn(listPanel, "grid grid-cols-1 divide-y-0 bg-gray-100 gap-px sm:grid-cols-2 xl:grid-cols-4")}>
                   {POPULAR.map((n, i) => {
                     const s = all.find((x) => x.n === n);
                     if (!s) return null;
                     return (
-                      <motion.li key={n} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05, duration: 0.5, ease }} className="h-full">
-                        <button type="button" onClick={() => go(n)} className={cn(calmCard, "flex h-full w-full flex-col gap-4 p-5 text-left", ring)}>
-                          <Bubble />
-                          <span className="relative flex items-center justify-between gap-2">
-                            <span className="flex h-12 min-w-12 items-center justify-center rounded-2xl bg-[#0A4A13] px-2 text-lg font-bold tabular-nums text-[#F4D27A] transition duration-300 group-hover:-rotate-6"><span className="sr-only">Section </span>{n}</span>
+                      <motion.li key={n} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05, duration: 0.5, ease }} className="h-full bg-white/95">
+                        <button type="button" onClick={() => go(n)} className={cn(listRow, "relative h-full w-full flex-col items-stretch gap-4 p-5 text-left sm:px-5")}>
+                          <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
+                          <span className="flex items-center justify-between gap-2">
+                            <span className={cn(numTile, "h-11 min-w-11")}><span className="sr-only">Section </span>{n}</span>
                             <ArrowChip />
                           </span>
-                          <span className="relative text-lg font-bold leading-snug text-[#14261A]">{s.title}</span>
+                          <span className="font-bold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{s.title}</span>
                         </button>
                       </motion.li>
                     );
                   })}
                 </ul>
+                </Spotlight>
               </section>
             )}
 
             {status === "loading" && <Loading />}
-            {status === "error" && <p className="rounded-3xl bg-white p-8 text-center text-lg ring-1 ring-black/10">The web version could not be loaded. <a href={PDF} className="font-semibold text-[#117F21] underline">Open the official PDF</a>.</p>}
+            {status === "error" && <p className="rounded-3xl border border-gray-200/80 bg-white p-8 text-center">The web version could not be loaded. <a href={PDF} className="font-semibold text-[#117F21] underline">Open the official PDF</a>.</p>}
 
             {data && (
               <div className="space-y-12" style={{ fontSize: sizes[size] }}>
@@ -204,14 +215,14 @@ export default function PensionAct() {
                     <section key={p.n} id={`part-${p.n}`} aria-labelledby={`part-${p.n}-t`} className={anchor}>
                       <motion.div
                         initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.6, ease }}
-                        className="relative isolate flex flex-col gap-5 overflow-hidden rounded-[2rem] bg-[#F1EFE8] px-6 py-7 ring-1 ring-black/10 sm:flex-row sm:items-center sm:px-8 print:bg-white print:ring-0"
+                        className="relative isolate flex flex-col gap-5 overflow-hidden rounded-2xl border border-gray-200/80 bg-[#F4F7F2] px-5 py-6 sm:flex-row sm:items-center sm:px-7 print:border-0 print:bg-white"
                       >
-                        <span aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 -z-10 h-48 w-48 rounded-full bg-[#E8F5E9] print:hidden" />
-                        <span aria-hidden="true" className="flex h-16 min-w-16 shrink-0 items-center justify-center self-start rounded-2xl bg-[#0A4A13] px-3 font-serif text-2xl font-bold text-[#F4D27A] sm:self-auto">{p.n}</span>
+                        <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#117F21] to-[#CB9615] print:hidden" />
+                        <span aria-hidden="true" className="flex h-14 min-w-14 shrink-0 items-center justify-center self-start rounded-2xl bg-[#04240A] px-3 font-serif text-xl font-bold text-[#F4D27A] shadow-[0_12px_24px_-12px_rgba(4,36,10,0.9)] sm:self-auto">{p.n}</span>
                         <div className="min-w-0">
-                          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#7A5200]">Part {p.n}</p>
+                          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]">Part {p.n}</p>
                           <h2 id={`part-${p.n}-t`} className="mt-1 max-w-3xl text-2xl font-bold leading-[1.15] tracking-tight sm:text-3xl">{p.title}</h2>
-                          <p className="mt-3 flex items-center gap-3 text-base text-gray-700">
+                          <p className="mt-2 flex items-center gap-3 text-sm text-gray-600">
                             <span aria-hidden="true" className="h-1 w-10 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
                             Sections {p.sections[0].n} to {p.sections[p.sections.length - 1].n}
                           </p>
@@ -224,19 +235,19 @@ export default function PensionAct() {
                   );
                 })}
                 {!matches && data.schedules.map((s, i) => (
-                  <section key={s.title} id={`sch-${i}`} className={cn("relative overflow-hidden rounded-[2rem] bg-white p-6 ring-1 ring-black/10 sm:p-8", anchor)}>
-                    <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
-                    <p className="inline-flex rounded-full bg-[#E8F5E9] px-3.5 py-1 text-sm font-bold uppercase tracking-[0.18em] text-[#0A4A13]">Schedule</p>
+                  <section key={s.title} id={`sch-${i}`} className={cn("relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 sm:p-8", anchor)}>
+                    <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+                    <p className="inline-flex rounded-full border border-[#117F21]/15 bg-[#E8F5E9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#0A4A13]">Schedule</p>
                     <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">{s.title}</h2>
                     <div className="mt-5"><Blocks blocks={s.blocks} q="" /></div>
-                    {i === 1 && <p className="mt-5 text-base text-gray-700">The formula tables in this Schedule are easier to read in the <a href={`${PDF}#page=60`} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#117F21] underline">official PDF</a>.</p>}
+                    {i === 1 && <p className="mt-5 text-base text-gray-600">The formula tables in this Schedule are easier to read in the <a href={`${PDF}#page=60`} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#117F21] underline">official PDF</a>.</p>}
                   </section>
                 ))}
                 <AnimatePresence>
                   {matches && matches.length === 0 && (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="rounded-3xl bg-white p-10 text-center ring-1 ring-black/10">
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="rounded-3xl border border-gray-200/80 bg-[#F4F7F2] p-10 text-center">
                       <p className="text-xl font-bold">No section mentions “{dq.trim()}”.</p>
-                      <p className="mt-2 text-lg text-gray-700">Try a shorter word, or ask the PenCom Assistant.</p>
+                      <p className="mt-2 text-gray-600">Try a shorter word, or ask the PenCom Assistant.</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -246,8 +257,8 @@ export default function PensionAct() {
             <div className="space-y-4 print:hidden">
               <VerifyNote>This web version was prepared from the gazetted copy of the Act using text recognition, so it is easier to read, search and link to. Legal Services will check it against the gazette before publication. If the two ever differ, the gazetted text is authoritative.</VerifyNote>
               <PdfCard href={PDF} title="Pension Reform Act 2014 (gazetted copy)" meta="PDF · 62 pages · 1.2 MB" />
-              <Link to="/regulations#library" className={cn(calmCard, "flex items-center justify-between gap-4 p-6 text-xl font-bold text-[#14261A]", ring)}>
-                <span className="relative">Regulations, guidelines and circulars issued under the Act</span>
+              <Link to="/regulations#library" className={cn(card, "group flex items-center justify-between gap-4 p-6 text-lg font-bold text-[#0A2E10] hover:text-[#117F21]", ring)}>
+                <span>Regulations, guidelines and circulars issued under the Act</span>
                 <ArrowChip />
               </Link>
             </div>
