@@ -17,12 +17,6 @@ import { library } from "./library";
 import { fmtDate, latest, typeStyle } from "./search";
 import type { Filters } from "./Library";
 
-/**
- * Calm-era green outline button. Still imported by pages not yet converted (connect, newsroom); the regulations
- * page itself uses the theme's classic `outlineBtn`.
- */
-export const outlineBtn =
-  "group inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border-2 border-[#117F21] bg-white px-6 text-lg font-semibold text-[#0A4A13] transition hover:bg-[#117F21] hover:text-white";
 const moveArrow = "h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1";
 
 /* ─────────────────────────── Latest issued (scroll-snap rail) ─────────────────────────── */
