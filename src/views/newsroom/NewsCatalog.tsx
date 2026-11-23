@@ -135,7 +135,7 @@ export default function NewsCatalog() {
   return (
     <MotionConfig reducedMotion="user">
       <CookieConsent />
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <Banner lead={lead} />
         <FloatingBar>
           <FilterPanel
@@ -191,7 +191,7 @@ export default function NewsCatalog() {
               {results.length > limit && (
                 <div className="mt-12 flex flex-col items-center gap-4">
                   <div className="h-2 w-56 overflow-hidden rounded-full bg-gray-200" aria-hidden="true">
-                    <motion.div className="h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" animate={{ width: `${(limit / results.length) * 100}%` }} transition={{ duration: 0.5, ease }} />
+                    <motion.div className="h-full rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" animate={{ width: `${(limit / results.length) * 100}%` }} transition={{ duration: 0.5, ease }} />
                   </div>
                   <button type="button" onClick={() => setLimit((l) => l + PAGE)} className={cn(outlineBtn, "group")}>
                     {t("Show more news")}

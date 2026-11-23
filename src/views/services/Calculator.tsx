@@ -220,7 +220,7 @@ export default function Calculator() {
           <div className="relative h-full overflow-hidden rounded-3xl bg-white/[0.06] p-6 ring-1 ring-white/15 backdrop-blur-sm sm:p-8">
             <GridBackdrop className="opacity-50" />
             <div className="relative flex items-start gap-4">
-              <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#04240A] shadow-[0_14px_30px_-12px_rgba(203,150,21,0.8)]">
+              <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#11421A] shadow-[0_14px_30px_-12px_rgba(203,150,21,0.8)]">
                 <CalcIcon className="h-7 w-7" />
               </span>
               <div className="min-w-0">
@@ -236,7 +236,7 @@ export default function Calculator() {
             </p>
 
             {/* Growth chart */}
-            <figure className="relative mt-6 rounded-2xl bg-[#04240A]/60 p-4 ring-1 ring-white/10">
+            <figure className="relative mt-6 rounded-2xl bg-[#11421A]/60 p-4 ring-1 ring-white/10">
               <svg viewBox={`0 0 ${W} ${H}`} className="h-44 w-full sm:h-52" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                   <linearGradient id="calc-fill" x1="0" x2="0" y1="0" y2="1">

@@ -88,7 +88,7 @@ export default function FormsPage() {
     if (!cur) return;
     const w = window.open("", "_blank", "width=800,height=900");
     if (!w) return;
-    w.document.write(`<!doctype html><title>${cur.title}</title><style>body{font:16px/1.6 Arial;margin:40px}h1{font:bold 22px Verdana;color:#0A4A13;margin:0}p{color:#444}ul{list-style:none;padding:0}li{display:flex;gap:12px;margin-bottom:12px}.b{flex:none;width:18px;height:18px;border:2px solid #117F21;border-radius:4px;margin-top:3px;text-align:center;line-height:14px;font-weight:bold;color:#117F21}footer{margin-top:30px;font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}</style><h1>${cur.title}</h1><p>${cur.std.dept}${cur.std.time ? ` · Service standard: ${cur.std.time}` : ""}</p><ul>${cur.items.map((t, i) => `<li><span class="b">${done.includes(i) ? "✓" : ""}</span>${t.replace(/</g, "&lt;")}</li>`).join("")}</ul><footer>National Pension Commission · From the Service Charter (revised May 2026) · pencom.gov.ng</footer>`);
+    w.document.write(`<!doctype html><title>${cur.title}</title><style>body{font:16px/1.6 Arial;margin:40px}h1{font:bold 22px Verdana;color:#105D1D;margin:0}p{color:#444}ul{list-style:none;padding:0}li{display:flex;gap:12px;margin-bottom:12px}.b{flex:none;width:18px;height:18px;border:2px solid #14892A;border-radius:4px;margin-top:3px;text-align:center;line-height:14px;font-weight:bold;color:#117F21}footer{margin-top:30px;font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}</style><h1>${cur.title}</h1><p>${cur.std.dept}${cur.std.time ? ` · Service standard: ${cur.std.time}` : ""}</p><ul>${cur.items.map((t, i) => `<li><span class="b">${done.includes(i) ? "✓" : ""}</span>${t.replace(/</g, "&lt;")}</li>`).join("")}</ul><footer>National Pension Commission · From the Service Charter (revised May 2026) · pencom.gov.ng</footer>`);
     w.document.close(); w.focus(); w.print();
   };
 
@@ -99,7 +99,7 @@ export default function FormsPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10] print:bg-white">
+      <div className="bg-white text-[#164D20] print:bg-white">
       <DocHero
         crumbs={[{ label: "Home", to: "/" }, { label: "Resources", to: "/resources" }, { label: "Forms and checklists" }]}
         kind="Forms and checklists"
@@ -145,9 +145,9 @@ export default function FormsPage() {
                       role="radio"
                       aria-checked={on}
                       onClick={() => { setWho(w); const first = lists.find((l) => w === "All" || l.who.includes(w as Who)); if (first) setSel(first.id); }}
-                      className={cn("relative inline-flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-xl px-4 font-semibold transition sm:flex-none", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]", focus)}
+                      className={cn("relative inline-flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-xl px-4 font-semibold transition sm:flex-none", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]", focus)}
                     >
-                      {on && <motion.span layoutId="forms-who-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_10px_24px_-12px_rgba(10,74,19,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                      {on && <motion.span layoutId="forms-who-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_10px_24px_-12px_rgba(16,93,29,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                       {on && <Check className="relative h-4 w-4" aria-hidden="true" />}
                       <span className="relative">{w}</span>
                     </button>
@@ -167,16 +167,16 @@ export default function FormsPage() {
                       return (
                         <motion.li key={l.id} layout={!reduce} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
                           <button type="button" onClick={() => setSel(l.id)} aria-pressed={on} className={cn("group relative flex w-full items-center gap-4 px-5 py-4 text-left transition focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]", on ? "bg-[#F7FAF6]" : "hover:bg-[#F7FAF6]")}>
-                            {on && <motion.span layoutId="forms-cur-bar" aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#117F21] to-[#CB9615]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
-                            <span aria-hidden="true" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-base font-bold tabular-nums transition duration-300 group-hover:rotate-[-6deg]", full ? "bg-[#CB9615] text-[#1A1206]" : on ? "bg-[#117F21] text-white" : "bg-[#04240A] text-[#F4D27A]")}>
+                            {on && <motion.span layoutId="forms-cur-bar" aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#14892A] to-[#CB9615]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                            <span aria-hidden="true" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-base font-bold tabular-nums transition duration-300 group-hover:rotate-[-6deg]", full ? "bg-[#CB9615] text-[#1A1206]" : on ? "bg-[#14892A] text-white" : "bg-[#11421A] text-[#F4D27A]")}>
                               {full ? <Check className="h-5 w-5" /> : l.items.length}
                             </span>
                             <span className="min-w-0 flex-1">
-                              <span className={cn("block font-bold leading-snug", on ? "text-[#0A4A13]" : "text-[#0A2E10]")}>{l.title}</span>
+                              <span className={cn("block font-bold leading-snug", on ? "text-[#105D1D]" : "text-[#164D20]")}>{l.title}</span>
                               <span className="mt-0.5 block text-sm text-gray-600">{l.who.join(" · ")}{n > 0 && ` · ${n} of ${l.items.length} ready`}</span>
                               {n > 0 && (
                                 <span aria-hidden="true" className="mt-2 block h-1.5 overflow-hidden rounded-full bg-gray-100">
-                                  <span className="block h-full origin-left rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500" style={{ transform: `scaleX(${n / l.items.length})` }} />
+                                  <span className="block h-full origin-left rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615] transition-transform duration-500" style={{ transform: `scaleX(${n / l.items.length})` }} />
                                 </span>
                               )}
                             </span>
@@ -190,7 +190,7 @@ export default function FormsPage() {
 
                 <AnimatePresence mode="wait">
                   <motion.article key={cur.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.3, ease }} aria-labelledby="cl-cur" className="min-w-0 xl:col-span-7">
-                    <div className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-40px_rgba(10,74,19,0.45)]">
+                    <div className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-40px_rgba(16,93,29,0.45)]">
                       <div className={cn(featured, "flex flex-col gap-5 rounded-none p-6 sm:flex-row sm:items-center sm:p-7 print:bg-none print:bg-white print:text-black")}>
                         <GridBackdrop className="-z-10 opacity-60 print:hidden" />
                         <span aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 -z-10 h-48 w-48 rounded-full bg-[#CB9615]/20 blur-3xl print:hidden" />
@@ -214,10 +214,10 @@ export default function FormsPage() {
                             <li key={i}>
                               <label className={cn("flex min-h-12 cursor-pointer gap-4 px-6 py-4 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:-outline-offset-[3px] has-[:focus-visible]:outline-[#FFD84D] sm:px-7", on ? "bg-[#E8F5E9]/60" : "hover:bg-[#F7FAF6]")}>
                                 <input type="checkbox" checked={on} onChange={() => toggle(i)} className="sr-only" />
-                                <motion.span animate={{ scale: on ? [1, 1.25, 1] : 1 }} transition={{ duration: 0.3 }} aria-hidden="true" className={cn("mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 transition", on ? "border-[#117F21] bg-[#117F21] text-white" : "border-gray-400 bg-white")}>
+                                <motion.span animate={{ scale: on ? [1, 1.25, 1] : 1 }} transition={{ duration: 0.3 }} aria-hidden="true" className={cn("mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 transition", on ? "border-[#14892A] bg-[#14892A] text-white" : "border-gray-400 bg-white")}>
                                   {on && <Check className="h-4 w-4" strokeWidth={3} />}
                                 </motion.span>
-                                <span className={cn("leading-relaxed transition", on ? "text-gray-600 line-through decoration-[#117F21]/60" : "text-gray-700")}>{it}</span>
+                                <span className={cn("leading-relaxed transition", on ? "text-gray-600 line-through decoration-[#14892A]/60" : "text-gray-700")}>{it}</span>
                               </label>
                             </li>
                           );
@@ -249,7 +249,7 @@ export default function FormsPage() {
                   <span className="sr-only">Find a form</span>
                   <span className="flex min-h-12 items-center gap-3 rounded-xl bg-white px-4 ring-1 ring-gray-200 transition focus-within:ring-[3px] focus-within:ring-[#FFD84D]">
                     <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
-                    <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find a form" className="min-h-12 w-full min-w-0 bg-transparent text-base text-[#0A2E10] placeholder:text-gray-500 focus:outline-none focus-visible:outline-none focus-visible:ring-0" />
+                    <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find a form" className="min-h-12 w-full min-w-0 bg-transparent text-base text-[#164D20] placeholder:text-gray-500 focus:outline-none focus-visible:outline-none focus-visible:ring-0" />
                   </span>
                 </label>
               }
@@ -259,14 +259,14 @@ export default function FormsPage() {
                 {fl.map((f, i) => (
                   <motion.li key={f.pdf} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: Math.min(i, 8) * 0.04, ease }}>
                     <a href={f.pdf} target="_blank" rel="noopener noreferrer" className="group relative flex items-center gap-4 px-5 py-4 transition hover:bg-[#F7FAF6] focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D] sm:px-6">
-                      <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-transform duration-300 group-hover:scale-y-100" />
+                      <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-gradient-to-b from-[#14892A] to-[#CB9615] transition-transform duration-300 group-hover:scale-y-100" />
                       <span aria-hidden="true" className={cn("flex h-12 w-10 shrink-0 flex-col items-center justify-center rounded-lg text-xs font-bold text-white shadow transition-transform duration-300 group-hover:rotate-[-6deg]", f.ext === "PDF" ? "bg-[#B52026]" : "bg-[#1F6A99]")}><FileType className="h-4 w-4" />{f.ext}</span>
                       <span className="min-w-0 flex-1">
-                        <span className="block font-bold leading-snug text-[#0A2E10] group-hover:text-[#0A4A13]">{f.title}</span>
+                        <span className="block font-bold leading-snug text-[#164D20] group-hover:text-[#105D1D]">{f.title}</span>
                         <span className="mt-0.5 block text-sm text-gray-600">Published {new Date(f.date).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}</span>
                       </span>
                       <span className="hidden items-center gap-2 text-sm font-semibold text-[#117F21] sm:inline-flex">Download</span>
-                      <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#117F21] group-hover:text-white">
+                      <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#14892A] group-hover:text-white">
                         <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
                       </span>
                       <span className="sr-only">(opens in a new tab)</span>
@@ -281,7 +281,7 @@ export default function FormsPage() {
           <section id="online" aria-label="Applying online?" className="scroll-mt-[120px]">
             <Rise className="grid grid-cols-1 gap-4 xl:grid-cols-2">
               <Tilt className="h-full">
-                <Link to="/services#portals" className={cn(featured, "group flex h-full items-center gap-5 p-6 shadow-[0_28px_50px_-30px_rgba(10,74,19,0.7)] sm:p-7", ring)}>
+                <Link to="/services#portals" className={cn(featured, "group flex h-full items-center gap-5 p-6 shadow-[0_28px_50px_-30px_rgba(16,93,29,0.7)] sm:p-7", ring)}>
                   <GridBackdrop className="-z-10 opacity-60" />
                   <span aria-hidden="true" className="absolute -right-16 -top-16 -z-10 h-40 w-40 rounded-full bg-[#CB9615]/20 blur-3xl" />
                   <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-[#F4D27A] ring-1 ring-white/15 transition-transform duration-300 group-hover:rotate-[-6deg]"><Globe className="h-7 w-7" /></span>

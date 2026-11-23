@@ -96,7 +96,7 @@ export default function ResourcesPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <Banner jump={(id) => go(id)} />
         <KnowledgeSearch
           openGuide={(id) => setGuide(id)}
@@ -304,13 +304,13 @@ function KnowledgeSearch({
             <Search className="h-3.5 w-3.5" aria-hidden="true" />
             Knowledge base
           </p>
-          <label htmlFor="kb-q" className="mt-1.5 block text-xl font-bold leading-snug text-[#0A2E10] sm:text-2xl">
+          <label htmlFor="kb-q" className="mt-1.5 block text-xl font-bold leading-snug text-[#164D20] sm:text-2xl">
             Search guides, questions, terms and publications
           </label>
         </div>
         <div className="min-w-0 lg:col-span-8">
           <div className="flex flex-col gap-3 sm:flex-row">
-            <div className="flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-gray-300 bg-[#F7FAF6] px-4 transition focus-within:border-[#117F21] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#117F21]/30 hover:border-[#117F21]/50">
+            <div className="flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-gray-300 bg-[#F7FAF6] px-4 transition focus-within:border-[#14892A] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#14892A]/30 hover:border-[#14892A]/50">
               <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
               <input
                 ref={inputRef}
@@ -323,7 +323,7 @@ function KnowledgeSearch({
                 role="combobox"
                 aria-expanded={hits.length > 0}
                 aria-controls="kb-results"
-                className="min-h-12 w-full min-w-0 bg-transparent text-base text-[#0A2E10] placeholder:text-gray-500 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-search-cancel-button]:hidden"
+                className="min-h-12 w-full min-w-0 bg-transparent text-base text-[#164D20] placeholder:text-gray-500 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-search-cancel-button]:hidden"
               />
               {q && (
                 <button
@@ -345,7 +345,7 @@ function KnowledgeSearch({
             {q.trim().length >= 2 && (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} transition={{ duration: 0.25, ease }} className="mt-3">
                 {hits.length ? (
-                  <ul ref={resultsRef} id="kb-results" role="listbox" aria-label="Results" className={cn(listPanel, "shadow-[0_28px_50px_-30px_rgba(10,74,19,0.5)]")}>
+                  <ul ref={resultsRef} id="kb-results" role="listbox" aria-label="Results" className={cn(listPanel, "shadow-[0_28px_50px_-30px_rgba(16,93,29,0.5)]")}>
                     {hits.map((h) => {
                       const I = kindIcon[h.kind];
                       return (
@@ -362,7 +362,7 @@ function KnowledgeSearch({
                           >
                             <Tile icon={I} dark size="sm" />
                             <span className="min-w-0 flex-1">
-                              <span className="block truncate font-semibold text-[#0A2E10] group-hover:text-[#117F21]">{h.label}</span>
+                              <span className="block truncate font-semibold text-[#164D20] group-hover:text-[#117F21]">{h.label}</span>
                               <span className="block text-xs font-bold uppercase tracking-[0.14em] text-[#7A5200]">{h.kind}</span>
                             </span>
                             <ArrowRight className="h-5 w-5 shrink-0 text-gray-400 transition group-hover:translate-x-0.5 group-hover:text-[#117F21]" aria-hidden="true" />
@@ -372,7 +372,7 @@ function KnowledgeSearch({
                     })}
                   </ul>
                 ) : (
-                  <p className="rounded-2xl border-l-4 border-[#117F21] bg-[#F4F7F2] px-4 py-3 text-base text-gray-700">
+                  <p className="rounded-2xl border-l-4 border-[#14892A] bg-[#F4F7F2] px-4 py-3 text-base text-gray-700">
                     Nothing found. Try another word, or{" "}
                     <button type="button" onClick={() => document.getElementById("chat-trigger")?.click()} className={cn("rounded font-semibold text-[#117F21] underline underline-offset-4", focus)}>
                       ask PenCom Assistant
@@ -408,9 +408,9 @@ function KnowledgeSearch({
               >
                 <span className="flex w-full items-center justify-between gap-2">
                   <Tile icon={t.icon} size="sm" />
-                  <span className="text-2xl font-bold tabular-nums text-[#0A4A13]">{t.n}</span>
+                  <span className="text-2xl font-bold tabular-nums text-[#105D1D]">{t.n}</span>
                 </span>
-                <span className="block font-bold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{t.label}</span>
+                <span className="block font-bold leading-snug text-[#164D20] group-hover:text-[#117F21]">{t.label}</span>
                 <span className="-mt-1 block text-sm text-gray-600">{t.note}</span>
               </button>
             </motion.li>

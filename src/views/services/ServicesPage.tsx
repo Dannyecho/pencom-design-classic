@@ -95,7 +95,7 @@ const portalSec = "scroll-mt-[150px] border-t border-gray-100 py-14 first:border
 /** Small uppercase label above each part of a journey. */
 function Label({ children, icon: Icon, gold = false }: { children: ReactNode; icon?: LucideIcon; gold?: boolean }) {
   return (
-    <h4 className={cn("flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em]", gold ? "text-[#7A5200]" : "text-[#0A4A13]")}>
+    <h4 className={cn("flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em]", gold ? "text-[#7A5200]" : "text-[#105D1D]")}>
       {Icon && <Icon className="h-4 w-4" aria-hidden="true" />}
       {children}
     </h4>
@@ -155,7 +155,7 @@ export default function ServicesPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <Banner />
         <Picker onPick={(a) => choose(a, true)} />
         <PortalLayout sections={onThisPage} pillId="svc-side-pill" related={related}>
@@ -231,7 +231,7 @@ function Picker({ onPick }: { onPick: (anchor: string) => void }) {
                 value={pick}
                 onChange={(e) => setPick(e.target.value)}
                 className={cn(
-                  "min-h-12 w-full appearance-none truncate rounded-xl border border-gray-300 bg-[#F7FAF6] pl-4 pr-11 font-semibold text-[#0A2E10] transition hover:border-[#117F21]/50",
+                  "min-h-12 w-full appearance-none truncate rounded-xl border border-gray-300 bg-[#F7FAF6] pl-4 pr-11 font-semibold text-[#164D20] transition hover:border-[#14892A]/50",
                   focus,
                 )}
               >
@@ -261,11 +261,11 @@ function Picker({ onPick }: { onPick: (anchor: string) => void }) {
                     type="button"
                     onClick={() => onPick(j.anchor)}
                     className={cn(
-                      "group inline-flex min-h-11 items-center gap-2 rounded-full border border-gray-200 bg-[#F7FAF6] py-1 pl-1 pr-4 text-sm font-semibold text-[#0A2E10] transition hover:-translate-y-0.5 hover:border-[#117F21]/40 hover:bg-white hover:shadow-[0_12px_24px_-16px_rgba(10,74,19,0.6)]",
+                      "group inline-flex min-h-11 items-center gap-2 rounded-full border border-gray-200 bg-[#F7FAF6] py-1 pl-1 pr-4 text-sm font-semibold text-[#164D20] transition hover:-translate-y-0.5 hover:border-[#14892A]/40 hover:bg-white hover:shadow-[0_12px_24px_-16px_rgba(16,93,29,0.6)]",
                       focus,
                     )}
                   >
-                    <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#117F21] shadow-sm transition group-hover:bg-[#117F21] group-hover:text-white">
+                    <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#117F21] shadow-sm transition group-hover:bg-[#14892A] group-hover:text-white">
                       <Icon className="h-4 w-4" />
                     </span>
                     {j.short}
@@ -288,7 +288,7 @@ function Eligibility({ j }: { j: Journey }) {
   const ok = done && ans.every(Boolean);
   return (
     <div className="rounded-2xl bg-[#F4F7F2] p-4 sm:p-5">
-      <p className="flex items-center gap-2 font-bold text-[#0A2E10]">
+      <p className="flex items-center gap-2 font-bold text-[#164D20]">
         <CircleHelp className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
         {j.eligibility!.intro}
       </p>
@@ -297,8 +297,8 @@ function Eligibility({ j }: { j: Journey }) {
           <li key={q}>
             <fieldset className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center">
               <legend className="sr-only">{q}</legend>
-              <span aria-hidden="true" className="flex flex-1 gap-3 leading-snug text-[#0A2E10]">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#E8F5E9] text-xs font-bold text-[#0A4A13]">{i + 1}</span>
+              <span aria-hidden="true" className="flex flex-1 gap-3 leading-snug text-[#164D20]">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#E8F5E9] text-xs font-bold text-[#105D1D]">{i + 1}</span>
                 {q}
               </span>
               <div className="flex shrink-0 gap-1 self-start rounded-xl bg-white p-1 ring-1 ring-gray-200 sm:self-auto">
@@ -307,7 +307,7 @@ function Eligibility({ j }: { j: Journey }) {
                     key={String(v)}
                     className={cn(
                       "flex min-h-11 min-w-[4.5rem] cursor-pointer items-center justify-center gap-1.5 rounded-lg px-3 font-semibold transition has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-[#FFD84D]",
-                      ans[i] === v ? (v ? "bg-[#117F21] text-white" : "bg-[#B52026] text-white") : "text-gray-700 hover:bg-[#F7FAF6]",
+                      ans[i] === v ? (v ? "bg-[#14892A] text-white" : "bg-[#B52026] text-white") : "text-gray-700 hover:bg-[#F7FAF6]",
                     )}
                   >
                     <input type="radio" name={`${j.anchor}-q${i}`} className="sr-only" checked={ans[i] === v} onChange={() => setAns((a) => a.map((x, k) => (k === i ? v : x)))} />
@@ -328,9 +328,9 @@ function Eligibility({ j }: { j: Journey }) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="relative mt-4 flex gap-3 overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-4 pl-5 font-medium text-[#0A2E10]"
+              className="relative mt-4 flex gap-3 overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-4 pl-5 font-medium text-[#164D20]"
             >
-              <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1", ok ? "bg-[#117F21]" : "bg-[#B52026]")} />
+              <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1", ok ? "bg-[#14892A]" : "bg-[#B52026]")} />
               {ok ? <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" /> : <X className="mt-0.5 h-5 w-5 shrink-0 text-[#B52026]" aria-hidden="true" />}
               {ok ? j.eligibility!.yes : j.eligibility!.no}
             </motion.p>
@@ -357,12 +357,12 @@ function Panel({ j, onHandoff }: { j: Journey; onHandoff: (key: string) => void 
       <header className="relative overflow-hidden border-b border-gray-100 bg-gradient-to-br from-[#F4F7F2] via-white to-white p-6 sm:p-8">
         <div aria-hidden="true" className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#CB9615]/10 blur-3xl" />
         <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start">
-          <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#117F21] text-white shadow-[0_14px_30px_-12px_rgba(17,127,33,0.8)]">
+          <span aria-hidden="true" className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#14892A] text-white shadow-[0_14px_30px_-12px_rgba(20,137,42,0.8)]">
             <Icon className="h-7 w-7" />
           </span>
           <div className="min-w-0">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]">For {j.audience.toLowerCase()}</p>
-            <h3 id={`${j.anchor}-title`} className="mt-1 text-2xl font-bold leading-tight tracking-tight text-[#0A2E10] sm:text-[1.75rem]">
+            <h3 id={`${j.anchor}-title`} className="mt-1 text-2xl font-bold leading-tight tracking-tight text-[#164D20] sm:text-[1.75rem]">
               {j.title}
             </h3>
             <p className="mt-2 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">{j.intro}</p>
@@ -411,7 +411,7 @@ function Panel({ j, onHandoff }: { j: Journey; onHandoff: (key: string) => void 
               initial={{ scaleY: reduce ? 1 : 0 }}
               animate={{ scaleY: 1 }}
               transition={{ duration: 0.8, delay: 0.2, ease }}
-              className="absolute bottom-5 left-[21px] top-5 w-0.5 origin-top rounded-full bg-gradient-to-b from-[#117F21] to-[#CB9615]"
+              className="absolute bottom-5 left-[21px] top-5 w-0.5 origin-top rounded-full bg-gradient-to-b from-[#14892A] to-[#CB9615]"
             />
             {j.steps.map((s, i) => (
               <motion.li
@@ -421,9 +421,9 @@ function Panel({ j, onHandoff }: { j: Journey; onHandoff: (key: string) => void 
                 transition={{ duration: 0.35, delay: 0.15 + i * 0.07, ease }}
                 className="relative flex gap-4"
               >
-                <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#04240A] text-lg font-bold text-[#F4D27A] ring-4 ring-white">{i + 1}</span>
+                <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#11421A] text-lg font-bold text-[#F4D27A] ring-4 ring-white">{i + 1}</span>
                 <span className="min-w-0 pt-1.5">
-                  <span className="block text-lg font-bold leading-snug text-[#0A2E10]">{s.title}</span>
+                  <span className="block text-lg font-bold leading-snug text-[#164D20]">{s.title}</span>
                   <span className="mt-1 block leading-relaxed text-gray-600">{s.body}</span>
                 </span>
               </motion.li>
@@ -438,7 +438,7 @@ function Panel({ j, onHandoff }: { j: Journey; onHandoff: (key: string) => void 
               <Label gold>Where to go next</Label>
               {portal && (
                 <>
-                  <p className="mt-1.5 text-lg font-bold text-[#0A2E10]">{portal.full}</p>
+                  <p className="mt-1.5 text-lg font-bold text-[#164D20]">{portal.full}</p>
                   <p className="mt-0.5 text-gray-600">{portal.use}</p>
                 </>
               )}
@@ -505,14 +505,14 @@ function Journeys({ active, onChoose, onHandoff }: { active: string; onChoose: (
                 onKeyDown={(e) => onKey(e, i)}
                 className={cn(
                   "group relative isolate flex min-h-14 items-center gap-3 rounded-2xl px-3 py-2.5 text-left text-sm font-semibold transition-colors sm:text-[15px]",
-                  on ? "text-white" : "bg-gray-50 text-gray-700 hover:bg-[#E8F5E9] hover:text-[#0A4A13]",
+                  on ? "text-white" : "bg-gray-50 text-gray-700 hover:bg-[#E8F5E9] hover:text-[#105D1D]",
                   focus,
                 )}
               >
                 {on && (
                   <motion.span
                     layoutId="svc-tab-pill"
-                    className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_14px_30px_-14px_rgba(10,74,19,0.9)]"
+                    className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_14px_30px_-14px_rgba(16,93,29,0.9)]"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
                   />
                 )}
@@ -528,7 +528,7 @@ function Journeys({ active, onChoose, onHandoff }: { active: string; onChoose: (
             );
           })}
         </div>
-        <div id="svc-panel" role="tabpanel" aria-labelledby={`svc-tab-${j.anchor}`} className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-40px_rgba(10,74,19,0.45)] xl:col-span-8">
+        <div id="svc-panel" role="tabpanel" aria-labelledby={`svc-tab-${j.anchor}`} className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-40px_rgba(16,93,29,0.45)] xl:col-span-8">
           <AnimatePresence mode="wait" initial={false}>
             <Panel key={j.anchor} j={j} onHandoff={onHandoff} />
           </AnimatePresence>
@@ -556,13 +556,13 @@ function Portals({ onHandoff }: { onHandoff: (key: string) => void }) {
           return (
             <li key={p.key}>
               <Rise delay={(i % 3) * 0.06} className="h-full">
-                <Spotlight color="rgba(203,150,21,0.16)" className="h-full rounded-3xl border border-gray-200/80 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-[#CB9615]/40 hover:shadow-[0_24px_50px_-24px_rgba(10,74,19,0.4)]">
+                <Spotlight color="rgba(203,150,21,0.16)" className="h-full rounded-3xl border border-gray-200/80 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-[#CB9615]/40 hover:shadow-[0_24px_50px_-24px_rgba(16,93,29,0.4)]">
                   <button type="button" onClick={() => onHandoff(p.key)} className={cn("group flex h-full w-full flex-col p-6 text-left", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]")}>
                     <span className="flex w-full items-center justify-between">
                       <Tile icon={I} dark />
                       <ArrowUpRight className="h-5 w-5 text-gray-400 transition group-hover:-translate-y-0.5 group-hover:text-[#7A5200]" aria-hidden="true" />
                     </span>
-                    <span className="mt-5 block text-xl font-bold text-[#0A2E10]">{p.name}</span>
+                    <span className="mt-5 block text-xl font-bold text-[#164D20]">{p.name}</span>
                     <span className="mt-0.5 block text-sm text-gray-600">{p.full}</span>
                     <span className="mt-3 block leading-snug text-gray-700">{p.use}</span>
                     <span className="mt-auto flex w-full flex-wrap items-center justify-between gap-2 pt-5">
@@ -601,7 +601,7 @@ function Handoff({ portalKey, onClose }: { portalKey: string | null; onClose: ()
                   <LogOut className="h-4 w-4" aria-hidden="true" />
                   You’re about to leave this site
                 </p>
-                <h2 id="handoff-title" className="mt-1.5 text-2xl font-bold leading-tight tracking-tight text-[#0A2E10]">
+                <h2 id="handoff-title" className="mt-1.5 text-2xl font-bold leading-tight tracking-tight text-[#164D20]">
                   {p.full}
                 </h2>
               </div>
@@ -632,7 +632,7 @@ function Handoff({ portalKey, onClose }: { portalKey: string | null; onClose: ()
                 <p className="mt-2 text-gray-700">{p.next}</p>
               </div>
             )}
-            <p className="relative flex gap-3 overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-4 pl-5 text-sm leading-relaxed text-[#0A2E10]">
+            <p className="relative flex gap-3 overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-4 pl-5 text-sm leading-relaxed text-[#164D20]">
               <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#B45309]" />
               <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-[#B45309]" aria-hidden="true" />
               Check the address bar shows a pencom.gov.ng address before you sign in. PenCom will never ask for your password by phone or SMS.
@@ -693,7 +693,7 @@ function Help() {
               <MessageSquareWarning className="h-6 w-6" />
             </span>
             <span className="min-w-0 flex-1">
-              <span className="block text-xl font-bold text-[#0A2E10]">Report an employer</span>
+              <span className="block text-xl font-bold text-[#164D20]">Report an employer</span>
               <span className="mt-1 block text-gray-600">Deducting pension from your pay but not remitting it? Tell us.</span>
               <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#B52026]">
                 Open
@@ -706,7 +706,7 @@ function Help() {
           <Link to="/operators#pfas" className={cn(card, "group relative flex h-full gap-4 overflow-hidden p-6", focus)}>
             <Tile icon={UserCheck} size="lg" />
             <span className="min-w-0 flex-1">
-              <span className="block text-xl font-bold text-[#0A2E10]">Find a PFA</span>
+              <span className="block text-xl font-bold text-[#164D20]">Find a PFA</span>
               <span className="mt-1 block text-gray-600">Contacts for every licensed Pension Fund Administrator.</span>
               <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#117F21]">
                 Open

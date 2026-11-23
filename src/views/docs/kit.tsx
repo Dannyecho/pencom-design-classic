@@ -12,9 +12,9 @@ import { Crumbs, DarkBackdrop } from "@/views/theme/ui";
 
 export const ring = "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]";
 /** Soft green glow that follows the pointer (set `--x`/`--y` with `spot` from the theme kit). */
-export const glowLight = "[background-image:radial-gradient(420px_circle_at_var(--x,50%)_var(--y,0%),rgba(46,145,61,0.10),transparent_45%)]";
-/** Featured dark card: the classic #04240A → #0A4A13 → #117F21 gradient. */
-export const darkCard = "bg-gradient-to-br from-[#04240A] via-[#0A4A13] to-[#117F21]";
+export const glowLight = "[background-image:radial-gradient(420px_circle_at_var(--x,50%)_var(--y,0%),rgba(54,160,69,0.10),transparent_45%)]";
+/** Featured dark card: the classic #11421A → #105D1D → #14892A gradient. */
+export const darkCard = "bg-gradient-to-br from-[#11421A] via-[#105D1D] to-[#14892A]";
 
 /** `url` null: the document has no web version; report "error" without a request (no 404 in the console). */
 export function useDocJson<T>(url: string | null) {
@@ -64,7 +64,7 @@ export function ReadingBar() {
 }
 
 /**
- * Document banner: dark #04240A with the grid and blurs, light crumbs, a type chip (plus an optional badge), the
+ * Document banner: dark #11421A with the grid and blurs, light crumbs, a type chip (plus an optional badge), the
  * title with a short gold bar, a lead, actions, and the meta row as a `gap-px` grid. Print stays white.
  */
 export function DocBanner({
@@ -90,7 +90,7 @@ export function DocBanner({
         <div className="mt-6 max-w-4xl">
           <motion.p initial={{ opacity: 0, y: reduce ? 0 : 12 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-2.5 rounded-full bg-white/10 py-1 pl-1 pr-4 text-xs font-bold uppercase tracking-[0.18em] text-[#F4D27A] ring-1 ring-white/15 backdrop-blur-md print:text-black">
-              <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#04240A] [&_svg]:h-3.5 [&_svg]:w-3.5">{icon ?? <FileText />}</span>
+              <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#11421A] [&_svg]:h-3.5 [&_svg]:w-3.5">{icon ?? <FileText />}</span>
               {kind}
             </span>
             {badge}
@@ -116,7 +116,7 @@ export function DocBanner({
             className={cn("mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 print:border-black/20", meta.length >= 4 ? "lg:grid-cols-4" : meta.length === 3 ? "sm:grid-cols-3" : "")}
           >
             {meta.map((m) => (
-              <div key={m.label} className="bg-[#04240A]/85 p-4 sm:p-5 print:bg-white">
+              <div key={m.label} className="bg-[#11421A]/85 p-4 sm:p-5 print:bg-white">
                 <dt className="text-xs font-bold uppercase tracking-[0.16em] text-[#F4D27A] print:text-black">{m.label}</dt>
                 <dd className="mt-1 text-base font-semibold sm:text-lg">{m.value}</dd>
               </div>
@@ -135,7 +135,7 @@ export function PrimaryBtn({ href, children, external }: { href: string; childre
   return external ? <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>{children}<span className="sr-only"> (opens in a new tab)</span></a> : <Link to={href} className={cls}>{children}</Link>;
 }
 export function GhostBtn({ onClick, children, href }: { onClick?: () => void; children: ReactNode; href?: string }) {
-  const cls = cn("inline-flex min-h-12 items-center gap-2 rounded-xl border border-[#117F21]/25 bg-white px-5 font-semibold text-[#117F21] transition hover:border-[#117F21] hover:bg-[#F7FAF6]", ring);
+  const cls = cn("inline-flex min-h-12 items-center gap-2 rounded-xl border border-[#14892A]/25 bg-white px-5 font-semibold text-[#117F21] transition hover:border-[#14892A] hover:bg-[#F7FAF6]", ring);
   if (href) return <a href={href} onClick={onClick} className={cls}>{children}</a>;
   return <button type="button" onClick={onClick} className={cls}>{children}</button>;
 }
@@ -143,7 +143,7 @@ export function GhostBtn({ onClick, children, href }: { onClick?: () => void; ch
 /** Arrow tile; the arrow moves 4 px on hover (put inside a `group`). */
 export function ArrowChip({ dark }: { dark?: boolean }) {
   return (
-    <span aria-hidden="true" className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl", dark ? "bg-[#CB9615] text-[#1A1206]" : "bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#117F21] group-hover:text-white")}>
+    <span aria-hidden="true" className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl", dark ? "bg-[#CB9615] text-[#1A1206]" : "bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#14892A] group-hover:text-white")}>
       <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
     </span>
   );
@@ -152,7 +152,7 @@ export function ArrowChip({ dark }: { dark?: boolean }) {
 /** Text size, print and copy-link tools. */
 export function DocTools({ size, setSize }: { size: number; setSize: (n: number) => void }) {
   const [copied, setCopied] = useState(false);
-  const btn = cn("flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-[#0A2E10] transition hover:border-[#117F21] hover:bg-[#117F21] hover:text-white disabled:pointer-events-none disabled:opacity-30", ring);
+  const btn = cn("flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-[#164D20] transition hover:border-[#14892A] hover:bg-[#14892A] hover:text-white disabled:pointer-events-none disabled:opacity-30", ring);
   return (
     <div className="flex flex-wrap items-center gap-2 print:hidden">
       <div role="group" aria-label="Text size" className="flex items-center gap-1">
@@ -212,7 +212,7 @@ export function Toc({ items, title = "Contents", className }: { items: { id: str
               href={`#${i.id}`}
               onClick={(e) => { e.preventDefault(); document.getElementById(i.id)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
               aria-current={active === i.id ? "location" : undefined}
-              className={cn("flex min-h-11 items-center rounded-xl py-2 pr-3 text-[15px] leading-snug transition", (i.level ?? 1) > 1 ? "pl-7 text-sm" : "pl-3 font-medium", active === i.id ? "bg-gradient-to-r from-[#0A4A13] to-[#117F21] font-semibold text-white shadow-[0_10px_24px_-14px_rgba(10,74,19,0.9)]" : "bg-gray-50 text-gray-700 hover:bg-[#E8F5E9] hover:text-[#0A4A13]", ring)}
+              className={cn("flex min-h-11 items-center rounded-xl py-2 pr-3 text-[15px] leading-snug transition", (i.level ?? 1) > 1 ? "pl-7 text-sm" : "pl-3 font-medium", active === i.id ? "bg-gradient-to-r from-[#105D1D] to-[#14892A] font-semibold text-white shadow-[0_10px_24px_-14px_rgba(16,93,29,0.9)]" : "bg-gray-50 text-gray-700 hover:bg-[#E8F5E9] hover:text-[#105D1D]", ring)}
             >
               {i.label}
             </a>
@@ -225,7 +225,7 @@ export function Toc({ items, title = "Contents", className }: { items: { id: str
 
 export function PdfCard({ href, title, meta }: { href: string; title: string; meta: string }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={cn("group relative isolate flex items-center gap-5 overflow-hidden rounded-3xl p-6 text-white shadow-[0_28px_50px_-30px_rgba(10,74,19,0.7)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_50px_-24px_rgba(10,74,19,0.8)]", darkCard, ring)}>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={cn("group relative isolate flex items-center gap-5 overflow-hidden rounded-3xl p-6 text-white shadow-[0_28px_50px_-30px_rgba(16,93,29,0.7)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_50px_-24px_rgba(16,93,29,0.8)]", darkCard, ring)}>
       <GridBackdrop className="-z-10 opacity-60" />
       <span aria-hidden="true" className="absolute -right-16 -top-16 -z-10 h-40 w-40 rounded-full bg-[#CB9615]/20 blur-3xl" />
       <span className="relative flex h-16 w-14 shrink-0 flex-col items-center justify-center rounded-xl bg-white text-[#B52026] shadow-lg transition group-hover:-rotate-6">
@@ -255,7 +255,7 @@ export function VerifyNote({ children }: { children?: ReactNode }) {
 export function Loading({ label = "Loading the document" }: { label?: string }) {
   return (
     <div className="flex min-h-[40vh] flex-col items-center justify-center gap-3 text-base text-gray-600" role="status">
-      <span className="h-10 w-10 animate-spin rounded-full border-4 border-[#117F21]/20 border-t-[#CB9615]" aria-hidden="true" />
+      <span className="h-10 w-10 animate-spin rounded-full border-4 border-[#14892A]/20 border-t-[#CB9615]" aria-hidden="true" />
       {label}…
     </div>
   );

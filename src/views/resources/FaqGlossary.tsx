@@ -29,11 +29,11 @@ function Segments({ id, label, options, value, onChange, square = false }: { id:
               className={cn(
                 "relative inline-flex min-h-11 items-center justify-center rounded-xl text-sm font-semibold transition sm:text-base",
                 square ? "min-w-11 px-2" : "px-4",
-                o.disabled ? "cursor-not-allowed text-gray-400" : on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]",
+                o.disabled ? "cursor-not-allowed text-gray-400" : on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]",
                 insetFocus,
               )}
             >
-              {on && <motion.span layoutId={`${id}-pill`} className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_10px_24px_-12px_rgba(10,74,19,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+              {on && <motion.span layoutId={`${id}-pill`} className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_10px_24px_-12px_rgba(16,93,29,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
               <span className="relative">{o.v}</span>
             </button>
           );
@@ -72,10 +72,10 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
 
       {/* Toolbar: search, then the groups as a segmented control */}
       <div className="mt-8 rounded-3xl bg-[#F4F7F2] p-4 sm:p-5">
-        <label htmlFor="faq-q" className="block font-semibold text-[#0A2E10]">Search questions</label>
-        <div className="mt-2 flex min-w-0 items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 transition focus-within:border-[#117F21] focus-within:ring-2 focus-within:ring-[#117F21]/30 hover:border-[#117F21]/50">
+        <label htmlFor="faq-q" className="block font-semibold text-[#164D20]">Search questions</label>
+        <div className="mt-2 flex min-w-0 items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 transition focus-within:border-[#14892A] focus-within:ring-2 focus-within:ring-[#14892A]/30 hover:border-[#14892A]/50">
           <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
-          <input id="faq-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search questions" className="min-h-12 w-full min-w-0 bg-transparent text-base text-[#0A2E10] placeholder:text-gray-500 focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-search-cancel-button]:hidden" />
+          <input id="faq-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search questions" className="min-h-12 w-full min-w-0 bg-transparent text-base text-[#164D20] placeholder:text-gray-500 focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-search-cancel-button]:hidden" />
           {q && (
             <button type="button" onClick={() => setQ("")} aria-label="Clear search" className={cn("-mr-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-gray-600 transition hover:bg-[#E8F5E9] hover:text-[#117F21]", focus)}>
               <X className="h-5 w-5" aria-hidden="true" />
@@ -103,10 +103,10 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
                 transition={{ duration: 0.25, ease }}
                 className={cn(
                   "relative overflow-hidden rounded-2xl border transition-colors duration-300",
-                  isOpen ? "border-[#117F21]/30 bg-[#F7FAF6] shadow-[0_24px_50px_-30px_rgba(10,74,19,0.45)]" : "border-gray-200 bg-white hover:border-[#117F21]/30",
+                  isOpen ? "border-[#14892A]/30 bg-[#F7FAF6] shadow-[0_24px_50px_-30px_rgba(16,93,29,0.45)]" : "border-gray-200 bg-white hover:border-[#14892A]/30",
                 )}
               >
-                <span aria-hidden="true" className={cn("absolute inset-y-4 left-0 w-1 origin-top rounded-r-full bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-transform duration-500", isOpen ? "scale-y-100" : "scale-y-0")} />
+                <span aria-hidden="true" className={cn("absolute inset-y-4 left-0 w-1 origin-top rounded-r-full bg-gradient-to-b from-[#14892A] to-[#CB9615] transition-transform duration-500", isOpen ? "scale-y-100" : "scale-y-0")} />
                 <h3>
                   <button
                     id={`${id}-btn`}
@@ -118,9 +118,9 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
                   >
                     <span className="min-w-0 flex-1">
                       <span className={cn(chip, "mb-1.5 hidden w-fit sm:inline-flex")}>{f.cat}</span>
-                      <span className="block text-lg font-semibold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{f.q}</span>
+                      <span className="block text-lg font-semibold leading-snug text-[#164D20] group-hover:text-[#117F21]">{f.q}</span>
                     </span>
-                    <span aria-hidden="true" className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition duration-300", isOpen ? "rotate-180 bg-[#117F21] text-white" : "bg-gray-100 text-gray-600 group-hover:bg-[#E8F5E9] group-hover:text-[#117F21]")}>
+                    <span aria-hidden="true" className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition duration-300", isOpen ? "rotate-180 bg-[#14892A] text-white" : "bg-gray-100 text-gray-600 group-hover:bg-[#E8F5E9] group-hover:text-[#117F21]")}>
                       <ChevronDown className="h-4 w-4" />
                     </span>
                   </button>
@@ -144,7 +144,7 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
                                 className={cn(
                                   "inline-flex min-h-11 items-center gap-2 rounded-xl px-4 font-semibold transition",
                                   focus,
-                                  on ? "bg-[#117F21] text-white" : "border border-[#117F21]/25 bg-white text-[#117F21] hover:border-[#117F21]",
+                                  on ? "bg-[#14892A] text-white" : "border border-[#14892A]/25 bg-white text-[#117F21] hover:border-[#14892A]",
                                 )}
                               >
                                 <I className="h-4 w-4" aria-hidden="true" />
@@ -152,7 +152,7 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
                               </button>
                             );
                           })}
-                          <span aria-live="polite" className="font-semibold text-[#0A4A13]">{vote[f.q] ? "Thanks for your feedback." : ""}</span>
+                          <span aria-live="polite" className="font-semibold text-[#105D1D]">{vote[f.q] ? "Thanks for your feedback." : ""}</span>
                         </div>
                       </div>
                     </motion.div>
@@ -166,10 +166,10 @@ export function FaqSection({ openQ, setOpenQ }: { openQ: string | null; setOpenQ
       {list.length === 0 && <p className="mt-6 rounded-2xl border-2 border-dashed border-gray-200 bg-white p-8 text-center text-gray-600">No questions match. Try another word, or ask PenCom Assistant.</p>}
 
       {/* Still have a question? */}
-      <div className="mt-8 flex flex-col gap-4 rounded-3xl border-l-4 border-[#117F21] bg-[#F4F7F2] p-5 sm:flex-row sm:items-center sm:p-6">
+      <div className="mt-8 flex flex-col gap-4 rounded-3xl border-l-4 border-[#14892A] bg-[#F4F7F2] p-5 sm:flex-row sm:items-center sm:p-6">
         <Tile icon={MessageCircle} dark />
         <div className="flex-1">
-          <p className="text-xl font-bold text-[#0A2E10]">Still have a question?</p>
+          <p className="text-xl font-bold text-[#164D20]">Still have a question?</p>
           <p className="mt-0.5 text-gray-600">PenCom Assistant answers from our published guidance.</p>
         </div>
         <button type="button" onClick={() => document.getElementById("chat-trigger")?.click()} className={cn(goldBtn, "group w-full shrink-0 sm:w-fit")}>
@@ -224,14 +224,14 @@ export function Glossary({ focusTerm }: { focusTerm: string | null }) {
             return (
               <motion.li key={g.term} layout initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.3, ease }}>
                 {/* Hover lift on the inner card, not on the layout-animated li. */}
-                <div className={cn(card, "group relative overflow-hidden", on && "border-[#117F21]/30 bg-[#F7FAF6]")}>
-                  <span aria-hidden="true" className={cn("absolute inset-x-0 top-0 h-1 origin-left bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500", on ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100")} />
+                <div className={cn(card, "group relative overflow-hidden", on && "border-[#14892A]/30 bg-[#F7FAF6]")}>
+                  <span aria-hidden="true" className={cn("absolute inset-x-0 top-0 h-1 origin-left bg-gradient-to-r from-[#14892A] to-[#CB9615] transition-transform duration-500", on ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100")} />
                   <button type="button" aria-expanded={on} aria-controls={id} onClick={() => setOpen((f) => ({ ...f, [g.term]: !f[g.term] }))} className={cn("flex w-full items-start gap-4 rounded-3xl p-5 text-left", insetFocus)}>
-                    <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#04240A] text-lg font-bold text-[#F4D27A] transition duration-300 group-hover:-rotate-6">
+                    <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#11421A] text-lg font-bold text-[#F4D27A] transition duration-300 group-hover:-rotate-6">
                       {g.term[0].toUpperCase()}
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block text-xl font-bold text-[#0A2E10] group-hover:text-[#117F21]">{g.term}</span>
+                      <span className="block text-xl font-bold text-[#164D20] group-hover:text-[#117F21]">{g.term}</span>
                       {g.full && <span className="mt-0.5 block text-sm text-gray-600">{g.full}</span>}
                       <span className="mt-3 inline-flex min-h-8 items-center gap-2 text-sm font-semibold text-[#117F21]">
                         What it means

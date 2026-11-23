@@ -19,7 +19,7 @@ import ReportGovBadge from "@/components/ReportGovBadge";
 
 /**
  * Site header in the classic "national portal" look. Total height stays 92 px (28 px top bar + 64 px nav),
- * because pages offset sticky bars by that amount. Dark #04240A top bar (offices, phone, reportgov.ng,
+ * because pages offset sticky bars by that amount. Dark #11421A top bar (offices, phone, reportgov.ng,
  * language); white nav that gains a shadow on scroll, a sliding green pill under the active item, labelled
  * "Search" and "Menu" buttons. Mega menus are white rounded-3xl panels with list-panel rows and a dark
  * featured card for the section's overview page (open on hover or keyboard focus, Escape closes).
@@ -119,7 +119,7 @@ export default function Header() {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 print:hidden">
       {/* Utility bar (28 px) */}
-      <div className="bg-[#04240A] text-[13px] text-white">
+      <div className="bg-[#11421A] text-[13px] text-white">
         <div className="mx-auto flex h-7 max-w-7xl items-center justify-between px-4">
           <div className="flex items-center gap-4 whitespace-nowrap">
             <span className="text-white/85">Federal Republic of Nigeria</span>
@@ -145,7 +145,7 @@ export default function Header() {
         aria-label="Main"
         className={cn(
           "bg-white transition-shadow duration-300",
-          scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.06),0_18px_36px_-24px_rgba(10,74,19,0.5)]" : "shadow-[0_1px_0_rgba(0,0,0,0.06)]",
+          scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.06),0_18px_36px_-24px_rgba(16,93,29,0.5)]" : "shadow-[0_1px_0_rgba(0,0,0,0.06)]",
         )}
       >
         <div className="relative mx-auto max-w-7xl px-4">
@@ -153,7 +153,7 @@ export default function Header() {
             <Link to="/" className={cn("flex shrink-0 items-center gap-3 rounded-xl", focus)} aria-label="PenCom Home">
               <img src="/pencom-logo.png" alt="PenCom Logo" className="h-11 w-auto object-contain" />
               <span className="hidden sm:block lg:hidden xl:block">
-                <span className="block text-lg font-bold leading-tight text-[#0A2E10]">PenCom</span>
+                <span className="block text-lg font-bold leading-tight text-[#164D20]">PenCom</span>
                 <span className="block text-[13px] leading-tight text-gray-600">National Pension Commission</span>
               </span>
             </Link>
@@ -180,7 +180,7 @@ export default function Header() {
                       aria-expanded={mega ? openNow : undefined}
                       className={cn(
                         "relative isolate flex min-h-11 items-center gap-1 whitespace-nowrap rounded-xl px-2.5 text-[15px] font-semibold transition-colors xl:px-3",
-                        on ? "text-[#0A4A13]" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]",
+                        on ? "text-[#105D1D]" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]",
                         focus,
                       )}
                     >
@@ -194,7 +194,7 @@ export default function Header() {
                       )}
                       {item.label}
                       {mega && <ChevronDown className={cn("h-4 w-4 transition-transform", openNow && "rotate-180")} aria-hidden="true" />}
-                      {on && <span aria-hidden="true" className="absolute inset-x-3 -bottom-[10px] h-[3px] rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />}
+                      {on && <span aria-hidden="true" className="absolute inset-x-3 -bottom-[10px] h-[3px] rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" />}
                     </Link>
 
                     <AnimatePresence>
@@ -208,15 +208,15 @@ export default function Header() {
                         >
                           <div
                             className={cn(
-                              "relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)]",
+                              "relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-30px_rgba(16,93,29,0.55)]",
                               cols === 1 ? "w-[22rem] p-3" : "flex gap-5 p-5",
                             )}
                           >
-                            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#117F21] via-[#CB9615] to-[#117F21]" />
+                            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#14892A] via-[#CB9615] to-[#14892A]" />
                             {cols > 1 && (
                               <Link
                                 to={item.href}
-                                className={cn("group/feat relative isolate flex w-56 shrink-0 flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br from-[#04240A] via-[#0A4A13] to-[#117F21] p-5 text-white", focus)}
+                                className={cn("group/feat relative isolate flex w-56 shrink-0 flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br from-[#11421A] via-[#105D1D] to-[#14892A] p-5 text-white", focus)}
                               >
                                 <span
                                   aria-hidden="true"
@@ -244,8 +244,8 @@ export default function Header() {
                               {mega.columns.map((col) => (
                                 <div key={col.title}>
                                   {cols > 1 && (
-                                    <p className="mb-2 flex items-center gap-2 px-1 text-xs font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
-                                      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#117F21]" />
+                                    <p className="mb-2 flex items-center gap-2 px-1 text-xs font-bold uppercase tracking-[0.16em] text-[#105D1D]">
+                                      <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#14892A]" />
                                       {col.title}
                                     </p>
                                   )}
@@ -261,7 +261,7 @@ export default function Header() {
                                             className={cn(
                                               "group flex min-h-11 items-center gap-2 px-3 py-2 text-[15px] transition-colors",
                                               cols > 1 ? "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]" : cn("rounded-xl", focus),
-                                              here ? "bg-[#E8F5E9] font-semibold text-[#0A4A13]" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]",
+                                              here ? "bg-[#E8F5E9] font-semibold text-[#105D1D]" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]",
                                             )}
                                           >
                                             <span className="min-w-0 flex-1">
@@ -298,7 +298,7 @@ export default function Header() {
                 aria-label={searchOpen ? "Close search" : undefined}
                 className={cn(
                   "inline-flex min-h-11 min-w-11 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-2.5 text-[15px] font-semibold transition-colors sm:px-3.5",
-                  searchOpen ? "bg-[#04240A] text-[#F4D27A]" : "border border-[#117F21]/25 text-[#117F21] hover:border-[#117F21] hover:bg-[#F7FAF6]",
+                  searchOpen ? "bg-[#11421A] text-[#F4D27A]" : "border border-[#14892A]/25 text-[#117F21] hover:border-[#14892A] hover:bg-[#F7FAF6]",
                   focus,
                 )}
               >
@@ -318,7 +318,7 @@ export default function Header() {
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-menu"
                 className={cn(
-                  "inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#04240A] px-4 text-[15px] font-semibold text-white transition-colors hover:bg-[#0A4A13] lg:hidden",
+                  "inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#11421A] px-4 text-[15px] font-semibold text-white transition-colors hover:bg-[#105D1D] lg:hidden",
                   focus,
                 )}
               >
@@ -341,10 +341,10 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduce ? 0 : -8 }}
             transition={{ duration: 0.2 }}
-            className="border-b border-gray-200 bg-gradient-to-b from-white to-[#F4F7F2] shadow-[0_24px_40px_-30px_rgba(10,74,19,0.6)]"
+            className="border-b border-gray-200 bg-gradient-to-b from-white to-[#F4F7F2] shadow-[0_24px_40px_-30px_rgba(16,93,29,0.6)]"
           >
             <div ref={searchBox} className="mx-auto max-w-3xl px-4 py-5">
-              <p className="mb-3 text-lg font-bold text-[#0A2E10]">What are you looking for?</p>
+              <p className="mb-3 text-lg font-bold text-[#164D20]">What are you looking for?</p>
               <SiteSearch />
             </div>
           </motion.div>
@@ -373,10 +373,10 @@ export default function Header() {
                       className={cn(
                         "flex min-h-14 items-center gap-3 px-4 text-base font-bold transition-colors",
                         "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]",
-                        on ? "bg-[#E8F5E9] text-[#0A4A13]" : "text-[#0A2E10] hover:bg-[#F7FAF6]",
+                        on ? "bg-[#E8F5E9] text-[#105D1D]" : "text-[#164D20] hover:bg-[#F7FAF6]",
                       )}
                     >
-                      <span aria-hidden="true" className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-xl [&_svg]:h-[18px] [&_svg]:w-[18px]", on ? "bg-[#117F21] text-white" : "bg-[#E8F5E9] text-[#117F21]")}>
+                      <span aria-hidden="true" className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-xl [&_svg]:h-[18px] [&_svg]:w-[18px]", on ? "bg-[#14892A] text-white" : "bg-[#E8F5E9] text-[#117F21]")}>
                         {iconMap[item.icon] || <Shield className="h-5 w-5" />}
                       </span>
                       {item.label}
@@ -393,7 +393,7 @@ export default function Header() {
                                 className={cn(
                                   "flex min-h-11 items-center pl-16 pr-4 text-[15px]",
                                   "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]",
-                                  location.pathname === link.href ? "font-semibold text-[#0A4A13]" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]",
+                                  location.pathname === link.href ? "font-semibold text-[#105D1D]" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]",
                                 )}
                               >
                                 {link.label}

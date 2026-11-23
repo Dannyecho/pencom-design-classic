@@ -13,7 +13,7 @@ import { DrawnMark } from "@/views/theme/Headline";
 import { GridBackdrop } from "@/views/about/primitives";
 
 /**
- * Site footer in the classic "national portal" look: a full-width #04240A band with the 64 px grid, a green and a
+ * Site footer in the classic "national portal" look: a full-width #11421A band with the 64 px grid, a green and a
  * gold blur. A white newsletter card (gold hairline, gold Subscribe, app and social links) floats over its top edge
  * (-mt-14, over a white strip), then the brand and contact details, four link columns with gold headings, the
  * online-service portal tiles and a bottom bar with a labelled "Back to top". The card rises in once.
@@ -90,8 +90,8 @@ const focus = "focus-visible:outline focus-visible:outline-[3px] focus-visible:o
 /** Column heading on the green band: gold, uppercase, with a small gold dot. */
 function Kicker({ children, light = false }: { children: string; light?: boolean }) {
   return (
-    <p className={cn("flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.18em]", light ? "text-[#0A4A13]" : "text-[#F4D27A]")}>
-      <span aria-hidden="true" className={cn("h-1.5 w-1.5 shrink-0 rounded-full", light ? "bg-[#117F21]" : "bg-[#F4D27A]")} />
+    <p className={cn("flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.18em]", light ? "text-[#105D1D]" : "text-[#F4D27A]")}>
+      <span aria-hidden="true" className={cn("h-1.5 w-1.5 shrink-0 rounded-full", light ? "bg-[#14892A]" : "bg-[#F4D27A]")} />
       {children}
     </p>
   );
@@ -116,10 +116,10 @@ export default function Footer() {
       <h2 id="footer-title" className="sr-only">
         Site footer
       </h2>
-      <div className="relative isolate bg-[#04240A]">
+      <div className="relative isolate bg-[#11421A]">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <GridBackdrop />
-        <div className="absolute -left-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-[#117F21]/40 blur-[160px]" />
+        <div className="absolute -left-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-[#14892A]/40 blur-[160px]" />
         <div className="absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-[#CB9615]/15 blur-[140px]" />
       </div>
 
@@ -130,9 +130,9 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease }}
-          className="relative -top-16 -mb-16 grid grid-cols-1 gap-8 overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 text-[#0A2E10] shadow-[0_40px_70px_-40px_rgba(4,36,10,0.7)] sm:p-9 lg:grid-cols-12 lg:gap-12"
+          className="relative -top-16 -mb-16 grid grid-cols-1 gap-8 overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 text-[#164D20] shadow-[0_40px_70px_-40px_rgba(17,66,26,0.7)] sm:p-9 lg:grid-cols-12 lg:gap-12"
         >
-          <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#117F21] via-[#CB9615] to-[#117F21]" />
+          <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#14892A] via-[#CB9615] to-[#14892A]" />
           <div className="lg:col-span-7">
             <Kicker light>Stay informed</Kicker>
             <h3 className="mt-4 text-3xl font-bold leading-[1.12] tracking-tight sm:text-[2.1rem]">
@@ -148,7 +148,7 @@ export default function Footer() {
                     role="status"
                     initial={{ opacity: 0, y: reduce ? 0 : 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-3 rounded-xl border-l-4 border-[#117F21] bg-[#E8F5E9] p-4 text-base font-semibold text-[#0A4A13]"
+                    className="flex items-center gap-3 rounded-xl border-l-4 border-[#14892A] bg-[#E8F5E9] p-4 text-base font-semibold text-[#105D1D]"
                   >
                     <CheckCircle2 className="h-6 w-6 shrink-0 text-[#117F21]" aria-hidden="true" />
                     Thank you. Check your inbox to confirm your subscription.
@@ -159,7 +159,7 @@ export default function Footer() {
                       Email address
                     </label>
                     <div className="flex flex-col gap-3 sm:flex-row">
-                      <span className="flex flex-1 items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 transition focus-within:border-[#117F21] focus-within:ring-[3px] focus-within:ring-[#FFD84D]">
+                      <span className="flex flex-1 items-center gap-3 rounded-xl border border-gray-300 bg-white px-4 transition focus-within:border-[#14892A] focus-within:ring-[3px] focus-within:ring-[#FFD84D]">
                         <Mail className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
                         <input
                           id="footer-email"
@@ -169,7 +169,7 @@ export default function Footer() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="you@example.com"
-                          className="min-h-12 w-full bg-transparent text-base text-[#0A2E10] placeholder:text-gray-500 focus:outline-none"
+                          className="min-h-12 w-full bg-transparent text-base text-[#164D20] placeholder:text-gray-500 focus:outline-none"
                         />
                       </span>
                       <button
@@ -197,7 +197,7 @@ export default function Footer() {
                   <Link
                     key={s.name}
                     to="/mobile"
-                    className={cn("inline-flex min-h-12 items-center gap-3 rounded-xl border border-[#117F21]/25 bg-white px-4 text-[#0A2E10] transition hover:border-[#117F21] hover:bg-[#F7FAF6]", focus)}
+                    className={cn("inline-flex min-h-12 items-center gap-3 rounded-xl border border-[#14892A]/25 bg-white px-4 text-[#164D20] transition hover:border-[#14892A] hover:bg-[#F7FAF6]", focus)}
                   >
                     <s.icon className="h-6 w-6 text-[#117F21]" aria-hidden="true" />
                     <span className="text-left">
@@ -219,7 +219,7 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       aria-label={`${s.label} (opens in a new tab)`}
                       title={s.label}
-                      className={cn("group flex h-12 w-12 items-center justify-center rounded-xl bg-[#04240A] text-[#F4D27A] transition duration-300 hover:-translate-y-0.5 hover:bg-[#0A4A13]", focus)}
+                      className={cn("group flex h-12 w-12 items-center justify-center rounded-xl bg-[#11421A] text-[#F4D27A] transition duration-300 hover:-translate-y-0.5 hover:bg-[#105D1D]", focus)}
                     >
                       <s.icon className="h-5 w-5 transition-transform duration-300 group-hover:rotate-6" aria-hidden="true" />
                     </a>

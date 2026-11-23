@@ -113,7 +113,7 @@ export default function NoticesBell() {
         transition={{ duration: 0.9, delay: 1.2, repeat: 1, repeatDelay: 2.5 }}
         className={cn(
           "relative flex h-11 w-11 items-center justify-center rounded-xl transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]",
-          open ? "bg-[#04240A] text-[#F4D27A]" : "border border-[#117F21]/25 text-[#117F21] hover:border-[#117F21] hover:bg-[#F7FAF6]",
+          open ? "bg-[#11421A] text-[#F4D27A]" : "border border-[#14892A]/25 text-[#117F21] hover:border-[#14892A] hover:bg-[#F7FAF6]",
         )}
       >
         <Bell className="h-5 w-5" aria-hidden="true" />
@@ -127,7 +127,7 @@ export default function NoticesBell() {
               aria-hidden="true"
               className={cn(
                 "absolute -right-1 -top-1 flex h-[22px] min-w-[22px] items-center justify-center rounded-full px-1 text-xs font-bold text-white ring-2 ring-white",
-                urgent ? "bg-[#C62828]" : "bg-[#117F21]",
+                urgent ? "bg-[#C62828]" : "bg-[#14892A]",
               )}
             >
               {unread.length}
@@ -149,9 +149,9 @@ export default function NoticesBell() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: reduce ? 0 : -8, scale: reduce ? 1 : 0.97 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-x-3 top-[96px] z-[70] origin-top-right overflow-hidden rounded-3xl border border-gray-200/80 bg-white text-[#0A2E10] shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)] focus:outline-none sm:absolute sm:inset-x-auto sm:right-0 sm:top-full sm:mt-3 sm:w-[28rem]"
+            className="fixed inset-x-3 top-[96px] z-[70] origin-top-right overflow-hidden rounded-3xl border border-gray-200/80 bg-white text-[#164D20] shadow-[0_30px_60px_-30px_rgba(16,93,29,0.55)] focus:outline-none sm:absolute sm:inset-x-auto sm:right-0 sm:top-full sm:mt-3 sm:w-[28rem]"
           >
-            <div className="flex items-center justify-between gap-3 bg-[#04240A] px-5 py-3 text-white">
+            <div className="flex items-center justify-between gap-3 bg-[#11421A] px-5 py-3 text-white">
               <div>
                 <p className="flex items-center gap-2 text-lg font-bold text-white">
                   <Bell className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" />
@@ -215,7 +215,7 @@ export default function NoticesBell() {
                               </span>
                             )}
                           </p>
-                          <p className="mt-1.5 text-base font-bold leading-snug text-[#0A2E10]">{t(n.title)}</p>
+                          <p className="mt-1.5 text-base font-bold leading-snug text-[#164D20]">{t(n.title)}</p>
                           <p className="mt-1 text-[15px] leading-snug text-gray-600">{t(n.message)}</p>
                           <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
                             {n.link && (
@@ -232,7 +232,7 @@ export default function NoticesBell() {
                               </Link>
                             )}
                             {isNew && (
-                              <button type="button" onClick={() => markOne(n.id)} className="inline-flex min-h-11 items-center text-sm font-semibold text-gray-600 hover:text-[#0A2E10] hover:underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
+                              <button type="button" onClick={() => markOne(n.id)} className="inline-flex min-h-11 items-center text-sm font-semibold text-gray-600 hover:text-[#164D20] hover:underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
                                 {t("Mark as read")}
                               </button>
                             )}
@@ -244,7 +244,7 @@ export default function NoticesBell() {
                           aria-label={`${t("Dismiss notice")}: ${t(n.title)}`}
                           title={t("Dismiss notice")}
                           data-i18n-done
-                          className="-mr-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-gray-500 transition hover:bg-[#F7FAF6] hover:text-[#0A2E10] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+                          className="-mr-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-gray-500 transition hover:bg-[#F7FAF6] hover:text-[#164D20] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
                         >
                           <X className="h-4 w-4" aria-hidden="true" />
                         </button>
@@ -258,7 +258,7 @@ export default function NoticesBell() {
                   <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#E8F5E9] text-[#117F21]">
                     <CheckCheck className="h-6 w-6" aria-hidden="true" />
                   </span>
-                  <p className="mt-3 text-lg font-semibold text-[#0A2E10]">{t("No notices right now")}</p>
+                  <p className="mt-3 text-lg font-semibold text-[#164D20]">{t("No notices right now")}</p>
                 </li>
               )}
             </ul>
@@ -270,7 +270,7 @@ export default function NoticesBell() {
                 aria-expanded="false"
                 aria-controls="notices-panel"
                 data-i18n-done
-                className="group flex w-full items-center justify-center gap-2 min-h-12 border-t border-gray-200 bg-[#F4F7F2] px-4 py-3 text-base font-semibold text-[#0A4A13] transition hover:bg-[#E8F5E9] focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]"
+                className="group flex w-full items-center justify-center gap-2 min-h-12 border-t border-gray-200 bg-[#F4F7F2] px-4 py-3 text-base font-semibold text-[#105D1D] transition hover:bg-[#E8F5E9] focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]"
               >
                 {t("Show all {n} notices", { n: shown.length })}
                 <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" aria-hidden="true" />
@@ -279,7 +279,7 @@ export default function NoticesBell() {
 
             {!preview && gone.some((id) => siteNotices.some((n) => n.id === id)) && (
               <div className="border-t border-gray-200 bg-[#F4F7F2] px-5 py-1">
-                <button type="button" onClick={() => setGone([])} className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-[#0A2E10] hover:underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
+                <button type="button" onClick={() => setGone([])} className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-[#164D20] hover:underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]">
                   <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
                   {t("Show dismissed notices")}
                 </button>

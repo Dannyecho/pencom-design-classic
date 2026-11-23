@@ -90,7 +90,7 @@ export default function RegulationsPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <Banner
           onSearch={(q) => {
             set({ q });
@@ -166,7 +166,7 @@ function Banner({ onSearch, onType }: { onSearch: (q: string) => void; onType: (
                     value={q}
                     onChange={(e) => setQ(e.target.value)}
                     placeholder="e.g. “RSA transfer”, “PPP”"
-                    className="min-h-12 w-full min-w-0 bg-transparent text-base text-[#0A2E10] placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0 sm:text-lg [&::-webkit-search-cancel-button]:hidden"
+                    className="min-h-12 w-full min-w-0 bg-transparent text-base text-[#164D20] placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0 sm:text-lg [&::-webkit-search-cancel-button]:hidden"
                   />
                 </div>
                 <button type="submit" className={cn(goldBtn, "shrink-0")}>
@@ -202,7 +202,7 @@ function Banner({ onSearch, onType }: { onSearch: (q: string) => void; onType: (
                   <button
                     type="button"
                     onClick={() => onType(c.t)}
-                    className={cn("group relative flex h-full w-full flex-col bg-[#04240A]/80 p-5 text-left transition duration-300 hover:bg-[#0A4A13]/90 sm:p-6", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]")}
+                    className={cn("group relative flex h-full w-full flex-col bg-[#11421A]/80 p-5 text-left transition duration-300 hover:bg-[#105D1D]/90 sm:p-6", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]")}
                   >
                     <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-[#F4D27A] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
                     <CountUp value={String(c.n)} className="block text-4xl font-black tracking-tight text-white sm:text-5xl" />
@@ -231,11 +231,11 @@ function LatestBar({ onOpen }: { onOpen: (id: string) => void }) {
       <div className="grid grid-cols-1 lg:grid-cols-12">
         <div className="p-5 sm:p-6 lg:col-span-8">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="text-xl font-bold text-[#0A2E10]">Latest issued</h2>
-            <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#0A4A13]">
+            <h2 className="text-xl font-bold text-[#164D20]">Latest issued</h2>
+            <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#105D1D]">
               <span aria-hidden="true" className="relative flex h-2.5 w-2.5">
-                <span className="absolute inset-0 animate-ping rounded-full bg-[#117F21]/50 motion-reduce:hidden" />
-                <span className="relative h-2.5 w-2.5 rounded-full bg-[#117F21]" />
+                <span className="absolute inset-0 animate-ping rounded-full bg-[#14892A]/50 motion-reduce:hidden" />
+                <span className="relative h-2.5 w-2.5 rounded-full bg-[#14892A]" />
               </span>
               Updated {fmtDate(latest[0].date)}
             </span>
@@ -252,7 +252,7 @@ function LatestBar({ onOpen }: { onOpen: (id: string) => void }) {
                     <span className={cn("rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider", typeStyle[d.type].chip)}>{d.type}</span>
                     <span className="text-xs font-medium text-gray-600">{fmtDate(d.date)}</span>
                   </span>
-                  <span className="mt-2 line-clamp-2 block font-semibold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{d.title}</span>
+                  <span className="mt-2 line-clamp-2 block font-semibold leading-snug text-[#164D20] group-hover:text-[#117F21]">{d.title}</span>
                 </button>
               </li>
             ))}

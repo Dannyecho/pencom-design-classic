@@ -17,9 +17,9 @@ export function IndustryFigures() {
   const growth = Math.round(((assetGrowth[1].value - assetGrowth[0].value) / assetGrowth[0].value) * 100);
 
   return (
-    <section id="figures" aria-labelledby="figures-title" className="relative isolate scroll-mt-[170px] overflow-hidden bg-[#04240A] py-20 text-white sm:py-28">
+    <section id="figures" aria-labelledby="figures-title" className="relative isolate scroll-mt-[170px] overflow-hidden bg-[#11421A] py-20 text-white sm:py-28">
       <GridBackdrop className="-z-10" />
-      <div aria-hidden="true" className="absolute -right-40 top-0 -z-10 h-[520px] w-[520px] rounded-full bg-[#117F21]/40 blur-[160px]" />
+      <div aria-hidden="true" className="absolute -right-40 top-0 -z-10 h-[520px] w-[520px] rounded-full bg-[#14892A]/40 blur-[160px]" />
       <div aria-hidden="true" className="absolute -left-20 bottom-0 -z-10 h-80 w-80 rounded-full bg-[#CB9615]/15 blur-[120px]" />
 
       <div className="mx-auto max-w-7xl px-4">
@@ -51,7 +51,7 @@ export function IndustryFigures() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="group relative bg-[#04240A] p-7 transition-colors hover:bg-[#072F0E]"
+                className="group relative bg-[#11421A] p-7 transition-colors hover:bg-[#124C1B]"
               >
                 <span aria-hidden="true" className="absolute left-0 top-7 h-10 w-0.5 bg-gradient-to-b from-[#F4D27A] to-transparent transition-all duration-500 group-hover:h-16" />
                 <CountUp value={f.value} className="text-4xl font-black tracking-tight sm:text-5xl" />
@@ -65,7 +65,7 @@ export function IndustryFigures() {
           <motion.figure {...reveal} className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-7 lg:col-span-5">
             <div className="flex items-center justify-between">
               <figcaption className="text-sm font-semibold uppercase tracking-[0.16em] text-white/60">Pension assets, ₦ trillion</figcaption>
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#117F21]/40 px-3 py-1 text-xs font-bold text-[#B9F0C2]">
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#14892A]/40 px-3 py-1 text-xs font-bold text-[#B9F0C2]">
                 <TrendingUp className="h-3.5 w-3.5" aria-hidden="true" />+{growth}%
               </span>
             </div>
@@ -84,7 +84,7 @@ export function IndustryFigures() {
                       className={cn(
                         "absolute inset-x-0 bottom-0 rounded-t-2xl",
                         i === assetGrowth.length - 1
-                          ? "bg-gradient-to-t from-[#117F21] to-[#F4D27A] shadow-[0_0_40px_rgba(244,210,122,0.35)]"
+                          ? "bg-gradient-to-t from-[#14892A] to-[#F4D27A] shadow-[0_0_40px_rgba(244,210,122,0.35)]"
                           : "border border-white/20 bg-gradient-to-t from-white/15 to-white/40",
                       )}
                     />
@@ -153,7 +153,7 @@ export function Updates() {
                         <span className={cn("inline-block rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider", s.chip)}>
                           {n.level}
                         </span>
-                        <span className="mt-2 block font-semibold text-[#0A2E10] group-hover:text-[#117F21]">{n.title}</span>
+                        <span className="mt-2 block font-semibold text-[#164D20] group-hover:text-[#117F21]">{n.title}</span>
                         <span className="mt-1 block text-sm leading-relaxed text-gray-600">{n.body}</span>
                       </span>
                     </Link>
@@ -171,7 +171,7 @@ export function Updates() {
                 Regulatory library <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
-            <Spotlight color="rgba(17,127,33,0.08)" size={600} className="mt-4 rounded-3xl border border-gray-200 bg-white">
+            <Spotlight color="rgba(20,137,42,0.08)" size={600} className="mt-4 rounded-3xl border border-gray-200 bg-white">
               <ul className="divide-y divide-gray-100">
                 {latestRegulations.map((r, i) => (
                   <motion.li
@@ -185,11 +185,11 @@ export function Updates() {
                       to="/regulations"
                       className="group flex items-center gap-4 px-5 py-4 transition hover:bg-[#F7FAF6] focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D] sm:px-6"
                     >
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#117F21] group-hover:text-white">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#14892A] group-hover:text-white">
                         <FileText className="h-5 w-5" aria-hidden="true" />
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block font-semibold text-[#0A2E10] group-hover:text-[#117F21]">{r.title}</span>
+                        <span className="block font-semibold text-[#164D20] group-hover:text-[#117F21]">{r.title}</span>
                         <span className="mt-0.5 block truncate text-sm text-gray-500">{r.description}</span>
                       </span>
                       <span className="hidden shrink-0 text-right sm:block">

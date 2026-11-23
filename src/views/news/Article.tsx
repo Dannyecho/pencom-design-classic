@@ -51,10 +51,10 @@ const eyebrowCls = "text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]
 const moveArrow = "h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1";
 /** Small labelled tool button (listen, print, feedback). */
 const tool = cn(
-  "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-base font-semibold text-[#0A2E10] transition hover:border-[#117F21] hover:bg-[#F7FAF6] hover:text-[#117F21] disabled:pointer-events-none disabled:opacity-40",
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-base font-semibold text-[#164D20] transition hover:border-[#14892A] hover:bg-[#F7FAF6] hover:text-[#117F21] disabled:pointer-events-none disabled:opacity-40",
   focus,
 );
-const toolOn = "border-[#0A4A13] bg-[#0A4A13] text-[#F4D27A] hover:border-[#0A4A13] hover:bg-[#0A4A13] hover:text-[#F4D27A]";
+const toolOn = "border-[#105D1D] bg-[#105D1D] text-[#F4D27A] hover:border-[#105D1D] hover:bg-[#105D1D] hover:text-[#F4D27A]";
 
 /* ─────────────────────────── Sharing ─────────────────────────── */
 
@@ -90,8 +90,8 @@ function useShare(a: A) {
 /** Share panel: labelled buttons in a `gap-px` grid (words next to every icon). */
 function SharePanel({ a }: { a: A }) {
   const { links, copy, copied, native } = useShare(a);
-  const cell = cn("group flex min-h-12 items-center gap-2.5 bg-white px-4 text-base font-semibold text-[#0A2E10] transition hover:bg-[#F7FAF6] hover:text-[#117F21]", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]");
-  const ico = "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#117F21] group-hover:text-white [&_svg]:h-4 [&_svg]:w-4";
+  const cell = cn("group flex min-h-12 items-center gap-2.5 bg-white px-4 text-base font-semibold text-[#164D20] transition hover:bg-[#F7FAF6] hover:text-[#117F21]", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]");
+  const ico = "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#14892A] group-hover:text-white [&_svg]:h-4 [&_svg]:w-4";
   return (
     <section aria-labelledby="share-title" className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white print:hidden">
       <h2 id="share-title" className="flex items-center gap-2 border-b border-gray-100 bg-[#F4F7F2] px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-gray-600">
@@ -109,7 +109,7 @@ function SharePanel({ a }: { a: A }) {
         ))}
         <li className={cn("bg-white", !native && "col-span-2")}>
           <button type="button" onClick={copy} className={cn(cell, "w-full")} aria-label="Copy link to this story">
-            <span aria-hidden="true" className={cn(ico, copied && "bg-[#117F21] text-white")}>{copied ? <Check /> : <Link2 />}</span>
+            <span aria-hidden="true" className={cn(ico, copied && "bg-[#14892A] text-white")}>{copied ? <Check /> : <Link2 />}</span>
             <AnimatePresence mode="wait" initial={false}>
               <motion.span key={copied ? "y" : "n"} aria-hidden="true" initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}>
                 {copied ? "Copied" : "Copy link"}
@@ -153,10 +153,10 @@ function Facts({ items }: { items: { value: string; label: string }[] }) {
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.9, delay: 0.15 + i * 0.1, ease }}
-              className="absolute inset-x-0 top-0 h-1 origin-left bg-gradient-to-r from-[#117F21] to-[#CB9615]"
+              className="absolute inset-x-0 top-0 h-1 origin-left bg-gradient-to-r from-[#14892A] to-[#CB9615]"
             />
             <dt className="mt-3 text-base leading-snug text-gray-600">{f.label}</dt>
-            <dd className="break-words text-[1.75rem] font-bold leading-none tracking-tight text-[#0A2E10] tabular-nums sm:text-[2rem]">{f.value}</dd>
+            <dd className="break-words text-[1.75rem] font-bold leading-none tracking-tight text-[#164D20] tabular-nums sm:text-[2rem]">{f.value}</dd>
           </motion.div>
         ))}
       </dl>
@@ -170,20 +170,20 @@ function BlockView({ b, first }: { b: Block; first: boolean }) {
   switch (b.type) {
     case "p":
       return (
-        <p className={cn("leading-[1.8] text-gray-700", first && "text-[1.15em] leading-[1.7] text-[#0A2E10] first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:text-[3.4em] first-letter:font-bold first-letter:leading-[0.8] first-letter:text-[#117F21]")}>
+        <p className={cn("leading-[1.8] text-gray-700", first && "text-[1.15em] leading-[1.7] text-[#164D20] first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:text-[3.4em] first-letter:font-bold first-letter:leading-[0.8] first-letter:text-[#117F21]")}>
           {b.text}
         </p>
       );
     case "h2":
       return (
-        <h2 id={b.id} className="!mt-12 flex scroll-mt-[180px] items-start gap-3 text-[1.4em] font-bold leading-snug tracking-tight text-[#0A2E10] sm:text-[1.55em]">
+        <h2 id={b.id} className="!mt-12 flex scroll-mt-[180px] items-start gap-3 text-[1.4em] font-bold leading-snug tracking-tight text-[#164D20] sm:text-[1.55em]">
           <motion.span
             aria-hidden="true"
             initial={{ scaleY: reduce ? 1 : 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease }}
-            className="mt-1 block h-[1.1em] w-1.5 shrink-0 origin-top rounded-full bg-gradient-to-b from-[#117F21] to-[#CB9615]"
+            className="mt-1 block h-[1.1em] w-1.5 shrink-0 origin-top rounded-full bg-gradient-to-b from-[#14892A] to-[#CB9615]"
           />
           {b.text}
         </h2>
@@ -191,10 +191,10 @@ function BlockView({ b, first }: { b: Block; first: boolean }) {
     case "quote":
       return (
         <motion.figure {...rise} className="relative !my-12 overflow-hidden rounded-3xl border border-gray-200/80 bg-[#F4F7F2] py-8 pl-8 pr-6 sm:py-9 sm:pl-10 sm:pr-9">
-          <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#CB9615] to-[#117F21]" />
+          <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#CB9615] to-[#14892A]" />
           <span aria-hidden="true" className="pointer-events-none absolute -right-4 -top-6 text-[9rem] font-black leading-none text-[#117F21]/[0.07]">&ldquo;</span>
           <Tile icon={Quote} dark className="mb-4" />
-          <blockquote className="relative text-[1.25em] font-semibold leading-snug text-[#0A2E10]">{b.text}</blockquote>
+          <blockquote className="relative text-[1.25em] font-semibold leading-snug text-[#164D20]">{b.text}</blockquote>
           {b.by && <figcaption className={cn(eyebrowCls, "mt-4 text-sm")}>{b.by}</figcaption>}
         </motion.figure>
       );
@@ -223,10 +223,10 @@ function BlockView({ b, first }: { b: Block; first: boolean }) {
     case "callout":
       return (
         <motion.aside {...rise} aria-label={b.title} className="relative !my-12 overflow-hidden rounded-3xl border border-gray-200/80 bg-white">
-          <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#117F21]" />
+          <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#14892A]" />
           <div className="flex items-center gap-3 border-b border-gray-100 bg-[#F4F7F2] py-4 pl-7 pr-5 sm:pl-8">
             <Tile icon={Info} size="sm" />
-            <p className="text-base font-bold text-[#0A2E10]">{b.title}</p>
+            <p className="text-base font-bold text-[#164D20]">{b.title}</p>
           </div>
           <div className="py-6 pl-7 pr-6 sm:pl-8">
             <p className="text-[1em] leading-relaxed text-gray-700">{b.text}</p>
@@ -282,12 +282,12 @@ function Contents({ items, progress }: { items: { id: string; text: string }[]; 
           <circle cx="22" cy="22" r={r} fill="none" stroke="#E8F5E9" strokeWidth="4" />
           <circle cx="22" cy="22" r={r} fill="none" stroke="url(#story-ring)" strokeWidth="4" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - progress)} className="transition-[stroke-dashoffset] duration-200" />
           <defs>
-            <linearGradient id="story-ring" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#117F21" /><stop offset="1" stopColor="#CB9615" /></linearGradient>
+            <linearGradient id="story-ring" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#14892A" /><stop offset="1" stopColor="#CB9615" /></linearGradient>
           </defs>
         </svg>
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-gray-600">In this story</p>
-          <p className="text-base font-bold text-[#0A2E10] tabular-nums">{Math.round(progress * 100)}% read</p>
+          <p className="text-base font-bold text-[#164D20] tabular-nums">{Math.round(progress * 100)}% read</p>
         </div>
       </div>
       {items.length > 0 && (
@@ -296,12 +296,12 @@ function Contents({ items, progress }: { items: { id: string; text: string }[]; 
             const on = active === i.id;
             return (
               <li key={i.id} className="relative">
-                {on && <motion.span layoutId="story-toc" aria-hidden="true" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_10px_24px_-14px_rgba(10,74,19,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                {on && <motion.span layoutId="story-toc" aria-hidden="true" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_10px_24px_-14px_rgba(16,93,29,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                 <a
                   href={`#${i.id}`}
                   onClick={(e) => { e.preventDefault(); document.getElementById(i.id)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
                   aria-current={on ? "location" : undefined}
-                  className={cn("relative flex min-h-11 items-center rounded-xl py-2 pl-3 pr-3 text-[15px] leading-snug transition", on ? "font-semibold text-white" : "bg-gray-50 font-medium text-gray-700 hover:bg-[#E8F5E9] hover:text-[#0A4A13]", focus)}
+                  className={cn("relative flex min-h-11 items-center rounded-xl py-2 pl-3 pr-3 text-[15px] leading-snug transition", on ? "font-semibold text-white" : "bg-gray-50 font-medium text-gray-700 hover:bg-[#E8F5E9] hover:text-[#105D1D]", focus)}
                 >
                   {i.text}
                 </a>
@@ -320,7 +320,7 @@ export default function Article({ slug }: { slug: string }) {
   const a = findArticle(slug);
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10]">{a && <Story key={a.slug} a={a} />}</div>
+      <div className="bg-white text-[#164D20]">{a && <Story key={a.slug} a={a} />}</div>
     </MotionConfig>
   );
 }
@@ -335,7 +335,7 @@ function StoryBanner({ a, bannerRef }: { a: A; bannerRef: React.RefObject<HTMLEl
     { icon: Clock, node: <>{a.readMins} min read</> },
   ];
   return (
-    <header ref={bannerRef} className="relative isolate overflow-hidden bg-[#04240A] text-white print:bg-white print:text-black">
+    <header ref={bannerRef} className="relative isolate overflow-hidden bg-[#11421A] text-white print:bg-white print:text-black">
       <motion.img
         src={a.image}
         srcSet={srcSetOf(a.image)}
@@ -347,8 +347,8 @@ function StoryBanner({ a, bannerRef }: { a: A; bannerRef: React.RefObject<HTMLEl
         transition={{ duration: 24, ease: "linear" }}
         className="absolute inset-0 -z-20 h-full w-full object-cover print:hidden"
       />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#021a07]/95 via-[#021a07]/80 to-[#021a07]/45 lg:hidden" />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-[#021a07]/90 via-[#021a07]/80 via-55% to-[#021a07]/15 lg:block" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0D3416]/95 via-[#0D3416]/80 to-[#0D3416]/45 lg:hidden" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-[#0D3416]/90 via-[#0D3416]/80 via-55% to-[#0D3416]/15 lg:block" />
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-black/40 to-transparent" />
       <div className="relative mx-auto flex min-h-[500px] max-w-7xl flex-col justify-end px-4 pb-24 pt-8 sm:min-h-[540px] sm:pb-28">
         <Crumbs crumbs={[{ label: "Home", to: "/" }, { label: "Connect", to: "/connect" }, { label: "News", to: "/news" }]} dark className="absolute left-4 right-4 top-6 print:static" />
@@ -443,7 +443,7 @@ function Story({ a }: { a: A }) {
   const newer = idx > 0 ? news[idx - 1] : null;
   const older = idx < news.length - 1 ? news[idx + 1] : null;
   const more = news.filter((n) => n.slug !== a.slug).sort((x, y) => Number(y.category === a.category) - Number(x.category === a.category)).slice(0, 3);
-  const sizeBtn = cn("flex h-11 w-11 items-center justify-center rounded-lg text-[#0A2E10] transition hover:bg-[#117F21] hover:text-white disabled:pointer-events-none disabled:opacity-30", focus);
+  const sizeBtn = cn("flex h-11 w-11 items-center justify-center rounded-lg text-[#164D20] transition hover:bg-[#14892A] hover:text-white disabled:pointer-events-none disabled:opacity-30", focus);
 
   const listenBtn = (extra?: string) => (
     <button type="button" onClick={listen} disabled={!canSpeak} aria-pressed={speaking} className={cn(tool, speaking && toolOn, extra)}>
@@ -461,16 +461,16 @@ function Story({ a }: { a: A }) {
       {/* Sticky reading bar once the banner has scrolled away */}
       <AnimatePresence>
         {!bannerVisible && (
-          <motion.div initial={{ y: -64, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -64, opacity: 0 }} transition={{ duration: 0.35, ease }} className="fixed inset-x-0 top-[92px] z-30 border-b border-gray-200/80 bg-white/95 shadow-[0_12px_30px_-24px_rgba(10,74,19,0.5)] backdrop-blur print:hidden">
+          <motion.div initial={{ y: -64, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -64, opacity: 0 }} transition={{ duration: 0.35, ease }} className="fixed inset-x-0 top-[92px] z-30 border-b border-gray-200/80 bg-white/95 shadow-[0_12px_30px_-24px_rgba(16,93,29,0.5)] backdrop-blur print:hidden">
             <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:gap-4">
               <Tile icon={Icon} dark size="sm" className="hidden sm:flex" />
-              <p className="min-w-0 flex-1 truncate text-base font-bold text-[#0A2E10]" data-no-translate>{a.title}</p>
+              <p className="min-w-0 flex-1 truncate text-base font-bold text-[#164D20]" data-no-translate>{a.title}</p>
               {listenBtn("hidden sm:inline-flex")}
               <Link to="/news" className={cn(outlineBtn, "group min-h-11 shrink-0 px-4")}>
                 <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5" aria-hidden="true" /> Newsroom
               </Link>
             </div>
-            <motion.span aria-hidden="true" style={{ scaleX: bar }} className="absolute inset-x-0 bottom-0 h-[3px] origin-left bg-gradient-to-r from-[#117F21] via-[#CB9615] to-[#F4D27A]" />
+            <motion.span aria-hidden="true" style={{ scaleX: bar }} className="absolute inset-x-0 bottom-0 h-[3px] origin-left bg-gradient-to-r from-[#14892A] via-[#CB9615] to-[#F4D27A]" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -485,7 +485,7 @@ function Story({ a }: { a: A }) {
               <img src="/pencom-logo.png" alt="" className="h-9 w-9 object-contain" />
             </span>
             <div className="min-w-0">
-              <p className="text-base font-bold text-[#0A2E10]">{a.author}</p>
+              <p className="text-base font-bold text-[#164D20]">{a.author}</p>
               <p className="text-sm text-gray-600">National Pension Commission</p>
             </div>
           </div>
@@ -516,7 +516,7 @@ function Story({ a }: { a: A }) {
             <div className="mt-12 space-y-6">
               {a.attachment && (
                 <Tilt max={4}>
-                  <a href={a.attachment.url} target="_blank" rel="noopener noreferrer" className={cn("group relative isolate flex items-center gap-5 overflow-hidden rounded-3xl p-6 text-white shadow-[0_28px_50px_-30px_rgba(10,74,19,0.7)] transition-shadow duration-300 hover:shadow-[0_28px_50px_-24px_rgba(10,74,19,0.85)] sm:p-7", darkCard, focus)}>
+                  <a href={a.attachment.url} target="_blank" rel="noopener noreferrer" className={cn("group relative isolate flex items-center gap-5 overflow-hidden rounded-3xl p-6 text-white shadow-[0_28px_50px_-30px_rgba(16,93,29,0.7)] transition-shadow duration-300 hover:shadow-[0_28px_50px_-24px_rgba(16,93,29,0.85)] sm:p-7", darkCard, focus)}>
                     <GridBackdrop className="-z-10 opacity-70" />
                     <span aria-hidden="true" className="absolute -right-16 -top-16 -z-10 h-48 w-48 rounded-full bg-[#CB9615]/20 blur-3xl" />
                     <span className="flex h-16 w-14 shrink-0 flex-col items-center justify-center rounded-xl bg-white text-[#B52026] shadow-lg transition group-hover:-rotate-6">
@@ -547,7 +547,7 @@ function Story({ a }: { a: A }) {
                       {g.rows.map((r) => (
                         <li key={r.key}>
                           {"to" in r && r.to ? (
-                            <Link to={r.to} className={cn(listRow, "min-h-12 justify-between py-3 text-base font-semibold text-[#0A2E10] hover:text-[#117F21]")}>
+                            <Link to={r.to} className={cn(listRow, "min-h-12 justify-between py-3 text-base font-semibold text-[#164D20] hover:text-[#117F21]")}>
                               {r.label}
                               <ArrowRight className={cn(moveArrow, "text-[#117F21]")} aria-hidden="true" />
                             </Link>
@@ -570,15 +570,15 @@ function Story({ a }: { a: A }) {
                 <AnimatePresence mode="wait" initial={false}>
                   {useful === null ? (
                     <motion.div key="ask" exit={{ opacity: 0, y: -8 }} className="flex w-full flex-col justify-between gap-4 sm:flex-row sm:items-center">
-                      <p className="text-lg font-bold text-[#0A2E10]">Was this story useful?</p>
+                      <p className="text-lg font-bold text-[#164D20]">Was this story useful?</p>
                       <div className="flex gap-2">
                         <button type="button" onClick={() => setUseful(true)} className={tool}><ThumbsUp className="h-4 w-4" aria-hidden="true" /> Yes</button>
                         <button type="button" onClick={() => setUseful(false)} className={tool}><ThumbsDown className="h-4 w-4" aria-hidden="true" /> No</button>
                       </div>
                     </motion.div>
                   ) : (
-                    <motion.p key="thanks" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} role="status" className="flex items-center gap-3 text-lg font-semibold text-[#0A2E10]">
-                      <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#117F21] to-[#0A4A13] text-white"><Check className="h-5 w-5" strokeWidth={3} /></span>
+                    <motion.p key="thanks" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} role="status" className="flex items-center gap-3 text-lg font-semibold text-[#164D20]">
+                      <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#14892A] to-[#105D1D] text-white"><Check className="h-5 w-5" strokeWidth={3} /></span>
                       {useful ? "Thank you for your feedback." : <>Thank you. <Link to="/connect#contact" className={cn("text-[#117F21] underline underline-offset-2", focus)}>Tell us what was missing</Link>.</>}
                     </motion.p>
                   )}
@@ -609,7 +609,7 @@ function Story({ a }: { a: A }) {
                       </span>
                       <span className="min-w-0">
                         <KindChip kind={m.category} />
-                        <span className="mt-1.5 block text-base font-semibold leading-snug text-[#0A2E10] transition-colors group-hover:text-[#117F21]">{m.title}</span>
+                        <span className="mt-1.5 block text-base font-semibold leading-snug text-[#164D20] transition-colors group-hover:text-[#117F21]">{m.title}</span>
                         <time dateTime={m.date} className="mt-1 block font-mono text-xs text-gray-600">{short(m.date)}</time>
                       </span>
                     </Link>
@@ -649,7 +649,7 @@ function Story({ a }: { a: A }) {
                   <Link to={newsPath(s)} className={cn("group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] backdrop-blur-md transition duration-300 hover:-translate-y-0.5 hover:border-[#F4D27A]/40 hover:bg-white/[0.09]", focus)}>
                     <span className="relative block aspect-[16/9] overflow-hidden">
                       <img src={s.image} srcSet={srcSetOf(s.image)} sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" alt="" loading="lazy" className="h-full w-full object-cover opacity-80 transition duration-700 group-hover:scale-105 group-hover:opacity-100" />
-                      <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#04240A] via-[#04240A]/20 to-transparent" />
+                      <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#11421A] via-[#11421A]/20 to-transparent" />
                     </span>
                     <span className="flex flex-1 flex-col gap-3 p-6">
                       <span className="flex items-center justify-between gap-3">

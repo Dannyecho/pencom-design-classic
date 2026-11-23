@@ -61,7 +61,7 @@ export default function HomeHero() {
 
   return (
     <>
-      <section aria-label="Featured" className="relative isolate overflow-hidden bg-[#04240A] text-white">
+      <section aria-label="Featured" className="relative isolate overflow-hidden bg-[#11421A] text-white">
         <h1 className="sr-only">National Pension Commission</h1>
 
         {/* ── Photos: full strength, only shaded where text sits ── */}
@@ -93,8 +93,8 @@ export default function HomeHero() {
             />
           </motion.div>
         </AnimatePresence>
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#021a07]/95 via-[#021a07]/75 to-[#021a07]/10 lg:hidden" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-[#021a07]/90 from-0% via-[#021a07]/80 via-55% to-transparent lg:block lg:w-[80%]" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0D3416]/95 via-[#0D3416]/75 to-[#0D3416]/10 lg:hidden" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-[#0D3416]/90 from-0% via-[#0D3416]/80 via-55% to-transparent lg:block lg:w-[80%]" />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 hidden h-48 bg-gradient-to-t from-black/50 to-transparent lg:block" />
 
         <div
@@ -251,7 +251,7 @@ function QuickFind() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease }}
-        className="relative mx-auto max-w-6xl rounded-3xl bg-white p-5 shadow-[0_40px_80px_-40px_rgba(4,36,10,0.55)] ring-1 ring-black/10 sm:p-7"
+        className="relative mx-auto max-w-6xl rounded-3xl bg-white p-5 shadow-[0_40px_80px_-40px_rgba(17,66,26,0.55)] ring-1 ring-black/10 sm:p-7"
       >
         <span aria-hidden="true" className="absolute inset-x-10 -top-px h-[2px] rounded-full bg-gradient-to-r from-transparent via-[#CB9615] to-transparent" />
         <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-12">
@@ -260,7 +260,7 @@ function QuickFind() {
               <Search className="h-3.5 w-3.5" aria-hidden="true" />
               {"Search PenCom"}
             </p>
-            <h2 id="find-title" className="mt-1.5 text-xl font-bold text-[#0A2E10] sm:text-2xl">
+            <h2 id="find-title" className="mt-1.5 text-xl font-bold text-[#164D20] sm:text-2xl">
               What do you need to do today?
             </h2>
             <p className="mt-1 text-sm text-gray-600">Search tasks, services, regulations and answers.</p>
@@ -273,7 +273,7 @@ function QuickFind() {
                 <Link
                   key={tk.label}
                   to={tk.href}
-                  className="inline-flex min-h-11 items-center rounded-full border border-gray-200 bg-[#F7FAF6] px-4 text-sm font-medium text-[#0A2E10] transition hover:border-[#117F21] hover:bg-[#E8F5E9] hover:text-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+                  className="inline-flex min-h-11 items-center rounded-full border border-gray-200 bg-[#F7FAF6] px-4 text-sm font-medium text-[#164D20] transition hover:border-[#14892A] hover:bg-[#E8F5E9] hover:text-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
                 >
                   {tk.label}
                 </Link>

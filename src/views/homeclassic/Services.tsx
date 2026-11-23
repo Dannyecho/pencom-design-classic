@@ -53,7 +53,7 @@ export function ServicesGrid() {
                   {filter === f.id && (
                     <motion.span
                       layoutId="svc-pill"
-                      className="absolute inset-0 -z-10 rounded-xl bg-[#117F21]"
+                      className="absolute inset-0 -z-10 rounded-xl bg-[#14892A]"
                       transition={{ type: "spring", stiffness: 400, damping: 32 }}
                     />
                   )}
@@ -84,8 +84,8 @@ export function ServicesGrid() {
                       className={cn(
                         "group relative flex h-full flex-col overflow-hidden rounded-3xl p-7 transition-shadow duration-300 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]",
                         featured
-                          ? "bg-gradient-to-br from-[#04240A] via-[#0A4A13] to-[#117F21] text-white shadow-[0_40px_80px_-40px_rgba(4,36,10,0.9)]"
-                          : "border border-gray-200/80 bg-white hover:shadow-[0_30px_60px_-30px_rgba(10,74,19,0.45)]",
+                          ? "bg-gradient-to-br from-[#11421A] via-[#105D1D] to-[#14892A] text-white shadow-[0_40px_80px_-40px_rgba(17,66,26,0.9)]"
+                          : "border border-gray-200/80 bg-white hover:shadow-[0_30px_60px_-30px_rgba(16,93,29,0.45)]",
                       )}
                     >
                       {featured && <GridBackdrop className="opacity-60" />}
@@ -111,7 +111,7 @@ export function ServicesGrid() {
                           {s.category === "employer" ? "Employers" : "Individuals"}
                         </span>
                       </span>
-                      <span className={cn("relative mt-6 block font-bold", featured ? "text-3xl leading-tight" : "text-xl text-[#0A2E10] group-hover:text-[#117F21]")}>
+                      <span className={cn("relative mt-6 block font-bold", featured ? "text-3xl leading-tight" : "text-xl text-[#164D20] group-hover:text-[#117F21]")}>
                         {s.title}
                       </span>
                       <span className={cn("relative mt-3 block leading-relaxed", featured ? "text-lg text-white/75" : "text-sm text-gray-600")}>
@@ -175,12 +175,12 @@ export function Portals() {
                     className="group flex h-full flex-col p-6 focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]"
                   >
                     <span className="flex items-center justify-between">
-                      <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#04240A] text-[#F4D27A] transition duration-500 group-hover:rotate-6">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#11421A] text-[#F4D27A] transition duration-500 group-hover:rotate-6">
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
                       <ArrowUpRight className="h-5 w-5 text-gray-300 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#CB9615]" aria-hidden="true" />
                     </span>
-                    <span className="mt-5 block text-xl font-bold text-[#0A2E10]">{p.name}</span>
+                    <span className="mt-5 block text-xl font-bold text-[#164D20]">{p.name}</span>
                     <span className="mt-1 block text-sm leading-relaxed text-gray-600">{p.description}</span>
                     <span className="mt-auto block pt-4 font-mono text-xs text-gray-500">{new URL(p.url).hostname}</span>
                     <span className="sr-only">(opens in a new tab)</span>

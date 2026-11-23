@@ -169,7 +169,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
             aria-label={t("Close")}
             tabIndex={-1}
             onClick={close}
-            className="absolute inset-0 cursor-default bg-[#04240A]/60 backdrop-blur-[2px]"
+            className="absolute inset-0 cursor-default bg-[#11421A]/60 backdrop-blur-[2px]"
           />
 
           <motion.div
@@ -178,7 +178,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
             aria-modal="true"
             aria-roledescription={many ? t("carousel") : undefined}
             aria-labelledby="promo-title"
-            className="relative max-h-[calc(100svh-1.5rem)] w-full max-w-[880px] overflow-y-auto overflow-x-hidden rounded-3xl bg-white shadow-[0_40px_90px_-30px_rgba(4,36,10,0.7)]"
+            className="relative max-h-[calc(100svh-1.5rem)] w-full max-w-[880px] overflow-y-auto overflow-x-hidden rounded-3xl bg-white shadow-[0_40px_90px_-30px_rgba(17,66,26,0.7)]"
             initial={{ y: reduce ? 0 : 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: reduce ? 0 : 16, opacity: 0 }}
@@ -188,7 +188,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
               type="button"
               onClick={close}
               className={cn(
-                "absolute right-3 top-3 z-20 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-white px-4 text-base font-semibold text-[#0A2E10] shadow-lg ring-1 ring-gray-200 transition hover:bg-[#04240A] hover:text-white",
+                "absolute right-3 top-3 z-20 inline-flex min-h-11 items-center gap-1.5 rounded-xl bg-white px-4 text-base font-semibold text-[#164D20] shadow-lg ring-1 ring-gray-200 transition hover:bg-[#11421A] hover:text-white",
                 focus,
               )}
             >
@@ -196,7 +196,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
               {t("Close")}
             </button>
 
-            <span aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-[3px] bg-gradient-to-r from-[#117F21] via-[#CB9615] to-[#117F21]" />
+            <span aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-[3px] bg-gradient-to-r from-[#14892A] via-[#CB9615] to-[#14892A]" />
             <div className="relative min-h-[39rem] sm:min-h-0 sm:h-[31rem]">
               <AnimatePresence initial={false} custom={dir} mode="wait">
                 <motion.div
@@ -231,7 +231,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                       animate={{ scale: 1 }}
                       transition={{ duration: 9, ease: "easeOut" }}
                     />
-                    <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04240A]/45 via-transparent to-transparent" />
+                    <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#11421A]/45 via-transparent to-transparent" />
                   </motion.div>
 
                   {/* Copy */}
@@ -250,10 +250,10 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                     onDragEnd={many ? onDragEnd : undefined}
                   >
                     <p className="w-fit">
-                      <span className="inline-flex items-center gap-2 rounded-full border border-[#117F21]/20 bg-[#E8F5E9] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#0A4A13]">
+                      <span className="inline-flex items-center gap-2 rounded-full border border-[#14892A]/20 bg-[#E8F5E9] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#105D1D]">
                         <span aria-hidden="true" className="relative flex h-2 w-2">
-                          <span className="absolute inset-0 animate-ping rounded-full bg-[#117F21]/50 motion-reduce:animate-none" />
-                          <span className="relative h-2 w-2 rounded-full bg-[#117F21]" />
+                          <span className="absolute inset-0 animate-ping rounded-full bg-[#14892A]/50 motion-reduce:animate-none" />
+                          <span className="relative h-2 w-2 rounded-full bg-[#14892A]" />
                         </span>
                         {t(p.eyebrow)}
                       </span>
@@ -263,7 +263,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                         {t(p.title)}
                       </p>
                     )}
-                    <h2 id="promo-title" className="text-[1.75rem] font-bold leading-[1.15] tracking-tight text-[#0A2E10] sm:text-[2rem]">
+                    <h2 id="promo-title" className="text-[1.75rem] font-bold leading-[1.15] tracking-tight text-[#164D20] sm:text-[2rem]">
                       {t(p.title)}
                     </h2>
                     <p className="text-base leading-relaxed text-gray-600 sm:text-lg">{t(p.text)}</p>
@@ -286,7 +286,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                       <button
                         type="button"
                         onClick={close}
-                        className={cn("inline-flex min-h-12 items-center rounded-xl border border-[#117F21]/25 bg-white px-6 text-base font-semibold text-[#117F21] transition hover:border-[#117F21] hover:bg-[#F7FAF6]", focus)}
+                        className={cn("inline-flex min-h-12 items-center rounded-xl border border-[#14892A]/25 bg-white px-6 text-base font-semibold text-[#117F21] transition hover:border-[#14892A] hover:bg-[#F7FAF6]", focus)}
                       >
                         {t("Maybe later")}
                       </button>
@@ -311,7 +311,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                       <span
                         className={cn(
                           "block h-2.5 rounded-full transition-all duration-300",
-                          i === index ? "w-9 bg-gradient-to-r from-[#117F21] to-[#CB9615]" : "w-3 bg-[#B9C4BC] hover:bg-[#7E9585]",
+                          i === index ? "w-9 bg-gradient-to-r from-[#14892A] to-[#CB9615]" : "w-3 bg-[#B9C4BC] hover:bg-[#7E9585]",
                         )}
                       />
                     </button>
@@ -323,7 +323,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                     type="button"
                     onClick={() => paginate(-1)}
                     aria-label={t("Previous banner")}
-                    className={cn("inline-flex min-h-11 items-center gap-1 rounded-xl border border-[#117F21]/25 bg-white pl-2 pr-4 text-base font-semibold text-[#117F21] transition hover:border-[#117F21]", focus)}
+                    className={cn("inline-flex min-h-11 items-center gap-1 rounded-xl border border-[#14892A]/25 bg-white pl-2 pr-4 text-base font-semibold text-[#117F21] transition hover:border-[#14892A]", focus)}
                   >
                     <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                     {t("Previous")}
@@ -332,7 +332,7 @@ export default function PromoPopup({ items = promos }: { items?: Promo[] }) {
                     type="button"
                     onClick={() => paginate(1)}
                     aria-label={t("Next banner")}
-                    className={cn("inline-flex min-h-11 items-center gap-1 rounded-xl bg-[#04240A] pl-4 pr-2 text-base font-semibold text-white transition hover:bg-[#0A4A13]", focus)}
+                    className={cn("inline-flex min-h-11 items-center gap-1 rounded-xl bg-[#11421A] pl-4 pr-2 text-base font-semibold text-white transition hover:bg-[#105D1D]", focus)}
                   >
                     {t("Next")}
                     <ChevronRight className="h-5 w-5 text-[#F4D27A]" aria-hidden="true" />

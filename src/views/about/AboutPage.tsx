@@ -56,7 +56,7 @@ export default function AboutPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <Banner />
         <QuickFacts />
         <PortalLayout sections={onThisPage} pillId="about-side-pill" related={related}>
@@ -120,7 +120,7 @@ function QuickFacts() {
           >
             <span aria-hidden="true" className="absolute left-0 top-5 h-8 w-1 rounded-r bg-gradient-to-b from-[#CB9615] to-[#CB9615]/0 transition-all duration-500 group-hover:h-14 sm:top-6" />
             <dt className="order-2 mt-1 text-sm font-semibold text-gray-700 sm:text-base">{s.label}</dt>
-            <dd className="order-1 text-2xl font-bold tracking-tight text-[#0A2E10] tabular-nums sm:text-4xl">
+            <dd className="order-1 text-2xl font-bold tracking-tight text-[#164D20] tabular-nums sm:text-4xl">
               {/^\d{4}$/.test(s.value) ? s.value : <CountUp value={s.value} />}
             </dd>
             <dd className="order-3 mt-0.5 text-xs text-gray-600 sm:text-sm">{s.note}</dd>

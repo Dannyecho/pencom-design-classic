@@ -121,7 +121,7 @@ export function CountUp({ value, className, duration = 1.8 }: { value: string; c
 export function Spotlight({
   children,
   className,
-  color = "rgba(17,127,33,0.08)",
+  color = "rgba(20,137,42,0.08)",
   size = 480,
   style,
 }: {

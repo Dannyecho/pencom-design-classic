@@ -69,7 +69,7 @@ export default function LanguageSwitcher() {
         onClick={() => setOpen((o) => !o)}
         className={cn(
           "group flex h-6 items-center gap-1.5 rounded-md border px-2.5 text-[13px] font-semibold transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]",
-          open ? "border-[#F4D27A] bg-white text-[#0A4A13]" : "border-white/20 text-white hover:border-[#F4D27A] hover:bg-white/10",
+          open ? "border-[#F4D27A] bg-white text-[#105D1D]" : "border-white/20 text-white hover:border-[#F4D27A] hover:bg-white/10",
         )}
       >
         <Globe className={cn("h-3.5 w-3.5 transition-transform duration-500", open && !reduce && "rotate-[360deg]")} aria-hidden="true" />
@@ -90,9 +90,9 @@ export default function LanguageSwitcher() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: reduce ? 0 : -6, scale: reduce ? 1 : 0.97 }}
             transition={{ duration: 0.18 }}
-            className="absolute right-0 top-full z-[70] mt-2 w-[min(21rem,calc(100vw-2rem))] origin-top-right overflow-hidden rounded-3xl border border-gray-200/80 bg-white text-[#0A2E10] shadow-[0_30px_60px_-30px_rgba(10,74,19,0.55)]"
+            className="absolute right-0 top-full z-[70] mt-2 w-[min(21rem,calc(100vw-2rem))] origin-top-right overflow-hidden rounded-3xl border border-gray-200/80 bg-white text-[#164D20] shadow-[0_30px_60px_-30px_rgba(16,93,29,0.55)]"
           >
-            <div className="bg-[#04240A] px-5 py-3.5 text-white">
+            <div className="bg-[#11421A] px-5 py-3.5 text-white">
               <p className="text-lg font-bold">{t("Choose a language")}</p>
               <p className="mt-0.5 text-sm text-white/80">{t("Translations are drafts being checked by PenCom.")}</p>
             </div>
@@ -119,13 +119,13 @@ export default function LanguageSwitcher() {
                       aria-hidden="true"
                       className={cn(
                         "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-xs font-bold tracking-wider",
-                        on ? "bg-[#04240A] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#0A4A13]",
+                        on ? "bg-[#11421A] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#105D1D]",
                       )}
                     >
                       {l.short}
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block text-base font-bold leading-tight text-[#0A2E10]">{l.native}</span>
+                      <span className="block text-base font-bold leading-tight text-[#164D20]">{l.native}</span>
                       <span className="block truncate text-sm italic text-gray-600">“{l.hello}”</span>
                     </span>
                     {l.code !== "en" && <span lang={lang} className="rounded-full bg-[#FFF4D6] px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-[#7A5200]">{t("Draft")}</span>}

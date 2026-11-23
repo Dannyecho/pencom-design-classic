@@ -11,7 +11,7 @@ import HomeHero from "./homeclassic/HomeHero";
 import AudienceTasks from "./homeclassic/AudienceTasks";
 import { IndustryFigures, Updates } from "./homeclassic/Figures";
 import { Portals, ServicesGrid } from "./homeclassic/Services";
-import { HelpFaq, NewsMedia, PrototypeLinks } from "./homeclassic/Stories";
+import { HelpFaq, NewsMedia } from "./homeclassic/Stories";
 
 export const homeSections = [
   { id: "start", label: "I am a…" },
@@ -49,7 +49,7 @@ export default function HomeClassic() {
     <MotionConfig reducedMotion="user">
       <CookieConsent />
       <PromoPopup />
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <HomeHero />
         <SectionNav sections={homeSections} pillId="home-nav-pill" />
         <AudienceTasks />
@@ -59,7 +59,6 @@ export default function HomeClassic() {
         <NewsMedia />
         <IndustryFigures />
         <HelpFaq />
-        <PrototypeLinks />
       </div>
     </MotionConfig>
   );

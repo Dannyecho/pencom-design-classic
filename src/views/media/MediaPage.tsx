@@ -46,7 +46,7 @@ function MosaicTile({ list, index, className }: { list: Photo[]; index: number; 
   const reduce = useReducedMotion();
   const ph = list[index % list.length];
   return (
-    <div className={cn("relative overflow-hidden rounded-2xl bg-[#0A4A13] ring-1 ring-white/15", className)}>
+    <div className={cn("relative overflow-hidden rounded-2xl bg-[#105D1D] ring-1 ring-white/15", className)}>
       <AnimatePresence initial={false}>
         <motion.img
           key={ph.id}
@@ -59,7 +59,7 @@ function MosaicTile({ list, index, className }: { list: Photo[]; index: number; 
           className="absolute inset-0 h-full w-full object-cover"
         />
       </AnimatePresence>
-      <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#021a07]/40 to-transparent" />
+      <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0D3416]/40 to-transparent" />
     </div>
   );
 }
@@ -151,14 +151,14 @@ function Overview({ onPlay }: { onPlay: () => void }) {
             <dt className="flex items-center gap-1.5 text-sm font-semibold text-gray-600">
               <Icon className="h-4 w-4 shrink-0 text-[#117F21]" aria-hidden="true" /> {l}
             </dt>
-            <dd className="mt-1 text-3xl font-bold tabular-nums text-[#0A2E10]">{n}</dd>
+            <dd className="mt-1 text-3xl font-bold tabular-nums text-[#164D20]">{n}</dd>
           </div>
         ))}
       </dl>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center lg:col-span-7">
-        <button type="button" onClick={onPlay} className={cn("group relative block aspect-video w-full shrink-0 overflow-hidden rounded-2xl bg-[#04240A] sm:w-48", focus)} aria-label={`Play: ${v.title}`}>
+        <button type="button" onClick={onPlay} className={cn("group relative block aspect-video w-full shrink-0 overflow-hidden rounded-2xl bg-[#11421A] sm:w-48", focus)} aria-label={`Play: ${v.title}`}>
           <img src={thumb(v.id)} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-          <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center bg-[#04240A]/30 transition group-hover:bg-[#04240A]/10">
+          <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center bg-[#11421A]/30 transition group-hover:bg-[#11421A]/10">
             <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#CB9615] text-[#1A1206] shadow-[0_10px_24px_-8px_rgba(0,0,0,0.6)] transition group-hover:scale-110">
               <Play className="h-4 w-4 translate-x-px fill-current" />
             </span>
@@ -166,7 +166,7 @@ function Overview({ onPlay }: { onPlay: () => void }) {
         </button>
         <div className="min-w-0">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]">Newest video</p>
-          <p className="mt-1 text-lg font-bold leading-snug text-[#0A2E10]">{v.title}</p>
+          <p className="mt-1 text-lg font-bold leading-snug text-[#164D20]">{v.title}</p>
           <p className="mt-0.5 text-sm text-gray-600">{v.channel} · {v.month}</p>
         </div>
       </div>
@@ -210,13 +210,13 @@ function Photos({ album, setAlbum, open }: { album: string; setAlbum: (a: string
                   className={cn(
                     "group block w-full overflow-hidden rounded-3xl border bg-white p-1.5 text-left transition duration-300 hover:-translate-y-0.5",
                     focus,
-                    on ? "border-transparent shadow-[0_24px_50px_-24px_rgba(203,150,21,0.7)] ring-[3px] ring-[#CB9615]" : "border-gray-200/80 hover:border-[#117F21]/30 hover:shadow-[0_24px_50px_-24px_rgba(10,74,19,0.4)]",
+                    on ? "border-transparent shadow-[0_24px_50px_-24px_rgba(203,150,21,0.7)] ring-[3px] ring-[#CB9615]" : "border-gray-200/80 hover:border-[#14892A]/30 hover:shadow-[0_24px_50px_-24px_rgba(16,93,29,0.4)]",
                   )}
                 >
                   <span className={cn("relative block overflow-hidden rounded-[1.25rem] bg-[#F4F7F2]", i % 3 === 0 ? "h-40 sm:h-44" : i % 3 === 1 ? "h-28 sm:h-32" : "h-32 sm:h-36")}>
                     <img src={photoSrc(c.cover)} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-                    <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#021a07]/60 via-transparent to-transparent" />
-                    <span className="absolute bottom-2 left-2 inline-flex items-center gap-1 rounded-full bg-[#04240A]/85 px-2.5 py-1 text-xs font-semibold text-white">
+                    <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0D3416]/60 via-transparent to-transparent" />
+                    <span className="absolute bottom-2 left-2 inline-flex items-center gap-1 rounded-full bg-[#11421A]/85 px-2.5 py-1 text-xs font-semibold text-white">
                       <Camera className="h-3.5 w-3.5 text-[#F4D27A]" aria-hidden="true" /> {c.n} photos
                     </span>
                     {on && (
@@ -225,7 +225,7 @@ function Photos({ album, setAlbum, open }: { album: string; setAlbum: (a: string
                       </motion.span>
                     )}
                   </span>
-                  <span className="block px-2.5 pb-2 pt-2.5 text-base font-bold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{c.title}</span>
+                  <span className="block px-2.5 pb-2 pt-2.5 text-base font-bold leading-snug text-[#164D20] group-hover:text-[#117F21]">{c.title}</span>
                 </button>
               </li>
             );
@@ -235,7 +235,7 @@ function Photos({ album, setAlbum, open }: { album: string; setAlbum: (a: string
         <AnimatePresence mode="wait">
           <motion.p key={album} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-4 flex items-start gap-3 rounded-2xl border border-gray-200/80 bg-white px-4 py-3 text-base text-gray-600" aria-live="polite">
             <span aria-hidden="true" className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#CB9615]" />
-            <span>{a ? <><strong className="text-[#0A2E10]">{a.title}.</strong> {a.blurb} </> : <strong className="text-[#0A2E10]">All albums. </strong>}{shown.length} photos.</span>
+            <span>{a ? <><strong className="text-[#164D20]">{a.title}.</strong> {a.blurb} </> : <strong className="text-[#164D20]">All albums. </strong>}{shown.length} photos.</span>
           </motion.p>
         </AnimatePresence>
 
@@ -251,7 +251,7 @@ function Photos({ album, setAlbum, open }: { album: string; setAlbum: (a: string
                   <span className="flex items-start justify-between gap-3 px-2 pb-2 pt-3">
                     <span className="min-w-0">
                       <span className="block text-xs font-bold uppercase tracking-[0.14em] text-[#7A5200]">{albums.find((x) => x.id === ph.album)?.title}</span>
-                      <span className="mt-1 block text-base font-semibold leading-snug text-[#0A2E10]">{ph.caption}</span>
+                      <span className="mt-1 block text-base font-semibold leading-snug text-[#164D20]">{ph.caption}</span>
                     </span>
                     <Tile icon={Expand} size="sm" />
                   </span>
@@ -309,7 +309,7 @@ function Videos({ current, setCurrent, playing, setPlaying }: { current: string;
         <div id="player" className="lg:col-span-8">
           <div className="relative rounded-3xl bg-white/[0.04] p-2 ring-1 ring-white/15">
             <span aria-hidden="true" className="absolute inset-x-10 top-0 z-10 h-px bg-gradient-to-r from-transparent via-[#CB9615] to-transparent" />
-            <div className="relative aspect-video overflow-hidden rounded-[1.25rem] bg-[#021a07] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)]">
+            <div className="relative aspect-video overflow-hidden rounded-[1.25rem] bg-[#0D3416] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)]">
               <AnimatePresence mode="wait">
                 {playing ? (
                   <motion.iframe
@@ -325,7 +325,7 @@ function Videos({ current, setCurrent, playing, setPlaying }: { current: string;
                     className={cn("group absolute inset-0", focus)} aria-label={`Play: ${v.title}`}
                   >
                     <img src={thumb(v.id, hiOk)} onError={() => setHiOk(false)} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" />
-                    <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#021a07]/60 via-[#021a07]/10 to-transparent" />
+                    <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0D3416]/60 via-[#0D3416]/10 to-transparent" />
                     <span aria-hidden="true" className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
                       {!reduce && <motion.span className="absolute inset-0 rounded-full bg-[#CB9615]/40" animate={{ scale: [1, 1.45], opacity: [0.7, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }} />}
                       <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-[#CB9615] text-[#1A1206] shadow-[0_18px_40px_-14px_rgba(0,0,0,0.7)] transition group-hover:scale-105 group-hover:bg-[#E0AA22]">
@@ -364,10 +364,10 @@ function Videos({ current, setCurrent, playing, setPlaying }: { current: string;
                     <motion.li key={x.id} layout={!reduce} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3 }}>
                       <button type="button" onClick={() => choose(x.id)} aria-current={on ? "true" : undefined} className={cn("group relative flex w-full items-center gap-3 p-3 text-left transition", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]", on ? "bg-white/[0.08]" : "hover:bg-white/[0.05]")}>
                         <span aria-hidden="true" className={cn("absolute inset-y-2 left-0 w-1 rounded-r-full transition", on ? "bg-[#CB9615]" : "bg-transparent group-hover:bg-white/20")} />
-                        <span className="relative ml-1 block aspect-video w-28 shrink-0 overflow-hidden rounded-xl bg-[#0A4A13]">
+                        <span className="relative ml-1 block aspect-video w-28 shrink-0 overflow-hidden rounded-xl bg-[#105D1D]">
                           <img src={thumb(x.id)} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
                           {on && playing && (
-                            <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center bg-[#04240A]/60">
+                            <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center bg-[#11421A]/60">
                               <span className="flex h-4 items-end gap-0.5">{[0, 1, 2].map((k) => <motion.span key={k} className="w-1 rounded-full bg-[#F4D27A]" animate={reduce ? undefined : { height: ["30%", "100%", "30%"] }} transition={{ duration: 0.9, repeat: Infinity, delay: k * 0.15 }} style={{ height: "60%" }} />)}</span>
                             </span>
                           )}
@@ -448,7 +448,7 @@ function FullScreen({ open, onClose, onArrow, labelledBy, describedBy, children 
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[130] isolate flex h-[100dvh] w-screen flex-col bg-[#04240A] text-white"
+          className="fixed inset-0 z-[130] isolate flex h-[100dvh] w-screen flex-col bg-[#11421A] text-white"
         >
           <GridBackdrop className="-z-10" />
           {children}
@@ -476,7 +476,7 @@ function Lightbox({ id, list, onChange, onClose }: { id: string | null; list: ty
     <FullScreen open={!!ph} onClose={onClose} onArrow={go} labelledBy="lightbox-title" describedBy="lightbox-desc">
       {ph && (
         <>
-          <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-[#04240A]/90 px-4 py-2.5 sm:px-6">
+          <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-[#11421A]/90 px-4 py-2.5 sm:px-6">
             <p className="flex items-center gap-3 text-base text-white/85" aria-live="polite">
               <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#CB9615]" />
               <span><span className="font-bold text-[#F4D27A]">{idx + 1}</span> / {list.length}</span>
@@ -499,7 +499,7 @@ function Lightbox({ id, list, onChange, onClose }: { id: string | null; list: ty
               />
             </AnimatePresence>
           </div>
-          <div className="border-t border-white/10 bg-[#04240A]/90 px-4 pb-4 pt-4 sm:px-6">
+          <div className="border-t border-white/10 bg-[#11421A]/90 px-4 pb-4 pt-4 sm:px-6">
             <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 sm:flex-nowrap">
               <button type="button" onClick={() => go(-1)} className={outlineDarkBtn} aria-label="Previous photo">
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" /> <span aria-hidden="true">Previous</span>
@@ -543,7 +543,7 @@ function Follow() {
               <motion.li key={s.name} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06, ease }} className="sm:border-b sm:border-gray-100 lg:border-b-0">
                 <a href={s.href} target="_blank" rel="noopener noreferrer" className={cn("group block h-full px-5 py-5 transition hover:bg-[#F7FAF6] lg:py-6", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]")}>
                   <span className="flex items-center justify-between gap-3">
-                    <span className="text-lg font-bold text-[#0A2E10] group-hover:text-[#117F21]">{s.name}</span>
+                    <span className="text-lg font-bold text-[#164D20] group-hover:text-[#117F21]">{s.name}</span>
                     <ChevronRight className="h-5 w-5 shrink-0 text-gray-400 transition group-hover:translate-x-0.5 group-hover:text-[#117F21]" aria-hidden="true" />
                   </span>
                   <span className="mt-0.5 block break-words text-sm text-gray-600">{s.handle}</span>
@@ -555,7 +555,7 @@ function Follow() {
         </Spotlight>
         <p className="mt-6 flex items-start gap-3 rounded-2xl bg-[#F4F7F2] p-5 text-base text-gray-600">
           <Mail className="mt-0.5 h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
-          <span>Journalists: for interviews, photos or footage, contact Corporate Communications at <a href="mailto:info@pencom.gov.ng" className={cn("font-semibold text-[#0A4A13] underline decoration-[#CB9615] decoration-2 underline-offset-4 hover:text-[#117F21]", focus)}>info@pencom.gov.ng</a>.</span>
+          <span>Journalists: for interviews, photos or footage, contact Corporate Communications at <a href="mailto:info@pencom.gov.ng" className={cn("font-semibold text-[#105D1D] underline decoration-[#CB9615] decoration-2 underline-offset-4 hover:text-[#117F21]", focus)}>info@pencom.gov.ng</a>.</span>
         </p>
       </div>
     </section>
@@ -601,7 +601,7 @@ export default function MediaPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <Banner onVideos={() => scrollToId("videos", !reduce)} onPhotos={() => scrollToId("photos", !reduce)} />
         <FloatingBar>
           <Overview onPlay={playNewest} />

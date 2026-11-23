@@ -63,13 +63,13 @@ export default function AudienceTasks() {
                   onKeyDown={(e) => onKey(e, i)}
                   className={cn(
                     "group relative isolate flex min-h-14 items-center gap-3 rounded-2xl px-4 py-3 text-left font-semibold transition-colors focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]",
-                    on ? "text-white" : "bg-gray-50 text-gray-700 hover:bg-[#E8F5E9] hover:text-[#0A4A13]",
+                    on ? "text-white" : "bg-gray-50 text-gray-700 hover:bg-[#E8F5E9] hover:text-[#105D1D]",
                   )}
                 >
                   {on && (
                     <motion.span
                       layoutId="aud-pill"
-                      className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_14px_30px_-14px_rgba(10,74,19,0.9)]"
+                      className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_14px_30px_-14px_rgba(16,93,29,0.9)]"
                       transition={{ type: "spring", stiffness: 380, damping: 32 }}
                     />
                   )}
@@ -109,12 +109,12 @@ export default function AudienceTasks() {
                 className="relative"
               >
                 <div className="flex items-start gap-4">
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#117F21] text-white shadow-[0_14px_30px_-12px_rgba(17,127,33,0.8)]">
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#14892A] text-white shadow-[0_14px_30px_-12px_rgba(20,137,42,0.8)]">
                     <Icon className="h-7 w-7" aria-hidden="true" />
                   </span>
                   <div>
                     <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]">Top tasks</p>
-                    <h3 className="text-2xl font-bold text-[#0A2E10]">{a.label}</h3>
+                    <h3 className="text-2xl font-bold text-[#164D20]">{a.label}</h3>
                     <p className="mt-1 text-gray-600">{a.blurb}</p>
                   </div>
                 </div>
@@ -129,10 +129,10 @@ export default function AudienceTasks() {
                       <button
                         type="button"
                         onClick={() => go(t, navigate)}
-                        className="group flex min-h-16 w-full items-center gap-3 rounded-2xl border border-gray-200 bg-white px-5 py-4 text-left font-semibold text-[#0A2E10] shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#117F21]/40 hover:shadow-[0_18px_40px_-20px_rgba(10,74,19,0.45)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+                        className="group flex min-h-16 w-full items-center gap-3 rounded-2xl border border-gray-200 bg-white px-5 py-4 text-left font-semibold text-[#164D20] shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#14892A]/40 hover:shadow-[0_18px_40px_-20px_rgba(16,93,29,0.45)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
                       >
                         <span className="flex-1">{t.label}</span>
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#117F21] group-hover:text-white">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#14892A] group-hover:text-white">
                           {t.external ? (
                             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                           ) : (

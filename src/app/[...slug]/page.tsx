@@ -12,7 +12,6 @@ const sections: Record<string, { title: string; blurb: string }> = {
   services: { title: "Services", blurb: "RSA transfer, Personal Pension Plan, PCC, enrolment, Pencare and the pension calculator." },
   operators: { title: "Operators", blurb: "Licensed PFAs and PFCs, closed operators and related bodies." },
   resources: { title: "Resources", blurb: "Publications, downloads, forms and frequently asked questions." },
-  mobile: { title: "Mobile app", blurb: "The PenCom app for Android and iOS." },
   admin: { title: "Admin", blurb: "Content management for Commission staff." },
 };
 

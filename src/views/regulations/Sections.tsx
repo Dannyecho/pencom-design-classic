@@ -70,14 +70,14 @@ export function LatestRail({ onOpen }: { onOpen: (id: string) => void }) {
                   Newest
                 </span>
               )}
-              <span className={cn("relative line-clamp-4 text-xl font-bold leading-snug", first ? "mt-3 text-white" : "mt-5 text-[#0A2E10] group-hover:text-[#117F21]")}>{d.title}</span>
+              <span className={cn("relative line-clamp-4 text-xl font-bold leading-snug", first ? "mt-3 text-white" : "mt-5 text-[#164D20] group-hover:text-[#117F21]")}>{d.title}</span>
               <span className={cn("relative mt-auto flex items-center justify-between gap-2 pt-5 font-semibold", first ? "text-[#F4D27A]" : "text-[#117F21]")}>
                 Read details
                 <span
                   aria-hidden="true"
                   className={cn(
                     "flex h-10 w-10 items-center justify-center rounded-full transition duration-300",
-                    first ? "bg-[#CB9615] text-[#1A1206] group-hover:bg-[#E0AA22]" : "bg-[#E8F5E9] text-[#117F21] group-hover:bg-[#117F21] group-hover:text-white",
+                    first ? "bg-[#CB9615] text-[#1A1206] group-hover:bg-[#E0AA22]" : "bg-[#E8F5E9] text-[#117F21] group-hover:bg-[#14892A] group-hover:text-white",
                   )}
                 >
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -98,7 +98,7 @@ export function LatestRail({ onOpen }: { onOpen: (id: string) => void }) {
               {first ? (
                 // The page's one tilted card: the newest document on the featured gradient
                 <Tilt className="h-full">
-                  <button type="button" onClick={() => onOpen(d.id)} className={cn(featured, cls, "shadow-[0_30px_60px_-30px_rgba(4,36,10,0.8)]")}>
+                  <button type="button" onClick={() => onOpen(d.id)} className={cn(featured, cls, "shadow-[0_30px_60px_-30px_rgba(17,66,26,0.8)]")}>
                     {body}
                   </button>
                 </Tilt>
@@ -270,7 +270,7 @@ export function ActSpotlight({ set }: { set: (p: Partial<Filters>) => void }) {
           </div>
           {/* Progress through the five provisions: a gold track that grows */}
           <div aria-hidden="true" className="mt-4 hidden h-1 overflow-hidden rounded-full bg-white/10 lg:block">
-            <motion.div className="h-full origin-left rounded-full bg-gradient-to-r from-[#117F21] to-[#F4D27A]" initial={false} animate={{ scaleX: (idx + 1) / provisions.length }} transition={{ duration: reduce ? 0 : 0.6, ease }} />
+            <motion.div className="h-full origin-left rounded-full bg-gradient-to-r from-[#14892A] to-[#F4D27A]" initial={false} animate={{ scaleX: (idx + 1) / provisions.length }} transition={{ duration: reduce ? 0 : 0.6, ease }} />
           </div>
         </div>
 
@@ -314,7 +314,7 @@ export function ActSpotlight({ set }: { set: (p: Partial<Filters>) => void }) {
                   <ArrowRight className={moveArrow} aria-hidden="true" />
                 </button>
               </div>
-              <div className="relative flex flex-col justify-center border-t border-white/10 bg-[#04240A]/60 p-6 sm:p-8 md:border-l md:border-t-0">
+              <div className="relative flex flex-col justify-center border-t border-white/10 bg-[#11421A]/60 p-6 sm:p-8 md:border-l md:border-t-0">
                 <span aria-hidden="true" className="mb-4 block h-1 w-12 rounded-full bg-gradient-to-r from-[#F4D27A] to-[#CB9615]" />
                 <CountUp value={p.stat.value} duration={1.2} className="block text-5xl font-black tracking-tight text-white sm:text-6xl" />
                 <p className="mt-2 text-base font-medium leading-snug text-white/85">{p.stat.label}</p>
@@ -367,12 +367,12 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-12">
           {/* Employer self-check */}
           <Rise className="lg:col-span-8">
-            <div className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-44px_rgba(10,74,19,0.5)]">
+            <div className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-44px_rgba(16,93,29,0.5)]">
               <div className="flex flex-col gap-5 border-b border-gray-100 bg-[#F4F7F2] p-6 sm:flex-row sm:items-center sm:p-7">
                 <Tile icon={Building2} dark size="lg" />
                 <div className="min-w-0 flex-1">
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]">For employers</p>
-                  <h3 className="mt-1 text-xl font-bold text-[#0A2E10] sm:text-2xl">Your pension duties: a self-check</h3>
+                  <h3 className="mt-1 text-xl font-bold text-[#164D20] sm:text-2xl">Your pension duties: a self-check</h3>
                   <p className="mt-1 text-base text-gray-600">Tick what you already do. Nothing is sent to PenCom.</p>
                 </div>
                 {/* Score ring */}
@@ -393,12 +393,12 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                     />
                     <defs>
                       <linearGradient id="reg-score" x1="0" x2="1">
-                        <stop offset="0%" stopColor="#117F21" />
+                        <stop offset="0%" stopColor="#14892A" />
                         <stop offset="100%" stopColor="#CB9615" />
                       </linearGradient>
                     </defs>
                   </svg>
-                  <p className="text-sm font-semibold text-[#0A2E10]" aria-live="polite">
+                  <p className="text-sm font-semibold text-[#164D20]" aria-live="polite">
                     {score} of {duties.length} done
                   </p>
                 </div>
@@ -408,19 +408,19 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                 {duties.map((d, i) => (
                   <li key={d.title}>
                     <label className={cn("group relative flex min-h-14 cursor-pointer gap-4 px-6 py-4 transition sm:px-7", done[i] ? "bg-[#F7FAF6]" : "hover:bg-[#F7FAF6]")}>
-                      <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1 origin-top bg-[#117F21] transition-transform duration-300", done[i] ? "scale-y-100" : "scale-y-0")} />
+                      <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1 origin-top bg-[#14892A] transition-transform duration-300", done[i] ? "scale-y-100" : "scale-y-0")} />
                       <input type="checkbox" className="peer sr-only" checked={done[i]} onChange={() => setDone((x) => x.map((v, j) => (j === i ? !v : v)))} />
                       <span
                         aria-hidden="true"
                         className={cn(
                           "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-2 transition duration-300 peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#FFD84D]",
-                          done[i] ? "border-[#117F21] bg-[#117F21] text-white" : "border-gray-400 bg-white group-hover:border-[#117F21]",
+                          done[i] ? "border-[#14892A] bg-[#14892A] text-white" : "border-gray-400 bg-white group-hover:border-[#14892A]",
                         )}
                       >
                         {done[i] && <Check className="h-4 w-4" strokeWidth={3} />}
                       </span>
                       <span className="flex-1">
-                        <span className="flex items-center gap-2 font-bold text-[#0A2E10]">
+                        <span className="flex items-center gap-2 font-bold text-[#164D20]">
                           <d.icon className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
                           {d.title}
                         </span>
@@ -441,12 +441,12 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                     className="relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-5 pl-6 sm:flex-row sm:items-center"
                     aria-live="polite"
                   >
-                    <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1", pct === 1 ? "bg-[#117F21]" : "bg-[#CB9615]")} />
+                    <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1", pct === 1 ? "bg-[#14892A]" : "bg-[#CB9615]")} />
                     <div className="flex-1">
-                      <span className={cn("inline-block rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider", pct === 1 ? "bg-[#E8F5E9] text-[#0A4A13]" : "bg-[#FFF8E1] text-[#7A5604]")}>
+                      <span className={cn("inline-block rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider", pct === 1 ? "bg-[#E8F5E9] text-[#105D1D]" : "bg-[#FFF8E1] text-[#7A5604]")}>
                         {pct === 1 ? "All done" : "To do"}
                       </span>
-                      <p className="mt-2 text-base text-[#0A2E10]">
+                      <p className="mt-2 text-base text-[#164D20]">
                         {pct === 1
                           ? "You’re doing everything on the list. Keep your records ready for PenCom inspections."
                           : `${duties.length - score} to go. Late or unpaid contributions attract penalties under the Pension Reform Act 2014.`}
@@ -470,7 +470,7 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                   <Tile icon={KeyRound} />
                   <div>
                     <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]">For licensed operators</p>
-                    <h3 className="mt-0.5 text-xl font-bold text-[#0A2E10]">The rules that apply to you</h3>
+                    <h3 className="mt-0.5 text-xl font-bold text-[#164D20]">The rules that apply to you</h3>
                   </div>
                 </div>
                 <ul className="divide-y divide-gray-100">
@@ -482,10 +482,10 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                           set({ q: "", types: [], years: [], who: [], subjects: [], status: "", ...o.patch });
                           document.getElementById("library")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
                         }}
-                        className={cn(listRow, "min-h-14 w-full text-left font-semibold text-[#0A2E10]")}
+                        className={cn(listRow, "min-h-14 w-full text-left font-semibold text-[#164D20]")}
                       >
                         <span className="flex-1 group-hover:text-[#117F21]">{o.label}</span>
-                        <span className="rounded-full border border-gray-200 bg-[#F7FAF6] px-2.5 py-0.5 text-sm tabular-nums text-[#0A4A13]">
+                        <span className="rounded-full border border-gray-200 bg-[#F7FAF6] px-2.5 py-0.5 text-sm tabular-nums text-[#105D1D]">
                           {o.n}
                           <span className="sr-only"> documents</span>
                         </span>
@@ -505,7 +505,7 @@ export function Compliance({ set }: { set: (p: Partial<Filters>) => void }) {
                   <MessageSquareWarning className="h-5 w-5" />
                 </span>
                 <span className="flex-1">
-                  <span className="block text-xl font-bold text-[#0A2E10] group-hover:text-[#117F21]">Report an employer</span>
+                  <span className="block text-xl font-bold text-[#164D20] group-hover:text-[#117F21]">Report an employer</span>
                   <span className="mt-1 block text-base leading-relaxed text-gray-600">Is your employer deducting pension but not remitting it? Tell us and we will follow it up.</span>
                   <span className="mt-3 inline-flex items-center gap-1.5 font-semibold text-[#117F21]">
                     Report it
@@ -544,9 +544,9 @@ export function Policies() {
           {items.map((it, i) => (
             <Rise key={it.title} delay={i * 0.1} className="h-full">
               <Spotlight className={cn(card, "group h-full p-6 sm:p-8")}>
-                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
+                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-[#14892A] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
                 <Tile icon={it.icon} dark size="lg" />
-                <h3 className="mt-5 text-xl font-bold text-[#0A2E10]">{it.title}</h3>
+                <h3 className="mt-5 text-xl font-bold text-[#164D20]">{it.title}</h3>
                 <p className="mt-2 text-base leading-relaxed text-gray-600">{it.body}</p>
                 <Link to="/connect#contact" className={cn(classicOutline, "group/btn mt-6 h-auto py-3 text-left")}>
                   Questions about your data? Contact us

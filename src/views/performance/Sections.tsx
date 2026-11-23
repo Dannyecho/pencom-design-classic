@@ -25,23 +25,23 @@ const tn = (v: number) => `₦${v.toFixed(2)}tn`;
 const bn = (v: number) => `₦${v.toFixed(v >= 100 ? 0 : 1)}bn`;
 const mil = (v: number) => `${(v / 1e6).toFixed(2)}m`;
 /** White chart card (no hover lift: the chart itself is interactive), with a green→gold hairline on top. */
-const chartCard = "relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-44px_rgba(10,74,19,0.45)]";
-const topLine = <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#117F21] via-[#117F21] to-[#CB9615]" />;
+const chartCard = "relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-44px_rgba(16,93,29,0.45)]";
+const topLine = <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#14892A] via-[#14892A] to-[#CB9615]" />;
 const softBand = "bg-gradient-to-b from-white via-[#F4F7F2] to-white";
 /** Visible label over a control (labelled controls, DES-41). */
-const ctrlLabel = "mb-2 block text-sm font-semibold text-[#0A2E10]";
+const ctrlLabel = "mb-2 block text-sm font-semibold text-[#164D20]";
 /** 48 px field; the #7A8A7E border keeps 3:1 against white. */
-const field = "min-h-12 w-full rounded-xl border border-[#7A8A7E] bg-white text-base text-[#0A2E10] transition focus:border-[#117F21] focus:outline-none focus:ring-[3px] focus:ring-[#FFD84D]";
+const field = "min-h-12 w-full rounded-xl border border-[#7A8A7E] bg-white text-base text-[#164D20] transition focus:border-[#14892A] focus:outline-none focus:ring-[3px] focus:ring-[#FFD84D]";
 
 /** Classic segmented control: white group, sliding green gradient pill. Visible label above. */
 function Segmented<T extends string>({ value, options, onChange, label, id }: { value: T; options: readonly T[]; onChange: (v: T) => void; label: string; id: string }) {
   return (
     <div>
       <span id={`seg-label-${id}`} className={ctrlLabel}>{label}</span>
-      <div role="radiogroup" aria-labelledby={`seg-label-${id}`} className="inline-flex flex-wrap gap-1 rounded-2xl bg-white p-1.5 ring-1 ring-gray-200 shadow-[0_12px_28px_-22px_rgba(10,74,19,0.5)]">
+      <div role="radiogroup" aria-labelledby={`seg-label-${id}`} className="inline-flex flex-wrap gap-1 rounded-2xl bg-white p-1.5 ring-1 ring-gray-200 shadow-[0_12px_28px_-22px_rgba(16,93,29,0.5)]">
         {options.map((o) => (
-          <button key={o} type="button" role="radio" aria-checked={value === o} onClick={() => onChange(o)} className={cn("relative min-h-11 rounded-xl px-4 text-sm font-semibold transition-colors sm:text-base", focus, value === o ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]")}>
-            {value === o && <motion.span layoutId={`seg-${id}`} className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_10px_24px_-12px_rgba(10,74,19,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+          <button key={o} type="button" role="radio" aria-checked={value === o} onClick={() => onChange(o)} className={cn("relative min-h-11 rounded-xl px-4 text-sm font-semibold transition-colors sm:text-base", focus, value === o ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]")}>
+            {value === o && <motion.span layoutId={`seg-${id}`} className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_10px_24px_-12px_rgba(16,93,29,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
             <span className="relative">{o}</span>
           </button>
         ))}
@@ -53,7 +53,7 @@ function Segmented<T extends string>({ value, options, onChange, label, id }: { 
 function AsAt({ children, dark }: { children: React.ReactNode; dark?: boolean }) {
   return (
     <span className={cn("inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold", dark ? "border-white/20 bg-white/10 text-white" : "border-gray-200 bg-[#F7FAF6] text-gray-700")}>
-      <span className={cn("h-2 w-2 rounded-full", dark ? "bg-[#F4D27A]" : "bg-[#117F21]")} aria-hidden="true" />
+      <span className={cn("h-2 w-2 rounded-full", dark ? "bg-[#F4D27A]" : "bg-[#14892A]")} aria-hidden="true" />
       {children}
     </span>
   );
@@ -118,7 +118,7 @@ export function PerfHero() {
               <span className="ml-1 text-2xl font-semibold text-white/80 sm:text-3xl">trillion</span>
             </p>
             <p className="mt-3 flex flex-wrap items-center gap-3 text-base">
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#117F21]/50 px-3 py-1 text-sm font-bold text-[#CFF5D5]">▲ {headline.ytd}% since January</span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#14892A]/50 px-3 py-1 text-sm font-bold text-[#CFF5D5]">▲ {headline.ytd}% since January</span>
               <span className="text-white/80">about ${headline.usd}bn</span>
             </p>
             <div aria-hidden="true" className="mt-6 flex h-28 items-end gap-1.5">
@@ -127,7 +127,7 @@ export function PerfHero() {
                 return (
                   <motion.span
                     key={b.m}
-                    className={cn("flex-1 rounded-t-md", last ? "bg-gradient-to-t from-[#117F21] to-[#F4D27A] shadow-[0_0_30px_rgba(244,210,122,0.35)]" : "border border-white/15 bg-gradient-to-t from-white/10 to-white/35")}
+                    className={cn("flex-1 rounded-t-md", last ? "bg-gradient-to-t from-[#14892A] to-[#F4D27A] shadow-[0_0_30px_rgba(244,210,122,0.35)]" : "border border-white/15 bg-gradient-to-t from-white/10 to-white/35")}
                     initial={{ height: reduce ? `${22 + ((b.v - lo) / (hi - lo)) * 78}%` : "0%" }}
                     animate={{ height: `${22 + ((b.v - lo) / (hi - lo)) * 78}%` }}
                     transition={{ duration: 1, delay: 0.5 + i * 0.05, ease }}
@@ -141,7 +141,7 @@ export function PerfHero() {
 
         <ul className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
           {figs.map((f, i) => (
-            <motion.li key={f.l} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.5 + i * 0.1 }} className="group relative bg-[#04240A] p-6 transition-colors hover:bg-[#072F0E] sm:p-7">
+            <motion.li key={f.l} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.5 + i * 0.1 }} className="group relative bg-[#11421A] p-6 transition-colors hover:bg-[#124C1B] sm:p-7">
               <span aria-hidden="true" className="absolute left-0 top-7 h-10 w-0.5 bg-gradient-to-b from-[#F4D27A] to-transparent transition-all duration-500 group-hover:h-16" />
               <CountUp value={f.v} className="text-3xl font-black tracking-tight sm:text-4xl" />
               <p className="mt-2 font-medium text-white/85">{f.l}</p>
@@ -187,10 +187,10 @@ export function AssetsBar({ range, setRange }: { range: Range; setRange: (r: Ran
         <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-gray-200/80 bg-gray-200/80 sm:grid-cols-3 lg:col-span-8">
           {stats.map((c, i) => (
             <li key={c.l} className="group relative bg-white p-5 transition-colors hover:bg-[#F7FAF6]">
-              <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-opacity", i === 0 ? "opacity-100" : "opacity-0 group-hover:opacity-100")} />
-              <p className="text-sm font-semibold text-[#0A4A13]">{c.l}</p>
+              <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#14892A] to-[#CB9615] transition-opacity", i === 0 ? "opacity-100" : "opacity-0 group-hover:opacity-100")} />
+              <p className="text-sm font-semibold text-[#105D1D]">{c.l}</p>
               <AnimatePresence mode="wait">
-                <motion.p key={c.v} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} className="mt-1 text-3xl font-bold tabular-nums text-[#0A2E10]">{c.v}</motion.p>
+                <motion.p key={c.v} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} className="mt-1 text-3xl font-bold tabular-nums text-[#164D20]">{c.v}</motion.p>
               </AnimatePresence>
               <p className="mt-1 text-sm text-gray-600">{c.s}</p>
             </li>
@@ -275,15 +275,15 @@ export function FundsSection() {
                     {f.rows.map((r, i) => (
                       <li key={`${f.period}-${r.k}`} className="group grid grid-cols-1 gap-2 px-4 py-4 transition-colors hover:bg-[#F7FAF6] sm:grid-cols-[220px_1fr_150px] sm:items-center sm:px-5">
                         <div>
-                          <p className="font-bold text-[#0A2E10]">{r.k}</p>
+                          <p className="font-bold text-[#164D20]">{r.k}</p>
                           <p className="text-sm text-gray-600">{r.who}</p>
                         </div>
                         <div className="h-3 rounded-full bg-[#E8F5E9]">
-                          <motion.div className="relative h-full rounded-full bg-gradient-to-r from-[#0A4A13] via-[#117F21] to-[#CB9615]" initial={{ width: 0 }} whileInView={{ width: `${(r.v / max) * 100}%` }} viewport={{ once: true }} transition={{ duration: reduce ? 0 : 1, delay: reduce ? 0 : i * 0.1, ease }}>
+                          <motion.div className="relative h-full rounded-full bg-gradient-to-r from-[#105D1D] via-[#14892A] to-[#CB9615]" initial={{ width: 0 }} whileInView={{ width: `${(r.v / max) * 100}%` }} viewport={{ once: true }} transition={{ duration: reduce ? 0 : 1, delay: reduce ? 0 : i * 0.1, ease }}>
                             <span aria-hidden="true" className="absolute -right-1 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full bg-[#CB9615] ring-4 ring-white transition-transform duration-300 group-hover:scale-125" />
                           </motion.div>
                         </div>
-                        <p className="font-bold tabular-nums text-[#0A2E10] sm:text-right">{tn(r.v)} <span className="text-sm font-normal text-gray-600">{((r.v / f.total) * 100).toFixed(0)}%</span></p>
+                        <p className="font-bold tabular-nums text-[#164D20] sm:text-right">{tn(r.v)} <span className="text-sm font-normal text-gray-600">{((r.v / f.total) * 100).toFixed(0)}%</span></p>
                       </li>
                     ))}
                   </ul>
@@ -296,7 +296,7 @@ export function FundsSection() {
         </Rise>
         <div className="group mt-6 flex items-center gap-4 rounded-2xl border border-gray-200/80 bg-[#F4F7F2] p-4 sm:p-5">
           <Tile icon={HelpCircle} />
-          <p className="text-base text-gray-700">Not sure which fund you are in? <Link to="/resources/faq" className={cn("rounded font-semibold text-[#117F21] underline underline-offset-4 hover:text-[#0A4A13]", focus)}>Read the FAQ</Link> or ask your PFA.</p>
+          <p className="text-base text-gray-700">Not sure which fund you are in? <Link to="/resources/faq" className={cn("rounded font-semibold text-[#117F21] underline underline-offset-4 hover:text-[#105D1D]", focus)}>Read the FAQ</Link> or ask your PFA.</p>
         </div>
       </div>
     </section>
@@ -334,7 +334,7 @@ export function CoverageSection() {
               <p className="mt-1 text-base text-gray-600">Money paid in by employers and workers each quarter.</p>
               <div className="mt-6">
                 <DataPanel title="Contributions" name="contributions" rows={contributions.map((c) => ({ quarter: c.label, naira_billion: c.v, derived: !!c.derived }))}
-                  chart={<Columns data={contributions.map((c) => ({ ...c, note: c.derived ? "derived" : undefined }))} fmt={bn} color="#0A4A13" />}
+                  chart={<Columns data={contributions.map((c) => ({ ...c, note: c.derived ? "derived" : undefined }))} fmt={bn} color="#105D1D" />}
                   table={<DataTable head={["Quarter", "₦ billion"]} rows={contributions.map((c) => [c.label + (c.derived ? " *" : ""), c.v.toFixed(2)])} />}
                   caption="* Worked out from the published Q3 2025 increase of 18%. Q4 2025 included one-off public-sector payments."
                 />
@@ -374,8 +374,8 @@ export function CoverageSection() {
                 <AsAt>July 2026</AsAt>
               </div>
               <div className="mt-6 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-gray-200/80 bg-gray-200/80 sm:grid-cols-2">
-                <div className="bg-white p-5"><p className="text-3xl font-bold tabular-nums text-[#0A2E10] sm:text-4xl">{headline.retirees.toLocaleString("en-NG")}</p><p className="mt-1 text-base text-gray-600">retirees receiving a monthly pension</p></div>
-                <div className="bg-white p-5"><p className="text-3xl font-bold tabular-nums text-[#0A2E10] sm:text-4xl">₦{headline.benefitsPaid}tn</p><p className="mt-1 text-base text-gray-600">paid in retirement benefits since the scheme began</p></div>
+                <div className="bg-white p-5"><p className="text-3xl font-bold tabular-nums text-[#164D20] sm:text-4xl">{headline.retirees.toLocaleString("en-NG")}</p><p className="mt-1 text-base text-gray-600">retirees receiving a monthly pension</p></div>
+                <div className="bg-white p-5"><p className="text-3xl font-bold tabular-nums text-[#164D20] sm:text-4xl">₦{headline.benefitsPaid}tn</p><p className="mt-1 text-base text-gray-600">paid in retirement benefits since the scheme began</p></div>
               </div>
               <p className="mt-6 border-t border-gray-200 pt-4 text-base text-gray-700">Up from 658,811 retirees and ₦2.3tn in July 2024.</p>
             </div>
@@ -415,7 +415,7 @@ export function CompareSection() {
         <div role="note" className="relative mt-8 flex gap-4 overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 pl-6 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.3)]">
           <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#D97706]" />
           <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F3D9AE] text-[#6B4300]"><AlertTriangle className="h-5 w-5" /></span>
-          <p className="text-base leading-relaxed text-gray-700"><strong className="text-[#0A2E10]">Sample figures for design review.</strong> The PFA names are real; the returns, unit prices and fund sizes are placeholders. PenCom’s Research and Statistics team will supply validated figures before this section goes live.</p>
+          <p className="text-base leading-relaxed text-gray-700"><strong className="text-[#164D20]">Sample figures for design review.</strong> The PFA names are real; the returns, unit prices and fund sizes are placeholders. PenCom’s Research and Statistics team will supply validated figures before this section goes live.</p>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-5 rounded-3xl border border-gray-200/80 bg-[#F4F7F2] p-5 sm:p-6 lg:grid-cols-[auto_1fr] lg:items-end">
@@ -465,14 +465,14 @@ export function CompareSection() {
                         const on = picked.includes(r.id);
                         return (
                           <motion.li key={r.id} layout={!reduce ? "position" : false} transition={{ type: "spring", stiffness: 300, damping: 32 }}>
-                            <label className={cn("group grid min-h-12 cursor-pointer grid-cols-[1.5rem_var(--name)_1fr_3.75rem] items-center gap-2 rounded-xl px-2 py-1.5 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-[#FFD84D]", on ? "bg-[#F0F8F1] ring-1 ring-[#117F21]/35" : "hover:bg-[#F7FAF6]")}>
+                            <label className={cn("group grid min-h-12 cursor-pointer grid-cols-[1.5rem_var(--name)_1fr_3.75rem] items-center gap-2 rounded-xl px-2 py-1.5 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-[3px] has-[:focus-visible]:outline-[#FFD84D]", on ? "bg-[#F0F8F1] ring-1 ring-[#14892A]/35" : "hover:bg-[#F7FAF6]")}>
                               <input type="checkbox" checked={on} onChange={() => toggle(r.id)} className="sr-only" />
-                              <span aria-hidden="true" className={cn("flex h-6 w-6 items-center justify-center rounded-md border-2 transition", on ? "border-[#117F21] bg-[#117F21] text-white" : "border-[#7A8A7E] bg-white group-hover:border-[#117F21]")}>{on && <Check className="h-4 w-4" strokeWidth={3} />}</span>
-                              <span className="truncate text-sm font-semibold text-[#0A2E10] sm:text-base" title={r.name}>{r.short}</span>
+                              <span aria-hidden="true" className={cn("flex h-6 w-6 items-center justify-center rounded-md border-2 transition", on ? "border-[#14892A] bg-[#14892A] text-white" : "border-[#7A8A7E] bg-white group-hover:border-[#14892A]")}>{on && <Check className="h-4 w-4" strokeWidth={3} />}</span>
+                              <span className="truncate text-sm font-semibold text-[#164D20] sm:text-base" title={r.name}>{r.short}</span>
                               <span className="h-3 overflow-hidden rounded-full bg-[#E8F5E9]">
-                                <motion.span className={cn("block h-full rounded-full", on ? "bg-gradient-to-r from-[#CB9615] to-[#F4D27A]" : "bg-gradient-to-r from-[#0A4A13] to-[#117F21]")} initial={{ width: 0 }} animate={{ width: `${(r.ret / max) * 100}%` }} transition={{ duration: reduce ? 0 : 0.7, ease }} />
+                                <motion.span className={cn("block h-full rounded-full", on ? "bg-gradient-to-r from-[#CB9615] to-[#F4D27A]" : "bg-gradient-to-r from-[#105D1D] to-[#14892A]")} initial={{ width: 0 }} animate={{ width: `${(r.ret / max) * 100}%` }} transition={{ duration: reduce ? 0 : 0.7, ease }} />
                               </span>
-                              <span className="text-right text-sm font-bold tabular-nums text-[#0A2E10] sm:text-base">{r.ret.toFixed(1)}%</span>
+                              <span className="text-right text-sm font-bold tabular-nums text-[#164D20] sm:text-base">{r.ret.toFixed(1)}%</span>
                             </label>
                           </motion.li>
                         );
@@ -488,7 +488,7 @@ export function CompareSection() {
           </div>
 
           <aside className="lg:col-span-4" aria-label="Your comparison">
-            <div className="sticky top-[180px] overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 shadow-[0_30px_60px_-40px_rgba(10,74,19,0.45)]">
+            <div className="sticky top-[180px] overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 shadow-[0_30px_60px_-40px_rgba(16,93,29,0.45)]">
               <span aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#CB9615] to-transparent" />
               <p className="text-xl font-bold">Your comparison</p>
               <AnimatePresence initial={false} mode="popLayout">
@@ -498,10 +498,10 @@ export function CompareSection() {
                   <motion.ul key="list" className="mt-4 space-y-3">
                     {chosen.map((c) => (
                       <motion.li key={c.id} layout initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }} className="relative overflow-hidden rounded-2xl border border-gray-200/80 bg-[#F7FAF6] p-4 pl-5">
-                        <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#CB9615] to-[#117F21]" />
+                        <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#CB9615] to-[#14892A]" />
                         <div className="flex items-start justify-between gap-2">
-                          <p className="font-semibold leading-snug text-[#0A2E10]">{c.name}</p>
-                          <button type="button" onClick={() => toggle(c.id)} aria-label={`Remove ${c.name}`} className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 transition hover:border-[#117F21] hover:bg-[#117F21] hover:text-white", focus)}><X className="h-5 w-5" aria-hidden="true" /></button>
+                          <p className="font-semibold leading-snug text-[#164D20]">{c.name}</p>
+                          <button type="button" onClick={() => toggle(c.id)} aria-label={`Remove ${c.name}`} className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 transition hover:border-[#14892A] hover:bg-[#14892A] hover:text-white", focus)}><X className="h-5 w-5" aria-hidden="true" /></button>
                         </div>
                         <dl className="mt-3 grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-gray-200/80 bg-gray-200/80 text-center">
                           <div className="bg-white p-2"><dt className="text-sm text-gray-600">Return</dt><dd className="text-lg font-bold">{c.ret.toFixed(1)}%</dd></div>
@@ -541,7 +541,7 @@ export function FeesSection() {
               <li key={f.title}>
                 <Rise delay={i * 0.07} className="h-full">
                   <div className={cn("group relative h-full overflow-hidden p-6", card)}>
-                    <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
+                    <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-[#14892A] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
                     <div className="flex items-start justify-between gap-3">
                       <Tile icon={Icon} />
                       <span className="rounded-full bg-[#FFF8E1] px-3 py-1 text-xs font-bold text-[#7A5200] ring-1 ring-[#CB9615]/40">{f.tag}</span>
@@ -556,7 +556,7 @@ export function FeesSection() {
           <li>
             <Rise delay={fees.length * 0.07} className="h-full">
               <Link to="/regulations?q=fees#library" className={cn("group relative flex h-full flex-col justify-between overflow-hidden p-6", card, "bg-[#F4F7F2]", focus)}>
-                <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#CB9615] to-[#117F21]" />
+                <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#CB9615] to-[#14892A]" />
                 <Tile icon={FileText} dark />
                 <span><span className="mt-6 block text-xl font-bold tracking-tight">Read the fee regulations</span><span className="mt-1 block text-base text-gray-600">Regulation on Fees Structure and later circulars, in the library.</span></span>
                 <span className="mt-4 inline-flex items-center gap-2 font-semibold text-[#117F21]">Open the library <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" /></span>
@@ -599,11 +599,11 @@ export function MethodSection() {
                 const on = open === i;
                 return (
                   <li key={n.q} className="relative">
-                    <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1 origin-top bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-transform duration-500", on ? "scale-y-100" : "scale-y-0")} />
+                    <span aria-hidden="true" className={cn("absolute inset-y-0 left-0 w-1 origin-top bg-gradient-to-b from-[#14892A] to-[#CB9615] transition-transform duration-500", on ? "scale-y-100" : "scale-y-0")} />
                     <h3>
-                      <button type="button" aria-expanded={on} onClick={() => setOpen(on ? null : i)} className={cn("group flex min-h-16 w-full items-center justify-between gap-4 px-5 py-4 text-left text-lg font-bold transition-colors hover:bg-[#F7FAF6] sm:px-6", on ? "text-[#0A4A13]" : "text-[#0A2E10]", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]")}>
+                      <button type="button" aria-expanded={on} onClick={() => setOpen(on ? null : i)} className={cn("group flex min-h-16 w-full items-center justify-between gap-4 px-5 py-4 text-left text-lg font-bold transition-colors hover:bg-[#F7FAF6] sm:px-6", on ? "text-[#105D1D]" : "text-[#164D20]", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]")}>
                         {n.q}
-                        <span aria-hidden="true" className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition duration-300", on ? "rotate-180 bg-[#117F21] text-white" : "bg-[#E8F5E9] text-[#117F21]")}><ChevronDown className="h-5 w-5" /></span>
+                        <span aria-hidden="true" className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition duration-300", on ? "rotate-180 bg-[#14892A] text-white" : "bg-[#E8F5E9] text-[#117F21]")}><ChevronDown className="h-5 w-5" /></span>
                       </button>
                     </h3>
                     <AnimatePresence initial={false}>
@@ -628,7 +628,7 @@ export function MethodSection() {
               <button type="button" onClick={everything} className={cn(goldBtn, "group/dl mt-5")}><Download className="h-5 w-5 transition-transform duration-300 group-hover/dl:translate-y-0.5" aria-hidden="true" /> Download CSV</button>
               <div className="mt-6 flex flex-wrap gap-2 border-t border-gray-200 pt-5">
                 {([["/resources#monthly-reports", "Monthly reports"], ["/resources#quarterly-reports", "Quarterly reports"], ["/resources#annual-reports", "Annual reports"]] as const).map(([to, l]) => (
-                  <Link key={to} to={to} className={cn("inline-flex min-h-11 items-center rounded-full border border-gray-200 bg-white px-4 text-sm font-semibold text-[#0A2E10] transition hover:border-[#117F21] hover:text-[#117F21]", focus)}>{l}</Link>
+                  <Link key={to} to={to} className={cn("inline-flex min-h-11 items-center rounded-full border border-gray-200 bg-white px-4 text-sm font-semibold text-[#164D20] transition hover:border-[#14892A] hover:text-[#117F21]", focus)}>{l}</Link>
                 ))}
               </div>
             </div>
@@ -640,7 +640,7 @@ export function MethodSection() {
                 <ul className="divide-y divide-gray-100">
                   {sources.map((s) => (
                     <li key={s.url}>
-                      <a href={s.url} target="_blank" rel="noopener noreferrer" className={cn(listRow, "min-h-12 justify-between font-medium text-[#0A2E10] hover:text-[#117F21]")}>
+                      <a href={s.url} target="_blank" rel="noopener noreferrer" className={cn(listRow, "min-h-12 justify-between font-medium text-[#164D20] hover:text-[#117F21]")}>
                         {s.label}
                         <Tile icon={ArrowUpRight} size="sm" />
                         <span className="sr-only">(opens in a new tab)</span>

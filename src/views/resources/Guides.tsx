@@ -53,7 +53,7 @@ function printGuide(g: Guide) {
   const esc = (s: string) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!);
   w.document.write(`<!doctype html><html lang="en"><head><title>${esc(g.title)} – PenCom</title>
   <style>body{font-family:Arial,Helvetica,sans-serif;max-width:680px;margin:32px auto;color:#111;line-height:1.5;font-size:16px}
-  h1{font-family:Verdana,sans-serif;font-size:24px;margin:0 0 4px}h2{font-family:Verdana,sans-serif;font-size:17px;margin-top:28px;border-bottom:2px solid #117F21;padding-bottom:4px}
+  h1{font-family:Verdana,sans-serif;font-size:24px;margin:0 0 4px}h2{font-family:Verdana,sans-serif;font-size:17px;margin-top:28px;border-bottom:2px solid #14892A;padding-bottom:4px}
   .muted{color:#555}li{margin:8px 0}.box{display:inline-block;width:14px;height:14px;border:2px solid #111;margin-right:10px;vertical-align:-2px}
   ol li::marker{font-weight:bold}footer{margin-top:40px;font-size:12px;color:#555;border-top:1px solid #ccc;padding-top:8px}</style></head><body>
   <p class="muted">National Pension Commission · Guide</p><h1>${esc(g.title)}</h1><p>${esc(g.intro)}</p>
@@ -123,11 +123,11 @@ function GuideDialog({ guide, onClose }: { guide: Guide | null; onClose: () => v
               <div className="flex items-start gap-4">
                 <Tile icon={Icon} dark size="lg" className="hidden sm:flex" />
                 <div className="min-w-0">
-                  <p className="inline-flex items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#0A4A13] ring-1 ring-[#117F21]/15">
+                  <p className="inline-flex items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#105D1D] ring-1 ring-[#14892A]/15">
                     <Icon className="h-4 w-4 sm:hidden" aria-hidden="true" />
                     Guide · {guide.audience}
                   </p>
-                  <DialogTitle className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[#0A2E10] sm:text-3xl">{guide.title}</DialogTitle>
+                  <DialogTitle className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[#164D20] sm:text-3xl">{guide.title}</DialogTitle>
                 </div>
               </div>
               <DialogDescription className="mt-3 max-w-xl text-lg leading-relaxed text-gray-600">{guide.intro}</DialogDescription>
@@ -179,7 +179,7 @@ function GuideDialog({ guide, onClose }: { guide: Guide | null; onClose: () => v
                   >
                     <Minus className="h-5 w-5" aria-hidden="true" />
                   </button>
-                  <span className="px-1 font-semibold tabular-nums text-[#0A2E10]" aria-live="polite">
+                  <span className="px-1 font-semibold tabular-nums text-[#164D20]" aria-live="polite">
                     Aa{size ? ` +${size}` : ""}
                   </span>
                   <button
@@ -205,7 +205,7 @@ function GuideDialog({ guide, onClose }: { guide: Guide | null; onClose: () => v
                       <label
                         className={cn(
                           "flex min-h-12 cursor-pointer items-start gap-3 rounded-xl border p-3 transition duration-300",
-                          have[i] ? "border-[#117F21]/40 bg-[#E8F5E9]" : "border-gray-200 bg-white hover:border-[#117F21]/50 hover:bg-[#F7FAF6]",
+                          have[i] ? "border-[#14892A]/40 bg-[#E8F5E9]" : "border-gray-200 bg-white hover:border-[#14892A]/50 hover:bg-[#F7FAF6]",
                         )}
                       >
                         <input type="checkbox" checked={!!have[i]} onChange={() => setHave((h) => h.map((v, j) => (j === i ? !v : v)))} className="peer sr-only" />
@@ -213,23 +213,23 @@ function GuideDialog({ guide, onClose }: { guide: Guide | null; onClose: () => v
                           aria-hidden="true"
                           className={cn(
                             "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border-2 transition peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-[#FFD84D]",
-                            have[i] ? "border-[#117F21] bg-[#117F21] text-white" : "border-gray-500 bg-white",
+                            have[i] ? "border-[#14892A] bg-[#14892A] text-white" : "border-gray-500 bg-white",
                           )}
                         >
                           {have[i] && <Check className="h-4 w-4" strokeWidth={3.5} />}
                         </span>
-                        <span className={cn("text-[#0A2E10]", have[i] && "text-gray-700 line-through decoration-[#117F21]/60")}>{n}</span>
+                        <span className={cn("text-[#164D20]", have[i] && "text-gray-700 line-through decoration-[#14892A]/60")}>{n}</span>
                       </label>
                     </li>
                   ))}
                 </ul>
                 <div className="mt-5 rounded-2xl bg-[#F4F7F2] p-4">
-                  <p className="text-base font-semibold text-[#0A2E10]" aria-live="polite">
+                  <p className="text-base font-semibold text-[#164D20]" aria-live="polite">
                     {ready} of {guide.needs.length} ready
                   </p>
                   <span aria-hidden="true" className="mt-2 block h-2.5 overflow-hidden rounded-full bg-white ring-1 ring-gray-200">
                     <motion.span
-                      className="block h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]"
+                      className="block h-full rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]"
                       initial={false}
                       animate={{
                         width: `${guide.needs.length ? (ready / guide.needs.length) * 100 : 0}%`,
@@ -247,7 +247,7 @@ function GuideDialog({ guide, onClose }: { guide: Guide | null; onClose: () => v
                   <span aria-hidden="true" className="absolute inset-x-6 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-gray-200" />
                   <motion.span
                     aria-hidden="true"
-                    className="absolute left-6 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]"
+                    className="absolute left-6 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]"
                     initial={false}
                     animate={{
                       width: guide.steps.length > 1 ? `calc((100% - 3rem) * ${step / (guide.steps.length - 1)})` : 0,
@@ -266,8 +266,8 @@ function GuideDialog({ guide, onClose }: { guide: Guide | null; onClose: () => v
                           i === step
                             ? "scale-110 bg-[#CB9615] text-[#1A1206] shadow-[0_12px_24px_-12px_rgba(203,150,21,0.9)]"
                             : i < step
-                              ? "bg-[#04240A] text-[#F4D27A] hover:bg-[#0A4A13]"
-                              : "bg-white text-[#117F21] ring-1 ring-gray-300 hover:ring-2 hover:ring-[#117F21]",
+                              ? "bg-[#11421A] text-[#F4D27A] hover:bg-[#105D1D]"
+                              : "bg-white text-[#117F21] ring-1 ring-gray-300 hover:ring-2 hover:ring-[#14892A]",
                           focus,
                         )}
                       >
@@ -282,7 +282,7 @@ function GuideDialog({ guide, onClose }: { guide: Guide | null; onClose: () => v
                       <p className="text-base font-semibold tabular-nums text-[#7A5200]">
                         Step {step + 1} of {guide.steps.length}
                       </p>
-                      <p className="mt-1 text-[1.3em] font-bold leading-snug tracking-tight text-[#0A2E10]">{s?.title}</p>
+                      <p className="mt-1 text-[1.3em] font-bold leading-snug tracking-tight text-[#164D20]">{s?.title}</p>
                       <p className="mt-2 leading-relaxed text-gray-600">{s?.body}</p>
                     </motion.div>
                   </AnimatePresence>
@@ -319,7 +319,7 @@ function GuideCard({ g, lead, onOpen }: { g: Guide; lead: boolean; onOpen: () =>
     <button
       type="button"
       onClick={onOpen}
-      className={cn("group relative flex h-full w-full flex-col p-6 text-left", lead ? cn(featured, "shadow-[0_30px_60px_-30px_rgba(4,36,10,0.8)]") : card, focus)}
+      className={cn("group relative flex h-full w-full flex-col p-6 text-left", lead ? cn(featured, "shadow-[0_30px_60px_-30px_rgba(17,66,26,0.8)]") : card, focus)}
     >
       {lead && (
         <>
@@ -346,14 +346,14 @@ function GuideCard({ g, lead, onOpen }: { g: Guide; lead: boolean; onOpen: () =>
           <span
             className={cn(
               "rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.14em]",
-              lead ? "bg-white/10 text-white ring-1 ring-white/20" : "bg-[#F7FAF6] text-[#0A4A13] ring-1 ring-gray-200",
+              lead ? "bg-white/10 text-white ring-1 ring-white/20" : "bg-[#F7FAF6] text-[#105D1D] ring-1 ring-gray-200",
             )}
           >
             {g.audience}
           </span>
         </span>
       </span>
-      <span className={cn("relative mt-5 block text-xl font-bold leading-snug tracking-tight", lead ? "text-white" : "text-[#0A2E10] group-hover:text-[#117F21]")}>{g.title}</span>
+      <span className={cn("relative mt-5 block text-xl font-bold leading-snug tracking-tight", lead ? "text-white" : "text-[#164D20] group-hover:text-[#117F21]")}>{g.title}</span>
       <span className={cn("relative mt-2 block text-base leading-relaxed", lead ? "text-white/90" : "text-gray-600")}>{g.intro}</span>
       <span className={cn("relative mt-auto flex flex-wrap items-center justify-between gap-3 border-t pt-4 text-sm", lead ? "border-white/15" : "border-gray-100")}>
         <span className={cn("flex items-center gap-3", lead ? "text-white" : "text-gray-600")}>

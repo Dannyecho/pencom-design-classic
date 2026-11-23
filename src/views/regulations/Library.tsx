@@ -72,14 +72,14 @@ function CheckRow({ label, count, checked, onChange, dot }: { label: string; cou
         aria-hidden="true"
         className={cn(
           "flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 transition peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#FFD84D]",
-          checked ? "border-[#117F21] bg-[#117F21] text-white" : "border-gray-400 bg-white group-hover:border-[#117F21]",
+          checked ? "border-[#14892A] bg-[#14892A] text-white" : "border-gray-400 bg-white group-hover:border-[#14892A]",
         )}
       >
         {checked && <Check className="h-4 w-4" strokeWidth={3} />}
       </span>
       {dot && <span aria-hidden="true" className={cn("h-2.5 w-2.5 shrink-0 rounded-full", dot)} />}
-      <span className={cn("flex-1 leading-snug", checked ? "font-semibold text-[#0A2E10]" : "text-gray-700 group-hover:text-[#0A2E10]")}>{label}</span>
-      <span className={cn("min-w-8 rounded-full px-2 py-0.5 text-center text-sm font-semibold tabular-nums transition", checked ? "bg-[#117F21] text-white" : "bg-gray-100 text-gray-600")}>{count}</span>
+      <span className={cn("flex-1 leading-snug", checked ? "font-semibold text-[#164D20]" : "text-gray-700 group-hover:text-[#164D20]")}>{label}</span>
+      <span className={cn("min-w-8 rounded-full px-2 py-0.5 text-center text-sm font-semibold tabular-nums transition", checked ? "bg-[#14892A] text-white" : "bg-gray-100 text-gray-600")}>{count}</span>
     </label>
   );
 }
@@ -131,7 +131,7 @@ function Facets({ f, set }: { f: Filters; set: (p: Partial<Filters>) => void }) 
                     layout
                     className={cn(
                       "block w-full rounded-t-[4px] transition-colors",
-                      on ? "bg-[#CB9615]" : f.years.length ? "bg-gray-300 group-hover:bg-[#117F21]/60" : "bg-gradient-to-t from-[#0A4A13] to-[#2E913D] group-hover:from-[#CB9615] group-hover:to-[#E0AA22]",
+                      on ? "bg-[#CB9615]" : f.years.length ? "bg-gray-300 group-hover:bg-[#14892A]/60" : "bg-gradient-to-t from-[#105D1D] to-[#36A045] group-hover:from-[#CB9615] group-hover:to-[#E0AA22]",
                     )}
                     style={{ height: `${Math.max(n ? 6 : 2, (n / maxYear) * 100)}%` }}
                   />
@@ -190,7 +190,7 @@ function ResultRow({ d, onOpen, i }: { d: RegDoc; onOpen: (id: string) => void; 
     >
       <div className="group relative flex gap-4 px-5 py-5 transition hover:bg-[#F7FAF6] has-[button:focus-visible]:outline has-[button:focus-visible]:outline-[3px] has-[button:focus-visible]:-outline-offset-[3px] has-[button:focus-visible]:outline-[#FFD84D] sm:gap-5 sm:px-6">
         {/* Gradient bar that grows on hover */}
-        <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-transform duration-300 group-hover:scale-y-100" />
+        <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-gradient-to-b from-[#14892A] to-[#CB9615] transition-transform duration-300 group-hover:scale-y-100" />
         <Tile icon={FileText} className="mt-0.5 hidden sm:flex" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2 text-xs">
@@ -201,7 +201,7 @@ function ResultRow({ d, onOpen, i }: { d: RegDoc; onOpen: (id: string) => void; 
               {fmtDate(d.date)}
             </span>
           </div>
-          <h3 className="mt-2 text-lg font-bold leading-snug text-[#0A2E10] sm:text-xl">
+          <h3 className="mt-2 text-lg font-bold leading-snug text-[#164D20] sm:text-xl">
             <button
               type="button"
               onClick={() => onOpen(d.id)}
@@ -221,7 +221,7 @@ function ResultRow({ d, onOpen, i }: { d: RegDoc; onOpen: (id: string) => void; 
           href={d.pdf}
           target="_blank"
           rel="noopener noreferrer"
-          className={cn(outlineBtn, "relative z-10 hidden shrink-0 self-center px-4 hover:bg-[#117F21] hover:text-white md:inline-flex")}
+          className={cn(outlineBtn, "relative z-10 hidden shrink-0 self-center px-4 hover:bg-[#14892A] hover:text-white md:inline-flex")}
         >
           <Download className="h-4 w-4" aria-hidden="true" />
           PDF
@@ -273,11 +273,11 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
         />
 
         {/* Search + sort bar: sticks under the tab strip */}
-        <div className="sticky top-[160px] z-20 mt-10 rounded-2xl bg-white/95 p-1.5 shadow-[0_24px_50px_-30px_rgba(4,36,10,0.55)] ring-1 ring-gray-200 backdrop-blur">
+        <div className="sticky top-[160px] z-20 mt-10 rounded-2xl bg-white/95 p-1.5 shadow-[0_24px_50px_-30px_rgba(17,66,26,0.55)] ring-1 ring-gray-200 backdrop-blur">
           <div className="flex flex-col gap-1.5 sm:flex-row">
             <label className="flex min-w-0 flex-1 items-center gap-3 rounded-xl pl-3 pr-1 has-[input:focus-visible]:outline has-[input:focus-visible]:outline-[3px] has-[input:focus-visible]:outline-[#FFD84D]">
               <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
-              <span className="shrink-0 font-semibold text-[#0A2E10]">Search</span>
+              <span className="shrink-0 font-semibold text-[#164D20]">Search</span>
               <span className="sr-only"> the library</span>
               <input
                 ref={inputRef}
@@ -288,7 +288,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
                 className="min-h-12 w-full min-w-0 bg-transparent text-base placeholder:text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0 [&::-webkit-search-cancel-button]:hidden"
               />
               {draft && (
-                <button type="button" onClick={() => setDraft("")} aria-label="Clear search" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-gray-600 transition hover:bg-[#F7FAF6] hover:text-[#0A2E10]", focus)}>
+                <button type="button" onClick={() => setDraft("")} aria-label="Clear search" className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-gray-600 transition hover:bg-[#F7FAF6] hover:text-[#164D20]", focus)}>
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>
               )}
@@ -298,7 +298,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
                 <ArrowDownWideNarrow className="hidden h-4 w-4 shrink-0 text-[#117F21] sm:block" aria-hidden="true" />
                 <span className="shrink-0 text-sm font-semibold">Sort</span>
                 <span className="sr-only"> by</span>
-                <select value={f.sort} onChange={(e) => set({ sort: e.target.value as Filters["sort"] })} className="min-h-11 min-w-0 flex-1 cursor-pointer bg-transparent font-semibold text-[#0A2E10] focus:outline-none focus-visible:outline-none">
+                <select value={f.sort} onChange={(e) => set({ sort: e.target.value as Filters["sort"] })} className="min-h-11 min-w-0 flex-1 cursor-pointer bg-transparent font-semibold text-[#164D20] focus:outline-none focus-visible:outline-none">
                   <option value="new">Newest first</option>
                   <option value="old">Oldest first</option>
                   <option value="az">Title A–Z</option>
@@ -309,7 +309,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
                 onClick={() => setMobileFilters((o) => !o)}
                 aria-expanded={mobileFilters}
                 aria-controls="reg-facets"
-                className={cn("inline-flex min-h-12 shrink-0 items-center gap-2 rounded-xl bg-[#04240A] px-4 font-semibold text-white transition hover:bg-[#0A4A13] lg:hidden", focus)}
+                className={cn("inline-flex min-h-12 shrink-0 items-center gap-2 rounded-xl bg-[#11421A] px-4 font-semibold text-white transition hover:bg-[#105D1D] lg:hidden", focus)}
               >
                 <SlidersHorizontal className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" />
                 Filters{chips.length ? ` (${chips.length})` : ""}
@@ -325,7 +325,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
             aria-label="Filters"
             className={cn("overflow-hidden rounded-3xl border border-gray-200/80 bg-white lg:col-span-3 lg:block lg:self-start", mobileFilters ? "block" : "hidden")}
           >
-            <div className="flex items-center justify-between gap-2 bg-[#04240A] px-5 py-3">
+            <div className="flex items-center justify-between gap-2 bg-[#11421A] px-5 py-3">
               <p className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-[#F4D27A]">
                 <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
                 Filters
@@ -343,7 +343,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
           <div className="min-w-0 lg:col-span-9">
             <div className="flex flex-wrap items-center gap-2">
               <p className="mr-2 text-base text-gray-600" aria-live="polite">
-                <strong className="text-2xl font-bold tabular-nums text-[#0A2E10]">{results.length}</strong> of {library.length} documents
+                <strong className="text-2xl font-bold tabular-nums text-[#164D20]">{results.length}</strong> of {library.length} documents
               </p>
               <LayoutGroup>
                 <AnimatePresence initial={false}>
@@ -356,7 +356,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
                       onClick={c.clear}
-                      className={cn("inline-flex min-h-11 items-center gap-2 rounded-full border border-[#117F21]/25 bg-[#E8F5E9] pl-4 pr-3 text-sm font-semibold text-[#0A4A13] transition hover:border-[#117F21] hover:bg-[#117F21] hover:text-white", focus)}
+                      className={cn("inline-flex min-h-11 items-center gap-2 rounded-full border border-[#14892A]/25 bg-[#E8F5E9] pl-4 pr-3 text-sm font-semibold text-[#105D1D] transition hover:border-[#14892A] hover:bg-[#14892A] hover:text-white", focus)}
                     >
                       {c.label}
                       <X className="h-4 w-4" aria-hidden="true" />
@@ -376,7 +376,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
             {results.length === 0 ? (
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6 rounded-3xl border border-dashed border-gray-300 bg-white p-8 text-center sm:p-10">
                 <Tile icon={Search} size="lg" className="mx-auto" />
-                <h3 className="mt-4 text-2xl font-bold text-[#0A2E10]">No documents match</h3>
+                <h3 className="mt-4 text-2xl font-bold text-[#164D20]">No documents match</h3>
                 <p className="mx-auto mt-2 max-w-md text-base text-gray-600">
                   Try fewer words, remove a filter, or search for a topic such as “transfer”, “investment” or “benefits”.
                 </p>
@@ -392,7 +392,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
               </motion.div>
             ) : (
               <>
-                <Spotlight color="rgba(17,127,33,0.07)" size={600} className={cn(listPanel, "mt-5 divide-y-0")}>
+                <Spotlight color="rgba(20,137,42,0.07)" size={600} className={cn(listPanel, "mt-5 divide-y-0")}>
                   <ul className="divide-y divide-gray-100">
                     <AnimatePresence mode="popLayout" initial={false}>
                       {results.slice(0, shown).map((d, i) => (
@@ -404,7 +404,7 @@ export default function Library({ f, set, onOpen }: { f: Filters; set: (p: Parti
                 {shown < results.length && (
                   <div className="mt-8 flex flex-col items-center gap-3">
                     <div className="h-1.5 w-56 overflow-hidden rounded-full bg-[#E8F5E9]" aria-hidden="true">
-                      <motion.div className="h-full rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" animate={{ width: `${(shown / results.length) * 100}%` }} />
+                      <motion.div className="h-full rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" animate={{ width: `${(shown / results.length) * 100}%` }} />
                     </div>
                     <p className="text-sm text-gray-600">Showing {shown} of {results.length}</p>
                     <button type="button" onClick={() => setShown((s) => s + PAGE)} className={cn(outlineBtn, "group")}>

@@ -37,8 +37,8 @@ const onThisPage: NavSection[] = [
 
 /** Round thumb for the age slider (white with a green rim), as on the services calculator. */
 const thumb = [
-  "[&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#117F21] [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md",
-  "[&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#117F21] [&::-moz-range-thumb]:bg-white",
+  "[&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-[#14892A] [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md",
+  "[&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-[#14892A] [&::-moz-range-thumb]:bg-white",
 ].join(" ");
 
 /** A plain arrow that moves 4 px inside its card or button. */
@@ -59,7 +59,7 @@ const initials = (n: string) =>
     .map((w) => w[0])
     .join("")
     .toUpperCase();
-const tones = ["bg-[#04240A] text-[#F4D27A]", "bg-[#117F21] text-white", "bg-[#CB9615] text-[#1A1206]", "bg-[#E8F5E9] text-[#0A4A13]"];
+const tones = ["bg-[#11421A] text-[#F4D27A]", "bg-[#14892A] text-white", "bg-[#CB9615] text-[#1A1206]", "bg-[#E8F5E9] text-[#105D1D]"];
 const tone = (id: string) => tones[[...id].reduce((a, c) => a + c.charCodeAt(0), 0) % tones.length];
 
 function Monogram({ o, size = "md", className }: { o: Operator; size?: "md" | "lg"; className?: string }) {
@@ -87,7 +87,7 @@ function ContactActions({ o, compact = false, grid = false, iconsOnly = false }:
           title={it.text}
           {...(it.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           className={cn(
-            "inline-flex items-center justify-center gap-1.5 rounded-xl border border-[#117F21]/25 bg-white font-semibold text-[#117F21] transition hover:border-[#117F21] hover:bg-[#117F21] hover:text-white",
+            "inline-flex items-center justify-center gap-1.5 rounded-xl border border-[#14892A]/25 bg-white font-semibold text-[#117F21] transition hover:border-[#14892A] hover:bg-[#14892A] hover:text-white",
             iconsOnly ? "h-11 w-11" : compact ? "min-h-11 px-3 text-sm" : "min-h-12 px-4",
             focus,
           )}
@@ -132,7 +132,7 @@ export default function OperatorsPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <PhotoBanner
           id="ops-title"
           crumbs={[{ label: "Home", to: "/" }, { label: "Operators" }]}
@@ -180,7 +180,7 @@ function LicenceCheck({ onOpen }: { onOpen: (id: string) => void }) {
           <label htmlFor="verify-q" className="block font-semibold">
             Company name
           </label>
-          <div className="mt-2 flex items-center gap-2 rounded-2xl bg-[#F4F7F2] px-4 ring-1 ring-gray-200 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-[#117F21]">
+          <div className="mt-2 flex items-center gap-2 rounded-2xl bg-[#F4F7F2] px-4 ring-1 ring-gray-200 transition focus-within:bg-white focus-within:ring-2 focus-within:ring-[#14892A]">
             <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
             <input id="verify-q" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Type at least 3 letters, e.g. “Leadway”" autoComplete="off" className="min-h-14 w-full min-w-0 bg-transparent text-lg placeholder:text-gray-500 focus:outline-none" />
             {q && (
@@ -202,10 +202,10 @@ function LicenceCheck({ onOpen }: { onOpen: (id: string) => void }) {
                   {matches.slice(0, 3).map((o) => (
                     <li key={o.id}>
                       <button type="button" onClick={() => onOpen(o.id)} className={cn("group relative flex min-h-14 w-full items-center gap-3 py-3 pl-5 pr-4 text-left transition hover:bg-[#F7FAF6]", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]")}>
-                        <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#117F21]" />
+                        <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#14892A]" />
                         <ShieldCheck className="h-6 w-6 shrink-0 text-[#117F21]" aria-hidden="true" />
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate font-bold text-[#0A2E10]">{o.name}</span>
+                          <span className="block truncate font-bold text-[#164D20]">{o.name}</span>
                           <span className="block text-sm text-gray-600">Licensed {typeInfo[o.type].label}</span>
                         </span>
                         <Arrow className="text-[#117F21]" />
@@ -243,7 +243,7 @@ function LicenceCheck({ onOpen }: { onOpen: (id: string) => void }) {
           </p>
           <dl className="relative mt-4 grid grid-cols-3 gap-px overflow-hidden rounded-2xl bg-white/10">
             {(["PFA", "PFC", "CPFA"] as const).map((t) => (
-              <div key={t} className="bg-[#04240A]/60 px-3 py-4 text-center sm:px-4">
+              <div key={t} className="bg-[#11421A]/60 px-3 py-4 text-center sm:px-4">
                 <dt className="text-sm font-semibold text-white/85">{typeInfo[t].short}</dt>
                 <dd className="mt-1 text-4xl font-black tabular-nums text-white">
                   <CountUp value={String(count(t))} duration={1.2} />
@@ -276,8 +276,8 @@ function Segments<T extends string>({ label, value, options, onChange, id }: { l
           {options.map((o) => {
             const on = value === o.v;
             return (
-              <button key={o.v} type="button" aria-pressed={on} onClick={() => onChange(o.v)} className={cn("relative inline-flex min-h-11 items-center gap-2 rounded-lg px-3.5 text-sm font-semibold transition", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]", focus)}>
-                {on && <motion.span layoutId={`${id}-pill`} className="absolute inset-0 rounded-lg bg-[#117F21]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+              <button key={o.v} type="button" aria-pressed={on} onClick={() => onChange(o.v)} className={cn("relative inline-flex min-h-11 items-center gap-2 rounded-lg px-3.5 text-sm font-semibold transition", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]", focus)}>
+                {on && <motion.span layoutId={`${id}-pill`} className="absolute inset-0 rounded-lg bg-[#14892A]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                 {o.icon && <o.icon className="relative h-4 w-4" aria-hidden="true" />}
                 <span className="relative">{o.label}</span>
               </button>
@@ -337,11 +337,11 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
                     aria-selected={on}
                     aria-controls="ops-panel"
                     onClick={() => setTab(t.id)}
-                    className={cn("relative flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 font-semibold transition sm:flex-1 lg:flex-none", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]", focus)}
+                    className={cn("relative flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 font-semibold transition sm:flex-1 lg:flex-none", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]", focus)}
                   >
-                    {on && <motion.span layoutId="ops-tab-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_10px_24px_-12px_rgba(10,74,19,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                    {on && <motion.span layoutId="ops-tab-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_10px_24px_-12px_rgba(16,93,29,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                     <span className="relative">{t.label}</span>
-                    <span className={cn("relative rounded-full px-2 text-xs font-bold tabular-nums leading-5", on ? "bg-[#F4D27A] text-[#1A1206]" : "bg-[#E8F5E9] text-[#0A4A13]")}>{t.n}</span>
+                    <span className={cn("relative rounded-full px-2 text-xs font-bold tabular-nums leading-5", on ? "bg-[#F4D27A] text-[#1A1206]" : "bg-[#E8F5E9] text-[#105D1D]")}>{t.n}</span>
                   </button>
                 );
               })}
@@ -353,7 +353,7 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
                 <label htmlFor="ops-q" className="sr-only">
                   Search operators
                 </label>
-                <div className="flex items-center gap-2 rounded-xl bg-white px-4 ring-1 ring-gray-200 focus-within:ring-2 focus-within:ring-[#117F21]">
+                <div className="flex items-center gap-2 rounded-xl bg-white px-4 ring-1 ring-gray-200 focus-within:ring-2 focus-within:ring-[#14892A]">
                   <Search className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
                   <input id="ops-q" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name or address" className="min-h-12 w-full min-w-0 bg-transparent placeholder:text-gray-500 focus:outline-none" />
                 </div>
@@ -385,7 +385,7 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
                       <Tile icon={Landmark} dark size="lg" />
                       <span>
                         <span className="block text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]">{b.short}</span>
-                        <span className="mt-1 block text-xl font-bold text-[#0A2E10]">{b.name}</span>
+                        <span className="mt-1 block text-xl font-bold text-[#164D20]">{b.name}</span>
                         <span className="mt-2 block leading-relaxed text-gray-600">{b.body}</span>
                       </span>
                     </Spotlight>
@@ -396,7 +396,7 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
           ) : (
             <>
               <p className="mb-4 px-1 text-gray-600" aria-live="polite">
-                <strong className="font-bold text-[#0A2E10]">{list.length}</strong> {list.length === 1 ? typeInfo[tab].label : typeInfo[tab].plural}
+                <strong className="font-bold text-[#164D20]">{list.length}</strong> {list.length === 1 ? typeInfo[tab].label : typeInfo[tab].plural}
                 {city !== "All" && ` in ${city}`}
                 {q && ` matching “${q}”`}
               </p>
@@ -432,10 +432,10 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
                             className="border-t border-gray-100 first:border-t-0"
                           >
                             <article className="group relative flex items-center gap-4 px-4 py-3.5 transition hover:bg-[#F7FAF6] sm:px-6">
-                              <span aria-hidden="true" className="absolute inset-y-2 left-0 w-1 origin-center scale-y-0 rounded-r-full bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-transform duration-300 group-hover:scale-y-100" />
+                              <span aria-hidden="true" className="absolute inset-y-2 left-0 w-1 origin-center scale-y-0 rounded-r-full bg-gradient-to-b from-[#14892A] to-[#CB9615] transition-transform duration-300 group-hover:scale-y-100" />
                               <Monogram o={o} />
                               <div className="min-w-0 flex-1">
-                                <h3 className="font-bold leading-snug text-[#0A2E10]">
+                                <h3 className="font-bold leading-snug text-[#164D20]">
                                   <button type="button" onClick={() => onOpen(o.id)} className={cn("text-left after:absolute after:inset-0 after:content-[''] group-hover:text-[#117F21]", "focus-visible:outline-none focus-visible:after:outline focus-visible:after:outline-[3px] focus-visible:after:-outline-offset-[3px] focus-visible:after:outline-[#FFD84D]")}>
                                     {o.name}
                                   </button>
@@ -472,12 +472,12 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
                           <div className="flex items-start gap-3">
                             <Monogram o={o} />
                             <div className="min-w-0">
-                              <h3 className="text-lg font-bold leading-snug text-[#0A2E10]">
+                              <h3 className="text-lg font-bold leading-snug text-[#164D20]">
                                 <button type="button" onClick={() => onOpen(o.id)} className={cn("text-left after:absolute after:inset-0 after:rounded-3xl after:content-[''] group-hover:text-[#117F21]", focus)}>
                                   {o.name}
                                 </button>
                               </h3>
-                              <p className="mt-1.5 inline-flex items-center gap-1 rounded-full border border-[#117F21]/20 bg-[#E8F5E9] px-2.5 py-0.5 text-xs font-bold text-[#0A4A13]">
+                              <p className="mt-1.5 inline-flex items-center gap-1 rounded-full border border-[#14892A]/20 bg-[#E8F5E9] px-2.5 py-0.5 text-xs font-bold text-[#105D1D]">
                                 <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" />
                                 Licensed
                               </p>
@@ -517,7 +517,7 @@ function Directory({ onOpen, tabHint }: { onOpen: (id: string) => void; tabHint:
 
 function Details({ id, onClose }: { id: string | null; onClose: () => void }) {
   const o = operators.find((x) => x.id === id);
-  const rowCls = cn("group flex min-h-14 items-center gap-3 px-5 py-3 font-semibold text-[#0A2E10] transition hover:bg-[#F7FAF6]", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]");
+  const rowCls = cn("group flex min-h-14 items-center gap-3 px-5 py-3 font-semibold text-[#164D20] transition hover:bg-[#F7FAF6]", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]");
   return (
     <Drawer open={!!o} onClose={onClose} labelledBy="op-name">
       {o && (
@@ -553,7 +553,7 @@ function Details({ id, onClose }: { id: string | null; onClose: () => void }) {
                   <Tile icon={r.icon} size="sm" />
                   <div className="min-w-0">
                     <dt className="text-xs font-bold uppercase tracking-[0.16em] text-gray-600">{r.k}</dt>
-                    <dd className="mt-0.5 break-words font-medium text-[#0A2E10]">{r.v}</dd>
+                    <dd className="mt-0.5 break-words font-medium text-[#164D20]">{r.v}</dd>
                   </div>
                 </div>
               ))}
@@ -602,30 +602,30 @@ function HowItWorks() {
           intro="The company that invests your money never holds it. A separate custodian keeps the assets, and PenCom supervises both."
         />
         <Rise className="mt-10">
-          <p className="flex w-fit items-center gap-2 rounded-full border border-[#117F21]/20 bg-white px-4 py-2 font-semibold text-[#0A4A13] shadow-sm">
+          <p className="flex w-fit items-center gap-2 rounded-full border border-[#14892A]/20 bg-white px-4 py-2 font-semibold text-[#105D1D] shadow-sm">
             <ShieldCheck className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
             PenCom licenses, supervises and inspects every operator
           </p>
         </Rise>
         <ol className="relative mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
           {/* The line that runs through the step numbers: grows from left to right on desktop, top to bottom on phones. */}
-          <span aria-hidden="true" className="absolute left-6 top-6 hidden h-[3px] w-[calc(66.667%+0.833rem)] -translate-y-1/2 overflow-hidden rounded-full bg-[#117F21]/15 md:block">
-            <motion.span className="absolute inset-0 origin-left rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" initial={{ scaleX: reduce ? 1 : 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 1.4, ease }} />
+          <span aria-hidden="true" className="absolute left-6 top-6 hidden h-[3px] w-[calc(66.667%+0.833rem)] -translate-y-1/2 overflow-hidden rounded-full bg-[#14892A]/15 md:block">
+            <motion.span className="absolute inset-0 origin-left rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" initial={{ scaleX: reduce ? 1 : 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 1.4, ease }} />
           </span>
-          <span aria-hidden="true" className="absolute bottom-6 left-[1.375rem] top-6 w-[3px] overflow-hidden rounded-full bg-[#117F21]/15 md:hidden">
-            <motion.span className="absolute inset-0 origin-top rounded-full bg-gradient-to-b from-[#117F21] to-[#CB9615]" initial={{ scaleY: reduce ? 1 : 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 1.4, ease }} />
+          <span aria-hidden="true" className="absolute bottom-6 left-[1.375rem] top-6 w-[3px] overflow-hidden rounded-full bg-[#14892A]/15 md:hidden">
+            <motion.span className="absolute inset-0 origin-top rounded-full bg-gradient-to-b from-[#14892A] to-[#CB9615]" initial={{ scaleY: reduce ? 1 : 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 1.4, ease }} />
           </span>
           {nodes.map((n, i) => (
             <li key={n.title} className="relative flex gap-4 md:block">
               <Rise delay={0.15 + i * 0.2} className="relative z-10 shrink-0">
-                <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#04240A] text-lg font-bold tabular-nums text-[#F4D27A] ring-4 ring-white shadow-[0_10px_24px_-10px_rgba(4,36,10,0.8)]">
+                <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-full bg-[#11421A] text-lg font-bold tabular-nums text-[#F4D27A] ring-4 ring-white shadow-[0_10px_24px_-10px_rgba(17,66,26,0.8)]">
                   {i + 1}
                 </span>
               </Rise>
               <Rise delay={0.2 + i * 0.2} className="min-w-0 flex-1 md:mt-5">
                 <div className={cn(card, "group h-full p-6")}>
                   <Tile icon={n.icon} />
-                  <h3 className="mt-4 text-xl font-bold text-[#0A2E10]">{n.title}</h3>
+                  <h3 className="mt-4 text-xl font-bold text-[#164D20]">{n.title}</h3>
                   <p className="mt-2 leading-relaxed text-gray-600">{n.body}</p>
                 </div>
               </Rise>
@@ -656,7 +656,7 @@ function Funds() {
       <Headline id="funds-title" kicker="RSA funds" title="Which fund is your money in?" mark="your money" intro="Every PFA runs the same set of RSA funds. Which one you’re in depends on your age and situation. Try it." dark />
       <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
         <div className="h-fit lg:sticky lg:top-[170px] lg:col-span-5">
-          <div className="relative overflow-hidden rounded-3xl bg-white p-6 text-[#0A2E10] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)] sm:p-7">
+          <div className="relative overflow-hidden rounded-3xl bg-white p-6 text-[#164D20] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)] sm:p-7">
             <span aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#CB9615] to-transparent" />
             <fieldset>
               <legend className="text-lg font-bold">I am…</legend>
@@ -672,7 +672,7 @@ function Funds() {
                           on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6]",
                         )}
                       >
-                        {on && <motion.span layoutId="fund-status-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                        {on && <motion.span layoutId="fund-status-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#105D1D] to-[#14892A]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                         <input type="radio" name="fund-status" value={v} checked={on} onChange={() => setStatus(v)} className="sr-only" />
                         <span aria-hidden="true" className={cn("relative flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2", on ? "border-[#F4D27A]" : "border-gray-400")}>
                           {on && <span className="h-2.5 w-2.5 rounded-full bg-[#F4D27A]" />}
@@ -687,7 +687,7 @@ function Funds() {
             <div className={cn("mt-6 transition-opacity", status !== "working" && "pointer-events-none opacity-40")}>
               <label htmlFor="fund-age" className="flex items-baseline justify-between text-lg font-bold">
                 My age
-                <span className="rounded-lg bg-[#E8F5E9] px-3 py-0.5 font-bold tabular-nums text-[#0A4A13]">{age}</span>
+                <span className="rounded-lg bg-[#E8F5E9] px-3 py-0.5 font-bold tabular-nums text-[#105D1D]">{age}</span>
               </label>
               <input
                 id="fund-age"
@@ -698,11 +698,11 @@ function Funds() {
                 disabled={status !== "working"}
                 onChange={(e) => setAge(Number(e.target.value))}
                 className={cn("mt-4 h-2.5 w-full cursor-pointer appearance-none rounded-full focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[6px] focus-visible:outline-[#FFD84D]", thumb)}
-                style={{ background: `linear-gradient(to right, #117F21, #CB9615 ${pct}%, #E5E7EB ${pct}%)` }}
+                style={{ background: `linear-gradient(to right, #14892A, #CB9615 ${pct}%, #E5E7EB ${pct}%)` }}
               />
             </div>
             <label className="mt-6 flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl border border-gray-200/80 bg-[#F4F7F2] p-4">
-              <input type="checkbox" checked={nonInterest} onChange={(e) => setNonInterest(e.target.checked)} className="h-5 w-5 shrink-0 accent-[#117F21]" />
+              <input type="checkbox" checked={nonInterest} onChange={(e) => setNonInterest(e.target.checked)} className="h-5 w-5 shrink-0 accent-[#14892A]" />
               <span className="font-semibold">I want non-interest (ethical) investments</span>
             </label>
             <p className="mt-5 text-sm leading-relaxed text-gray-600">A simplified guide. Your PFA can confirm which fund you are in and help you move between funds where the rules allow.</p>
@@ -719,16 +719,16 @@ function Funds() {
                 layout
                 className={cn(
                   "relative overflow-hidden rounded-3xl p-6 ring-1 backdrop-blur-sm transition-[background-color,box-shadow,color] duration-300",
-                  mine ? "bg-white text-[#0A2E10] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.7)] ring-transparent" : open ? "bg-white/[0.09] ring-[#F4D27A]/60" : "bg-white/[0.06] ring-white/10",
+                  mine ? "bg-white text-[#164D20] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.7)] ring-transparent" : open ? "bg-white/[0.09] ring-[#F4D27A]/60" : "bg-white/[0.06] ring-white/10",
                 )}
               >
                 {mine && <motion.span layoutId="fund-mine-bar" aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#CB9615]" />}
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className={cn("text-2xl font-black tabular-nums", mine ? "text-[#0A4A13]" : "text-[#F4D27A]")}>Fund {f.key}</span>
-                  {mine && <span className="rounded-full bg-[#04240A] px-3 py-1 text-xs font-bold text-[#F4D27A]">Your fund</span>}
+                  <span className={cn("text-2xl font-black tabular-nums", mine ? "text-[#105D1D]" : "text-[#F4D27A]")}>Fund {f.key}</span>
+                  {mine && <span className="rounded-full bg-[#11421A] px-3 py-1 text-xs font-bold text-[#F4D27A]">Your fund</span>}
                   {open && <span className="rounded-full px-3 py-1 text-xs font-bold text-[#F4D27A] ring-1 ring-[#F4D27A]/70">You can choose this</span>}
                 </div>
-                <p className={cn("mt-3 font-semibold", mine ? "text-[#0A2E10]" : "text-white")}>{f.who}</p>
+                <p className={cn("mt-3 font-semibold", mine ? "text-[#164D20]" : "text-white")}>{f.who}</p>
                 <p className={cn("mt-1 text-sm leading-relaxed", mine ? "text-gray-600" : "text-white/80")}>{f.note}</p>
               </motion.li>
             );
@@ -753,7 +753,7 @@ function Performance() {
               {/* Decorative bars that grow when the card comes into view. */}
               <div aria-hidden="true" className="absolute bottom-8 right-8 hidden h-24 items-end gap-2 sm:flex">
                 {[40, 62, 50, 78, 92].map((h, i) => (
-                  <motion.span key={i} className="w-3 origin-bottom rounded-t bg-gradient-to-t from-[#117F21] to-[#F4D27A]/80" style={{ height: `${h}%` }} initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease }} />
+                  <motion.span key={i} className="w-3 origin-bottom rounded-t bg-gradient-to-t from-[#14892A] to-[#F4D27A]/80" style={{ height: `${h}%` }} initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease }} />
                 ))}
               </div>
               <div className="relative sm:pr-24">
@@ -774,7 +774,7 @@ function Performance() {
             <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FDE8E8] text-[#B52026]">
               <MessageSquareWarning className="h-6 w-6" aria-hidden="true" />
             </span>
-            <h2 className="mt-5 text-xl font-bold text-[#0A2E10]">Problem with an operator?</h2>
+            <h2 className="mt-5 text-xl font-bold text-[#164D20]">Problem with an operator?</h2>
             <p className="mt-2 leading-relaxed text-gray-600">Complain to the operator first. If it isn’t resolved, or someone unlicensed approaches you, tell PenCom.</p>
             <div className="mt-auto pt-6">
               <Link to="/connect#report" className={cn("group w-full sm:w-auto", outlineBtn)}>

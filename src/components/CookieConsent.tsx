@@ -11,8 +11,8 @@ type Prefs = { necessary: boolean; analytics: boolean; personalization: boolean;
 
 const focus = "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]";
 const gold = cn("inline-flex min-h-12 items-center justify-center rounded-xl bg-[#CB9615] px-6 text-base font-semibold text-[#1A1206] shadow-[0_14px_30px_-16px_rgba(203,150,21,0.9)] transition hover:bg-[#E0AA22]", focus);
-const outline = cn("inline-flex min-h-12 items-center justify-center rounded-xl border border-[#117F21]/25 bg-white px-6 text-base font-semibold text-[#117F21] transition hover:border-[#117F21] hover:bg-[#F7FAF6]", focus);
-const quiet = cn("inline-flex min-h-12 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-5 text-base font-semibold text-gray-700 transition hover:bg-[#F4F7F2] hover:text-[#0A2E10]", focus);
+const outline = cn("inline-flex min-h-12 items-center justify-center rounded-xl border border-[#14892A]/25 bg-white px-6 text-base font-semibold text-[#117F21] transition hover:border-[#14892A] hover:bg-[#F7FAF6]", focus);
+const quiet = cn("inline-flex min-h-12 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-5 text-base font-semibold text-gray-700 transition hover:bg-[#F4F7F2] hover:text-[#164D20]", focus);
 
 const options: { key: Exclude<keyof Prefs, "necessary">; label: string; note: string }[] = [
   { key: "analytics", label: "Analytics", note: "Help us understand how you use our website" },
@@ -23,7 +23,7 @@ const options: { key: Exclude<keyof Prefs, "necessary">; label: string; note: st
 /** A switch drawn as a pill; the button carries role="switch" and aria-checked. */
 function Switch({ on, label, onToggle }: { on: boolean; label?: string; onToggle?: () => void }) {
   const knob = (
-    <span aria-hidden="true" className={cn("relative block h-8 w-14 shrink-0 rounded-full transition-colors", on ? "bg-[#117F21]" : "bg-gray-400")}>
+    <span aria-hidden="true" className={cn("relative block h-8 w-14 shrink-0 rounded-full transition-colors", on ? "bg-[#14892A]" : "bg-gray-400")}>
       <span className={cn("absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-[left]", on ? "left-7" : "left-1")} />
     </span>
   );
@@ -108,11 +108,11 @@ export default function CookieConsent() {
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-x-0 bottom-0 z-[100] p-3 sm:p-5 print:hidden"
         >
-          <div className="relative mx-auto max-h-[calc(100svh-7rem)] max-w-5xl overflow-y-auto rounded-3xl border border-gray-200/80 bg-white p-5 text-[#0A2E10] shadow-[0_30px_70px_-20px_rgba(10,74,19,0.55)] sm:p-7">
-            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#117F21] via-[#CB9615] to-[#117F21]" />
+          <div className="relative mx-auto max-h-[calc(100svh-7rem)] max-w-5xl overflow-y-auto rounded-3xl border border-gray-200/80 bg-white p-5 text-[#164D20] shadow-[0_30px_70px_-20px_rgba(16,93,29,0.55)] sm:p-7">
+            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-[#14892A] via-[#CB9615] to-[#14892A]" />
             <div className="flex items-start justify-between gap-3">
               <h3 id="cookie-title" className="flex items-center gap-3 text-xl font-bold">
-                <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#04240A] text-[#F4D27A]">
+                <span aria-hidden="true" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#11421A] text-[#F4D27A]">
                   {showManage ? <Settings className="h-5 w-5" /> : <Cookie className="h-5 w-5" />}
                 </span>
                 {showManage ? "Manage Cookies" : "Cookies"}
@@ -121,7 +121,7 @@ export default function CookieConsent() {
                 type="button"
                 onClick={showManage ? () => setShowManage(false) : handleClose}
                 aria-label={showManage ? "Back" : "Close cookie consent"}
-                className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gray-200 text-gray-600 transition hover:bg-[#F7FAF6] hover:text-[#0A2E10]", focus)}
+                className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gray-200 text-gray-600 transition hover:bg-[#F7FAF6] hover:text-[#164D20]", focus)}
               >
                 <X className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -145,7 +145,7 @@ export default function CookieConsent() {
                     cookies.
                   </p>
                   <p className="mt-2 text-base">
-                    <Link to="/regulations#policies" className={cn("rounded font-semibold text-[#0A4A13] underline underline-offset-4 hover:text-[#117F21]", focus)}>
+                    <Link to="/regulations#policies" className={cn("rounded font-semibold text-[#105D1D] underline underline-offset-4 hover:text-[#117F21]", focus)}>
                       See our Privacy & Cookie Policy
                     </Link>
                   </p>

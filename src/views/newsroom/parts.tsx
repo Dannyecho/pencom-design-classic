@@ -20,12 +20,12 @@ export const ease = [0.22, 1, 0.36, 1] as const;
 export const focus = "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]";
 
 export const look: Record<Kind, { icon: LucideIcon; chip: string; dot: string }> = {
-  "Press release": { icon: Megaphone, chip: "bg-[#E8F5E9] text-[#0A4A13]", dot: "bg-[#117F21]" },
+  "Press release": { icon: Megaphone, chip: "bg-[#E8F5E9] text-[#105D1D]", dot: "bg-[#14892A]" },
   Statement: { icon: FileText, chip: "bg-[#E6F1FB] text-[#0B4F8A]", dot: "bg-[#1E88E5]" },
   Speech: { icon: Mic, chip: "bg-[#F1EAFB] text-[#5B2E91]", dot: "bg-[#7E57C2]" },
   Event: { icon: CalendarDays, chip: "bg-[#FAEEDA] text-[#854F0B]", dot: "bg-[#D97706]" },
   Reports: { icon: BarChart3, chip: "bg-[#FFF2CC] text-[#7A5200]", dot: "bg-[#CB9615]" },
-  Regulation: { icon: Scale, chip: "bg-[#EEF6EE] text-[#0A4A13]", dot: "bg-[#0A4A13]" },
+  Regulation: { icon: Scale, chip: "bg-[#EEF6EE] text-[#105D1D]", dot: "bg-[#105D1D]" },
   "Media coverage": { icon: Tv, chip: "bg-[#FCEBEB] text-[#A32D2D]", dot: "bg-[#D32F2F]" },
 };
 
@@ -64,13 +64,13 @@ export function Banner({ lead }: { lead: NewsItem }) {
       alt={t(lead.imageAlt)}
       actions={
         <article aria-labelledby="lead-title" className="group relative w-full max-w-xl">
-          <div className="relative flex items-center gap-4 rounded-2xl border border-white/15 bg-[#021a07]/70 p-4 backdrop-blur-md transition duration-300 group-hover:-translate-y-0.5 group-hover:border-[#F4D27A]/60 sm:p-5">
+          <div className="relative flex items-center gap-4 rounded-2xl border border-white/15 bg-[#0D3416]/70 p-4 backdrop-blur-md transition duration-300 group-hover:-translate-y-0.5 group-hover:border-[#F4D27A]/60 sm:p-5">
             <div className="min-w-0 flex-1">
               <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-white/85">
                 <span className="inline-flex items-center gap-2 rounded-full bg-[#CB9615] px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1A1206]">
                   <span className="relative flex h-2 w-2" aria-hidden="true">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#04240A]/60 [animation-iteration-count:3]" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#04240A]" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#11421A]/60 [animation-iteration-count:3]" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-[#11421A]" />
                   </span>
                   Top story
                 </span>
@@ -118,7 +118,7 @@ export function FilterPanel({
     ...kinds.filter((k) => counts[k.id] > 0).map((k) => ({ id: k.id, label: k.label, n: counts[k.id], icon: look[k.id].icon })),
   ];
   const select = cn(
-    "min-h-12 w-full appearance-none rounded-xl border border-gray-200 bg-[#F7FAF6] pl-4 pr-10 text-base font-semibold text-[#0A2E10] transition hover:border-[#117F21]",
+    "min-h-12 w-full appearance-none rounded-xl border border-gray-200 bg-[#F7FAF6] pl-4 pr-10 text-base font-semibold text-[#164D20] transition hover:border-[#14892A]",
     focus,
   );
   const fieldLabel = "block text-sm font-semibold text-gray-700";
@@ -127,7 +127,7 @@ export function FilterPanel({
     <div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-12 lg:items-end">
         <form role="search" onSubmit={submit} className="lg:col-span-8">
-          <label htmlFor="news-search" className="block text-base font-bold text-[#0A2E10]">
+          <label htmlFor="news-search" className="block text-base font-bold text-[#164D20]">
             Search the news
           </label>
           <div className="mt-2 flex flex-col gap-2 sm:flex-row">
@@ -140,7 +140,7 @@ export function FilterPanel({
                 onChange={(e) => setText(e.target.value)}
                 placeholder={t("Search the news, e.g. “Pencare” or “report”")}
                 className={cn(
-                  "min-h-12 w-full rounded-xl border border-gray-200 bg-[#F4F7F2] pl-12 pr-12 text-base text-[#0A2E10] transition placeholder:text-gray-600 hover:border-[#117F21]/50 focus:bg-white focus:outline-none [&::-webkit-search-cancel-button]:hidden",
+                  "min-h-12 w-full rounded-xl border border-gray-200 bg-[#F4F7F2] pl-12 pr-12 text-base text-[#164D20] transition placeholder:text-gray-600 hover:border-[#14892A]/50 focus:bg-white focus:outline-none [&::-webkit-search-cancel-button]:hidden",
                   focus,
                 )}
               />
@@ -149,7 +149,7 @@ export function FilterPanel({
                   type="button"
                   onClick={() => { setText(""); onSearch(""); }}
                   aria-label={t("Clear search")}
-                  className={cn("absolute right-0.5 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg text-gray-600 transition hover:bg-[#E8F5E9] hover:text-[#0A4A13]", focus)}
+                  className={cn("absolute right-0.5 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg text-gray-600 transition hover:bg-[#E8F5E9] hover:text-[#105D1D]", focus)}
                 >
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>
@@ -195,9 +195,9 @@ export function FilterPanel({
               type="button"
               aria-pressed={on}
               onClick={() => setKind(c.id)}
-              className={cn("relative flex min-h-11 shrink-0 items-center gap-2 rounded-xl px-3.5 text-sm font-semibold transition sm:text-base", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]", focus)}
+              className={cn("relative flex min-h-11 shrink-0 items-center gap-2 rounded-xl px-3.5 text-sm font-semibold transition sm:text-base", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]", focus)}
             >
-              {on && <motion.span layoutId="news-kind-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_10px_24px_-12px_rgba(10,74,19,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+              {on && <motion.span layoutId="news-kind-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_10px_24px_-12px_rgba(16,93,29,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
               <c.icon className={cn("relative h-4 w-4", on ? "text-[#F4D27A]" : "text-[#117F21]")} aria-hidden="true" />
               <span className="relative">{t(c.label)}</span>
               <span className={cn("relative min-w-[1.75rem] rounded-full px-1.5 text-center text-xs font-bold tabular-nums leading-5", on ? "bg-[#F4D27A] text-[#1A1206]" : "bg-[#F4F7F2] text-gray-700")}>{c.n}</span>
@@ -220,9 +220,9 @@ export function ViewSwitch({ view, setView }: { view: View; setView: (v: View) =
           type="button"
           aria-pressed={view === v}
           onClick={() => setView(v)}
-          className={cn("relative flex min-h-11 items-center gap-2 rounded-xl px-4 text-base font-semibold transition", view === v ? "text-white" : "text-gray-700 hover:text-[#0A4A13]", focus)}
+          className={cn("relative flex min-h-11 items-center gap-2 rounded-xl px-4 text-base font-semibold transition", view === v ? "text-white" : "text-gray-700 hover:text-[#105D1D]", focus)}
         >
-          {view === v && <motion.span layoutId="news-view-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+          {view === v && <motion.span layoutId="news-view-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#105D1D] to-[#14892A]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
           <Icon className={cn("relative h-4 w-4", view === v ? "text-[#F4D27A]" : "text-[#117F21]")} aria-hidden="true" />
           <span className="relative">{t(label)}</span>
         </button>
@@ -241,7 +241,7 @@ export function ResultStatus({ shown, total, q, active, clear }: { shown: number
         {q && <> {t("for “{q}”", { q })}</>}
       </p>
       {active && (
-        <button type="button" onClick={clear} className={cn("inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-4 text-sm font-semibold text-[#0A2E10] transition hover:border-[#117F21] hover:text-[#117F21]", focus)}>
+        <button type="button" onClick={clear} className={cn("inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-4 text-sm font-semibold text-[#164D20] transition hover:border-[#14892A] hover:text-[#117F21]", focus)}>
           <X className="h-4 w-4" aria-hidden="true" />
           Clear filters
         </button>
@@ -261,9 +261,9 @@ export function Latest({ main, side, video }: { main: NewsItem; side: NewsItem[]
         <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-12">
           <Rise className="lg:col-span-7">
             <Tilt className="h-full">
-              <article aria-labelledby="latest-lead" className="group relative h-full min-h-[440px] overflow-hidden rounded-3xl bg-[#04240A] text-white">
+              <article aria-labelledby="latest-lead" className="group relative h-full min-h-[440px] overflow-hidden rounded-3xl bg-[#11421A] text-white">
                 <img src={cardImage(main.image)} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-80 transition [transition-duration:1200ms] group-hover:scale-105" />
-                <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#04240A] via-[#04240A]/80 via-45% to-transparent" />
+                <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#11421A] via-[#11421A]/80 via-45% to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 sm:p-9">
                   <p className="flex flex-wrap items-center gap-3 text-sm text-white/85">
                     <span className="rounded-full bg-[#CB9615] px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-[#1A1206]">{t(main.kind)}</span>
@@ -301,7 +301,7 @@ export function Latest({ main, side, video }: { main: NewsItem; side: NewsItem[]
                       <KindChip kind={n.kind} />
                       <time dateTime={n.date}>{n.dateLabel}</time>
                     </p>
-                    <h3 className="mt-2 font-bold leading-snug text-[#0A2E10] transition group-hover:text-[#117F21] sm:text-lg">
+                    <h3 className="mt-2 font-bold leading-snug text-[#164D20] transition group-hover:text-[#117F21] sm:text-lg">
                       <Link to={n.to} className={cn("rounded after:absolute after:inset-0 after:rounded-3xl after:content-['']", focus)}>
                         {t(n.title)}
                       </Link>
@@ -312,9 +312,9 @@ export function Latest({ main, side, video }: { main: NewsItem; side: NewsItem[]
             ))}
             {video && (
               <Rise delay={0.08 * (side.length + 1)}>
-                <article className="group relative overflow-hidden rounded-3xl bg-[#04240A] text-white">
+                <article className="group relative overflow-hidden rounded-3xl bg-[#11421A] text-white">
                   <img src={video.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-60 transition duration-700 group-hover:scale-105" />
-                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#04240A] via-[#04240A]/85 to-[#04240A]/30" />
+                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#11421A] via-[#11421A]/85 to-[#11421A]/30" />
                   <div className="relative flex items-center gap-4 p-5">
                     <span aria-hidden="true" className="relative flex h-14 w-14 shrink-0 items-center justify-center">
                       <span className="absolute inset-0 animate-ping rounded-full bg-[#F4D27A]/30 [animation-iteration-count:3]" />
@@ -389,8 +389,8 @@ export function NewsList({ list, onShare }: { list: NewsItem[]; onShare: (i: New
       {byMonth(list).map((g) => (
         <div key={g.key}>
           <div className="flex items-center gap-3">
-            <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#0A4A13]">{g.label}</h3>
-            <span aria-hidden="true" className="h-px flex-1 bg-gradient-to-r from-[#117F21]/40 via-[#CB9615]/40 to-transparent" />
+            <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#105D1D]">{g.label}</h3>
+            <span aria-hidden="true" className="h-px flex-1 bg-gradient-to-r from-[#14892A]/40 via-[#CB9615]/40 to-transparent" />
             <span className="rounded-full border border-gray-200 bg-white px-2.5 py-0.5 text-xs font-bold tabular-nums text-gray-700" aria-hidden="true">{g.items.length}</span>
           </div>
           <Spotlight className="mt-3 rounded-3xl border border-gray-200/80 bg-white">
@@ -418,7 +418,7 @@ function NewsRow({ item, onShare }: { item: NewsItem; onShare: (i: NewsItem) => 
   const video = item.kind === "Media coverage";
   return (
     <article className="group relative flex items-start gap-4 px-4 py-4 transition hover:bg-[#F7FAF6] sm:gap-5 sm:px-5">
-      <span aria-hidden="true" className="absolute inset-y-3 left-0 w-1 origin-top scale-y-0 rounded-r-full bg-gradient-to-b from-[#117F21] to-[#CB9615] transition-transform duration-300 group-hover:scale-y-100" />
+      <span aria-hidden="true" className="absolute inset-y-3 left-0 w-1 origin-top scale-y-0 rounded-r-full bg-gradient-to-b from-[#14892A] to-[#CB9615] transition-transform duration-300 group-hover:scale-y-100" />
       <div className="relative aspect-[4/3] w-24 shrink-0 overflow-hidden rounded-2xl bg-[#E8F5E9] sm:aspect-video sm:w-44">
         <img src={cardImage(item.image)} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
         {video && <PlayMark small />}
@@ -431,7 +431,7 @@ function NewsRow({ item, onShare }: { item: NewsItem; onShare: (i: NewsItem) => 
           <span className="hidden sm:inline">{t(item.meta)}</span>
           {item.attachment && <PdfTag />}
         </p>
-        <h4 className="mt-2 text-lg font-bold leading-snug text-[#0A2E10] transition-colors group-hover:text-[#117F21] sm:text-xl">
+        <h4 className="mt-2 text-lg font-bold leading-snug text-[#164D20] transition-colors group-hover:text-[#117F21] sm:text-xl">
           <Link to={item.to} className={cn("rounded after:absolute after:inset-0 after:content-['']", focus)}>
             {t(item.title)}
           </Link>
@@ -451,7 +451,7 @@ export function NewsCard({ item, onShare }: { item: NewsItem; onShare: (i: NewsI
   const video = item.kind === "Media coverage";
   return (
     <article className={cn(card, "group relative flex h-full flex-col overflow-hidden")}>
-      <span aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-1 origin-left scale-x-0 bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
+      <span aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-1 origin-left scale-x-0 bg-gradient-to-r from-[#14892A] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
       <div className="relative aspect-[16/10] overflow-hidden bg-[#E8F5E9]">
         <img src={cardImage(item.image)} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105" />
         {video && <PlayMark />}
@@ -467,7 +467,7 @@ export function NewsCard({ item, onShare }: { item: NewsItem; onShare: (i: NewsI
           <span aria-hidden="true">·</span>
           <span>{t(item.meta)}</span>
         </p>
-        <h3 className="mt-2 text-xl font-bold leading-snug tracking-tight text-[#0A2E10] transition-colors group-hover:text-[#117F21]">
+        <h3 className="mt-2 text-xl font-bold leading-snug tracking-tight text-[#164D20] transition-colors group-hover:text-[#117F21]">
           <Link to={item.to} className={cn("rounded after:absolute after:inset-0 after:rounded-3xl after:content-['']", focus)}>
             {t(item.title)}
           </Link>
@@ -493,7 +493,7 @@ function ShareButton({ item, onShare }: { item: NewsItem; onShare: (i: NewsItem)
       onClick={() => onShare(item)}
       aria-label={`${t("Share")}: ${t(item.title)}`}
       data-i18n-done
-      className={cn("relative z-10 inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xl border border-gray-200 bg-white px-3.5 text-sm font-semibold text-gray-700 transition hover:border-[#117F21] hover:text-[#117F21]", focus)}
+      className={cn("relative z-10 inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xl border border-gray-200 bg-white px-3.5 text-sm font-semibold text-gray-700 transition hover:border-[#14892A] hover:text-[#117F21]", focus)}
     >
       <Share2 className="h-4 w-4" aria-hidden="true" />
       <span aria-hidden="true">{t("Share")}</span>
@@ -512,7 +512,7 @@ export function Toast({ text }: { text: string | null }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="inline-flex items-center gap-2.5 rounded-2xl bg-[#04240A] px-5 py-3 text-base font-semibold text-white shadow-xl ring-1 ring-white/10"
+            className="inline-flex items-center gap-2.5 rounded-2xl bg-[#11421A] px-5 py-3 text-base font-semibold text-white shadow-xl ring-1 ring-white/10"
           >
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F4D27A] text-[#1A1206]">
               <Check className="h-4 w-4" aria-hidden="true" />
@@ -529,7 +529,7 @@ export function Empty({ clear }: { clear: () => void }) {
   return (
     <div className="group rounded-3xl border-2 border-dashed border-gray-200 bg-white px-6 py-14 text-center">
       <Tile icon={Search} size="lg" className="mx-auto" />
-      <h3 className="mt-5 text-2xl font-bold tracking-tight text-[#0A2E10]">No news matches your search</h3>
+      <h3 className="mt-5 text-2xl font-bold tracking-tight text-[#164D20]">No news matches your search</h3>
       <p className="mx-auto mt-2 max-w-md text-base text-gray-600">Try a different word, choose another year, or look in the regulatory library for circulars and guidelines.</p>
       <div className="mt-7 flex flex-wrap justify-center gap-3">
         <button type="button" onClick={clear} className={goldBtn}>
@@ -584,10 +584,10 @@ export function Galleries() {
               <li key={g.id} className="w-[78%] shrink-0 snap-start sm:w-[44%] lg:w-auto">
                 <Rise delay={i * 0.06} className="h-full">
                   <Link to={g.to} className={cn("group flex h-full flex-col rounded-3xl", focus)}>
-                    <span className="relative block aspect-[4/5] overflow-hidden rounded-3xl bg-[#04240A] shadow-[0_24px_50px_-30px_rgba(4,36,10,0.7)]">
+                    <span className="relative block aspect-[4/5] overflow-hidden rounded-3xl bg-[#11421A] shadow-[0_24px_50px_-30px_rgba(17,66,26,0.7)]">
                       {main && <img src={main.src} alt={main.alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition [transition-duration:1200ms] group-hover:scale-105" />}
-                      <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#04240A]/70 to-transparent" />
-                      <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-[#04240A]/85 px-3 py-1 text-xs font-bold text-white ring-1 ring-white/15 backdrop-blur">
+                      <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#11421A]/70 to-transparent" />
+                      <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-[#11421A]/85 px-3 py-1 text-xs font-bold text-white ring-1 ring-white/15 backdrop-blur">
                         <Images className="h-3.5 w-3.5 text-[#F4D27A]" aria-hidden="true" />
                         <span data-i18n-done>{t("{n} photos", { n: g.count })}</span>
                       </span>
@@ -604,7 +604,7 @@ export function Galleries() {
                         ))}
                       </span>
                     </span>
-                    <span className="mt-4 block px-1 text-xl font-bold leading-snug text-[#0A2E10] transition-colors group-hover:text-[#117F21]">{t(g.title)}</span>
+                    <span className="mt-4 block px-1 text-xl font-bold leading-snug text-[#164D20] transition-colors group-hover:text-[#117F21]">{t(g.title)}</span>
                     <span className="mt-1 block flex-1 px-1 text-base leading-relaxed text-gray-600">{t(g.blurb)}</span>
                     <span className="mt-3 inline-flex items-center gap-2 px-1 font-semibold text-[#117F21]">
                       {t("See the photos")}
@@ -625,7 +625,7 @@ export function Galleries() {
 
 const deskCard = "relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm transition duration-300 hover:border-white/20 sm:p-7";
 const label = "text-xs font-bold uppercase tracking-[0.18em] text-[#F4D27A]";
-const deskTile = "flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#04240A] shadow-[0_12px_24px_-12px_rgba(203,150,21,0.9)]";
+const deskTile = "flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#11421A] shadow-[0_12px_24px_-12px_rgba(203,150,21,0.9)]";
 const deskRow = cn("group flex min-h-12 items-center gap-3 rounded-xl pr-3 transition hover:text-[#F4D27A]", focus);
 const deskIcon = "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15 transition group-hover:bg-[#F4D27A] group-hover:text-[#1A1206]";
 
@@ -653,7 +653,7 @@ export function MediaDesk() {
         </div>
         <dl className="grid grid-cols-3 gap-px overflow-hidden rounded-3xl bg-white/10 ring-1 ring-white/10 lg:col-span-5">
           {figures.map(([v, l, Icon], i) => (
-            <div key={l} className="group relative flex flex-col justify-between bg-[#04240A]/70 px-4 py-5 backdrop-blur sm:px-5">
+            <div key={l} className="group relative flex flex-col justify-between bg-[#11421A]/70 px-4 py-5 backdrop-blur sm:px-5">
               <motion.span
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-[#CB9615] to-[#F4D27A]"

@@ -4,8 +4,7 @@ import { useRef, useState } from "react";
 import { Link } from "@/lib/router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  ArrowRight, ArrowUpRight, BarChart3, Calendar, ChevronDown, MapPin, MessageCircle, MessageSquareWarning, Phone, Play,
-  Smartphone,
+  ArrowRight, ArrowUpRight, Calendar, ChevronDown, MapPin, MessageCircle, MessageSquareWarning, Phone, Play,
 } from "lucide-react";
 import { latestNews } from "@/lib/data";
 import { newsPath } from "@/views/news/data";
@@ -30,7 +29,7 @@ export function NewsMedia() {
           <SectionHeading id="news-title" eyebrow="News and media" title="Latest from PenCom" highlight="PenCom" />
           <Link
             to="/news"
-            className="group inline-flex min-h-11 w-fit items-center gap-2 rounded-xl border border-[#117F21]/25 bg-white px-4 py-2.5 text-sm font-semibold text-[#117F21] transition hover:border-[#117F21] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+            className="group inline-flex min-h-11 w-fit items-center gap-2 rounded-xl border border-[#14892A]/25 bg-white px-4 py-2.5 text-sm font-semibold text-[#117F21] transition hover:border-[#14892A] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
           >
             All news and events
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -42,10 +41,10 @@ export function NewsMedia() {
           <motion.article {...reveal} className="lg:col-span-7">
             <Link
               to={newsPath(lead)}
-              className="group relative block h-full min-h-[420px] overflow-hidden rounded-3xl bg-[#04240A] text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]"
+              className="group relative block h-full min-h-[420px] overflow-hidden rounded-3xl bg-[#11421A] text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]"
             >
               <img src={lead.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80 transition [transition-duration:1200ms] group-hover:scale-105" />
-              <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#04240A] via-[#04240A]/60 to-transparent" />
+              <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#11421A] via-[#11421A]/60 to-transparent" />
               <span className="absolute inset-x-0 bottom-0 p-7 sm:p-9">
                 <span className="flex items-center gap-3 text-xs">
                   <span className="rounded-full bg-[#CB9615] px-2.5 py-1 font-bold uppercase tracking-wider text-[#1A1206]">{lead.category}</span>
@@ -75,7 +74,7 @@ export function NewsMedia() {
               >
                 <Link
                   to={newsPath(n)}
-                  className="group flex h-full gap-5 overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-3 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_50px_-24px_rgba(10,74,19,0.4)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+                  className="group flex h-full gap-5 overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-3 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_50px_-24px_rgba(16,93,29,0.4)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
                 >
                   <span className="relative block flex-none overflow-hidden rounded-2xl bg-gray-100" style={{ width: "clamp(7rem, 30%, 11rem)" }}>
                     <img src={n.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110" />
@@ -85,7 +84,7 @@ export function NewsMedia() {
                       <span className="rounded-full bg-[#E8F5E9] px-2 py-0.5 font-bold uppercase tracking-wider text-[#117F21]">{n.category}</span>
                       <span className="text-gray-500">{fmt(n.date)}</span>
                     </span>
-                    <span className="mt-2 block font-semibold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{n.title}</span>
+                    <span className="mt-2 block font-semibold leading-snug text-[#164D20] group-hover:text-[#117F21]">{n.title}</span>
                     <span className="mt-1 line-clamp-2 text-sm text-gray-500">{n.excerpt}</span>
                   </span>
                 </Link>
@@ -93,7 +92,7 @@ export function NewsMedia() {
             ))}
 
             {/* Video */}
-            <motion.div {...reveal} className="relative overflow-hidden rounded-3xl bg-[#04240A]">
+            <motion.div {...reveal} className="relative overflow-hidden rounded-3xl bg-[#11421A]">
               {playing ? (
                 <video ref={videoRef} controls autoPlay poster="/images/site/video-poster-team.webp" className="aspect-video w-full" preload="metadata">
                   <source src="/highlight-video2.mp4" type="video/mp4" />
@@ -105,10 +104,10 @@ export function NewsMedia() {
                   className="group relative block aspect-video w-full text-left text-white focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]"
                 >
                   <img src="/images/site/video-poster-team.webp" alt="" className="absolute inset-0 h-full w-full object-cover opacity-70 transition duration-700 group-hover:scale-105" />
-                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#04240A] via-[#04240A]/30 to-transparent" />
+                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#11421A] via-[#11421A]/30 to-transparent" />
                   <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
                     <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-full bg-white/30 [animation-iteration-count:3]" />
-                    <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#0A4A13] shadow-2xl transition group-hover:scale-110">
+                    <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#105D1D] shadow-2xl transition group-hover:scale-110">
                       <Play className="ml-1 h-6 w-6 fill-current" aria-hidden="true" />
                     </span>
                   </span>
@@ -148,7 +147,7 @@ export function HelpFaq() {
                   transition={{ duration: 0.4, delay: i * 0.05, ease }}
                   className={cn(
                     "overflow-hidden rounded-2xl border transition-colors duration-300",
-                    isOpen ? "border-[#117F21]/30 bg-[#F7FAF6]" : "border-gray-200 bg-white hover:border-[#117F21]/30",
+                    isOpen ? "border-[#14892A]/30 bg-[#F7FAF6]" : "border-gray-200 bg-white hover:border-[#14892A]/30",
                   )}
                 >
                   <h3>
@@ -157,10 +156,10 @@ export function HelpFaq() {
                       aria-expanded={isOpen}
                       aria-controls={`faq-${i}`}
                       onClick={() => setOpen(isOpen ? null : i)}
-                      className="flex min-h-14 w-full items-center gap-4 px-5 py-4 text-left font-semibold text-[#0A2E10] focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]"
+                      className="flex min-h-14 w-full items-center gap-4 px-5 py-4 text-left font-semibold text-[#164D20] focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]"
                     >
                       <span className="flex-1">{f.question}</span>
-                      <span className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition", isOpen ? "rotate-180 bg-[#117F21] text-white" : "bg-gray-100 text-gray-500")}>
+                      <span className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition", isOpen ? "rotate-180 bg-[#14892A] text-white" : "bg-gray-100 text-gray-500")}>
                         <ChevronDown className="h-4 w-4" aria-hidden="true" />
                       </span>
                     </button>
@@ -190,7 +189,7 @@ export function HelpFaq() {
         <div className="space-y-4 lg:col-span-5 lg:pt-14">
           {/* Assistant */}
           <motion.div {...reveal}>
-            <Spotlight color="rgba(244,210,122,0.22)" className="rounded-3xl bg-gradient-to-br from-[#04240A] via-[#0A4A13] to-[#117F21] p-7 text-white">
+            <Spotlight color="rgba(244,210,122,0.22)" className="rounded-3xl bg-gradient-to-br from-[#11421A] via-[#105D1D] to-[#14892A] p-7 text-white">
               <GridBackdrop className="opacity-50" />
               <MessageCircle className="relative h-9 w-9 text-[#F4D27A]" aria-hidden="true" />
               <h3 className="relative mt-4 text-2xl font-bold">Ask PenCom Assistant</h3>
@@ -216,7 +215,7 @@ export function HelpFaq() {
                 <MessageSquareWarning className="h-6 w-6" aria-hidden="true" />
               </span>
               <span>
-                <span className="block text-lg font-bold text-[#0A2E10]">Lodge a complaint</span>
+                <span className="block text-lg font-bold text-[#164D20]">Lodge a complaint</span>
                 <span className="mt-1 block text-sm text-gray-600">Problems with your PFA, or an employer not remitting? We aim to resolve complaints within 14 working days.</span>
               </span>
               <ArrowUpRight className="ml-auto h-5 w-5 shrink-0 text-gray-300 transition group-hover:text-[#B52026]" aria-hidden="true" />
@@ -227,54 +226,22 @@ export function HelpFaq() {
           <motion.div {...reveal} className="grid grid-cols-2 gap-4">
             <a
               href="tel:094611300"
-              className="group rounded-3xl border border-gray-200 bg-white p-5 transition hover:border-[#117F21]/40 hover:shadow-lg focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+              className="group rounded-3xl border border-gray-200 bg-white p-5 transition hover:border-[#14892A]/40 hover:shadow-lg focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
             >
               <Phone className="h-5 w-5 text-[#117F21]" aria-hidden="true" />
               <span className="mt-3 block text-xs font-semibold uppercase tracking-wider text-gray-500">Call us</span>
-              <span className="mt-1 block font-bold text-[#0A2E10]">09-4611300</span>
+              <span className="mt-1 block font-bold text-[#164D20]">09-4611300</span>
             </a>
             <Link
               to="/connect#zonal-offices"
-              className="group rounded-3xl border border-gray-200 bg-white p-5 transition hover:border-[#117F21]/40 hover:shadow-lg focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
+              className="group rounded-3xl border border-gray-200 bg-white p-5 transition hover:border-[#14892A]/40 hover:shadow-lg focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
             >
               <MapPin className="h-5 w-5 text-[#117F21]" aria-hidden="true" />
               <span className="mt-3 block text-xs font-semibold uppercase tracking-wider text-gray-500">Visit us</span>
-              <span className="mt-1 block font-bold text-[#0A2E10]">Zonal offices</span>
+              <span className="mt-1 block font-bold text-[#164D20]">Zonal offices</span>
             </Link>
           </motion.div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────── Prototype links ─────────────────────────── */
-
-export function PrototypeLinks() {
-  const items = [
-    { to: "/mobile", icon: Smartphone, title: "PenCom mobile app", body: "Preview the Android and iOS app prototype", tone: "green" },
-    { to: "/admin", icon: BarChart3, title: "CMS admin dashboard", body: "Analytics, publishing and operator management", tone: "gold" },
-  ];
-  return (
-    <section aria-label="Prototypes" className="px-4 pb-20">
-      <div className="mx-auto grid grid-cols-1 max-w-7xl gap-4 md:grid-cols-2">
-        {items.map((it) => (
-          <motion.div key={it.to} {...reveal}>
-            <Link
-              to={it.to}
-              className="group flex items-center gap-5 rounded-3xl border border-gray-200 bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:border-[#117F21]/30 hover:shadow-[0_24px_50px_-24px_rgba(10,74,19,0.4)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#FFD84D]"
-            >
-              <span className={cn("flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl transition group-hover:scale-110", it.tone === "green" ? "bg-[#E8F5E9] text-[#117F21]" : "bg-[#FFF8E1] text-[#7A5200]")}>
-                <it.icon className="h-7 w-7" aria-hidden="true" />
-              </span>
-              <span className="flex-1">
-                <span className="block font-bold text-[#0A2E10]">{it.title}</span>
-                <span className="mt-0.5 block text-sm text-gray-500">{it.body}</span>
-              </span>
-              <ArrowRight className="h-5 w-5 text-gray-300 transition group-hover:translate-x-1 group-hover:text-[#117F21]" aria-hidden="true" />
-            </Link>
-          </motion.div>
-        ))}
       </div>
     </section>
   );

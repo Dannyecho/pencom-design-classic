@@ -42,7 +42,7 @@ export default function PerformancePage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <PerfHero />
         <AssetsBar range={range} setRange={setRange} />
         <TabStrip sections={sections} pillId="perf-nav-pill" />

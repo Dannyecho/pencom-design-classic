@@ -21,7 +21,7 @@ function Related({ label, docs, onOpen }: { label: string; docs: RegDoc[]; onOpe
             <button type="button" onClick={() => onOpen(d.id)} className={cn(listRow, "w-full items-start gap-3 py-3.5 text-left sm:px-5")}>
               <span aria-hidden="true" className={cn("mt-2 h-2.5 w-2.5 shrink-0 rounded-full", typeStyle[d.type].dot)} />
               <span className="min-w-0 flex-1">
-                <span className="block font-semibold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{d.title}</span>
+                <span className="block font-semibold leading-snug text-[#164D20] group-hover:text-[#117F21]">{d.title}</span>
                 <span className="mt-0.5 block font-mono text-sm text-gray-600">{d.type} · {fmtDate(d.date)}</span>
               </span>
               <ArrowRight aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-gray-400 transition group-hover:translate-x-0.5 group-hover:text-[#117F21]" />
@@ -98,7 +98,7 @@ export default function DocDrawer({ id, onClose, onOpen }: { id: string | null; 
 
             <div className="space-y-7 px-6 py-7 sm:px-8">
               {d.status === "Revised version available" && supersededBy[0] && (
-                <div className="relative flex gap-3 overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-4 pl-5 text-base text-[#0A2E10]">
+                <div className="relative flex gap-3 overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-4 pl-5 text-base text-[#164D20]">
                   <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#B52026]" />
                   <ArrowLeftRight className="mt-0.5 h-5 w-5 shrink-0 text-[#8E1A1E]" aria-hidden="true" />
                   <p>
@@ -127,7 +127,7 @@ export default function DocDrawer({ id, onClose, onOpen }: { id: string | null; 
                       <m.icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                       {m.k}
                     </dt>
-                    <dd className={cn("mt-1 font-semibold text-[#0A2E10]", !m.v && "text-sm font-normal italic text-gray-600")}>
+                    <dd className={cn("mt-1 font-semibold text-[#164D20]", !m.v && "text-sm font-normal italic text-gray-600")}>
                       {m.v ?? "To be added from the CMS"}
                     </dd>
                   </div>

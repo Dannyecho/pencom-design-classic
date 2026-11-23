@@ -45,21 +45,21 @@ const booklets = publications
 
 type Tone = "green" | "gold" | "mint";
 const toneBg: Record<Tone, string> = {
-  green: "bg-gradient-to-br from-[#04240A] via-[#0A4A13] to-[#117F21] text-white",
+  green: "bg-gradient-to-br from-[#11421A] via-[#105D1D] to-[#14892A] text-white",
   gold: "bg-[#F4D27A] text-[#1A1206]",
-  mint: "bg-[#E8F5E9] text-[#0A4A13] ring-1 ring-inset ring-[#0A4A13]/15",
+  mint: "bg-[#E8F5E9] text-[#105D1D] ring-1 ring-inset ring-[#105D1D]/15",
 };
 
 /** A large cover for the three latest titles: wide on phones, a portrait book from `sm` up. */
 function Cover({ p, label, big, tone }: { p: Publication; label: string; big: string; tone: Tone }) {
-  const sub = { green: "text-white/80", gold: "text-[#1A1206]/80", mint: "text-[#0A4A13]/80" }[tone];
-  const bar = { green: "bg-[#F4D27A]", gold: "bg-[#0A4A13]", mint: "bg-[#CB9615]" }[tone];
-  const tag = { green: "bg-[#CB9615] text-[#1A1206]", gold: "bg-[#04240A] text-[#F4D27A]", mint: "bg-[#04240A] text-[#F4D27A]" }[tone];
+  const sub = { green: "text-white/80", gold: "text-[#1A1206]/80", mint: "text-[#105D1D]/80" }[tone];
+  const bar = { green: "bg-[#F4D27A]", gold: "bg-[#105D1D]", mint: "bg-[#CB9615]" }[tone];
+  const tag = { green: "bg-[#CB9615] text-[#1A1206]", gold: "bg-[#11421A] text-[#F4D27A]", mint: "bg-[#11421A] text-[#F4D27A]" }[tone];
   return (
     <a href={p.pdf} target="_blank" rel="noopener noreferrer" className={cn("group block rounded-2xl", focus)}>
       <span
         className={cn(
-          "relative isolate block aspect-[16/10] w-full overflow-hidden rounded-r-2xl rounded-l-md p-5 shadow-[0_24px_44px_-26px_rgba(10,74,19,0.6)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_36px_60px_-30px_rgba(10,74,19,0.7)] sm:aspect-[3/4] sm:p-6",
+          "relative isolate block aspect-[16/10] w-full overflow-hidden rounded-r-2xl rounded-l-md p-5 shadow-[0_24px_44px_-26px_rgba(16,93,29,0.6)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_36px_60px_-30px_rgba(16,93,29,0.7)] sm:aspect-[3/4] sm:p-6",
           toneBg[tone],
         )}
       >
@@ -91,11 +91,11 @@ function Thumb({ tone, children, empty = false }: { tone: Tone; children: ReactN
       aria-hidden="true"
       className={cn(
         "relative flex h-14 w-11 shrink-0 flex-col justify-end overflow-hidden rounded-r-lg rounded-l-sm px-1.5 pb-1.5 text-xs font-bold leading-none transition duration-300",
-        empty ? "border-2 border-dashed border-gray-300 text-gray-500" : cn(toneBg[tone], "shadow-[0_10px_20px_-12px_rgba(10,74,19,0.8)] group-hover:-translate-y-0.5 group-hover:-rotate-6"),
+        empty ? "border-2 border-dashed border-gray-300 text-gray-500" : cn(toneBg[tone], "shadow-[0_10px_20px_-12px_rgba(16,93,29,0.8)] group-hover:-translate-y-0.5 group-hover:-rotate-6"),
       )}
     >
       {!empty && <span className="absolute inset-y-0 left-0 w-1 bg-black/15" />}
-      {!empty && <span className={cn("absolute left-2 top-2 h-0.5 w-4 rounded-full", tone === "gold" ? "bg-[#0A4A13]" : "bg-[#CB9615]")} />}
+      {!empty && <span className={cn("absolute left-2 top-2 h-0.5 w-4 rounded-full", tone === "gold" ? "bg-[#105D1D]" : "bg-[#CB9615]")} />}
       <span className="relative">{children}</span>
     </span>
   );
@@ -107,12 +107,12 @@ function PubRow({ href, thumb, title, sub, date, srTitle }: { href: string; thum
     <a href={href} target="_blank" rel="noopener noreferrer" className={cn(listRow, "min-h-[4.5rem] py-3")}>
       {thumb}
       <span className="min-w-0 flex-1">
-        <span className="block font-semibold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{title}</span>
+        <span className="block font-semibold leading-snug text-[#164D20] group-hover:text-[#117F21]">{title}</span>
         {sub && <span className="mt-0.5 block text-sm text-gray-600">{sub}</span>}
         <span className="mt-0.5 block text-sm tabular-nums text-gray-600 sm:hidden">{fmt(date)}</span>
       </span>
       <span className="hidden shrink-0 text-sm tabular-nums text-gray-600 sm:block">{fmt(date)}</span>
-      <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#117F21] group-hover:text-white">
+      <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#14892A] group-hover:text-white">
         <Download className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
       </span>
       <span className="sr-only">
@@ -141,11 +141,11 @@ function YearChips({ id, years, year, setYear }: { id: string; years: number[]; 
               onClick={() => setYear(y)}
               className={cn(
                 "relative min-h-11 shrink-0 rounded-lg px-3.5 text-sm font-semibold tabular-nums transition",
-                on ? "text-white" : "text-gray-700 hover:bg-white hover:text-[#0A4A13]",
+                on ? "text-white" : "text-gray-700 hover:bg-white hover:text-[#105D1D]",
                 "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]",
               )}
             >
-              {on && <motion.span layoutId={`${id}-pill`} className="absolute inset-0 rounded-lg bg-[#117F21]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+              {on && <motion.span layoutId={`${id}-pill`} className="absolute inset-0 rounded-lg bg-[#14892A]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
               <span className="relative">{y}</span>
             </button>
           );
@@ -176,15 +176,15 @@ export function Publications({ highlight }: { highlight: string | null }) {
       {/* New: the Q1 report as a web page */}
       <Rise className="mt-8">
         <Link to="/resources/reports/q1-2026" className={cn(card, "group relative flex flex-col gap-5 overflow-hidden p-6 pl-7 sm:flex-row sm:items-center sm:justify-between", focus)}>
-          <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#117F21] to-[#CB9615]" />
+          <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[#14892A] to-[#CB9615]" />
           <span className="flex items-start gap-4">
             <Tile icon={Newspaper} dark className="hidden sm:flex" />
             <span>
-              <span className="inline-flex items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-[#0A4A13]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#117F21]" aria-hidden="true" />
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#E8F5E9] px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-[#105D1D]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#14892A]" aria-hidden="true" />
                 New · Read online
               </span>
-              <span className="mt-2 block text-xl font-bold text-[#0A2E10]">Q1 2026 Quarterly Industry Report</span>
+              <span className="mt-2 block text-xl font-bold text-[#164D20]">Q1 2026 Quarterly Industry Report</span>
               <span className="mt-1 block text-gray-600">The dashboard, the Director-General’s read and the priorities for Q2, as a web page.</span>
             </span>
           </span>
@@ -229,11 +229,11 @@ export function Publications({ highlight }: { highlight: string | null }) {
                   onClick={() => setTab(t)}
                   className={cn(
                     "relative min-h-11 shrink-0 rounded-xl px-4 text-sm font-semibold transition sm:text-base",
-                    on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]",
+                    on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]",
                     "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]",
                   )}
                 >
-                  {on && <motion.span layoutId="pub-tab-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_10px_24px_-12px_rgba(10,74,19,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                  {on && <motion.span layoutId="pub-tab-pill" className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_10px_24px_-12px_rgba(16,93,29,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                   <span className="relative">{t}</span>
                 </button>
               );
@@ -291,8 +291,8 @@ export function Publications({ highlight }: { highlight: string | null }) {
                               rel="noopener noreferrer"
                               className="group flex min-h-24 flex-col items-center justify-center gap-2 transition hover:bg-[#F7FAF6] focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]"
                             >
-                              <span className="text-lg font-bold text-[#0A2E10] group-hover:text-[#117F21]">{m}</span>
-                              <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#117F21] group-hover:text-white">
+                              <span className="text-lg font-bold text-[#164D20] group-hover:text-[#117F21]">{m}</span>
+                              <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8F5E9] text-[#117F21] transition group-hover:bg-[#14892A] group-hover:text-white">
                                 <Download className="h-4 w-4" />
                               </span>
                               <span className="sr-only">{r.title}, PDF, opens in a new tab</span>
@@ -379,12 +379,12 @@ export function Downloads() {
                       aria-hidden="true"
                       className={cn(
                         "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-xs font-bold transition duration-300 group-hover:-rotate-6",
-                        f.ext === "PDF" ? "bg-[#04240A] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#0A4A13]",
+                        f.ext === "PDF" ? "bg-[#11421A] text-[#F4D27A]" : "bg-[#E8F5E9] text-[#105D1D]",
                       )}
                     >
                       {f.ext}
                     </span>
-                    <span className="min-w-0 flex-1 font-semibold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{f.title}</span>
+                    <span className="min-w-0 flex-1 font-semibold leading-snug text-[#164D20] group-hover:text-[#117F21]">{f.title}</span>
                     <Download className="h-5 w-5 shrink-0 text-[#117F21] transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true" />
                     <span className="sr-only">({f.ext}, opens in a new tab)</span>
                   </a>
@@ -399,7 +399,7 @@ export function Downloads() {
           <Rise className="h-full">
             <div className="h-full rounded-3xl bg-[#F4F7F2] p-6">
               <Tile icon={Globe2} dark />
-              <h3 className="mt-4 text-xl font-bold text-[#0A2E10]">In your language</h3>
+              <h3 className="mt-4 text-xl font-bold text-[#164D20]">In your language</h3>
               <p className="mt-1 text-gray-600">Micro Pension questions and answers in Nigerian languages.</p>
               <ul className="mt-5 grid grid-cols-2 gap-3">
                 {booklets
@@ -413,7 +413,7 @@ export function Downloads() {
                         lang={b.lang === "Hausa" ? "ha" : b.lang === "Yoruba" ? "yo" : b.lang === "Igbo" ? "ig" : "pcm"}
                         className={cn(card, "group flex min-h-24 flex-col justify-between rounded-2xl p-4", focus)}
                       >
-                        <span className="font-bold text-[#0A2E10] group-hover:text-[#117F21]">{langNames[b.lang!]}</span>
+                        <span className="font-bold text-[#164D20] group-hover:text-[#117F21]">{langNames[b.lang!]}</span>
                         <span className={cn(chip, "w-fit")}>
                           <Download className="h-3.5 w-3.5 text-[#117F21] transition-transform group-hover:translate-y-0.5" aria-hidden="true" /> PDF
                         </span>
@@ -424,7 +424,7 @@ export function Downloads() {
               {booklets
                 .filter((b) => !b.lang)
                 .map((b) => (
-                  <a key={b.pdf} href={b.pdf} target="_blank" rel="noopener noreferrer" className={cn(card, "group mt-3 flex min-h-14 items-center gap-3 rounded-2xl p-4 font-semibold text-[#0A2E10]", focus)}>
+                  <a key={b.pdf} href={b.pdf} target="_blank" rel="noopener noreferrer" className={cn(card, "group mt-3 flex min-h-14 items-center gap-3 rounded-2xl p-4 font-semibold text-[#164D20]", focus)}>
                     <BookOpen className="h-5 w-5 shrink-0 text-[#117F21]" aria-hidden="true" />
                     <span className="flex-1 group-hover:text-[#117F21]">{b.title}</span>
                     <Download className="h-5 w-5 shrink-0 text-[#117F21] transition-transform group-hover:translate-y-0.5" aria-hidden="true" />
@@ -466,7 +466,7 @@ export function Learning({ openGuides }: { openGuides: () => void }) {
               ) : (
                 <button type="button" onClick={() => setPlaying(true)} className="group relative block aspect-video w-full overflow-hidden focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]">
                   <img src={v.poster} alt="" className="absolute inset-0 h-full w-full object-cover transition [transition-duration:1200ms] group-hover:scale-105" />
-                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#021a07]/60 via-transparent to-transparent" />
+                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0D3416]/60 via-transparent to-transparent" />
                   <span aria-hidden="true" className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-[#CB9615]/30 [animation-duration:2.4s] motion-reduce:animate-none" />
                   <span className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#CB9615] text-[#1A1206] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.6)] ring-8 ring-[#CB9615]/25 transition duration-300 group-hover:scale-110 group-hover:bg-[#E0AA22]">
                     <Play className="ml-1 h-8 w-8 fill-current" aria-hidden="true" />
@@ -477,7 +477,7 @@ export function Learning({ openGuides }: { openGuides: () => void }) {
             </div>
             {/* Words below the video, never over the picture. */}
             <div className="flex items-start gap-4 p-5 sm:p-6">
-              <span aria-hidden="true" className="mt-1 h-10 w-1 shrink-0 rounded-full bg-gradient-to-b from-[#F4D27A] to-[#117F21]" />
+              <span aria-hidden="true" className="mt-1 h-10 w-1 shrink-0 rounded-full bg-gradient-to-b from-[#F4D27A] to-[#14892A]" />
               <div>
                 <p className="text-xl font-bold text-white">{v.title}</p>
                 <p className="mt-1 text-white/75">{v.body}</p>

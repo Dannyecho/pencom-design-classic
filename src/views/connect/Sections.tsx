@@ -60,7 +60,7 @@ export function Tracker({ prefill }: { prefill: string | null }) {
                 onChange={(e) => setRef(e.target.value)}
                 placeholder="e.g. PC-2611-AB12C"
                 autoComplete="off"
-                className={cn("min-h-12 w-full min-w-0 flex-1 rounded-xl bg-white px-4 font-mono text-lg uppercase text-[#0A2E10] placeholder:font-sans placeholder:text-base placeholder:normal-case placeholder:text-gray-600", focus)}
+                className={cn("min-h-12 w-full min-w-0 flex-1 rounded-xl bg-white px-4 font-mono text-lg uppercase text-[#164D20] placeholder:font-sans placeholder:text-base placeholder:normal-case placeholder:text-gray-600", focus)}
               />
               <button type="submit" className={cn(goldBtn, "shrink-0")}>
                 <Search className="h-5 w-5" aria-hidden="true" /> Track
@@ -92,18 +92,18 @@ export function Tracker({ prefill }: { prefill: string | null }) {
               </motion.div>
             )}
             {result === "none" && (
-              <motion.div key="none" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="relative overflow-hidden rounded-3xl bg-white p-7 pl-8 text-[#0A2E10] sm:p-8 sm:pl-9">
+              <motion.div key="none" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="relative overflow-hidden rounded-3xl bg-white p-7 pl-8 text-[#164D20] sm:p-8 sm:pl-9">
                 <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#B52026]" />
                 <p className="text-xl font-bold text-[#B52026]">We couldn’t find that reference.</p>
                 <p className="mt-2 text-base text-gray-600">Check it matches the one in your confirmation, including the dashes. Still stuck? Call {headOffice.phone}.</p>
               </motion.div>
             )}
             {result && result !== "none" && (
-              <motion.div key={result.ref} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease }} className="relative overflow-hidden rounded-3xl bg-white p-6 text-[#0A2E10] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)] sm:p-8">
+              <motion.div key={result.ref} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease }} className="relative overflow-hidden rounded-3xl bg-white p-6 text-[#164D20] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.7)] sm:p-8">
                 <span aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#CB9615] to-transparent" />
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="font-mono text-xl font-bold text-[#0A4A13] sm:text-2xl">{result.ref}</p>
+                    <p className="font-mono text-xl font-bold text-[#105D1D] sm:text-2xl">{result.ref}</p>
                     <p className="mt-1 text-base text-gray-600">{result.topic} · opened {fmt(result.date)}</p>
                   </div>
                   {result.sample && <span className="rounded-full bg-[#F4D27A] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#1A1206]">Sample</span>}
@@ -111,7 +111,7 @@ export function Tracker({ prefill }: { prefill: string | null }) {
                 {/* Overall progress: grows to the current stage */}
                 <div aria-hidden="true" className="mt-6 h-2 overflow-hidden rounded-full bg-gray-100">
                   <motion.span
-                    className="block h-full origin-left rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]"
+                    className="block h-full origin-left rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]"
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: (result.stage + 0.5) / STAGES.length }}
                     transition={{ duration: reduce ? 0 : 0.9, delay: 0.15, ease }}
@@ -128,10 +128,10 @@ export function Tracker({ prefill }: { prefill: string | null }) {
                         transition={{ delay: 0.15 + i * 0.12, ease }}
                         className={cn(
                           "flex items-center gap-3 rounded-2xl border p-3 sm:flex-col sm:items-start sm:p-4",
-                          state === "now" ? "border-[#CB9615] bg-[#FFF8E1]" : state === "done" ? "border-[#117F21]/25 bg-[#F4F7F2]" : "border-gray-200 bg-white",
+                          state === "now" ? "border-[#CB9615] bg-[#FFF8E1]" : state === "done" ? "border-[#14892A]/25 bg-[#F4F7F2]" : "border-gray-200 bg-white",
                         )}
                       >
-                        <span className={cn("relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl font-bold", state === "done" ? "bg-[#117F21] text-white" : state === "now" ? "bg-[#CB9615] text-[#1A1206]" : "bg-gray-100 text-gray-700")}>
+                        <span className={cn("relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl font-bold", state === "done" ? "bg-[#14892A] text-white" : state === "now" ? "bg-[#CB9615] text-[#1A1206]" : "bg-gray-100 text-gray-700")}>
                           {state === "done" ? <Check className="h-5 w-5" strokeWidth={3} aria-hidden="true" /> : state === "now" ? <Clock className="h-5 w-5" aria-hidden="true" /> : i + 1}
                           {state === "now" && !reduce && <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-xl border-2 border-[#CB9615]/60 [animation-iteration-count:2]" />}
                         </span>
@@ -187,8 +187,8 @@ export function Offices() {
         intro="Choose your state and we’ll show you the office that serves it, or pick a pin on the map."
         action={
           <label className="block w-full lg:w-72">
-            <span className="text-sm font-semibold text-[#0A2E10]">I live in</span>
-            <select value={state} onChange={(e) => setState(e.target.value)} className={cn("mt-1.5 min-h-12 w-full cursor-pointer rounded-xl border border-gray-200 bg-white px-4 font-semibold text-[#0A2E10] shadow-sm transition hover:border-[#117F21]", focus)}>
+            <span className="text-sm font-semibold text-[#164D20]">I live in</span>
+            <select value={state} onChange={(e) => setState(e.target.value)} className={cn("mt-1.5 min-h-12 w-full cursor-pointer rounded-xl border border-gray-200 bg-white px-4 font-semibold text-[#164D20] shadow-sm transition hover:border-[#14892A]", focus)}>
               <option value="">Choose your state</option>
               {allStates.map((s) => <option key={s}>{s}</option>)}
             </select>
@@ -204,19 +204,19 @@ export function Offices() {
               aria-hidden="true"
               className="absolute inset-0 -z-10"
               style={{
-                backgroundImage: "linear-gradient(rgba(17,127,33,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(17,127,33,0.07) 1px, transparent 1px)",
+                backgroundImage: "linear-gradient(rgba(20,137,42,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(20,137,42,0.07) 1px, transparent 1px)",
                 backgroundSize: "40px 40px",
                 maskImage: "radial-gradient(ellipse at center, black 35%, transparent 80%)",
                 WebkitMaskImage: "radial-gradient(ellipse at center, black 35%, transparent 80%)",
               }}
             />
-            <div aria-hidden="true" className="absolute left-[12%] top-[10%] -z-10 h-[78%] w-[76%] rounded-[45%_55%_48%_52%/52%_45%_55%_48%] bg-white shadow-[0_30px_60px_-40px_rgba(10,74,19,0.5)] ring-1 ring-[#117F21]/15" />
+            <div aria-hidden="true" className="absolute left-[12%] top-[10%] -z-10 h-[78%] w-[76%] rounded-[45%_55%_48%_52%/52%_45%_55%_48%] bg-white shadow-[0_30px_60px_-40px_rgba(16,93,29,0.5)] ring-1 ring-[#14892A]/15" />
             <div className="relative mx-auto aspect-[0.95] w-full max-w-2xl sm:aspect-[1.25]">
               <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="office-route" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stopColor="#CB9615" />
-                    <stop offset="100%" stopColor="#117F21" />
+                    <stop offset="100%" stopColor="#14892A" />
                   </linearGradient>
                 </defs>
                 {office && (
@@ -244,13 +244,13 @@ export function Offices() {
                         <motion.span
                           animate={{ scale: on ? 1.12 : 1 }}
                           className={cn(
-                            "relative flex h-9 w-9 items-center justify-center rounded-xl shadow-[0_12px_24px_-12px_rgba(4,36,10,0.7)] ring-[3px] transition group-hover:-translate-y-0.5 group-focus-visible:outline group-focus-visible:outline-[3px] group-focus-visible:outline-[#FFD84D] sm:h-11 sm:w-11",
-                            on ? "bg-[#04240A] text-[#F4D27A] ring-[#CB9615]" : p.hq ? "bg-[#CB9615] text-[#1A1206] ring-white" : "bg-white text-[#117F21] ring-[#117F21]/25 group-hover:bg-[#117F21] group-hover:text-white",
+                            "relative flex h-9 w-9 items-center justify-center rounded-xl shadow-[0_12px_24px_-12px_rgba(17,66,26,0.7)] ring-[3px] transition group-hover:-translate-y-0.5 group-focus-visible:outline group-focus-visible:outline-[3px] group-focus-visible:outline-[#FFD84D] sm:h-11 sm:w-11",
+                            on ? "bg-[#11421A] text-[#F4D27A] ring-[#CB9615]" : p.hq ? "bg-[#CB9615] text-[#1A1206] ring-white" : "bg-white text-[#117F21] ring-[#14892A]/25 group-hover:bg-[#14892A] group-hover:text-white",
                           )}
                         >
                           {p.hq ? <Landmark className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" /> : <MapPin className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />}
                         </motion.span>
-                        <span className={cn("mt-1 whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-bold shadow-sm ring-1 sm:mt-1.5 sm:px-2.5", on ? "bg-[#04240A] text-[#F4D27A] ring-[#04240A]" : "bg-white text-[#0A2E10] ring-gray-200")}>
+                        <span className={cn("mt-1 whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-bold shadow-sm ring-1 sm:mt-1.5 sm:px-2.5", on ? "bg-[#11421A] text-[#F4D27A] ring-[#11421A]" : "bg-white text-[#164D20] ring-gray-200")}>
                           {p.city}{p.hq && " (HQ)"}
                         </span>
                       </button>
@@ -267,7 +267,7 @@ export function Offices() {
                   type="button"
                   onClick={() => setSel(p.id)}
                   aria-pressed={sel === p.id}
-                  className={cn("inline-flex min-h-11 items-center rounded-xl px-4 text-sm font-semibold transition", sel === p.id ? "bg-gradient-to-r from-[#0A4A13] to-[#117F21] text-white" : "bg-white text-gray-700 ring-1 ring-gray-200 hover:text-[#0A4A13]", focus)}
+                  className={cn("inline-flex min-h-11 items-center rounded-xl px-4 text-sm font-semibold transition", sel === p.id ? "bg-gradient-to-r from-[#105D1D] to-[#14892A] text-white" : "bg-white text-gray-700 ring-1 ring-gray-200 hover:text-[#105D1D]", focus)}
                 >
                   {p.city}
                 </button>
@@ -285,10 +285,10 @@ export function Offices() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: reduce ? 0 : -16 }}
               transition={{ duration: 0.3, ease }}
-              className="relative h-full overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 shadow-[0_24px_50px_-24px_rgba(10,74,19,0.4)] sm:p-7"
+              className="relative h-full overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 shadow-[0_24px_50px_-24px_rgba(16,93,29,0.4)] sm:p-7"
             >
-              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
-              <p className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#117F21]/15 bg-[#E8F5E9] px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-[#0A4A13]">
+              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#14892A] to-[#CB9615]" />
+              <p className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#14892A]/15 bg-[#E8F5E9] px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-[#105D1D]">
                 {office ? <MapPin className="h-3.5 w-3.5" aria-hidden="true" /> : <Landmark className="h-3.5 w-3.5" aria-hidden="true" />}
                 {info.title}
               </p>
@@ -302,7 +302,7 @@ export function Offices() {
                   <li className="flex gap-4">
                     <Tile icon={Phone} />
                     <span className="pt-2.5">
-                      <a href={`tel:${info.phone.replace(/\s/g, "")}`} className={cn("rounded font-semibold text-[#0A4A13] underline underline-offset-4 hover:text-[#117F21]", focus)}>{info.phone}</a>
+                      <a href={`tel:${info.phone.replace(/\s/g, "")}`} className={cn("rounded font-semibold text-[#105D1D] underline underline-offset-4 hover:text-[#117F21]", focus)}>{info.phone}</a>
                       {info.confirm && <span className="ml-2 inline-block rounded-full bg-[#FFF8E1] px-2.5 py-0.5 text-xs font-bold text-[#7A5200] ring-1 ring-[#CB9615]/40">To be confirmed</span>}
                     </span>
                   </li>
@@ -311,7 +311,7 @@ export function Offices() {
               <p className="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]">Serves</p>
               <ul className="mt-2 flex flex-wrap gap-1.5">
                 {info.states.map((s) => (
-                  <li key={s} className={cn("rounded-full border px-3 py-1 text-sm font-semibold", s === state ? "border-[#04240A] bg-[#04240A] text-[#F4D27A]" : "border-gray-200 bg-[#F7FAF6] text-gray-700")}>{s}</li>
+                  <li key={s} className={cn("rounded-full border px-3 py-1 text-sm font-semibold", s === state ? "border-[#11421A] bg-[#11421A] text-[#F4D27A]" : "border-gray-200 bg-[#F7FAF6] text-gray-700")}>{s}</li>
                 ))}
               </ul>
               <a href={mapsUrl(info.address)} target="_blank" rel="noopener noreferrer" className={cn(goldBtn, "group mt-7")}>
@@ -359,7 +359,7 @@ export function Newsroom() {
         {media.map((m) => (
           <li key={m.k}>
             {"to" in m && m.to ? (
-              <Link to={m.to} className={cn("group inline-flex min-h-11 items-center gap-2 rounded-full bg-[#04240A] px-4 text-sm font-semibold text-white transition hover:bg-[#0A4A13]", focus)}>
+              <Link to={m.to} className={cn("group inline-flex min-h-11 items-center gap-2 rounded-full bg-[#11421A] px-4 text-sm font-semibold text-white transition hover:bg-[#105D1D]", focus)}>
                 <m.icon className="h-4 w-4 text-[#F4D27A]" aria-hidden="true" /> {m.k}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
               </Link>
@@ -376,9 +376,9 @@ export function Newsroom() {
         {/* Lead story: photo with the words on a dark shade (homepage NewsMedia) */}
         <Rise className="xl:col-span-7">
           <article className="h-full">
-            <Link to={newsPath(lead)} className={cn("group relative block h-full min-h-[400px] overflow-hidden rounded-3xl bg-[#04240A] text-white", focus)}>
+            <Link to={newsPath(lead)} className={cn("group relative block h-full min-h-[400px] overflow-hidden rounded-3xl bg-[#11421A] text-white", focus)}>
               <img src={lead.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80 transition [transition-duration:1200ms] group-hover:scale-105" />
-              <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#04240A] via-[#04240A]/75 via-45% to-transparent" />
+              <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#11421A] via-[#11421A]/75 via-45% to-transparent" />
               <span className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
                 <span className="flex flex-wrap items-center gap-3 text-xs">
                   <span className="rounded-full bg-[#CB9615] px-2.5 py-1 font-bold uppercase tracking-wider text-[#1A1206]">{lead.category}</span>
@@ -407,10 +407,10 @@ export function Newsroom() {
                   </span>
                   <span className="flex min-w-0 flex-1 flex-col justify-center py-1.5 pr-2">
                     <span className="flex flex-wrap items-center gap-2 text-xs">
-                      <span className="rounded-full bg-[#E8F5E9] px-2 py-0.5 font-bold uppercase tracking-wider text-[#0A4A13]">{n.category}</span>
+                      <span className="rounded-full bg-[#E8F5E9] px-2 py-0.5 font-bold uppercase tracking-wider text-[#105D1D]">{n.category}</span>
                       <span className="text-gray-600">{fmt(n.date)}</span>
                     </span>
-                    <span className="mt-1.5 block font-bold leading-snug text-[#0A2E10] transition group-hover:text-[#117F21]">{n.title}</span>
+                    <span className="mt-1.5 block font-bold leading-snug text-[#164D20] transition group-hover:text-[#117F21]">{n.title}</span>
                   </span>
                 </Link>
               </article>
@@ -422,13 +422,13 @@ export function Newsroom() {
                 <Tile icon={Megaphone} dark />
                 <div className="min-w-0">
                   <p className="text-lg font-bold">Media enquiries</p>
-                  <p className="mt-1 text-gray-600">Journalists can contact Corporate Communications at <a href={`mailto:${headOffice.email}`} className={cn("break-all rounded font-semibold text-[#0A4A13] underline underline-offset-2 hover:text-[#117F21]", focus)}>{headOffice.email}</a>.</p>
+                  <p className="mt-1 text-gray-600">Journalists can contact Corporate Communications at <a href={`mailto:${headOffice.email}`} className={cn("break-all rounded font-semibold text-[#105D1D] underline underline-offset-2 hover:text-[#117F21]", focus)}>{headOffice.email}</a>.</p>
                 </div>
               </div>
               <ul className="mt-4 flex flex-wrap gap-1.5">
                 {social.map((s) => (
                   <li key={s.name}>
-                    <a href={s.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-11 items-center rounded-full border border-gray-200 bg-white px-3.5 text-sm font-semibold text-gray-700 transition hover:border-[#117F21] hover:text-[#117F21]", focus)}>
+                    <a href={s.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex min-h-11 items-center rounded-full border border-gray-200 bg-white px-3.5 text-sm font-semibold text-gray-700 transition hover:border-[#14892A] hover:text-[#117F21]", focus)}>
                       {s.name}
                       <span className="sr-only"> (opens in a new tab)</span>
                     </a>

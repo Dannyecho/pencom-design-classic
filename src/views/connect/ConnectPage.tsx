@@ -91,7 +91,7 @@ export default function ConnectPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <Banner go={go} />
         <ContactBar go={go} />
         <PortalLayout sections={sections} pillId="connect-side-pill" related={related}>
@@ -180,15 +180,15 @@ function ContactBar({ go }: { go: (id: string, topic?: TopicId) => void }) {
                     "focus-visible:-outline-offset-[3px]",
                   )}
                 >
-                  <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
+                  <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-[#14892A] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
                   <span className="flex w-full min-w-0 flex-1 items-center gap-4 min-[480px]:flex-none min-[480px]:flex-col min-[480px]:items-start">
                     <Tile icon={a.icon} dark size="lg" />
                     <span className="min-w-0 flex-1">
-                      <span className="block text-lg font-bold leading-snug text-[#0A2E10] group-hover:text-[#117F21] xl:text-xl">{a.title}</span>
+                      <span className="block text-lg font-bold leading-snug text-[#164D20] group-hover:text-[#117F21] xl:text-xl">{a.title}</span>
                       <span className="mt-0.5 block text-base text-gray-600">{a.body}</span>
                     </span>
                   </span>
-                  <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition group-hover:border-[#117F21] group-hover:bg-[#117F21] group-hover:text-white min-[480px]:mt-5">
+                  <span aria-hidden="true" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition group-hover:border-[#14892A] group-hover:bg-[#14892A] group-hover:text-white min-[480px]:mt-5">
                     <ArrowRight className="h-4 w-4" />
                   </span>
                 </button>

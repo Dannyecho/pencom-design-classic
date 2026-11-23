@@ -84,7 +84,7 @@ export default function ChroniclesPage() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="bg-white text-[#0A2E10]">
+      <div className="bg-white text-[#164D20]">
         <Masthead />
         <FloatingBar eyebrow="PenCom Chronicles">
           <IssueFacts />
@@ -168,7 +168,7 @@ function IssueFacts() {
           <Tile icon={Icon} />
           <div className="min-w-0">
             <dt className="text-xs font-bold uppercase tracking-[0.16em] text-[#7A5200]">{k}</dt>
-            <dd className="mt-0.5 text-base font-bold leading-snug text-[#0A2E10] sm:text-lg">{v}</dd>
+            <dd className="mt-0.5 text-base font-bold leading-snug text-[#164D20] sm:text-lg">{v}</dd>
           </div>
         </div>
       ))}
@@ -200,9 +200,9 @@ function Inside() {
             return (
               <motion.li key={s.k} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.55, delay: (i % 3) * 0.07, ease }}>
                 <div className={cn(card, "group relative h-full overflow-hidden p-6 sm:p-7")}>
-                  <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-[#117F21] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
+                  <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-[#14892A] to-[#CB9615] transition-transform duration-500 group-hover:scale-x-100" />
                   <Tile icon={Icon} />
-                  <h3 className="mt-5 text-xl font-bold tracking-tight text-[#0A2E10]">{s.k}</h3>
+                  <h3 className="mt-5 text-xl font-bold tracking-tight text-[#164D20]">{s.k}</h3>
                   <p className="mt-2 text-base leading-relaxed text-gray-600">{s.body}</p>
                 </div>
               </motion.li>
@@ -221,7 +221,7 @@ function Medal({ icon: Icon }: { icon: LucideIcon }) {
   return (
     <span aria-hidden="true" className="relative flex h-16 w-14 shrink-0 justify-center">
       <svg viewBox="0 0 40 24" className="absolute bottom-0 h-6 w-10">
-        <path d="M6 0 L16 0 L12 24 L8 19 L3 22 Z" fill="#117F21" />
+        <path d="M6 0 L16 0 L12 24 L8 19 L3 22 Z" fill="#14892A" />
         <path d="M24 0 L34 0 L37 22 L32 19 L28 24 Z" fill="#2E913D" />
       </svg>
       <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#F4D27A] via-[#E9B949] to-[#CB9615] text-[#1A1206] shadow-[0_12px_28px_-10px_rgba(203,150,21,0.9)] ring-4 ring-[#F4D27A]/20 transition duration-500 group-hover:rotate-12">
@@ -308,14 +308,14 @@ function Issues() {
             <motion.li key={s.n} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.1, ease }} className="w-48">
               {s.live ? (
                 <a href={issue.localPdf} target="_blank" rel="noopener noreferrer" className={cn("group block rounded-2xl", focus)}>
-                  <span className="relative block h-[272px] w-48 overflow-hidden rounded-2xl border border-gray-200/80 shadow-[0_18px_36px_-22px_rgba(10,74,19,0.55)] transition duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_30px_50px_-24px_rgba(10,74,19,0.55)] group-hover:ring-2 group-hover:ring-[#CB9615]">
+                  <span className="relative block h-[272px] w-48 overflow-hidden rounded-2xl border border-gray-200/80 shadow-[0_18px_36px_-22px_rgba(16,93,29,0.55)] transition duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_30px_50px_-24px_rgba(16,93,29,0.55)] group-hover:ring-2 group-hover:ring-[#CB9615]">
                     <span aria-hidden="true" className="pointer-events-none absolute left-0 top-0 block" style={{ width: 420, height: 594, transform: `scale(${192 / 420})`, transformOrigin: "top left" }}>{previewPages[0].node}</span>
                   </span>
                   {/* shelf edge under the cover */}
-                  <span aria-hidden="true" className="mx-auto mt-2 block h-1.5 w-40 rounded-full bg-[#0A2E10]/10 blur-[2px] transition group-hover:w-36" />
-                  <span className="mt-3 flex items-center gap-2 text-xl font-bold tracking-tight text-[#0A2E10] transition group-hover:text-[#117F21]">
+                  <span aria-hidden="true" className="mx-auto mt-2 block h-1.5 w-40 rounded-full bg-[#164D20]/10 blur-[2px] transition group-hover:w-36" />
+                  <span className="mt-3 flex items-center gap-2 text-xl font-bold tracking-tight text-[#164D20] transition group-hover:text-[#117F21]">
                     {s.label}
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#04240A] px-2.5 py-0.5 text-xs font-bold text-[#F4D27A]">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#11421A] px-2.5 py-0.5 text-xs font-bold text-[#F4D27A]">
                       <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#F4D27A]" /> New
                     </span>
                     <ArrowRight className="h-5 w-5 text-[#117F21] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
@@ -378,26 +378,26 @@ function Subscribe() {
         </div>
         <div className="relative grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-0 lg:px-10 lg:pb-10">
           <Rise className="lg:col-span-7">
-            <div className="relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 shadow-[0_40px_80px_-40px_rgba(4,36,10,0.55)] sm:p-9">
+            <div className="relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-6 shadow-[0_40px_80px_-40px_rgba(17,66,26,0.55)] sm:p-9">
               <span aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#CB9615] to-transparent" />
               <div className="flex flex-col items-start gap-4 sm:flex-row">
                 <Tile icon={Mail} dark size="lg" />
                 <div>
-                  <h2 id="sub-title" className="text-3xl font-bold tracking-tight text-[#0A2E10] sm:text-4xl">Get new issues by email</h2>
+                  <h2 id="sub-title" className="text-3xl font-bold tracking-tight text-[#164D20] sm:text-4xl">Get new issues by email</h2>
                   <p className="mt-2 text-base leading-relaxed text-gray-600 sm:text-lg">We’ll email you when a new edition of PenCom Chronicles is published. Nothing else.</p>
                 </div>
               </div>
               <AnimatePresence mode="wait" initial={false}>
                 {done ? (
-                  <motion.p key="ok" role="status" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="relative mt-7 flex items-center gap-3 overflow-hidden rounded-2xl border border-gray-200/80 bg-white py-4 pl-6 pr-4 text-base font-semibold text-[#0A4A13] sm:text-lg">
-                    <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#117F21]" />
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#117F21] to-[#0A4A13] text-white"><Check className="h-5 w-5" strokeWidth={3} aria-hidden="true" /></span>
+                  <motion.p key="ok" role="status" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="relative mt-7 flex items-center gap-3 overflow-hidden rounded-2xl border border-gray-200/80 bg-white py-4 pl-6 pr-4 text-base font-semibold text-[#105D1D] sm:text-lg">
+                    <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1 bg-[#14892A]" />
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#14892A] to-[#105D1D] text-white"><Check className="h-5 w-5" strokeWidth={3} aria-hidden="true" /></span>
                     Thank you. We’ll let you know when Issue 02 is out.
                   </motion.p>
                 ) : (
                   <motion.form key="form" onSubmit={submit} noValidate initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} className="mt-7 space-y-4">
                     <div>
-                      <label htmlFor="sub-email" className="block text-base font-semibold text-[#0A2E10]">Email address</label>
+                      <label htmlFor="sub-email" className="block text-base font-semibold text-[#164D20]">Email address</label>
                       <div className="mt-2 flex flex-col gap-3 rounded-2xl bg-[#F4F7F2] p-1.5 ring-1 ring-gray-200 sm:flex-row">
                         <input
                           ref={input}
@@ -410,7 +410,7 @@ function Subscribe() {
                           aria-describedby={errField === "email" ? "sub-err" : undefined}
                           placeholder="name@example.com"
                           className={cn(
-                            "min-h-12 flex-1 rounded-xl border bg-white px-4 text-base text-[#0A2E10] placeholder:text-gray-500 focus:border-[#117F21] focus:outline-none focus:ring-[3px] focus:ring-[#FFD84D]",
+                            "min-h-12 flex-1 rounded-xl border bg-white px-4 text-base text-[#164D20] placeholder:text-gray-500 focus:border-[#14892A] focus:outline-none focus:ring-[3px] focus:ring-[#FFD84D]",
                             errField === "email" ? "border-[#B52026]" : "border-gray-300",
                           )}
                         />
@@ -420,7 +420,7 @@ function Subscribe() {
                         </button>
                       </div>
                     </div>
-                    <label className={cn("flex min-h-11 cursor-pointer items-start gap-3 rounded-2xl p-3 text-base leading-relaxed text-gray-700 transition", errField === "consent" ? "bg-[#FDECEC] ring-2 ring-[#B52026]" : "bg-[#F7FAF6] ring-1 ring-gray-200 hover:ring-[#117F21]/30")}>
+                    <label className={cn("flex min-h-11 cursor-pointer items-start gap-3 rounded-2xl p-3 text-base leading-relaxed text-gray-700 transition", errField === "consent" ? "bg-[#FDECEC] ring-2 ring-[#B52026]" : "bg-[#F7FAF6] ring-1 ring-gray-200 hover:ring-[#14892A]/30")}>
                       <input
                         ref={box}
                         type="checkbox"
@@ -428,9 +428,9 @@ function Subscribe() {
                         onChange={(e) => setConsent(e.target.checked)}
                         aria-invalid={errField === "consent"}
                         aria-describedby={errField === "consent" ? "sub-err" : undefined}
-                        className={cn("mt-0.5 h-6 w-6 shrink-0 rounded accent-[#117F21]", focus)}
+                        className={cn("mt-0.5 h-6 w-6 shrink-0 rounded accent-[#14892A]", focus)}
                       />
-                      <span>I agree that PenCom may use my email address to tell me about new issues. I can unsubscribe at any time. <Link to="/regulations#policies" className={cn("rounded font-semibold text-[#0A4A13] underline underline-offset-4", focus)}>Privacy notice</Link></span>
+                      <span>I agree that PenCom may use my email address to tell me about new issues. I can unsubscribe at any time. <Link to="/regulations#policies" className={cn("rounded font-semibold text-[#105D1D] underline underline-offset-4", focus)}>Privacy notice</Link></span>
                     </label>
                     {err && (
                       <p id="sub-err" role="alert" className="relative overflow-hidden rounded-2xl border border-[#B52026]/25 bg-[#FDECEC] py-3 pl-5 pr-4 text-base font-semibold text-[#8A1419]">
@@ -448,7 +448,7 @@ function Subscribe() {
           <Rise delay={0.1} className="lg:col-span-5 lg:self-end lg:pl-10">
             <div className="group relative overflow-hidden rounded-3xl bg-[#F4F7F2] p-6 sm:p-9 lg:bg-transparent lg:p-0 lg:pb-2">
               <Tile icon={PenLine} size="lg" />
-              <h2 className="mt-5 text-2xl font-bold tracking-tight text-[#0A2E10] sm:text-3xl">Share your story</h2>
+              <h2 className="mt-5 text-2xl font-bold tracking-tight text-[#164D20] sm:text-3xl">Share your story</h2>
               <p className="mt-2 text-base leading-relaxed text-gray-600">Every edition gives stakeholders space to share their views. Contributors, retirees, employers and operators can suggest a story or a commentary for the next issue.</p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link to="/connect#contact" className={cn(goldBtn, "group")}>

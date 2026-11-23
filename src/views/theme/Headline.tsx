@@ -10,9 +10,9 @@ const view = { once: true, margin: "-60px" } as const;
 
 /**
  * Section title for the classic theme (the app's SectionHeading, same props as before): a 12 px eyebrow pill with
- * a green dot that pulses twice and one shimmer sweep, then the title in ink #0A2E10 with its `mark` phrase in a
+ * a green dot that pulses twice and one shimmer sweep, then the title in ink #164D20 with its `mark` phrase in a
  * green→gold gradient and a hand-drawn gold underline that draws in. With no mark, a short green→gold bar grows in.
- * `dark` is for the page's dark band (#04240A). `n` is accepted and ignored. The light gradient ends on #9A6B00 so
+ * `dark` is for the page's dark band (#11421A). `n` is accepted and ignored. The light gradient ends on #9A6B00 so
  * the phrase keeps 3:1 on white as large text.
  */
 export default function Headline({
@@ -60,17 +60,17 @@ export default function Headline({
         <span
           className={cn(
             "relative inline-flex items-center gap-2.5 overflow-hidden rounded-full py-1 pl-1 pr-4 text-xs font-bold uppercase tracking-[0.18em] ring-1",
-            dark ? "bg-white/[0.08] text-[#F4D27A] ring-white/15" : "bg-[#E8F5E9]/80 text-[#0A4A13] ring-[#117F21]/15",
+            dark ? "bg-white/[0.08] text-[#F4D27A] ring-white/15" : "bg-[#E8F5E9]/80 text-[#105D1D] ring-[#14892A]/15",
           )}
         >
           <span
             aria-hidden="true"
             className={cn(
               "relative flex h-6 w-6 items-center justify-center rounded-full",
-              dark ? "bg-gradient-to-br from-[#F4D27A] to-[#CB9615]" : "bg-gradient-to-br from-[#2E913D] to-[#0A4A13]",
+              dark ? "bg-gradient-to-br from-[#F4D27A] to-[#CB9615]" : "bg-gradient-to-br from-[#36A045] to-[#105D1D]",
             )}
           >
-            <span className={cn("h-2 w-2 rounded-full", dark ? "bg-[#04240A]" : "bg-[#F4D27A]")} />
+            <span className={cn("h-2 w-2 rounded-full", dark ? "bg-[#11421A]" : "bg-[#F4D27A]")} />
             {!reduce && (
               <motion.span
                 className={cn("absolute inset-0 rounded-full", dark ? "bg-[#F4D27A]" : "bg-[#2E913D]")}
@@ -97,7 +97,7 @@ export default function Headline({
         <h2
           id={id}
           data-i18n-done={lang !== "en" && T !== title ? "" : undefined}
-          className={cn("mt-5 text-3xl font-bold leading-[1.12] tracking-tight sm:text-4xl lg:text-[2.75rem]", dark ? "text-white" : "text-[#0A2E10]")}
+          className={cn("mt-5 text-3xl font-bold leading-[1.12] tracking-tight sm:text-4xl lg:text-[2.75rem]", dark ? "text-white" : "text-[#164D20]")}
         >
           {before}
           {hl && <DrawnMark text={hl} dark={dark} />}
@@ -109,7 +109,7 @@ export default function Headline({
             aria-hidden="true"
             className={cn(
               "mt-5 block h-1.5 w-16 rounded-full bg-gradient-to-r",
-              dark ? "from-[#F4D27A] to-[#CB9615]" : "from-[#117F21] to-[#CB9615]",
+              dark ? "from-[#F4D27A] to-[#CB9615]" : "from-[#14892A] to-[#CB9615]",
               center ? "mx-auto origin-center" : "origin-left",
             )}
             initial={{ scaleX: reduce ? 1 : 0 }}
@@ -139,7 +139,7 @@ export function DrawnMark({ text, dark = false }: { text: string; dark?: boolean
       <span
         className={cn(
           "relative z-10 bg-clip-text py-[0.12em] text-transparent",
-          dark ? "bg-gradient-to-r from-[#F4D27A] via-[#E9B949] to-[#CB9615]" : "bg-gradient-to-r from-[#117F21] via-[#2E913D] to-[#9A6B00]",
+          dark ? "bg-gradient-to-r from-[#F4D27A] via-[#E9B949] to-[#CB9615]" : "bg-gradient-to-r from-[#14892A] via-[#36A045] to-[#9A6B00]",
         )}
       >
         {text}

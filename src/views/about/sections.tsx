@@ -39,7 +39,7 @@ export function Overview() {
               <li key={m.title} className="group flex gap-4 bg-white p-6 transition-colors hover:bg-[#F7FAF6]/80 sm:p-7">
                 <Tile icon={icons[m.icon]} />
                 <div>
-                  <h4 className="text-xl font-bold leading-snug text-[#0A2E10]">{m.title}</h4>
+                  <h4 className="text-xl font-bold leading-snug text-[#164D20]">{m.title}</h4>
                   <p className="mt-1.5 text-base leading-relaxed text-gray-600">{m.body}</p>
                 </div>
               </li>
@@ -64,7 +64,7 @@ export function MissionValues() {
       <div className="mt-10 grid grid-cols-1 gap-5 xl:grid-cols-12">
         <Rise className="xl:col-span-7">
           <Tilt className="h-full" max={4}>
-            <div className={cn(featured, "h-full p-7 shadow-[0_40px_80px_-40px_rgba(4,36,10,0.7)] sm:p-9")}>
+            <div className={cn(featured, "h-full p-7 shadow-[0_40px_80px_-40px_rgba(17,66,26,0.7)] sm:p-9")}>
               <GridBackdrop className="-z-10" />
               <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 -z-10 h-64 w-64 rounded-full bg-[#CB9615]/25 blur-3xl" />
               <Quote aria-hidden="true" className="absolute bottom-5 right-5 h-16 w-16 text-[#F4D27A]/15" />
@@ -75,14 +75,14 @@ export function MissionValues() {
         </Rise>
         <Rise delay={0.08} className="xl:col-span-5">
           <div className={cn(card, "relative h-full overflow-hidden p-7 pl-9 sm:p-9 sm:pl-11")}>
-            <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#CB9615] to-[#117F21]" />
+            <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#CB9615] to-[#14892A]" />
             <EyebrowPill icon={Compass} label="Our vision" />
-            <p className="mt-6 text-xl font-semibold leading-snug text-[#0A2E10]">{vision}</p>
+            <p className="mt-6 text-xl font-semibold leading-snug text-[#164D20]">{vision}</p>
           </div>
         </Rise>
       </div>
 
-      <h3 id="values" className="mt-12 scroll-mt-[150px] text-xl font-bold tracking-tight text-[#0A2E10] sm:text-2xl">
+      <h3 id="values" className="mt-12 scroll-mt-[150px] text-xl font-bold tracking-tight text-[#164D20] sm:text-2xl">
         Our core values
       </h3>
       <Rise className="mt-5">
@@ -92,7 +92,7 @@ export function MissionValues() {
               <li key={v.title} className={cn(listRow, "items-start sm:items-center")}>
                 <Tile icon={icons[v.icon]} />
                 <div className="min-w-0 flex-1 sm:flex sm:items-center sm:gap-6">
-                  <h4 className="text-lg font-bold text-[#0A2E10] sm:w-44 sm:shrink-0">{v.title}</h4>
+                  <h4 className="text-lg font-bold text-[#164D20] sm:w-44 sm:shrink-0">{v.title}</h4>
                   <p className="mt-0.5 text-base leading-relaxed text-gray-600 sm:mt-0">{v.desc}</p>
                 </div>
               </li>
@@ -143,7 +143,7 @@ export function History() {
         <motion.span
           aria-hidden="true"
           style={{ scaleY: reduce ? 1 : grow }}
-          className="absolute bottom-2 left-[15px] top-2 w-[3px] origin-top rounded-full bg-gradient-to-b from-[#2E913D] to-[#CB9615] sm:left-[19px] lg:hidden"
+          className="absolute bottom-2 left-[15px] top-2 w-[3px] origin-top rounded-full bg-gradient-to-b from-[#36A045] to-[#CB9615] sm:left-[19px] lg:hidden"
         />
         {/* Desktop: a horizontal track through the year dots, filled up to the chosen year. */}
         <span aria-hidden="true" className="absolute left-[calc((100%-84px)/16)] right-[calc((100%-84px)/16)] top-[9px] hidden h-[3px] rounded-full bg-white/10 lg:block" />
@@ -152,7 +152,7 @@ export function History() {
           initial={false}
           animate={{ scaleX: active / (chapters.length - 1) }}
           transition={{ duration: reduce ? 0 : 0.7, ease }}
-          className="absolute left-[calc((100%-84px)/16)] right-[calc((100%-84px)/16)] top-[9px] hidden h-[3px] origin-left rounded-full bg-gradient-to-r from-[#2E913D] via-[#E9B949] to-[#CB9615] lg:block"
+          className="absolute left-[calc((100%-84px)/16)] right-[calc((100%-84px)/16)] top-[9px] hidden h-[3px] origin-left rounded-full bg-gradient-to-r from-[#36A045] via-[#E9B949] to-[#CB9615] lg:block"
         />
         {chapters.map((c, i) => {
           const on = active === i;
@@ -160,7 +160,7 @@ export function History() {
           return (
             <li key={c.id} className="relative lg:contents">
               {/* Phone: dot on the line and the year as a heading chip. */}
-              <span aria-hidden="true" className="absolute -left-11 top-1 flex h-[33px] w-[33px] items-center justify-center rounded-full bg-[#0A4A13] ring-4 ring-[#04240A] sm:-left-14 sm:h-[41px] sm:w-[41px] lg:hidden">
+              <span aria-hidden="true" className="absolute -left-11 top-1 flex h-[33px] w-[33px] items-center justify-center rounded-full bg-[#105D1D] ring-4 ring-[#11421A] sm:-left-14 sm:h-[41px] sm:w-[41px] lg:hidden">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#F4D27A]" />
               </span>
               <p className="inline-flex min-h-10 items-baseline gap-3 rounded-full bg-white/[0.06] px-4 py-1.5 ring-1 ring-white/15 lg:hidden">
@@ -179,7 +179,7 @@ export function History() {
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "relative h-[21px] w-[21px] rounded-full ring-4 ring-[#04240A] transition-colors duration-500",
+                    "relative h-[21px] w-[21px] rounded-full ring-4 ring-[#11421A] transition-colors duration-500",
                     i <= active ? "bg-[#CB9615]" : "bg-[#24452B] group-hover:bg-[#2E913D]",
                   )}
                 >
@@ -212,7 +212,7 @@ export function History() {
                     <p aria-hidden="true" className="hidden text-7xl font-black leading-none tracking-tight text-[#F4D27A] lg:block">{c.year}</p>
                     <p className="hidden text-sm font-bold uppercase tracking-[0.16em] text-white/75 lg:mt-4 lg:block">{c.period}</p>
                     {c.figure && (
-                      <div className="rounded-2xl bg-[#04240A]/60 lg:mt-5 p-5 ring-1 ring-white/10">
+                      <div className="rounded-2xl bg-[#11421A]/60 lg:mt-5 p-5 ring-1 ring-white/10">
                         <p className="text-4xl font-black tabular-nums text-white">{c.figure.value}</p>
                         <p className="mt-1 text-base leading-snug text-white/80">{c.figure.label}</p>
                         {pct !== null && (
@@ -222,7 +222,7 @@ export function History() {
                               whileInView={{ scaleX: pct / 100 }}
                               viewport={{ once: true }}
                               transition={{ duration: 1.2, ease, delay: 0.2 }}
-                              className="block h-full origin-left rounded-full bg-gradient-to-r from-[#2E913D] to-[#CB9615]"
+                              className="block h-full origin-left rounded-full bg-gradient-to-r from-[#36A045] to-[#CB9615]"
                             />
                           </span>
                         )}
@@ -263,14 +263,14 @@ function Person({ exec, onSelect, size = "md" }: { exec: Exec; onSelect: (id: st
       <img src={exec.image} alt="" className={cn("shrink-0 rounded-full object-cover object-top ring-2 ring-offset-2", size === "lg" ? "h-20 w-20 ring-[#CB9615]" : "h-14 w-14 ring-[#E8F5E9]")} loading="lazy" />
       <span className="min-w-0">
         <span className="block text-xs font-bold uppercase tracking-[0.14em] text-[#117F21]">{exec.title.replace("Commissioner, ", "")}</span>
-        <span className={cn("mt-0.5 block font-bold leading-snug text-[#0A2E10] group-hover/p:text-[#117F21] group-hover/p:underline", size === "lg" ? "text-xl" : "text-lg")}>{exec.name}</span>
+        <span className={cn("mt-0.5 block font-bold leading-snug text-[#164D20] group-hover/p:text-[#117F21] group-hover/p:underline", size === "lg" ? "text-xl" : "text-lg")}>{exec.name}</span>
       </span>
     </button>
   );
 }
 
 /** Thin green connector between org-chart boxes. */
-const Line = ({ className }: { className?: string }) => <span aria-hidden="true" className={cn("w-[2px] bg-[#117F21]/45", className)} />;
+const Line = ({ className }: { className?: string }) => <span aria-hidden="true" className={cn("w-[2px] bg-[#14892A]/45", className)} />;
 
 /**
  * Org chart: the Board as a dark pill → the Director General in a card with a green→gold top edge → the four
@@ -289,14 +289,14 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
       />
 
       <div className="mt-10 flex flex-col items-center">
-        <Rise className="inline-flex items-center gap-2.5 rounded-full bg-[#04240A] px-5 py-2.5 text-sm font-bold uppercase tracking-[0.16em] text-[#F4D27A] shadow-[0_14px_30px_-16px_rgba(4,36,10,0.9)]">
+        <Rise className="inline-flex items-center gap-2.5 rounded-full bg-[#11421A] px-5 py-2.5 text-sm font-bold uppercase tracking-[0.16em] text-[#F4D27A] shadow-[0_14px_30px_-16px_rgba(17,66,26,0.9)]">
           <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#CB9615]" />
           Board of the Commission
         </Rise>
         <Line className="h-8" />
         <Rise className="w-full max-w-lg">
-          <div className="relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-3 shadow-[0_24px_50px_-24px_rgba(10,74,19,0.4)]">
-            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+          <div className="relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-3 shadow-[0_24px_50px_-24px_rgba(16,93,29,0.4)]">
+            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#14892A] to-[#CB9615]" />
             <div className="pt-1">
               <Person exec={dg} onSelect={onSelect} size="lg" />
             </div>
@@ -314,14 +314,14 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
 
       <div className="relative">
         {/* Spine between the two columns, from the Director General down to the last row (two columns only). */}
-        <span aria-hidden="true" className="absolute bottom-16 left-1/2 top-0 hidden w-[2px] -translate-x-1/2 bg-[#117F21]/45 sm:block" />
+        <span aria-hidden="true" className="absolute bottom-16 left-1/2 top-0 hidden w-[2px] -translate-x-1/2 bg-[#14892A]/45 sm:block" />
         <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-6">
           {arms.map((arm, i) => {
             const exec = byId(arm.execId);
             const open = openArm === arm.execId;
             return (
               <li key={arm.execId} className="relative">
-                <span aria-hidden="true" className={cn("absolute top-12 hidden h-[2px] w-5 bg-[#117F21]/45 sm:block", i % 2 ? "-left-5" : "-right-5")} />
+                <span aria-hidden="true" className={cn("absolute top-12 hidden h-[2px] w-5 bg-[#14892A]/45 sm:block", i % 2 ? "-left-5" : "-right-5")} />
                 <span aria-hidden="true" className={cn("absolute top-[44px] hidden h-2.5 w-2.5 rounded-full bg-[#CB9615] ring-4 ring-white sm:block", i % 2 ? "-left-[25px]" : "-right-[25px]")} />
                 <Rise delay={i * 0.06} className={cn(card, "flex h-full flex-col p-3")}>
                   <Person exec={exec} onSelect={onSelect} />
@@ -329,7 +329,7 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
                     <p className="text-xs font-bold uppercase tracking-[0.16em] text-gray-600">{arm.departments.length} departments</p>
                     <ul className="mb-5 mt-3 space-y-2">
                       {arm.departments.map((d) => (
-                        <li key={d.name} className="flex items-start gap-2.5 text-base font-semibold leading-snug text-[#0A2E10]">
+                        <li key={d.name} className="flex items-start gap-2.5 text-base font-semibold leading-snug text-[#164D20]">
                           <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-[#117F21]" aria-hidden="true" />
                           <span>
                             {d.name}
@@ -345,7 +345,7 @@ export function Structure({ onSelect }: { onSelect: (id: string) => void }) {
                         onClick={() => setOpenArm(open ? null : arm.execId)}
                         className={cn(
                           "mt-auto inline-flex min-h-11 w-fit items-center gap-2 self-start rounded-xl px-4 text-sm font-semibold transition",
-                          open ? "bg-gradient-to-r from-[#0A4A13] to-[#117F21] text-white" : "border border-[#117F21]/25 text-[#117F21] hover:border-[#117F21] hover:bg-[#F7FAF6]",
+                          open ? "bg-gradient-to-r from-[#105D1D] to-[#14892A] text-white" : "border border-[#14892A]/25 text-[#117F21] hover:border-[#14892A] hover:bg-[#F7FAF6]",
                           focus,
                         )}
                       >
@@ -383,21 +383,21 @@ export function Leadership({ onSelect }: { onSelect: (id: string) => void }) {
             <li key={e.id}>
               <Rise delay={(i % 3) * 0.06} className="h-full">
                 <button type="button" onClick={() => onSelect(e.id)} className={cn(card, "group relative flex h-full w-full flex-col overflow-hidden text-left", focus)}>
-                  {lead && <span aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-[#117F21] to-[#CB9615]" />}
+                  {lead && <span aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-[#14892A] to-[#CB9615]" />}
                   <span className="relative block aspect-[4/3] overflow-hidden bg-[#E8F5E9]">
                     <img src={e.image} alt="" loading="lazy" className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105" />
-                    <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#04240A]/35 to-transparent" />
+                    <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#11421A]/35 to-transparent" />
                   </span>
                   <span className="flex flex-1 flex-col p-5 sm:p-6">
                     <span
                       className={cn(
                         "inline-flex w-fit rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.12em]",
-                        lead ? "bg-[#FFF8E1] text-[#7A5200] ring-1 ring-[#CB9615]/40" : "bg-[#E8F5E9] text-[#0A4A13]",
+                        lead ? "bg-[#FFF8E1] text-[#7A5200] ring-1 ring-[#CB9615]/40" : "bg-[#E8F5E9] text-[#105D1D]",
                       )}
                     >
                       {e.title.replace("Commissioner, ", "")}
                     </span>
-                    <span className="mt-3 block text-xl font-bold leading-snug text-[#0A2E10] group-hover:text-[#117F21]">{e.name}</span>
+                    <span className="mt-3 block text-xl font-bold leading-snug text-[#164D20] group-hover:text-[#117F21]">{e.name}</span>
                     {!lead && e.title.startsWith("Commissioner") && <span className="mt-0.5 block text-sm font-semibold text-gray-600">Commissioner</span>}
                     <span className="mt-2 block text-base leading-relaxed text-gray-600">{e.bio}</span>
                     <span className="mt-auto inline-flex items-center gap-2 pt-5 font-semibold text-[#117F21]">
@@ -433,11 +433,11 @@ export function ProfileDialog({ id, onClose }: { id: string | null; onClose: () 
             </div>
           </div>
           <div className="px-6 pb-7 sm:col-span-3 sm:p-8">
-            <p className="inline-flex rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#0A4A13]">{exec.title}</p>
-            <h2 id="profile-name" className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[#0A2E10] sm:text-3xl">
+            <p className="inline-flex rounded-full bg-[#E8F5E9] px-3 py-1 text-sm font-bold uppercase tracking-[0.14em] text-[#105D1D]">{exec.title}</p>
+            <h2 id="profile-name" className="mt-3 text-2xl font-bold leading-tight tracking-tight text-[#164D20] sm:text-3xl">
               {exec.name}
             </h2>
-            <span aria-hidden="true" className="mt-4 block h-1 w-16 rounded-full bg-gradient-to-r from-[#117F21] to-[#CB9615]" />
+            <span aria-hidden="true" className="mt-4 block h-1 w-16 rounded-full bg-gradient-to-r from-[#14892A] to-[#CB9615]" />
             <p className="mt-4 text-base leading-relaxed text-gray-600 sm:text-lg">{exec.bio}</p>
             <p className="mt-6 border-t border-gray-100 pt-4 text-sm text-gray-600">National Pension Commission · Federal Republic of Nigeria</p>
           </div>
@@ -479,8 +479,8 @@ export function Charter() {
                   <span aria-hidden="true" className="absolute left-0 top-7 h-8 w-1 rounded-r bg-gradient-to-b from-[#CB9615] to-[#CB9615]/0 transition-all duration-500 group-hover:h-14" />
                   <Tile icon={Clock} />
                   <p>
-                    <span className="text-4xl font-bold tracking-tight tabular-nums text-[#0A2E10]">{c.value}</span>{" "}
-                    <span className="text-lg font-semibold text-[#0A2E10]">{c.unit}</span>
+                    <span className="text-4xl font-bold tracking-tight tabular-nums text-[#164D20]">{c.value}</span>{" "}
+                    <span className="text-lg font-semibold text-[#164D20]">{c.unit}</span>
                     <span className="mt-1 block text-base leading-snug text-gray-600">{c.label}</span>
                   </p>
                 </li>
@@ -496,10 +496,10 @@ export function Charter() {
                 <MessageSquareWarning className="h-7 w-7" />
               </span>
               <span className="block">
-                <span className="block text-xl font-bold text-[#0A2E10]">Tell us</span>
+                <span className="block text-xl font-bold text-[#164D20]">Tell us</span>
                 <span className="mt-0.5 block text-base text-gray-600">If we fall short, tell us.</span>
               </span>
-              <span aria-hidden="true" className="mt-auto flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#117F21] transition group-hover:border-[#117F21] group-hover:bg-[#117F21] group-hover:text-white">
+              <span aria-hidden="true" className="mt-auto flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-[#117F21] transition group-hover:border-[#14892A] group-hover:bg-[#14892A] group-hover:text-white">
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>
@@ -509,7 +509,7 @@ export function Charter() {
               <div className="flex gap-5 md:col-span-7">
                 <Tile icon={MapPin} size="lg" />
                 <div className="min-w-0">
-                  <h3 className="text-xl font-bold text-[#0A2E10]">Visit us in Abuja or at a zonal office</h3>
+                  <h3 className="text-xl font-bold text-[#164D20]">Visit us in Abuja or at a zonal office</h3>
                   <p className="mt-1 text-base text-gray-600">Head office: 174 Adetokunbo Ademola Crescent, Wuse II, Abuja.</p>
                   <ul className="mt-4 flex flex-wrap gap-2">
                     {zonalOffices.map((z) => (

@@ -28,7 +28,7 @@ export const sectionCls = "scroll-mt-[170px] overflow-x-clip px-4 py-14 sm:py-20
 
 /** Classic card: white, thin grey border; lifts 2 px with a soft green shadow on hover (add `group` for links). */
 export const card =
-  "rounded-3xl border border-gray-200/80 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-[#117F21]/30 hover:shadow-[0_24px_50px_-24px_rgba(10,74,19,0.4)]";
+  "rounded-3xl border border-gray-200/80 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-[#14892A]/30 hover:shadow-[0_24px_50px_-24px_rgba(16,93,29,0.4)]";
 /** List panel: white rounded box with dividers; rows use `listRow`. */
 export const listPanel = "overflow-hidden rounded-3xl border border-gray-200/80 bg-white divide-y divide-gray-100";
 export const listRow = cn("group flex items-center gap-4 px-5 py-4 transition hover:bg-[#F7FAF6] sm:px-6", "focus-visible:outline focus-visible:outline-[3px] focus-visible:-outline-offset-[3px] focus-visible:outline-[#FFD84D]");
@@ -37,7 +37,7 @@ export const goldBtn = cn(
   focus,
 );
 export const outlineBtn = cn(
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#117F21]/25 bg-white px-5 font-semibold text-[#117F21] transition hover:border-[#117F21] hover:bg-[#F7FAF6]",
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#14892A]/25 bg-white px-5 font-semibold text-[#117F21] transition hover:border-[#14892A] hover:bg-[#F7FAF6]",
   focus,
 );
 /** Outline button for dark backgrounds (dark band, banners, featured cards). */
@@ -47,7 +47,7 @@ export const outlineDarkBtn = cn(
 );
 export const chip = "inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-[#F7FAF6] px-3 py-1 text-xs font-semibold text-gray-700";
 /** Featured card background: dark green gradient (put `GridBackdrop` inside). */
-export const featured = "relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-[#04240A] via-[#0A4A13] to-[#117F21] text-white";
+export const featured = "relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-[#11421A] via-[#105D1D] to-[#14892A] text-white";
 
 /** Icon tile: mint with a green icon that fills green on hover (inside a `group`); `dark` is the portal tile. */
 export function Tile({ icon: Icon, dark = false, size = "md", className }: { icon: LucideIcon; dark?: boolean; size?: "sm" | "md" | "lg"; className?: string }) {
@@ -58,8 +58,8 @@ export function Tile({ icon: Icon, dark = false, size = "md", className }: { ico
         "flex shrink-0 items-center justify-center transition duration-300",
         size === "sm" ? "h-9 w-9 rounded-lg" : size === "lg" ? "h-14 w-14 rounded-2xl" : "h-11 w-11 rounded-xl",
         dark
-          ? "bg-[#04240A] text-[#F4D27A] shadow-[0_12px_24px_-12px_rgba(4,36,10,0.9)] [&_svg]:transition-transform [&_svg]:duration-300 group-hover:[&_svg]:rotate-6"
-          : "bg-[#E8F5E9] text-[#117F21] group-hover:bg-[#117F21] group-hover:text-white",
+          ? "bg-[#11421A] text-[#F4D27A] shadow-[0_12px_24px_-12px_rgba(17,66,26,0.9)] [&_svg]:transition-transform [&_svg]:duration-300 group-hover:[&_svg]:rotate-6"
+          : "bg-[#E8F5E9] text-[#117F21] group-hover:bg-[#14892A] group-hover:text-white",
         className,
       )}
     >
@@ -93,13 +93,13 @@ export const spot = (e: MouseEvent<HTMLElement>) => {
   e.currentTarget.style.setProperty("--y", `${e.clientY - r.top}px`);
 };
 
-/** The dark band's background: #04240A, the faint grid, a green blur and a gold blur. `animate` is ignored. */
+/** The dark band's background: #11421A, the faint grid, a green blur and a gold blur. `animate` is ignored. */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function DarkBackdrop({ animate = true }: { animate?: boolean }) {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden bg-[#04240A] print:hidden">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden bg-[#11421A] print:hidden">
       <GridBackdrop />
-      <div className="absolute -right-40 top-0 h-[520px] w-[520px] rounded-full bg-[#117F21]/40 blur-[160px]" />
+      <div className="absolute -right-40 top-0 h-[520px] w-[520px] rounded-full bg-[#14892A]/40 blur-[160px]" />
       <div className="absolute -left-20 bottom-0 h-80 w-80 rounded-full bg-[#CB9615]/15 blur-[120px]" />
     </div>
   );
@@ -129,7 +129,7 @@ export function Crumbs({ crumbs, className, dark = false }: { crumbs: { label: s
                 {c.label}
               </Link>
             ) : (
-              <span aria-current="page" className={cn("font-semibold", dark ? "text-white" : "text-[#0A2E10]")}>
+              <span aria-current="page" className={cn("font-semibold", dark ? "text-white" : "text-[#164D20]")}>
                 {c.label}
               </span>
             )}
@@ -146,17 +146,17 @@ export function EyebrowPill({ icon: Icon, label, dark = false }: { icon?: Lucide
     <span
       className={cn(
         "inline-flex items-center gap-2.5 rounded-full py-1 pl-1 pr-4 text-xs font-bold uppercase tracking-[0.18em] ring-1 [&_svg]:h-3.5 [&_svg]:w-3.5",
-        dark ? "bg-white/10 text-[#F4D27A] ring-white/15 backdrop-blur-md" : "bg-[#E8F5E9]/80 text-[#0A4A13] ring-[#117F21]/15",
+        dark ? "bg-white/10 text-[#F4D27A] ring-white/15 backdrop-blur-md" : "bg-[#E8F5E9]/80 text-[#105D1D] ring-[#14892A]/15",
       )}
     >
       <span
         aria-hidden="true"
         className={cn(
           "flex h-7 w-7 items-center justify-center rounded-full",
-          dark ? "bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#04240A]" : "bg-gradient-to-br from-[#2E913D] to-[#0A4A13] text-[#F4D27A]",
+          dark ? "bg-gradient-to-br from-[#F4D27A] to-[#CB9615] text-[#11421A]" : "bg-gradient-to-br from-[#36A045] to-[#105D1D] text-[#F4D27A]",
         )}
       >
-        {Icon ? <Icon /> : <span className={cn("h-2 w-2 rounded-full", dark ? "bg-[#04240A]" : "bg-[#F4D27A]")} />}
+        {Icon ? <Icon /> : <span className={cn("h-2 w-2 rounded-full", dark ? "bg-[#11421A]" : "bg-[#F4D27A]")} />}
       </span>
       {label}
     </span>
@@ -200,7 +200,7 @@ export function RiseWords({ text, start = 0 }: { text: string; start?: number })
 
 /**
  * Full-width photo banner for portal and tool pages: the photo zooms slowly (Ken Burns), a dark shade sits under
- * the words (from #021a07/90; white text keeps well over 4.5:1), crumbs, a chip, an h1 whose words rise and whose
+ * the words (from #0D3416/90; white text keeps well over 4.5:1), crumbs, a chip, an h1 whose words rise and whose
  * `mark` phrase gets the gold drawn underline, an intro and optional actions. Leaves room at the bottom for a
  * `FloatingBar`.
  */
@@ -236,7 +236,7 @@ export function PhotoBanner({
   const { before, shown, after, done } = useMarked(title, mark);
   const nBefore = before.split(" ").length;
   return (
-    <section aria-labelledby={id} className="relative isolate overflow-hidden bg-[#04240A] text-white print:bg-white print:text-black">
+    <section aria-labelledby={id} className="relative isolate overflow-hidden bg-[#11421A] text-white print:bg-white print:text-black">
       <motion.img
         src={image}
         srcSet={srcSet}
@@ -249,8 +249,8 @@ export function PhotoBanner({
         style={{ objectPosition: position }}
         fetchPriority="high"
       />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#021a07]/95 via-[#021a07]/80 to-[#021a07]/40 lg:hidden" />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-[#021a07]/90 via-[#021a07]/80 via-55% to-[#021a07]/10 lg:block" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0D3416]/95 via-[#0D3416]/80 to-[#0D3416]/40 lg:hidden" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-[#0D3416]/90 via-[#0D3416]/80 via-55% to-[#0D3416]/10 lg:block" />
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-black/40 to-transparent" />
       <div className={cn("relative mx-auto flex min-h-[460px] max-w-7xl flex-col justify-end px-4 pt-8 sm:min-h-[500px]", floating ? "pb-24 sm:pb-28" : "pb-14 sm:pb-16")}>
         <Crumbs crumbs={crumbs} dark className="absolute left-4 right-4 top-6 print:static" />
@@ -306,14 +306,14 @@ export function FloatingBar({ eyebrow, title, intro, children, className }: { ey
         initial={{ opacity: 0, y: reduce ? 0 : 32 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.25, ease }}
-        className={cn("relative mx-auto max-w-7xl overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-5 text-[#0A2E10] shadow-[0_40px_80px_-40px_rgba(4,36,10,0.55)] sm:p-7", className)}
+        className={cn("relative mx-auto max-w-7xl overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-5 text-[#164D20] shadow-[0_40px_80px_-40px_rgba(17,66,26,0.55)] sm:p-7", className)}
       >
         <span aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#CB9615] to-transparent" />
         {(eyebrow || title || intro) && (
           <div className="mb-5">
             {eyebrow && <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#7A5200]">{eyebrow}</p>}
             {title && (
-              <h2 id={hid} className="mt-1 text-xl font-bold text-[#0A2E10]">
+              <h2 id={hid} className="mt-1 text-xl font-bold text-[#164D20]">
                 {title}
               </h2>
             )}
@@ -391,7 +391,7 @@ export function PageHero({
                 initial={{ opacity: 0, y: reduce ? 0 : 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.25, ease }}
-                className={cn("relative self-start overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-5 text-[#0A2E10] shadow-[0_40px_80px_-40px_rgba(4,36,10,0.55)] sm:p-6", aside && "lg:col-span-5")}
+                className={cn("relative self-start overflow-hidden rounded-3xl border border-gray-200/80 bg-white p-5 text-[#164D20] shadow-[0_40px_80px_-40px_rgba(17,66,26,0.55)] sm:p-6", aside && "lg:col-span-5")}
               >
                 <span aria-hidden="true" className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#CB9615] to-transparent" />
                 {actions}
@@ -402,7 +402,7 @@ export function PageHero({
                 initial={{ opacity: 0, y: reduce ? 0 : 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3, ease }}
-                className={cn("relative text-[#0A2E10]", actions ? "lg:col-span-7" : "lg:ml-auto lg:w-full lg:max-w-3xl")}
+                className={cn("relative text-[#164D20]", actions ? "lg:col-span-7" : "lg:ml-auto lg:w-full lg:max-w-3xl")}
               >
                 {aside}
               </motion.div>
@@ -417,7 +417,7 @@ export function PageHero({
 /** Classic white card for hero asides and feature panels (calm-era name). */
 export function FramedPanel({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-36px_rgba(10,74,19,0.45)]", className)}>
+    <div className={cn("relative overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_30px_60px_-36px_rgba(16,93,29,0.45)]", className)}>
       {children}
     </div>
   );
@@ -472,7 +472,7 @@ export function TabStrip({ sections, pillId }: { sections: NavSection[]; pillId:
   return (
     <nav aria-label="On this page" className="sticky top-[92px] z-30 px-4 py-2 print:hidden">
       <div className="mx-auto max-w-7xl">
-        <ul className="flex gap-1 overflow-x-auto rounded-2xl bg-white/95 p-1.5 shadow-[0_20px_40px_-28px_rgba(4,36,10,0.55)] ring-1 ring-gray-200 backdrop-blur [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <ul className="flex gap-1 overflow-x-auto rounded-2xl bg-white/95 p-1.5 shadow-[0_20px_40px_-28px_rgba(17,66,26,0.55)] ring-1 ring-gray-200 backdrop-blur [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {sections.map((s) => {
             const on = active === s.id;
             const I = s.icon;
@@ -485,9 +485,9 @@ export function TabStrip({ sections, pillId }: { sections: NavSection[]; pillId:
                     jump(e, s.id, !reduce);
                   }}
                   aria-current={on ? "location" : undefined}
-                  className={cn("relative flex min-h-11 items-center gap-2 rounded-xl px-4 text-sm font-semibold transition sm:text-base", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#0A4A13]", focus)}
+                  className={cn("relative flex min-h-11 items-center gap-2 rounded-xl px-4 text-sm font-semibold transition sm:text-base", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#105D1D]", focus)}
                 >
-                  {on && <motion.span layoutId={pillId} className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_10px_24px_-12px_rgba(10,74,19,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+                  {on && <motion.span layoutId={pillId} className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_10px_24px_-12px_rgba(16,93,29,0.9)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
                   {I && <I aria-hidden="true" className={cn("relative h-4 w-4", on ? "text-[#F4D27A]" : "text-[#117F21]")} />}
                   <span className="relative">{s.label}</span>
                 </a>
@@ -531,14 +531,14 @@ export function SideNav({ sections, pillId, related }: { sections: NavSection[];
                   aria-current={on ? "location" : undefined}
                   className={cn(
                     "group relative isolate flex min-h-12 items-center gap-3 rounded-2xl px-3 py-2 text-[15px] font-semibold transition-colors",
-                    on ? "text-white" : "bg-gray-50 text-gray-700 hover:bg-[#E8F5E9] hover:text-[#0A4A13]",
+                    on ? "text-white" : "bg-gray-50 text-gray-700 hover:bg-[#E8F5E9] hover:text-[#105D1D]",
                     focus,
                   )}
                 >
                   {on && (
                     <motion.span
                       layoutId={pillId}
-                      className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-[#0A4A13] to-[#117F21] shadow-[0_14px_30px_-14px_rgba(10,74,19,0.9)]"
+                      className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-[#105D1D] to-[#14892A] shadow-[0_14px_30px_-14px_rgba(16,93,29,0.9)]"
                       transition={{ type: "spring", stiffness: 380, damping: 32 }}
                     />
                   )}
@@ -563,7 +563,7 @@ export function SideNav({ sections, pillId, related }: { sections: NavSection[];
           <ul className={cn(listPanel, "mt-3")}>
             {related.map((r) => (
               <li key={r.to}>
-                <Link to={r.to} className={cn(listRow, "min-h-12 py-3 text-[15px] font-semibold text-[#0A2E10] sm:px-5")}>
+                <Link to={r.to} className={cn(listRow, "min-h-12 py-3 text-[15px] font-semibold text-[#164D20] sm:px-5")}>
                   <span className="flex-1 group-hover:text-[#117F21]">{r.label}</span>
                   <ArrowRight aria-hidden="true" className="h-4 w-4 text-gray-400 transition group-hover:translate-x-0.5 group-hover:text-[#117F21]" />
                 </Link>
@@ -609,7 +609,7 @@ function SideNavBar({ sections }: { sections: NavSection[] }) {
         className={cn("flex min-h-12 w-full items-center gap-3 text-left", focus)}
       >
         <span className="text-xs font-bold uppercase tracking-[0.16em] text-gray-600">On this page</span>
-        <span className="min-w-0 flex-1 truncate font-semibold text-[#0A2E10]">{current.label}</span>
+        <span className="min-w-0 flex-1 truncate font-semibold text-[#164D20]">{current.label}</span>
         <ChevronDown aria-hidden="true" className={cn("h-5 w-5 shrink-0 text-[#117F21] transition-transform", open && "rotate-180")} />
       </button>
       <AnimatePresence initial={false}>
@@ -632,7 +632,7 @@ function SideNavBar({ sections }: { sections: NavSection[] }) {
                     jump(e, s.id, !reduce);
                   }}
                   aria-current={active === s.id ? "location" : undefined}
-                  className={cn("flex min-h-11 items-center rounded-xl px-3 font-semibold", active === s.id ? "bg-gradient-to-r from-[#0A4A13] to-[#117F21] text-white" : "text-gray-700 hover:bg-[#F7FAF6]", focus)}
+                  className={cn("flex min-h-11 items-center rounded-xl px-3 font-semibold", active === s.id ? "bg-gradient-to-r from-[#105D1D] to-[#14892A] text-white" : "text-gray-700 hover:bg-[#F7FAF6]", focus)}
                 >
                   {s.label}
                 </a>
@@ -673,7 +673,7 @@ export function ClosingLinks({ items, label = "Related pages" }: { items: { to: 
                 <it.icon className="h-7 w-7" />
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-lg font-bold text-[#0A2E10]">{it.title}</span>
+                <span className="block text-lg font-bold text-[#164D20]">{it.title}</span>
                 <span className="mt-0.5 block text-sm text-gray-600">{it.body}</span>
               </span>
               <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0 text-gray-400 transition group-hover:translate-x-1 group-hover:text-[#117F21]" />
@@ -695,7 +695,7 @@ const closeCls = cn(
 
 function DialogBar({ closeRef, onClose }: { closeRef: React.RefObject<HTMLButtonElement | null>; onClose: () => void }) {
   return (
-    <div className="sticky top-0 z-20 flex items-center justify-between gap-3 bg-[#04240A] px-4 py-2.5 sm:px-5">
+    <div className="sticky top-0 z-20 flex items-center justify-between gap-3 bg-[#11421A] px-4 py-2.5 sm:px-5">
       <span aria-hidden="true" className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#F4D27A]">
         <span className="h-2 w-2 rounded-full bg-[#CB9615]" />
         PenCom
@@ -750,7 +750,7 @@ export function Modal({ open, onClose, labelledBy, children, className }: { open
     <AnimatePresence>
       {open && (
         <motion.div key="modal" className="fixed inset-0 z-[120] flex items-end justify-center p-3 sm:items-center sm:p-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <button type="button" tabIndex={-1} aria-label="Close" onClick={onClose} className="absolute inset-0 cursor-default bg-[#04240A]/60 backdrop-blur-[2px]" />
+          <button type="button" tabIndex={-1} aria-label="Close" onClick={onClose} className="absolute inset-0 cursor-default bg-[#11421A]/60 backdrop-blur-[2px]" />
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -759,7 +759,7 @@ export function Modal({ open, onClose, labelledBy, children, className }: { open
             animate={{ y: 0, scale: 1, opacity: 1 }}
             exit={{ y: reduce ? 0 : 30, opacity: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 26 }}
-            className={cn("relative max-h-[calc(100svh-1.5rem)] w-full overflow-y-auto rounded-3xl bg-white text-[#0A2E10] shadow-[0_50px_100px_-30px_rgba(4,36,10,0.6)]", className)}
+            className={cn("relative max-h-[calc(100svh-1.5rem)] w-full overflow-y-auto rounded-3xl bg-white text-[#164D20] shadow-[0_50px_100px_-30px_rgba(17,66,26,0.6)]", className)}
           >
             <DialogBar closeRef={closeBtn} onClose={onClose} />
             {children}
@@ -778,7 +778,7 @@ export function Drawer({ open, onClose, labelledBy, children }: { open: boolean;
     <AnimatePresence>
       {open && (
         <motion.div key="drawer" className="fixed inset-0 z-[120] flex justify-end overflow-hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <button type="button" tabIndex={-1} aria-label="Close" onClick={onClose} className="absolute inset-0 cursor-default bg-[#04240A]/55 backdrop-blur-[2px]" />
+          <button type="button" tabIndex={-1} aria-label="Close" onClick={onClose} className="absolute inset-0 cursor-default bg-[#11421A]/55 backdrop-blur-[2px]" />
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -787,7 +787,7 @@ export function Drawer({ open, onClose, labelledBy, children }: { open: boolean;
             animate={{ x: 0 }}
             exit={{ x: reduce ? 0 : "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 34 }}
-            className="relative h-full w-full max-w-lg overflow-y-auto bg-white text-[#0A2E10] shadow-2xl sm:rounded-l-3xl"
+            className="relative h-full w-full max-w-lg overflow-y-auto bg-white text-[#164D20] shadow-2xl sm:rounded-l-3xl"
           >
             <DialogBar closeRef={closeBtn} onClose={onClose} />
             {children}
