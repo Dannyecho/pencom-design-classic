@@ -14,3 +14,13 @@ tools/i18n/.out/
 
 # sweep output
 tools/.out/
+
+# Claude / agent instructions and working docs (kept local, not part of the site)
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+SESSIONS.md
+HANDOFF.md
+info.md
+/.claude/
+/docs/
