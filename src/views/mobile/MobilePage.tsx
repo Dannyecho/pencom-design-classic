@@ -103,7 +103,7 @@ export default function MobilePage() {
                 <div aria-hidden="true" className="pointer-events-none absolute -bottom-6 -right-10 -z-10 h-48 w-48 rounded-full bg-[#CB9615]/20 blur-3xl" />
                 <motion.div initial={{ opacity: 0, y: reduce ? 0 : 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease }}>
                   <Spotlight color="rgba(244,210,122,0.22)" size={360} className="rounded-[3.25rem] bg-[#04240A] p-2.5 shadow-[0_40px_80px_-40px_rgba(4,36,10,0.85)] ring-1 ring-[#CB9615]/30">
-                    <Phone screen={screen} setScreen={setScreen} className="h-[calc(100svh-210px)] max-h-[760px] min-h-[600px] rounded-[2.6rem] bg-[#F4F7F2]" />
+                    <Phone screen={screen} setScreen={setScreen} className="h-[calc(100svh-110px)] max-h-[880px] min-h-[720px] rounded-[2.6rem] bg-[#F4F7F2]" />
                   </Spotlight>
                 </motion.div>
               </div>
