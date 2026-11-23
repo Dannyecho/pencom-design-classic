@@ -1,291 +1,200 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { Accessibility, BatteryFull, Bell, BookOpen, ChevronRight, ClipboardList, FileCheck, Home, Info, Landmark, MessageSquare, MoreHorizontal, Sparkles, Signal, Smartphone, Wifi, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
+import { Accessibility, ArrowLeft, ArrowRight, Bot, ChevronRight, Info, Smartphone, UserRoundCheck, WifiOff } from "lucide-react";
+import { operators } from "@/lib/data";
 import { cn } from "@/lib/utils";
-import { PageHero, focus } from "@/views/theme/ui";
-import { features, notifications as seed, type ScreenName } from "./data";
-import {
-  AccessibilityScreen, FeedbackScreen, GuideScreen, NotificationsScreen, PfaScreen, PublicationsScreen,
-  ChatScreen, HomeScreen, ServicesScreen, chatWelcome, type A11yPrefs, type ChatMsg,
-} from "./screens";
+import { DarkBand, FloatingBar, PhotoBanner, Rise, Tile, ease, featured, focus, goldBtn, listPanel, listRow, outlineDarkBtn } from "@/views/theme/ui";
+import { SectionHeading } from "@/views/theme/heading";
+import { CountUp, GridBackdrop, Spotlight, Tilt } from "@/views/about/primitives";
+import { journeys } from "@/views/services/data";
+import { features, guides, publications, type ScreenName } from "./data";
+import { Phone } from "./Phone";
 
 /**
- * /mobile: a working preview of the planned PenCom app, in the classic look. The light page hero carries the
- * feature list (large labelled buttons that switch the phone's screen); the phone sits in the hero's aside,
- * framed like the calm arch photos (ink bezel, thin gold outline, soft mint and gold glow behind).
- * Content and behaviour come from the original prototype (app/src/pages/MobileApp.tsx).
+ * /mobile in the classic "national portal" look, as a tool page: photo banner (Ken Burns, word-rise title) → floating
+ * card holding the feature picker as a segmented control with a sliding green pill → the phone (pointer spotlight) beside
+ * the page's one featured card (tilts, grid, Previous/Next) and a list panel of what the app is built for → the one dark
+ * band, with count-ups taken from the preview's own data. Screens: ./screens + ./Phone, tokens: ./skin.
  */
 
-/** Bottom nav keeps only the essentials; everything else lives in the "More" sheet. */
-const tabs: { key: ScreenName; label: string; icon: typeof Home }[] = [
-  { key: "dashboard", label: "Home", icon: Home },
-  { key: "services", label: "Services", icon: ClipboardList },
-  { key: "publications", label: "Library", icon: BookOpen },
+const builtFor: { title: string; body: string; icon: typeof Bot; screen: ScreenName }[] = [
+  { title: "No sign-in", body: "Everything in the app is public. Open it and start reading, with no account and no password.", icon: UserRoundCheck, screen: "dashboard" },
+  { title: "Saved for offline reading", body: "Download circulars and reports once, then read them where the network is weak.", icon: WifiOff, screen: "publications" },
+  { title: "Answers show their source", body: "The assistant names the PenCom document each answer comes from.", icon: Bot, screen: "chat" },
+  { title: "Text size, contrast and motion", body: "Make words bigger, raise the contrast or turn movement off.", icon: Accessibility, screen: "accessibility" },
 ];
 
-const moreItems: { key: ScreenName; label: string; desc: string; icon: typeof Home }[] = [
-  { key: "pfa", label: "Find a PFA", desc: "Contacts and directions", icon: Landmark },
-  { key: "guidance", label: "Service Guide", desc: "Step-by-step instructions", icon: FileCheck },
-  { key: "notifications", label: "Notifications", desc: "New circulars and updates", icon: Bell },
-  { key: "feedback", label: "Feedback", desc: "Complaints and suggestions", icon: MessageSquare },
-  { key: "accessibility", label: "Accessibility", desc: "Text size, contrast, motion", icon: Accessibility },
-];
-
-const titles: Record<ScreenName, string> = {
-  dashboard: "Home", chat: "PenCom AI Assistant", services: "Services", publications: "Publications", pfa: "PFA Directory", guidance: "Service Guide",
-  notifications: "Notifications", feedback: "Feedback", accessibility: "Accessibility",
-};
+const pad = (n: number) => String(n).padStart(2, "0");
 
 export default function MobilePage() {
+  const reduce = useReducedMotion();
   const [screen, setScreen] = useState<ScreenName>("dashboard");
-  const [items, setItems] = useState(seed);
-  const [chat, setChat] = useState<ChatMsg[]>([chatWelcome]);
-  const [moreOpen, setMoreOpen] = useState(false);
-  const moreBtn = useRef<HTMLButtonElement>(null);
-  const sheetRef = useRef<HTMLDivElement>(null);
-  const inMore = moreItems.some((m) => m.key === screen);
-  const go = (s: ScreenName) => { setMoreOpen(false); setScreen(s); };
-  const closeMore = () => { setMoreOpen(false); moreBtn.current?.focus({ preventScroll: true }); };
-
-  // "More" sheet: focus the first item on open, Escape closes and returns focus to the More tab.
-  useEffect(() => {
-    if (!moreOpen) return;
-    sheetRef.current?.querySelector<HTMLElement>("button")?.focus({ preventScroll: true });
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { setMoreOpen(false); moreBtn.current?.focus({ preventScroll: true }); } };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [moreOpen]);
-  const [prefs, setPrefs] = useState<A11yPrefs>({ textSize: 18, screenReader: false, highContrast: false, reduceMotion: false, voiceNav: false });
   const phoneRef = useRef<HTMLDivElement>(null);
-  const unread = items.filter((n) => !n.read).length;
-
-  // Feature list: switch the phone, and on narrow screens bring the phone into view.
+  const at = Math.max(features.findIndex((f) => f.screen === screen), 0);
+  const cur = features[at];
+  const showPhone = () => phoneRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   const pick = (s: ScreenName) => {
-    setMoreOpen(false);
     setScreen(s);
-    if (window.matchMedia("(max-width: 1023px)").matches) {
-      phoneRef.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
-    }
-  };
-  const home = () => go("dashboard");
-
-  const render = () => {
-    switch (screen) {
-      case "chat": return <ChatScreen onBack={home} messages={chat} setMessages={setChat} />;
-      case "services": return <ServicesScreen onBack={home} go={setScreen} />;
-      case "publications": return <PublicationsScreen onBack={home} />;
-      case "pfa": return <PfaScreen onBack={home} />;
-      case "guidance": return <GuideScreen onBack={home} />;
-      case "notifications": return <NotificationsScreen onBack={home} items={items} setItems={setItems} />;
-      case "feedback": return <FeedbackScreen onBack={home} />;
-      case "accessibility": return <AccessibilityScreen onBack={home} prefs={prefs} setPrefs={setPrefs} />;
-      default: return <HomeScreen go={setScreen} items={items} unread={unread} />;
-    }
+    if (window.matchMedia("(max-width: 1023px)").matches) showPhone();
   };
 
-  const featureList = (
-    <div>
-      <h2 className="text-xl font-bold text-[#0A2E10]">Choose a feature to try</h2>
-      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-        {features.map((f) => {
-          const on = screen === f.screen;
-          return (
-            <li key={f.screen}>
-              <button
-                type="button"
-                aria-pressed={on}
-                aria-controls="app-screen"
-                onClick={() => pick(f.screen)}
-                className={cn(
-                  "group flex h-full w-full items-center gap-3.5 rounded-2xl bg-white p-3.5 text-left ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_50px_-28px_rgba(16,93,29,0.55)] hover:ring-2 hover:ring-[#14892A]",
-                  on && "bg-[#E8F5E9] ring-2 ring-[#14892A]",
-                  focus,
-                )}
-              >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#105D1D] text-[#F4D27A] transition-transform duration-300 group-hover:-rotate-6">
-                  <f.icon className="h-6 w-6" aria-hidden="true" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-lg font-bold leading-tight text-[#0A2E10]">{f.label}</span>
-                  <span className="mt-0.5 block text-base leading-snug text-gray-700">{f.desc}</span>
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-      <p className="mt-5 flex items-start gap-2.5 rounded-2xl bg-[#EAEFE7] p-4 text-base leading-relaxed text-gray-800">
-        <Info className="mt-0.5 h-5 w-5 shrink-0 text-[#105D1D]" aria-hidden="true" />
-        <span>This is a design preview. The app is open to everyone, with no sign-in. Updates shown in it are sample content.</span>
-      </p>
-    </div>
-  );
+  const figures = [
+    { value: String(features.length), label: "Features to try in this preview" },
+    { value: String(journeys.length), label: "Services explained step by step" },
+    { value: String(operators.length), label: "Administrators in the PFA directory" },
+    { value: String(guides.length), label: "Step-by-step service guides" },
+  ];
 
-  const phone = (
-    <div ref={phoneRef} className="relative mx-auto w-full max-w-[392px] scroll-mt-[110px]">
-      <div aria-hidden="true" className="pointer-events-none absolute -inset-x-10 top-10 bottom-10 -z-10 rounded-full bg-[#E8F5E9] blur-3xl" />
-      <div aria-hidden="true" className="pointer-events-none absolute -bottom-6 -right-8 -z-10 h-56 w-56 rounded-full bg-[#CB9615]/20 blur-3xl" />
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="rounded-[3.25rem] bg-[#0A2E10] p-2.5 shadow-[0_40px_80px_-40px_rgba(16,93,29,0.75)] outline outline-2 outline-offset-[10px] outline-[#CB9615]/50"
-      >
-        <section aria-label="PenCom app preview" className="relative h-[calc(100svh-210px)] max-h-[780px] min-h-[600px] lg:h-[calc(100svh-120px)] lg:min-h-[640px] overflow-hidden rounded-[2.6rem] bg-[#F4F7F2]">
-          {/* Status bar */}
-          <div className={cn("absolute inset-x-0 top-0 z-20 flex h-11 items-center justify-between px-7 text-sm font-semibold", screen === "dashboard" ? "bg-[#105D1D] text-white" : "bg-white text-[#0A2E10]")}>
-            <span aria-hidden="true">9:41</span>
-            <span aria-hidden="true" className="absolute left-1/2 top-2 h-7 w-28 -translate-x-1/2 rounded-full bg-[#0A2E10]" />
-            <span aria-hidden="true" className="flex items-center gap-1.5">
-              <Signal className="h-4 w-4" /><Wifi className="h-4 w-4" /><BatteryFull className="h-5 w-5" />
-            </span>
-          </div>
+  return (
+    <MotionConfig reducedMotion="user">
+      <div className="overflow-x-clip bg-white text-[#0A2E10]">
+        <PhotoBanner
+          id="mobile-title"
+          crumbs={[{ label: "Home", to: "/" }, { label: "Mobile app" }]}
+          chip={{ icon: Smartphone, label: "App preview" }}
+          title="The PenCom app, in your pocket"
+          mark="in your pocket"
+          intro="A preview of the PenCom app for Android and iOS. Choose a feature below to see it on the phone, or tap around the phone itself."
+          image="/images/opt/pencom-app-user-1200.webp"
+          srcSet="/images/opt/pencom-app-user-640.webp 640w, /images/opt/pencom-app-user-1080.webp 1080w, /images/opt/pencom-app-user-1200.webp 1200w"
+          position="center 30%"
+        />
 
-          <p className="sr-only" aria-live="polite">Showing: {titles[screen]}</p>
+        <FloatingBar
+          eyebrow="App preview"
+          title="Choose a feature to try"
+          intro={
+            <p className="flex items-start gap-2">
+              <Info className="mt-1 h-4 w-4 shrink-0 text-[#117F21]" aria-hidden="true" />
+              This is a design preview. The app is open to everyone, with no sign-in. Updates shown in it are sample content.
+            </p>
+          }
+        >
+          <ul className="flex gap-1 overflow-x-auto rounded-2xl bg-white p-1.5 ring-1 ring-gray-200 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {features.map((f) => {
+              const on = screen === f.screen;
+              return (
+                <li key={f.screen} className="shrink-0">
+                  <button
+                    type="button"
+                    aria-pressed={on}
+                    aria-controls="app-screen"
+                    onClick={() => pick(f.screen)}
+                    className={cn("relative flex min-h-12 items-center gap-2 rounded-xl px-3.5 text-[15px] font-semibold transition-colors", on ? "text-white" : "text-gray-700 hover:bg-[#F7FAF6] hover:text-[#117F21]", focus)}
+                  >
+                    {on && <motion.span layoutId="classic-feature" transition={{ type: "spring", stiffness: 380, damping: 34 }} className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#0A4A13] to-[#117F21] shadow-[0_10px_24px_-12px_rgba(17,127,33,0.8)]" />}
+                    <f.icon className={cn("relative h-[18px] w-[18px]", on ? "text-[#F4D27A]" : "text-[#117F21]")} aria-hidden="true" />
+                    <span className="relative whitespace-nowrap">{f.label}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </FloatingBar>
 
-          <div
-            id="app-screen"
-            className={cn("absolute inset-x-0 top-11 transition-[filter]", "bottom-[84px]", prefs.highContrast && "contrast-125 saturate-150")}
-          >
-            <MotionConfig reducedMotion={prefs.reduceMotion ? "always" : "user"}>
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div key={screen} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.22 }} className="h-full">
-                  {render()}
+        <section aria-label="App preview" className="bg-gradient-to-b from-white via-[#F4F7F2] to-white px-4 py-14 sm:py-20">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 lg:grid-cols-12">
+            {/* the phone */}
+            <div ref={phoneRef} className="scroll-mt-[110px] lg:col-span-5">
+              <div className="relative mx-auto w-full max-w-[392px]">
+                <div aria-hidden="true" className="pointer-events-none absolute -inset-10 -z-10 rounded-full bg-[#117F21]/15 blur-3xl" />
+                <div aria-hidden="true" className="pointer-events-none absolute -bottom-6 -right-10 -z-10 h-48 w-48 rounded-full bg-[#CB9615]/20 blur-3xl" />
+                <motion.div initial={{ opacity: 0, y: reduce ? 0 : 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease }}>
+                  <Spotlight color="rgba(244,210,122,0.22)" size={360} className="rounded-[3.25rem] bg-[#04240A] p-2.5 shadow-[0_40px_80px_-40px_rgba(4,36,10,0.85)] ring-1 ring-[#CB9615]/30">
+                    <Phone screen={screen} setScreen={setScreen} className="h-[calc(100svh-210px)] max-h-[760px] min-h-[600px] rounded-[2.6rem] bg-[#F4F7F2]" />
+                  </Spotlight>
                 </motion.div>
-              </AnimatePresence>
-            </MotionConfig>
-          </div>
+              </div>
+            </div>
 
-          {/* Floating "Ask AI" button: opens the PenCom AI Assistant from any screen */}
-          <AnimatePresence>
-            {screen !== "chat" && !moreOpen && (
-              <motion.button
-                type="button"
-                onClick={() => setScreen("chat")}
-                initial={{ opacity: 0, scale: 0.8, y: 8 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: 8 }}
-                transition={{ duration: 0.25 }}
-                className={cn("group absolute bottom-[98px] right-4 z-30 flex min-h-14 items-center gap-2 rounded-full bg-[#105D1D] py-2 pl-2 pr-5 text-base font-bold text-white shadow-[0_18px_36px_-14px_rgba(16,93,29,0.9)] ring-2 ring-white transition hover:bg-[#14892A]", focus)}
-              >
-                <span aria-hidden="true" className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#F4D27A] text-[#1A1206]">
-                  <motion.span className="absolute inset-0 rounded-full ring-2 ring-[#F4D27A]" initial={{ scale: 1, opacity: 0.8 }} animate={{ scale: 1.45, opacity: 0 }} transition={{ duration: 1.6, repeat: 2, delay: 0.6 }} />
-                  <Sparkles className="h-5 w-5 transition-transform group-hover:-rotate-12" />
-                </span>
-                Ask AI
-              </motion.button>
-            )}
-          </AnimatePresence>
-
-          {/* "More" sheet: slides up above the tab bar over a soft backdrop */}
-          <AnimatePresence>
-            {moreOpen && (
-              <>
-                <motion.button
-                  type="button"
-                  aria-label="Close menu"
-                  tabIndex={-1}
-                  onClick={closeMore}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="absolute inset-x-0 bottom-[84px] top-0 z-30 bg-[#0A2E10]/40"
-                />
-                <motion.div
-                  ref={sheetRef}
-                  id="app-more"
-                  role="dialog"
-                  aria-modal="true"
-                  aria-labelledby="app-more-title"
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  exit={{ y: "100%" }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute inset-x-0 bottom-[84px] z-30 rounded-t-[1.75rem] bg-[#F4F7F2] px-4 pb-4 pt-2.5 shadow-[0_-20px_40px_-24px_rgba(16,93,29,0.6)]"
-                >
-                  <span aria-hidden="true" className="mx-auto block h-1.5 w-12 rounded-full bg-black/15" />
-                  <div className="mt-2 flex items-center justify-between">
-                    <h2 id="app-more-title" className="text-[20px] font-bold tracking-tight text-[#0A2E10]">More</h2>
-                    <button type="button" onClick={closeMore} className={cn("inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-[15px] font-semibold text-[#0A2E10] ring-1 ring-black/15 hover:bg-[#105D1D] hover:text-white", focus)}>
-                      <X className="h-4 w-4" aria-hidden="true" /> Close
+            {/* the featured card + list panel */}
+            <div className="space-y-8 lg:col-span-7">
+              <Tilt className="[transform-style:preserve-3d]">
+                <div className={cn(featured, "bg-gradient-to-br from-[#04240A] via-[#0A4A13] to-[#117F21] p-6 sm:p-8")}>
+                  <GridBackdrop />
+                  <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 -z-10 h-56 w-56 rounded-full bg-[#CB9615]/25 blur-3xl" />
+                  <p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-[#F4D27A]">
+                    <span className="font-mono text-sm tracking-normal">{pad(at + 1)} / {pad(features.length)}</span>
+                    <span aria-hidden="true" className="relative h-[3px] w-24 overflow-hidden rounded-full bg-white/15">
+                      <motion.span className="absolute inset-y-0 left-0 rounded-full bg-[#CB9615]" animate={{ width: `${((at + 1) / features.length) * 100}%` }} transition={{ duration: 0.5, ease }} />
+                    </span>
+                    Now on the phone
+                  </p>
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.div key={cur.screen} initial={{ opacity: 0, y: reduce ? 0 : 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: reduce ? 0 : -10 }} transition={{ duration: 0.3, ease }} className="mt-6 flex items-start gap-4">
+                      <Tile icon={cur.icon} dark size="lg" className="ring-1 ring-white/15" />
+                      <div>
+                        <h2 className="text-2xl font-bold sm:text-3xl">{cur.label}</h2>
+                        <p className="mt-1.5 text-lg leading-relaxed text-white/85">{cur.desc}</p>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <button type="button" disabled={at === 0} onClick={() => setScreen(features[at - 1].screen)} className={cn(outlineDarkBtn, "disabled:cursor-not-allowed disabled:opacity-40")}>
+                      <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Previous
+                    </button>
+                    <button type="button" disabled={at === features.length - 1} onClick={() => setScreen(features[at + 1].screen)} className={cn(goldBtn, "disabled:cursor-not-allowed disabled:opacity-40")}>
+                      Next feature <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </button>
                   </div>
-                  <ul className="mt-3 divide-y divide-black/5 overflow-hidden rounded-2xl bg-white ring-1 ring-black/10">
-                    {moreItems.map((m) => {
-                      const on = screen === m.key;
+                </div>
+              </Tilt>
+
+              <div>
+                <SectionHeading
+                  id="app-built-title"
+                  eyebrow="Built for everyone"
+                  title="Made for the way people really read"
+                  highlight="really read"
+                  intro="The app follows the same rules as the website: plain words, labelled buttons and nothing behind a login."
+                  stacked
+                />
+                <Spotlight className="mt-6 rounded-3xl">
+                  <ul className={listPanel}>
+                    {builtFor.map((b) => {
+                      const on = screen === b.screen;
                       return (
-                        <li key={m.key}>
-                          <button type="button" aria-current={on ? "page" : undefined} onClick={() => go(m.key)} className={cn("group flex min-h-[3.75rem] w-full items-center gap-3 px-3.5 py-2.5 text-left transition hover:bg-[#E8F5E9]", on && "bg-[#E8F5E9]", focus)}>
-                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#105D1D] text-[#F4D27A] transition-transform group-hover:-rotate-6">
-                              <m.icon className="h-5 w-5" aria-hidden="true" />
-                            </span>
+                        <li key={b.title}>
+                          <button type="button" onClick={() => { setScreen(b.screen); showPhone(); }} className={cn(listRow, "relative w-full text-left", on && "bg-[#F7FAF6]")}>
+                            {on && <span aria-hidden="true" className="absolute inset-y-3 left-0 w-1 rounded-r-full bg-[#117F21]" />}
+                            <Tile icon={b.icon} />
                             <span className="min-w-0 flex-1">
-                              <span className="flex items-center gap-2 text-base font-bold text-[#0A2E10]">
-                                {m.label}
-                                {m.key === "notifications" && unread > 0 && <span className="rounded-full bg-[#F4D27A] px-2 py-0.5 text-xs font-bold text-[#1A1206]">{unread} new</span>}
-                              </span>
-                              <span className="block text-sm text-gray-700">{m.desc}</span>
+                              <span className="block text-lg font-bold text-[#0A2E10]">{b.title}</span>
+                              <span className="block text-base leading-snug text-gray-600">{b.body}</span>
                             </span>
-                            <ChevronRight className="h-5 w-5 shrink-0 text-[#105D1D] transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                            <span className="hidden shrink-0 items-center gap-1 text-sm font-semibold text-[#117F21] sm:inline-flex">
+                              Show me <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                            </span>
                           </button>
                         </li>
                       );
                     })}
                   </ul>
-                </motion.div>
-              </>
-            )}
-          </AnimatePresence>
-
-          {/* Bottom nav: the essentials, then "More" (icon and word on every tab) */}
-          <nav aria-label="App" className="absolute inset-x-0 bottom-0 z-40 flex h-[84px] items-start justify-around border-t border-black/10 bg-white px-2 pt-2">
-            {tabs.map((t) => {
-              const on = screen === t.key && !moreOpen;
-              return (
-                <button key={t.key} type="button" aria-current={on ? "page" : undefined} onClick={() => go(t.key)} className={cn("flex min-w-[4.25rem] flex-col items-center gap-1 rounded-xl px-1 py-0.5", focus)}>
-                  <span className={cn("flex h-8 w-14 items-center justify-center rounded-full transition-colors", on ? "bg-[#105D1D] text-[#F4D27A]" : "text-gray-600")}>
-                    <t.icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <span className={cn("text-[13px]", on ? "font-bold text-[#105D1D]" : "font-medium text-gray-700")}>{t.label}</span>
-                </button>
-              );
-            })}
-            <button
-              ref={moreBtn}
-              type="button"
-              aria-expanded={moreOpen}
-              aria-controls="app-more"
-              onClick={() => (moreOpen ? closeMore() : setMoreOpen(true))}
-              className={cn("flex min-w-[4.25rem] flex-col items-center gap-1 rounded-xl px-1 py-0.5", focus)}
-            >
-              <span className={cn("relative flex h-8 w-14 items-center justify-center rounded-full transition-colors", moreOpen || inMore ? "bg-[#105D1D] text-[#F4D27A]" : "text-gray-600")}>
-                {moreOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <MoreHorizontal className="h-5 w-5" aria-hidden="true" />}
-                {!moreOpen && unread > 0 && <span aria-hidden="true" className="absolute right-2.5 top-0.5 h-2.5 w-2.5 rounded-full bg-[#CB9615] ring-2 ring-white" />}
-              </span>
-              <span className={cn("text-[13px]", moreOpen || inMore ? "font-bold text-[#105D1D]" : "font-medium text-gray-700")}>{moreOpen ? "Close" : "More"}</span>
-            </button>
-          </nav>
-          <span aria-hidden="true" className={cn("absolute bottom-1.5 left-1/2 z-30 h-1 w-32 -translate-x-1/2 rounded-full", "bg-[#0A2E10]")} />
+                </Spotlight>
+              </div>
+            </div>
+          </div>
         </section>
-      </motion.div>
-    </div>
-  );
 
-  return (
-    <MotionConfig reducedMotion="user">
-      <div className="overflow-x-clip bg-white text-[#0A2E10]">
-        <PageHero
-          id="mobile-title"
-          crumbs={[{ label: "Home", to: "/" }, { label: "Mobile app" }]}
-          pill={{ icon: Smartphone, label: "App preview" }}
-          title="The PenCom app, in your pocket"
-          mark="in your pocket"
-          intro={<p>A preview of the PenCom app for Android and iOS. Choose a feature below to see it on the phone, or tap around the phone itself.</p>}
-          actions={featureList}
-          aside={phone}
-        />
+        <DarkBand labelledBy="app-figures-title">
+          <SectionHeading id="app-figures-title" eyebrow="In this preview" title="What the preview holds" highlight="preview holds" dark />
+          <ul className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {figures.map((f, i) => (
+              <li key={f.label}>
+                <Rise delay={i * 0.08} className="h-full">
+                  <div className="h-full rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm">
+                    <CountUp value={f.value} className="block text-5xl font-black tabular-nums text-[#F4D27A]" />
+                    <motion.span aria-hidden="true" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.2 + i * 0.1, ease }} className="mt-4 block h-1 w-16 origin-left rounded-full bg-gradient-to-r from-[#CB9615] to-[#117F21]" />
+                    <span className="mt-3 block text-base leading-snug text-white/85">{f.label}</span>
+                  </div>
+                </Rise>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 text-sm text-white/70">Counts come from the content in this preview. {publications.length} sample publications are in its library.</p>
+        </DarkBand>
       </div>
     </MotionConfig>
   );
